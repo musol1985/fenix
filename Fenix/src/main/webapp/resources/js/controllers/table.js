@@ -1,5 +1,5 @@
 materialAdmin
-    .controller('tableCtrl', function($filter, $sce, ngTableParams, tableService) {
+    .controller('tableCtrl', function($filter, $sce, ngTableParams, tableService, userService) {
         var data = tableService.data;
         
         //Basic Example
@@ -60,5 +60,5 @@ materialAdmin
             getData: function($defer, params) {
                 $defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
             }
-        });
+        });       
     })

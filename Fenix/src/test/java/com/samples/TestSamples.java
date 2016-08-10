@@ -19,15 +19,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.sot.fenix.components.rest.SamplesREST;
-import com.sot.fenix.dao.SampleDAO;
-import com.sot.fenix.db.SamplesRepo;
-import com.samples.config.TestDBConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {SamplesREST.class, TestDBConfig.class})
+//@ContextConfiguration(classes = {SamplesREST.class, TestDBConfig.class})
 public class TestSamples {
-	@Autowired
+	/*@Autowired
     private SamplesREST samplesREST;
 	
 	@Autowired
@@ -67,5 +63,5 @@ public class TestSamples {
 	    		//.andDo(print())
 	    		.andExpect(status().isOk())
 	    		.andExpect(jsonPath("$.value", containsString("value1")));
-    }
+    }*/
 }

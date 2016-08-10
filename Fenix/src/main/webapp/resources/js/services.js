@@ -16,6 +16,61 @@ materialAdmin
         }
     }])
     
+    // =========================================================================
+    // UserService
+    // =========================================================================
+    
+    .service('userService', ['$http', '$q', function($http, $q){
+    	var self=this;
+    	
+    	this.current={}
+    	
+        this.getCurrentUser=function getCurrentUser() {
+        	alert("getUser called");
+            var deferred = $q.defer();
+            
+            $http.get("usuario/current")
+                .then(
+                function (response) {
+                	self.current=response.data;
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                	self.current={}
+                    console.error('Error while fetching Users');
+                    deferred.reject(errResponse);
+                }
+            );
+            return deferred.promise;
+        }
+    	
+    	this.isAdmin=function(){
+    		return self.current.perfiles.indexOf("ADMIN")>-1;
+    	}
+    	
+    	this.isRoot=function(){
+    		return self.current.perfiles.indexOf("ROOT")>-1;
+    	}
+    	
+    	this.getAll=function() {
+            var deferred = $q.defer();
+            alert("getAllUsuarios");
+            $http.get("usuario/all")
+                .then(
+                function (response) {
+                	alert("getAllUsuarios   OK");
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error while fetching Users');
+                    deferred.reject(errResponse);
+                }
+            );
+            return deferred.promise;
+        }
+
+    }])
+    
 
     // =========================================================================
     // Best Selling Widget Data (Home Page)

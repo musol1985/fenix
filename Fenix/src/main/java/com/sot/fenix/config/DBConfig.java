@@ -1,5 +1,6 @@
 package com.sot.fenix.config;
 
+import org.bson.types.ObjectId;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.MongoDbFactory;
@@ -23,8 +24,8 @@ public class DBConfig {
 	public MongoTemplate mongoTemplate() throws Exception {
 		
 		MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory());
-		
-		if(!mongoTemplate.collectionExists(Usuario.class))
+
+		if(!mongoTemplate.collectionExists(Usuario.class) || mongoTemplate.getDb().getCollection("usuario").count()==0)
 			initDB(mongoTemplate);
 				
 		return mongoTemplate;
@@ -33,6 +34,9 @@ public class DBConfig {
 	
 	
 	private void initDB(MongoTemplate db){
+		System.out.println("***************************************");
+		System.out.println("*		La BD es nueva		   		  *");
+		System.out.println("***************************************");
 		Usuario u=new Usuario();
 		u.setUsername("root");
 		u.setNombre("root");

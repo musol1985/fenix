@@ -3,9 +3,27 @@ materialAdmin
     // Base controller for common functions
     // =========================================================================
 
-    .controller('materialadminCtrl', function($timeout, $state, $scope, growlService){
-        //Welcome Message
-        growlService.growl('Welcome back Mallinda!', 'inverse')
+    .controller('materialadminCtrl', function($timeout, $state, $scope, growlService, userService){    	
+    	var self=this;
+    	
+    	self.user={nombre:'vacio'};
+    	
+    	userService.getCurrentUser().then(function(data){
+    		self.user=userService.current;
+    		
+    		growlService.growl('Welcome back '+self.user.nombre+'!', 'inverse')
+    		
+    		alert(userService.isAdmin());
+    		alert(userService.isRoot());
+    	});
+
+        this.isRoot=function(){
+        	return userService.isRoot();
+        }
+        
+        this.isAdmin=function(){
+        	return userService.isAdmin();
+        }
         
         
         // Detact Mobile Browser
@@ -67,6 +85,7 @@ materialAdmin
             this.currentSkin = color;
         }
     
+       
     })
 
 

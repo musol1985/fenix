@@ -6,18 +6,18 @@ module.exports = function(grunt) {
         less: {
             development: {
                 options: {
-                    paths: ["css"]
+                    paths: ["resources/css"]
                 },
                 files: {
-                    "css/app.css": "less/app.less",
+                    "resources/css/app.css": "resources/less/app.less",
                 },
                 cleancss: true
             }
         },
         csssplit: {
             your_target: {
-                src: ['css/app.css'],
-                dest: 'css/app.min.css',
+                src: ['resources/css/app.css'],
+                dest: 'resources/css/app.min.css',
                 options: {
                     maxSelectors: 4095,
                     suffix: '.'
@@ -26,8 +26,8 @@ module.exports = function(grunt) {
         },
         ngtemplates: {
           materialAdmin: {
-            src: ['template/**.html', 'template/**/**.html'],
-            dest: 'js/templates.js',
+            src: ['resources/template/**.html', 'resources/template/**/**.html'],
+            dest: 'resources/js/templates.js',
             options: {
               htmlmin: {
                     collapseWhitespace: true,
@@ -38,14 +38,14 @@ module.exports = function(grunt) {
         },
         watch: {
             a: {
-                files: ['less/**/*.less'], // which files to watch
+                files: ['resources/less/**/*.less'], // which files to watch
                 tasks: ['less', 'csssplit'],
                 options: {
                     nospawn: true
                 }
             },
             b: {
-                files: ['template/**/*.html'], // which files to watch
+                files: ['resources/template/**/*.html'], // which files to watch
                 tasks: ['ngtemplates'],
                 options: {
                     nospawn: true

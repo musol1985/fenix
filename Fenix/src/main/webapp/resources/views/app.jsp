@@ -124,6 +124,7 @@
         <script src="<%=request.getContextPath()%>/resources/js/templates.js"></script>
         <script src="<%=request.getContextPath()%>/resources/js/controllers/ui-bootstrap.js"></script>
         <script src="<%=request.getContextPath()%>/resources/js/controllers/table.js"></script>
+        <script src="<%=request.getContextPath()%>/resources/js/controllers/tabla_usuarios.js"></script>
 
 
         <!-- Template Modules -->

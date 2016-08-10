@@ -36,6 +36,23 @@ materialAdmin
                 }
             })
 
+            //------------------------------
+            // CONFIGURACION
+            //------------------------------
+            .state ('configuracion', {
+                url: '/configuracion',
+                templateUrl: 'resources/views/common.html'
+            })
+
+            .state('configuracion.centro', {
+                url: '/centro',
+                templateUrl: 'resources/views/tables.html'
+            })
+
+            .state('configuracion.usuarios', {
+                url: '/usuarios',
+                templateUrl: 'resources/views/usuarios.html'
+            })
 
             //------------------------------
             // HEADERS

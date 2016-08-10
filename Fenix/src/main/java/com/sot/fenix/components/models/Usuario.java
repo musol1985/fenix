@@ -4,17 +4,28 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Document
 public class Usuario implements UserDetails {
+
 	@Id
+	@JsonIgnore
+	private ObjectId id;
+	
+	@Indexed(unique = true)
 	private String username;
 	
 	private String nombre;
+	
+	@JsonIgnore
 	private String password;
 	
 	private boolean accountNonExpired = true;
@@ -60,10 +71,6 @@ public class Usuario implements UserDetails {
 		return password;
 	}
 
-	@Override
-	public String getUsername() {
-		return username;
-	}
 
 	public String getNombre() {
 		return nombre;
@@ -73,9 +80,6 @@ public class Usuario implements UserDetails {
 		this.nombre = nombre;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
 
 	public void setPassword(String password) {
 		this.password = password;
@@ -95,5 +99,28 @@ public class Usuario implements UserDetails {
 			perfiles=new ArrayList<String>();
 		perfiles.add(perfil);
 	}
-	
+
+	public ObjectId getId() {
+		return id;
+	}
+
+	public void setId(ObjectId id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public List<String> getPerfiles() {
+		return perfiles;
+	}
+
+	public void setPerfiles(List<String> perfiles) {
+		this.perfiles = perfiles;
+	}
 }
