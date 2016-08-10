@@ -320,6 +320,50 @@ materialAdmin
         this.register = 0;
         this.forgot = 0;
     })
+    
+    .controller('ModalCtrl', function ($scope, $uibModal, $log) {
+
+        $scope.modalContent = 'ssssLorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales orci ante, sed ornare eros vestibulum ut. Ut accumsan vitae eros sit amet tristique. Nullam scelerisque nunc enim, non dignissim nibh faucibus ullamcorper. Fusce pulvinar libero vel ligula iaculis ullamcorper. Integer dapibus, mi ac tempor varius, purus nibh mattis erat, vitae porta nunc nisi non tellus. Vivamus mollis ante non massa egestas fringilla. Vestibulum egestas consectetur nunc at ultricies. Morbi quis consectetur nunc.';
+    
+        //Create Modal
+        function modalInstances(animation, size, backdrop, keyboard) {
+            var modalInstance = $uibModal.open({
+                animation: animation,
+                templateUrl: 'myModalContent.html',
+                controller: 'ModalInstanceCtrl',
+                size: size,
+                backdrop: backdrop,
+                keyboard: keyboard,
+                resolve: {
+                    content: function () {
+                        return $scope.modalContent;
+                    }
+                }
+            
+            });
+        }
+        
+        //Custom Sizes
+        $scope.open = function (size) {
+            modalInstances(true, size, true, true)
+        }
+        
+        //Without Animation
+        $scope.openWithoutAnimation = function() {
+            modalInstances(false, '', true, true)
+        }
+        
+        //Prevent Outside Click
+        $scope.openStatic = function () {
+            modalInstances(true, '', 'static', true)
+        };
+    
+        //Disable Keyboard
+        $scope.openKeyboard = function () {
+            modalInstances(true, '', true, false)
+        };
+
+    })
 
 
     //=================================================
