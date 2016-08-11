@@ -1,5 +1,6 @@
 package com.sot.fenix.components.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,7 +17,12 @@ import com.sot.fenix.components.models.Perfil.PERFILES;
 import com.sot.fenix.config.SecurityConfig;
 
 @Document
-public class UsuarioPendiente{
+public class UsuarioPendiente implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@JsonIgnore
