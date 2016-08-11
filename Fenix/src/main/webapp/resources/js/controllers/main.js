@@ -12,17 +12,14 @@ materialAdmin
     		self.user=userService.current;
     		
     		growlService.growl('Welcome back '+self.user.nombre+'!', 'inverse')
-    		
-    		alert(userService.isAdmin());
-    		alert(userService.isRoot());
     	});
 
         this.isRoot=function(){
-        	return userService.isRoot();
+        	return userService.current.root;
         }
         
         this.isAdmin=function(){
-        	return userService.isAdmin();
+        	return userService.current.admin;
         }
         
         

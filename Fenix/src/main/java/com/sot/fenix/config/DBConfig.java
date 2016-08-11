@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 import com.mongodb.MongoClient;
 import com.sot.fenix.components.models.Usuario;
+import com.sot.fenix.components.models.Perfil.PERFILES;
 
 @Configuration
 @EnableMongoRepositories("com.sot.fenix.dao")
@@ -41,9 +42,7 @@ public class DBConfig {
 		u.setUsername("root");
 		u.setNombre("root");
 		u.setPassword("16f84a#16f84a");
-		u.addPerfil(SecurityConfig.ROLE_ADMIN);
-		u.addPerfil(SecurityConfig.ROLE_ROOT);
-		u.addPerfil(SecurityConfig.ROLE_USER);
+		u.setPerfil(PERFILES.ROOT);
 		
 		db.insert(u);
 	}

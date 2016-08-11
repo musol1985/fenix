@@ -44,21 +44,28 @@ materialAdmin
             return deferred.promise;
         }
     	
-    	this.isAdmin=function(){
-    		return self.current.perfiles.indexOf("ADMIN")>-1;
-    	}
-    	
-    	this.isRoot=function(){
-    		return self.current.perfiles.indexOf("ROOT")>-1;
-    	}
-    	
     	this.getAll=function() {
             var deferred = $q.defer();
             alert("getAllUsuarios");
             $http.get("usuario/all")
                 .then(
                 function (response) {
-                	alert("getAllUsuarios   OK");
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error while fetching Users');
+                    deferred.reject(errResponse);
+                }
+            );
+            return deferred.promise;
+        }
+    	
+    	this.nuevoPendiente=function(user) {
+            var deferred = $q.defer();
+alert("ie"+user);
+            $http.post("usuario/pendiente", user)
+                .then(
+                function (response) {
                     deferred.resolve(response.data);
                 },
                 function(errResponse){

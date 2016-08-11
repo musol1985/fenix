@@ -3,6 +3,10 @@ package com.sot.fenix.components.models;
 import org.springframework.security.core.GrantedAuthority;
  
 public class Perfil implements GrantedAuthority{
+	public enum PERFILES{
+		USER, ADMIN, ROOT
+	}
+	
     private String nombre;
 
 	public String getNombre() {

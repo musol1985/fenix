@@ -7,14 +7,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import com.sot.fenix.components.models.Perfil;
 import com.sot.fenix.components.providers.LoginProvider;
  
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	public static final String ROLE_ADMIN="ADMIN";
-	public static final String ROLE_ROOT="ROOT";
-	public static final String ROLE_USER="USER";
 	
 	@Autowired
 	private LoginProvider loginProvider;
@@ -39,9 +37,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	http
         	.authorizeRequests()
         		.antMatchers("/").permitAll() 
-        		.antMatchers("/app/admin/**").hasRole(ROLE_ADMIN)
-        		.antMatchers("/app/root/**").hasRole(ROLE_ROOT) 
-        		.antMatchers("/app/**").hasRole(ROLE_USER) 
+        		.antMatchers("/app/admin/**").hasRole(Perfil.PERFILES.ADMIN.name())
+        		.antMatchers("/app/root/**").hasRole(Perfil.PERFILES.ROOT.name()) 
+        		.antMatchers("/app/**").hasRole(Perfil.PERFILES.USER.name()) 
     	.and()
     		.formLogin()  
     			.loginPage("/login") 

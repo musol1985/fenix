@@ -1,27 +1,13 @@
 materialAdmin
-    .controller('tablaUsuariosCtrl', function($filter, $sce, ngTableParams, userService) {
+
+    .controller('tablasCtrl', function($scope, $filter, $sce, ngTableParams, userService) {
     	var self=this;
-        /*var data = [];
-        
-        userService.getAll().then(function(data){
-        	self.data=data;
-        });
-        
-        //Usuarios
-        this.tablaUsuarios = new ngTableParams({
-            page: 1,            // show first page
-            count: 10          // count per page
-        }, {
-            total: data.length, // length of data
-            getData: function($defer, params) {
-            	alert("getData");
-               // $defer.resolve(self.data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-            }
-        });*/
-    	
+    	 this.hola="hola";
+
     	this.tablaUsuarios={};
     	
     	this.tablaUsuarios.datos=[];
+    	
     	this.tablaUsuarios.tabla=new ngTableParams({
             page: 1,            // show first page
             count: 10          // count per page
@@ -29,11 +15,81 @@ materialAdmin
             total: self.tablaUsuarios.datos.length, // length of data
             getData: function($defer, params) {
             	userService.getAll().then(function(data){
-            		alert("getData");
             		self.tablaUsuarios.datos=data;
                 });
-               // $defer.resolve(self.data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
             }
         });
+    	
+    	
+    	this.tUsuariosPendiente={};
+    	
+    	this.tUsuariosPendiente.datos=[];
+    	
+    	this.tUsuariosPendiente.tabla=new ngTableParams({
+            page: 1,            // show first page
+            count: 10          // count per page
+        }, {
+            total: self.tUsuariosPendiente.datos.length, // length of data
+            getData: function($defer, params) {
+            	userService.getAll().then(function(data){
+            		self.tUsuariosPendiente.datos=data;
+                });
+            }
+        });
+    	
+    	this.tUsuariosPendiente.usuario={correo:'fdssdf', nombre:''}
+    	
+    	this.tUsuariosPendiente.nuevo=function(){
+    		alert("nuevoUsuario");
+    		userService.nuevoPendiente(self.tUsuariosPendiente.usuario).then(function(data){
+        		alert(data);
+            });
+    	}
 
+    	this.tUsuariosPendiente.submit=function(){
+    		self.tUsuariosPendiente.nuevo();
+    	}
     })
+    
+    .controller('tablaUsuarioPendiente', function($scope, $filter, $sce, ngTableParams, userService, $uibModal) {
+    	var self=this;
+    	
+    	this.datos=[];
+    	
+    	this.tabla=new ngTableParams({
+            page: 1,            // show first page
+            count: 10          // count per page
+        }, {
+            total: self.datos.length, // length of data
+            getData: function($defer, params) {
+            	userService.getAll().then(function(data){
+            		self.datos=data;
+                });
+            }
+        });
+    	
+    	$scope.usuario={correo:'fghfgh'};
+    	
+    	function modalInstances(animation, size, backdrop, keyboard) {
+    		alert('ie');
+            var modalInstance = $uibModal.open({
+                animation: animation,
+                templateUrl: 'myModalContent.html',
+                controller: 'ModalInstanceCtrl',
+                size: size,
+                backdrop: backdrop,
+                keyboard: keyboard,
+                resolve: {
+                    content: function () {
+                        return $scope.usuario;
+                    }
+                }
+            
+            });
+        }
+    	
+    	$scope.nuevo = function () {
+            modalInstances(true, '', 'static', true)
+        };
+    })
+        

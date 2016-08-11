@@ -12,6 +12,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sot.fenix.components.models.Perfil.PERFILES;
+import com.sot.fenix.config.SecurityConfig;
 
 @Document
 public class Usuario implements UserDetails {
@@ -32,7 +34,8 @@ public class Usuario implements UserDetails {
 	private boolean accountNonLocked = true;
 	private boolean credentialsNonExpired = true;
 	private boolean enabled = true;
-	private List<String> perfiles;
+
+	private PERFILES perfil=PERFILES.USER;
 
 	public boolean isAccountNonExpired() {
 		return accountNonExpired;
@@ -86,18 +89,22 @@ public class Usuario implements UserDetails {
 	}
 
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<Perfil> perfiles=new ArrayList<Perfil>(this.perfiles.size());
-		for(String p:this.perfiles){
-			perfiles.add(new Perfil(p));
+	public Collection<? extends GrantedAuthority> getAuthorities() {		
+		List<Perfil> perfiles=new ArrayList<Perfil>(3);
+		
+			
+		if(perfil==PERFILES.ADMIN)
+			perfiles.add(new Perfil(perfil.name()));
+			perfiles.add(new Perfil(PERFILES.USER.name()));	
+		if(perfil==PERFILES.ROOT){
+			perfiles.add(new Perfil(perfil.name()));
+			perfiles.add(new Perfil(PERFILES.ADMIN.name()));
+			perfiles.add(new Perfil(PERFILES.USER.name()));	
+		}else{
+			perfiles.add(new Perfil(PERFILES.USER.name()));	
 		}
+		
 		return perfiles;
-	}
-
-	public void addPerfil(String perfil){
-		if(perfiles==null)
-			perfiles=new ArrayList<String>();
-		perfiles.add(perfil);
 	}
 
 	public ObjectId getId() {
@@ -116,11 +123,19 @@ public class Usuario implements UserDetails {
 		this.username = username;
 	}
 
-	public List<String> getPerfiles() {
-		return perfiles;
+	public PERFILES getPerfil() {
+		return perfil;
 	}
 
-	public void setPerfiles(List<String> perfiles) {
-		this.perfiles = perfiles;
+	public void setPerfil(PERFILES perfil) {
+		this.perfil = perfil;
+	}
+
+	public boolean isAdmin(){
+		return perfil==PERFILES.ADMIN || perfil==PERFILES.ROOT;
+	}
+	
+	public boolean isRoot(){
+		return perfil==PERFILES.ROOT;
 	}
 }
