@@ -62,8 +62,6 @@
           </div>
       </div> 
     
-
-    tablaUsuarioPendiente
     
     	<div class="card"  data-ng-controller="tablaUsuarioPendiente as tPendienteCtr">
                 <div class="card-header ch-alt m-b-20">
@@ -87,13 +85,13 @@
                 </div>
                 <div class="modal-body">
 
-				<form ng-submit="tctrl.tUsuariosPendiente.submit()" name="myForm" class="form-horizontal">
+				<form ng-submit="modalContent.guardar()" name="myForm" class="form-horizontal">
 
                       <div class="row">
                           <div class="form-group col-md-12">
                               <label class="col-md-2 control-lable" for="nombre">Nombre</label>
                               <div class="col-md-7">
-                                  <input type="text" ng-model="tctrl.hola" id="nombre" class="username form-control input-sm" placeholder="Enter your name" required ng-minlength="3"/>
+                                  <input type="text" ng-model="modalContent.usuario.nombre" id="nombre" class="username form-control input-sm" placeholder="Introduce el nombre" required ng-minlength="3"/>
                               </div>
                           </div>
                       </div>
@@ -102,7 +100,7 @@
                           <div class="form-group col-md-12">
                               <label class="col-md-2 control-lable" for="correo">Correo</label>
                               <div class="col-md-7">
-                                  <input type="email" ng-model="content.correo" id="correo" class="email form-control input-sm" placeholder="Enter your Email" required/>
+                                  <input type="email" ng-model="modalContent.usuario.correo" id="correo" class="email form-control input-sm" placeholder="Introduce el e-mail" required/>
                               </div>
                           </div>
                       </div>
@@ -114,8 +112,8 @@
                       </div>
 
 					<div class="modal-footer">
-                    	<button class="btn btn-link" ng-click="tctrl.tUsuariosPendiente.nuevo()">Guardar</button>
-                    	<button class="btn btn-link" ng-click="cancel()">Cancelar</button>
+						<input type="submit" class="btn bgm-blue" value="Guardar">   
+                    	<button class="btn bgm-red" ng-click="cancel()">Cancelar</button>
                 	</div>
                   </form>
 

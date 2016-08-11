@@ -67,8 +67,15 @@ materialAdmin
                 });
             }
         });
-    	
-    	$scope.usuario={correo:'fghfgh'};
+
+    	$scope.modal={
+    			usuario:{correo:'',nombre:''},
+    			guardar:function(){
+    				userService.nuevoPendiente($scope.modal.usuario).then(function(data){
+    	        		alert(data);
+    	            });
+    			}
+    	}    	
     	
     	function modalInstances(animation, size, backdrop, keyboard) {
     		alert('ie');
@@ -81,7 +88,7 @@ materialAdmin
                 keyboard: keyboard,
                 resolve: {
                     content: function () {
-                        return $scope.usuario;
+                        return $scope.modal;
                     }
                 }
             
