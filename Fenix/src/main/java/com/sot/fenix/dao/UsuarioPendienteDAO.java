@@ -8,6 +8,6 @@ import com.sot.fenix.components.models.Usuario;
 import com.sot.fenix.components.models.UsuarioPendiente;
 
 @Repository
-public interface UsuarioPendienteDAO extends MongoRepository<UsuarioPendiente, ObjectId>{
-	public Usuario findByCorreo(String correo);
+public interface UsuarioPendienteDAO extends MongoRepository<UsuarioPendiente, String>{
+	public UsuarioPendiente findByCorreo(String correo);
 }

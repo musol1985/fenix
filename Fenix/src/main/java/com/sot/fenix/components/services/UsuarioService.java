@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.sot.fenix.components.models.Usuario;
+import com.sot.fenix.components.models.UsuarioPendiente;
 import com.sot.fenix.dao.UsuarioDAO;
 import com.sot.fenix.dao.UsuarioPendienteDAO;
 
@@ -20,7 +21,7 @@ public class UsuarioService {
 		return usuarios.findByUsername(login);
 	}
 	
-	public Usuario getUsuarioPendienteByCorreo(String correo){
+	public UsuarioPendiente getUsuarioPendienteByCorreo(String correo){
 		return usuariosPendientes.findByCorreo(correo);
 	}
 	

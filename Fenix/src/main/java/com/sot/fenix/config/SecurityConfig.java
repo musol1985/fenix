@@ -35,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and().csrf()
         .and().exceptionHandling().accessDeniedPage("/app/denegado");*/
     	http
+    	.csrf().disable()
         	.authorizeRequests()
         		.antMatchers("/").permitAll() 
         		.antMatchers("/app/admin/**").hasRole(Perfil.PERFILES.ADMIN.name())
@@ -44,8 +45,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     		.formLogin()  
     			.loginPage("/login") 
     				.usernameParameter("ssoId").passwordParameter("password")
-    	.and()
-    		.csrf()
     	.and()
     		.exceptionHandling().accessDeniedPage("/app/denegado");
     }

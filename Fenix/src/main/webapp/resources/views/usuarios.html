@@ -68,7 +68,7 @@
                     <h2>Usuarios por confirmar<small>Lista de usuarios pendientes de confirmar registro</small></h2>
                     <ul class="actions">
                         <li>
-                            <a href="">
+                            <a href="" ng-click="refrescar()">
                                 <i class="zmdi zmdi-refresh-alt"></i>
                             </a>
                         </li>
@@ -85,7 +85,7 @@
                 </div>
                 <div class="modal-body">
 
-				<form ng-submit="modalContent.guardar()" name="myForm" class="form-horizontal">
+				<form name="myForm" class="form-horizontal">
 
                       <div class="row">
                           <div class="form-group col-md-12">
@@ -104,16 +104,10 @@
                               </div>
                           </div>
                       </div>
- 
-                      <div class="row">
-                          <div class="form-actions floatRight">
-                              <input type="submit" class="btn btn-primary btn-sm">                              
-                          </div>
-                      </div>
 
 					<div class="modal-footer">
-						<input type="submit" class="btn bgm-blue" value="Guardar">   
-                    	<button class="btn bgm-red" ng-click="cancel()">Cancelar</button>
+						<button class="btn bgm-blue btn-lg" ng-click="modalContent.guardar()">Guardar</button> 
+                    	<button class="btn bgm-red btn-lg" ng-click="cancel()">Cancelar</button>
                 	</div>
                   </form>
 
@@ -133,6 +127,13 @@
 		                        </td>
 		                        <td data-title="'Correo'">
 		                            {{ w.correo }}
+		                        </td>
+		                        <td data-title="'Fecha envio email'">
+		                            {{ w.fechaEnvio }}
+		                        </td>
+		                        <td data-title="'Acciones'">
+		                            <button type="button" class="btn btn-warning" ng-click="enviarMail(w)"><i class="zmdi zmdi-email"></i></button>
+		                            <button type="button" class="btn btn-danger" ng-click="eliminar(w)"><i class="zmdi zmdi-delete"></i></button>
 		                        </td>
 		                    </tr>
 		                </table>

@@ -17,6 +17,99 @@ materialAdmin
     }])
     
     // =========================================================================
+    // ErrorService
+    // =========================================================================
+    
+    .service('errorService', ['growlService', function(growlService){
+    	var self=this;
+    
+    	this.procesar = function(ajax, mensajes){
+    		ajax.then(
+	    		function(response){
+	    			if(response.cod>-1){
+		    			var t=mensajes[response.cod];
+		    			if(t){
+		    				if(t.growl && t.growl==true){
+		    					self.alertaGrowl(t.texto, t.tipo, t.onProcesar, response);
+		    				}else{
+		    					self.alerta(t.titulo, t.texto, t.tipo, t.onProcesar, response);
+		    				}
+		    			}
+	    			}else{
+	    				self.alerta("Error", "Error desconocido", "error", mensajes.onError);
+	    			}
+	    		},
+	    		function (errResponse){
+	    			self.alerta("Error", "Error desconocido", "error", mensajes.onError);
+	    		});
+    	}
+    	
+    	this.alerta=function(titulo, texto, tipo, onClick, response){
+    		swal({   
+                title: titulo,   
+                text: texto,   
+                type: tipo
+            }, function(){
+            	if(onClick)
+            		onClick(response);            	
+            });
+    	}
+    	
+    	this.alertaSiNo=function(titulo, texto, onClick){
+    		swal({   
+                title: titulo,   
+                text: texto,   
+                type: 'warning',
+                showCancelButton: true,   
+                confirmButtonColor: "#DD6B55",   
+                confirmButtonText: "Si", 
+                cancelButtonText: "No"  
+            }, function(){
+            	if(onClick)
+            		onClick();            	
+            });
+    	}
+    	
+    	this.alertaGrowl=function(texto, tipo, onProcesar, response){
+    		growlService.growl(texto, tipo);
+    		if(onProcesar)
+    			onProcesar(response);
+    	}
+    }]) 
+    
+    
+    // =========================================================================
+    // ErrorService
+    // =========================================================================
+    
+    .service('modalService', [function(){
+
+    	this.mostrar = function(uibModal, contenido){
+    		return modalInstances(true, '', 'static', true, uibModal, contenido)
+    	}
+    	
+    	function modalInstances(animation, size, backdrop, keyboard, uibModal, contenido) {
+            var modalInstance = uibModal.open({
+                animation: animation,
+                templateUrl: 'myModalContent.html',
+                controller: 'ModalInstanceCtrl',
+                size: size,
+                backdrop: backdrop,
+                keyboard: keyboard,
+                resolve: {
+                    content: function () {
+                        return contenido;
+                    }
+                }
+            
+            });
+            
+            return modalInstance;
+        }
+    }])
+    
+    
+    // =========================================================================
     // UserService
     // =========================================================================
     
@@ -60,9 +153,25 @@ materialAdmin
             return deferred.promise;
         }
     	
+    	this.getPendientes=function(page, size) {
+            var deferred = $q.defer();
+
+            $http.get("usuario/pendientes/"+page+"/"+size)
+                .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error while fetching Users');
+                    deferred.reject(errResponse);
+                }
+            );
+            return deferred.promise;
+        }
+    	
     	this.nuevoPendiente=function(user) {
             var deferred = $q.defer();
-alert("ie"+user);
+
             $http.post("usuario/pendiente", user)
                 .then(
                 function (response) {
@@ -75,7 +184,38 @@ alert("ie"+user);
             );
             return deferred.promise;
         }
+    	
+    	this.eliminarPendiente=function(id) {
+            var deferred = $q.defer();
 
+            $http.delete("usuario/pendiente/"+id)
+                .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error while fetching Users');
+                    deferred.reject(errResponse);
+                }
+            );
+            return deferred.promise;
+        }
+
+    	this.enviarCorreo=function(id) {
+            var deferred = $q.defer();
+
+            $http.delete("usuario/pendiente/correo/"+id)
+                .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error while fetching Users');
+                    deferred.reject(errResponse);
+                }
+            );
+            return deferred.promise;
+        }
     }])
     
 

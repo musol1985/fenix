@@ -1,20 +1,17 @@
 package com.sot.fenix.components.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.Date;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sot.fenix.components.models.Perfil.PERFILES;
-import com.sot.fenix.config.SecurityConfig;
 
 @Document
 public class UsuarioPendiente implements Serializable{
@@ -25,19 +22,22 @@ public class UsuarioPendiente implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonIgnore
-	private ObjectId id;
+	private String id;
 	
 	@Indexed(unique = true)
 	private String correo;
 
 	private String nombre;
+	
+	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy HH:mm")
+	private Date fechaEnvio;
 
-	public ObjectId getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(ObjectId id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -55,6 +55,14 @@ public class UsuarioPendiente implements Serializable{
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public Date getFechaEnvio() {
+		return fechaEnvio;
+	}
+
+	public void setFechaEnvio(Date fechaEnvio) {
+		this.fechaEnvio = fechaEnvio;
 	}	
 
 }
