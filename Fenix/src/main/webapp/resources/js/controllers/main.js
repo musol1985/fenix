@@ -303,7 +303,63 @@ materialAdmin
 
     })
 
+    .controller('registrarCtrl', function($scope, userService, $window, errorService){
+    	$scope.user={};
+    	$scope.error=false;
+    	$scope.errorDesc="";
 
+    	$scope.registrar=function(){   
+
+    		if(!$scope.myForm.$valid)
+    			return;
+    		
+    		userService.registrar($scope.user).then(function(response){
+	    			if(response.cod==0){
+	    				angular.element('#myForm').submit();
+	    			}else if(response.cod==1){
+	    				$scope.error=true;
+	    				$scope.errorDesc="El correo no tiene registros pendientes";
+	    			}else if(response.cod==2){
+	    				$scope.error=true;
+	    				$scope.errorDesc="Ya existe un usuario registrado con ese correo";
+	    			}
+	    		}, function(errResponse){
+	    			$scope.error=true;
+    				$scope.errorDesc="Error desconocido";
+	    		}
+    		);
+    	
+    	}
+    })
+    
+	.directive('pwCheck', [function () {
+	    return {
+	        require: 'ngModel',
+	        link: function (scope, elem, attrs, ctrl) {
+	            var firstPassword = '#' + attrs.pwCheck;
+	            elem.add(firstPassword).on('keyup', function () {
+	                scope.$apply(function () {
+	                    // console.info(elem.val() === $(firstPassword).val());
+	                    ctrl.$setValidity('pwmatch', elem.val() === $(firstPassword).val());
+	                });
+	            });
+	        }
+	    }
+	}])
+	
+	.directive('checkRequired', function(){
+	  return {
+	    require: 'ngModel',
+	    restrict: 'A',
+	    link: function (scope, element, attrs, ngModel) {
+	      ngModel.$validators.checkRequired = function (modelValue, viewValue) {
+	        var value = modelValue || viewValue;
+	        var match = scope.$eval(attrs.ngTrueValue) || true;
+	        return value && match === value;
+	      };
+	    }
+	  }; 
+	})
 
     //=================================================
     // LOGIN

@@ -17,114 +17,79 @@
         <link href="resources/css/app.min.2.css" rel="stylesheet">
     </head>
 
-    <body class="login-content" data-ng-controller="loginCtrl as lctrl">
-
-        <!-- Login -->
-        <c:url var="loginUrl" value="/login" />        
-	        <div class="lc-block" id="l-login" data-ng-class="{ 'toggled': lctrl.login === 1 }" data-ng-if="lctrl.login === 1">
-	        <form action="${loginUrl}" method="post" data-ng-submit="login">
-	        
-	        	<c:if test="${param.error != null}">
-                    <div class="alert alert-danger" role="alert">
-                    	Usuario o contraseña incorrectos
-                	</div>
-                </c:if>
-	        
-	            <div class="input-group m-b-20">
-	                <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
-	                <div class="fg-line">
-	                    <input type="text" class="form-control" placeholder="Username" name="correo">
-	                </div>
+    <body class="login-content" >
+        <!-- Register -->
+        <div class="lc-block toggled" id="l-register" data-ng-controller="registrarCtrl as rctrl">
+        	<img class="lcb-user" src="resources/img/profile-pics/1471099531_Swift.png" alt="">
+        	 <c:url var="loginUrl" value="/login" />    
+        	<form name="myForm" id="myForm" class="form-horizontal" novalidate action="${loginUrl}" method="post">
+	        	<div class="input-group m-b-20 p-t-20">
+	        		<input type="hidden" ng-model="user.idPendiente" id="idPendiente" name="idPendiente" ng-init="user.idPendiente= '${id }'"/>
+	                <span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
+                		
+                          <input type="text" ng-model="user.correo" id="correo" name="correo" class="form-control" required readonly ng-init="user.correo = '${correo }'"/>							   
+					
 	            </div>
-	
 	            <div class="input-group m-b-20">
-	                <span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
-	                <div class="fg-line">
-	                    <input type="password" class="form-control" placeholder="Password" name="password">
-	                </div>
-	            </div>
-	            
-	            <input type="hidden" name="${_csrf.parameterName}"   value="${_csrf.token}" />
-                             
+                   	<span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+                   	<div class="fg-line">                   		
+                          <input type="text" ng-model="user.nombre" id="nombre" name="nombre" class="form-control" placeholder="Introduce tu nombre" required ng-minlength="3" ng-init="user.nombre = '${nombre }'"/>							   
+					</div>
+                </div>
+                <div ng-show="!myForm.nombre.$pristine" class="has-error input-group-addon ">
+					<p ng-show="myForm.nombre.$error.required" class="help-block">Este campo es obligatorio</p>
+			        <p ng-show="myForm.nombre.$error.minlength" class="help-block">Tamaño minimo de 3 caracteres</p>
+		        </div> 
+                
+                <div class="input-group m-b-20">
+                   	<span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
+                   	<div class="fg-line">                   		
+                          <input type="text" ng-model="user.password" id="password" name="password" class="form-control" placeholder="Contraseña" required ng-minlength="3"/>							   
+					</div>
+                </div>
+               	<div ng-show="!myForm.password.$pristine" class="has-error input-group-addon ">
+					<p ng-show="myForm.password.$error.required" class="help-block">Este campo es obligatorio</p>
+			        <p ng-show="myForm.password.$error.minlength" class="help-block">Tamaño minimo de 3 caracteres</p>
+		        </div> 
+                
+                
+                <div class="input-group">
+                   	<span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
+                   	<div class="fg-line">                   		
+                          <input type="text" ng-model="password2" id="password2" name="password2" class="form-control" placeholder="Confirmar contraseña" pw-check="password" required ng-minlength="3"/>							   
+					</div>					
+                </div>
+                <div class="has-error input-group-addon ">
+	               	<div ng-show="!myForm.password2.$pristine">
+						<p ng-show="myForm.password2.$error.required" class="help-block">Este campo es obligatorio</p>
+				        <p ng-show="myForm.password2.$error.minlength" class="help-block">Tamaño minimo de 3 caracteres</p>
+			        </div> 
+			        <div ng-show="!myForm.password.$pristine">
+			        	<p ng-show="myForm.password2.$error.pwmatch" class="help-block">Las contraseñas no coinciden</p>
+			        </div>
+		        </div>
 	
 	            <div class="clearfix"></div>
 	
-	            <div class="checkbox">
-	                <label>
-	                    <input type="checkbox" value="">
-	                    <i class="input-helper"></i>
-	                    Keep me signed in
-	                </label>
-	            </div>
-	
-	            <button data-ng-click="login()" class="btn btn-login btn-danger btn-float"><i class="zmdi zmdi-arrow-forward"></i></button>
-	
-	            <ul class="login-navigation">
-	                <li data-block="#l-register" class="bgm-red" data-ng-click="lctrl.login = 0; lctrl.register = 1">Register</li>
-	                <li data-block="#l-forget-password" class="bgm-orange" data-ng-click="lctrl.login = 0; lctrl.forgot = 1">Forgot Password?</li>
-	            </ul>
-	            </form>
-	        </div>
-        
-
-        <!-- Register -->
-        <div class="lc-block" id="l-register" data-ng-class="{ 'toggled': lctrl.register === 1 }" data-ng-if="lctrl.register === 1">
-            <div class="input-group m-b-20">
-                <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
-                <div class="fg-line">
-                    <input type="text" class="form-control" placeholder="Username">   
-                </div>
-            </div>
-
-            <div class="input-group m-b-20">
-                <span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
-                <div class="fg-line">
-                    <input type="text" class="form-control" placeholder="Email Address">
-                </div>
-            </div>
-
-            <div class="input-group m-b-20">
-                <span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
-                <div class="fg-line">
-                    <input type="password" class="form-control" placeholder="Password">
-                </div>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="">
-                    <i class="input-helper"></i>
-                    Accept the license agreement
-                </label>
-            </div>
-
-            <a href="resources/" class="btn btn-login btn-danger btn-float"><i class="zmdi zmdi-arrow-forward"></i></a>
-
-            <ul class="login-navigation">
-                <li data-block="#l-login" class="bgm-green" data-ng-click="lctrl.register = 0; lctrl.login = 1">Login</li>
-                <li data-block="#l-forget-password" class="bgm-orange" data-ng-click="lctrl.register = 0; lctrl.forgot = 1">Forgot Password?</li>
-            </ul>
-        </div>
-
-        <!-- Forgot Password -->
-        <div class="lc-block" id="l-forget-password" data-ng-class="{ 'toggled': lctrl.forgot === 1 }" data-ng-if="lctrl.forgot === 1">
-            <p class="text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu risus. Curabitur commodo lorem fringilla enim feugiat commodo sed ac lacus.</p>
-
-            <div class="input-group m-b-20">
-                <span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
-                <div class="fg-line">
-                    <input type="text" class="form-control" placeholder="Email Address">
-                </div>
-            </div>
-
-            <a href="resources/" class="btn btn-login btn-danger btn-float"><i class="zmdi zmdi-arrow-forward"></i></a>
-
-            <ul class="login-navigation">
-                <li data-block="#l-login" class="bgm-green" data-ng-click="lctrl.forgot = 0; lctrl.login = 1">Login</li>
-                <li data-block="#l-register" class="bgm-red" data-ng-click="lctrl.forgot = 0; lctrl.register = 1">Register</li>
-            </ul>
+				<div ng-class="{ 'has-error' : myForm.tcRead.$invalid, 'has-success': !myForm.nombre.$invalid}">
+		            <div class="checkbox" >
+		                <label>
+		                	<input type="checkbox" name="tcRead" id="tcRead" ng-model="readTermsConditions" ng-true-value="2" check-required />
+		                    <i class="input-helper"></i>
+		                    He leído y acepto la licencia de uso
+		                </label>
+		                <div ng-show="!myForm.tcRead.$pristine" >
+							<p ng-show="myForm.tcRead.$error.checkRequired" class="help-block">
+								Debes aceptar la licencia
+					        </p>
+				        </div>
+		            </div>
+				</div>
+				
+				<div class="alert alert-danger m-t-20" role="alert" data-ng-if="error==true">Ha ocurrido un error: {{errorDesc}}</div>
+				
+	            <a ng-href="" class="btn btn-login btn-danger btn-float" ng-disabled="myForm.$invalid" ng-click="registrar()"><i class="zmdi zmdi-arrow-forward"></i></a>
+            </form>
         </div>
 
         <!-- Older IE warning message -->
@@ -192,6 +157,7 @@
         <script src="resources/vendors/bower_components/Waves/dist/waves.min.js"></script>
         <script src="resources/vendors/bower_components/angular-nouislider/src/nouislider.min.js"></script>
         <script src="resources/vendors/bower_components/ng-table/dist/ng-table.min.js"></script>
+        <script src="resources/vendors/bootstrap-growl/bootstrap-growl.min.js"></script>
 
         <!-- Placeholder for IE9 -->
         <!--[if IE 9 ]>

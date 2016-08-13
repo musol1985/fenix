@@ -23,7 +23,7 @@ materialAdmin
     .service('errorService', ['growlService', function(growlService){
     	var self=this;
     
-    	this.procesar = function(ajax, mensajes){
+    	this.procesar = function(ajax, mensajes, onProcesar){
     		ajax.then(
 	    		function(response){
 	    			if(response.cod>-1){
@@ -35,6 +35,8 @@ materialAdmin
 		    					self.alerta(t.titulo, t.texto, t.tipo, t.onProcesar, response);
 		    				}
 		    			}
+		    			if(onProcesar)
+		    				onProcesar(response);
 	    			}else{
 	    				self.alerta("Error", "Error desconocido", "error", mensajes.onError);
 	    			}
@@ -119,7 +121,6 @@ materialAdmin
     	this.current={}
     	
         this.getCurrentUser=function getCurrentUser() {
-        	alert("getUser called");
             var deferred = $q.defer();
             
             $http.get("usuario/current")
@@ -137,10 +138,10 @@ materialAdmin
             return deferred.promise;
         }
     	
-    	this.getAll=function() {
+    	this.getAll=function(page, size) {
             var deferred = $q.defer();
-            alert("getAllUsuarios");
-            $http.get("usuario/all")
+
+            $http.get("usuario/all/"+page+"/"+size)
                 .then(
                 function (response) {
                     deferred.resolve(response.data);
@@ -185,6 +186,22 @@ materialAdmin
             return deferred.promise;
         }
     	
+    	this.registrar=function(user) {
+            var deferred = $q.defer();
+
+            $http.post("usuario/registrar", user)
+                .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error while fetching Users');
+                    deferred.reject(errResponse);
+                }
+            );
+            return deferred.promise;
+        }
+    	
     	this.eliminarPendiente=function(id) {
             var deferred = $q.defer();
 
@@ -200,11 +217,11 @@ materialAdmin
             );
             return deferred.promise;
         }
-
-    	this.enviarCorreo=function(id) {
+    	
+    	this.eliminar=function(id) {
             var deferred = $q.defer();
 
-            $http.delete("usuario/pendiente/correo/"+id)
+            $http.delete("usuario/"+id)
                 .then(
                 function (response) {
                     deferred.resolve(response.data);
@@ -216,6 +233,48 @@ materialAdmin
             );
             return deferred.promise;
         }
+
+    	this.enviarCorreo=function(id) {
+            var deferred = $q.defer();
+
+            $http.get("usuario/pendiente/correo/"+id)
+                .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error while fetching Users');
+                    deferred.reject(errResponse);
+                }
+            );
+            return deferred.promise;
+        }
+    }])
+    
+    
+    // =========================================================================
+    // UserService
+    // =========================================================================
+    
+    .service('centroService', ['$http', '$q', function($http, $q){
+    	var self=this;
+
+    	this.nuevoCentro=function(centro) {
+            var deferred = $q.defer();
+
+            $http.post("centro/nuevo", centro)
+                .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error while fetching Users');
+                    deferred.reject(errResponse);
+                }
+            );
+            return deferred.promise;
+        }
+    	
     }])
     
 

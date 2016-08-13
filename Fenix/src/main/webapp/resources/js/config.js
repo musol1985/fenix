@@ -48,6 +48,11 @@ materialAdmin
                 url: '/centro',
                 templateUrl: 'resources/views/tables.html'
             })
+            
+            .state('configuracion.centros', {
+                url: '/centros',
+                templateUrl: 'resources/views/centros.html'
+            })
 
             .state('configuracion.usuarios', {
                 url: '/usuarios',

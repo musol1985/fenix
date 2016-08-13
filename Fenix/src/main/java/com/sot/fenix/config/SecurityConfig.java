@@ -1,7 +1,9 @@
 package com.sot.fenix.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -42,10 +44,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         		.antMatchers("/app/root/**").hasRole(Perfil.PERFILES.ROOT.name()) 
         		.antMatchers("/app/**").hasRole(Perfil.PERFILES.USER.name()) 
     	.and()
-    		.formLogin()  
+    		.formLogin().defaultSuccessUrl("/app")  
     			.loginPage("/login") 
-    				.usernameParameter("ssoId").passwordParameter("password")
+    				.usernameParameter("correo").passwordParameter("password")
     	.and()
     		.exceptionHandling().accessDeniedPage("/app/denegado");
+    }
+    
+    @Bean(name="myAuthenticationManager")
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }

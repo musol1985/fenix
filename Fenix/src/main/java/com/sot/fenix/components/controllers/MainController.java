@@ -12,17 +12,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sot.fenix.components.models.Usuario;
-import com.sot.fenix.config.SecurityConfig;
-import com.sot.fenix.dao.UsuarioDAO;
+import com.sot.fenix.components.models.UsuarioPendiente;
+import com.sot.fenix.components.services.UsuarioService;
 
 @Controller
 @RequestMapping("/")
 public class MainController{
 	
 	@Autowired
-	private UsuarioDAO usuarios;
+	private UsuarioService usuarios;
 	  
 	    @RequestMapping(value = "/", method = RequestMethod.GET)
 	    public String homePage(ModelMap model) {
@@ -57,6 +57,22 @@ public class MainController{
 	    @RequestMapping(value = "/login", method = RequestMethod.GET)
 	    public String loginPage() {
 	        return "/login.jsp";
+	    }
+	    
+	    @RequestMapping(value = "/registrar", method = RequestMethod.GET)
+	    public String loginPage(ModelMap model, @RequestParam String id) {
+	    	
+	    	UsuarioPendiente uPendienteBD=usuarios.getPendientesDAO().findOne(id);
+	    	
+	    	if(uPendienteBD!=null){
+		    	model.addAttribute("correo", uPendienteBD.getCorreo());
+		    	model.addAttribute("id", uPendienteBD.getId());
+		    	model.addAttribute("nombre", uPendienteBD.getNombre());
+		    	
+		        return "/registrar.jsp";
+	    	}else{
+	    		return "/401.jsp";
+	    	}
 	    }
 	 
 	    @RequestMapping(value="/logout", method = RequestMethod.GET)

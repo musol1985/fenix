@@ -25,19 +25,18 @@ public class LoginProvider implements AuthenticationProvider {
         String username = authentication.getName();
         String password = (String) authentication.getCredentials();
 
-        Usuario usuario=usuarios.getUsuarioByLogin(username);
-               
-        if(usuario==null)
-        	throw new BadCredentialsException("Nombre de usuario incorrecto");
-        
-        if(!usuario.getPassword().equalsIgnoreCase(password.trim())){
+        return autenticar(username, password);
+	}
+	
+	public UsernamePasswordAuthenticationToken autenticar(String username, String password)throws BadCredentialsException{
+		 Usuario usuario=usuarios.getUsuarioByLogin(username);
+		 
+		 if(usuario==null)
+	        	throw new BadCredentialsException("Nombre de usuario incorrecto");
+	        
+        if(!usuario.getPassword().equalsIgnoreCase(password.trim()))
         	throw new BadCredentialsException("Contraseña incorrecta");
-        }           
-   
-        System.out.println("Login correcto para el usuario "+usuario.getUsername()+" con los perfiles:");
-        for(GrantedAuthority p:usuario.getAuthorities()){
-        	System.out.println("----"+p.getAuthority());
-        }
+            
         
         return new UsernamePasswordAuthenticationToken(usuario, password, usuario.getAuthorities());
 	}

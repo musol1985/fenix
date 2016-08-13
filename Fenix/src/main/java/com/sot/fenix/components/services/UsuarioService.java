@@ -44,4 +44,9 @@ public class UsuarioService {
         }
         return userName;
     }
+	
+	
+	public void enviarEmail(UsuarioPendiente usuario){
+		System.out.println("Enviando mail con codigo: "+usuario.getId());
+	}
 }
