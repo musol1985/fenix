@@ -1,6 +1,7 @@
 package com.sot.fenix.config;
 
-import org.bson.types.ObjectId;
+import java.util.ArrayList;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.MongoDbFactory;
@@ -9,8 +10,9 @@ import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import com.mongodb.MongoClient;
-import com.sot.fenix.components.models.Usuario;
+import com.sot.fenix.components.models.Centro;
 import com.sot.fenix.components.models.Perfil.PERFILES;
+import com.sot.fenix.components.models.Usuario;
 
 @Configuration
 @EnableMongoRepositories("com.sot.fenix.dao")
@@ -38,11 +40,20 @@ public class DBConfig {
 		System.out.println("***************************************");
 		System.out.println("*		La BD es nueva		   		  *");
 		System.out.println("***************************************");
+		
+		Centro c=new Centro();
+		c.setNombre("Centro ADMIN");
+		c.setCorreoAdmin("root");
+		c.setColor("teal");
+		
+		db.insert(c);
+		
 		Usuario u=new Usuario();
 		u.setUsername("root");
 		u.setNombre("root");
 		u.setPassword("16f84a#16f84a");
 		u.setPerfil(PERFILES.ROOT);
+		u.setCentro(c);
 		
 		db.insert(u);
 	}

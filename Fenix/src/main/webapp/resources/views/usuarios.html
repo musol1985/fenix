@@ -44,7 +44,7 @@
 
                 <div class="card-body card-padding">
                     <div class="table-responsive">
-		                <table ng-table="tUsuarioCtr.tabla" class="table table-striped table-vmiddle">
+		                <table ng-table="tUsuarioCtr.tabla" class="table table-striped table-vmiddle"  ng-init="setTodos(false);setCentroSesion()">
 		                    <tr ng-repeat="w in tUsuarioCtr.datos"  >
 		                        <td data-title="'Nombre'">
 		                            {{ w.nombre }}

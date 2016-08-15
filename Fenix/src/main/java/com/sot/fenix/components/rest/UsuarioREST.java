@@ -1,12 +1,14 @@
 package com.sot.fenix.components.rest;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,10 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sot.fenix.components.json.NuevoPendienteJSON;
 import com.sot.fenix.components.json.PageJSON;
 import com.sot.fenix.components.json.RegistrarJSON;
 import com.sot.fenix.components.json.ResponseJSON;
-import com.sot.fenix.components.json.UsuarioJSON;
+import com.sot.fenix.components.json.UsuariosJSON;
 import com.sot.fenix.components.models.Centro;
 import com.sot.fenix.components.models.Perfil.PERFILES;
 import com.sot.fenix.components.models.Usuario;
@@ -40,7 +43,12 @@ public class UsuarioREST{
     public Usuario current() {
 		String current=usuarios.getCurrent();
 		
-		return usuarios.getUsuarioByLogin(current);     
+		Usuario usuario=usuarios.getUsuarioByLogin(current);
+		
+		usuario.getCentro().toJSON();
+		usuario.toJSON();
+		
+		return usuario;
     }
 	
 	@RequestMapping(method=RequestMethod.GET, path="/{id}")
@@ -50,7 +58,7 @@ public class UsuarioREST{
 	
 	
 	@RequestMapping(method=RequestMethod.POST, path="/registrar")
-    public ResponseJSON<UsuarioJSON> registrar(@RequestBody RegistrarJSON registrar) {
+    public ResponseJSON<Usuario> registrar(@RequestBody RegistrarJSON registrar) {
 		UsuarioPendiente uPendienteBD=usuarios.getPendientesDAO().findOne(registrar.idPendiente);
 
 		if(uPendienteBD!=null){			
@@ -60,55 +68,88 @@ public class UsuarioREST{
 					usuario.setNombre(registrar.nombre);
 					usuario.setPassword(registrar.password);
 					
-					Centro centro=centros.getDAO().findByCorreoAdmin(uPendienteBD.getCorreo());
+					Centro centro=uPendienteBD.getCentro();
 					
-					if(centro!=null){
+					if(centro.getCorreoAdmin().equals(uPendienteBD.getCorreo())){
 						usuario.setPerfil(PERFILES.ADMIN);
 					}else{
 						usuario.setPerfil(PERFILES.USER);
 					}
+					usuario.setCentro(centro);
 				
 					usuarios.getDAO().save(usuario);
 					usuarios.getPendientesDAO().delete(uPendienteBD);
 					
-					if(centro!=null){
-						centro.getUsuarios().add(usuario);
+					if(centro.getsId()==null || centro.getsId().isEmpty()){
 						centros.getDAO().save(centro);
 					}
 					
-				return new ResponseJSON<UsuarioJSON>(ResponseJSON.OK, new UsuarioJSON(usuario));
+				return new ResponseJSON<Usuario>(ResponseJSON.OK,usuario);
 			}else{
-				return new ResponseJSON<UsuarioJSON>(ResponseJSON.YA_EXISTE);
+				return new ResponseJSON<Usuario>(ResponseJSON.YA_EXISTE);
 			}
 		}else{
-			return new ResponseJSON<UsuarioJSON>(ResponseJSON.NO_EXISTE);
+			return new ResponseJSON<Usuario>(ResponseJSON.NO_EXISTE);
 		}
     }
 
-	@RequestMapping(method=RequestMethod.GET, path="/all/{page}/{size}")
-    public PageJSON<UsuarioJSON> getAll(@PathVariable int page, @PathVariable int size) {
-		Page<Usuario> usuariosBD=usuarios.getDAO().findAll(new PageRequest(page-1, size));     
-		List<UsuarioJSON> usuarios=new ArrayList<UsuarioJSON>(usuariosBD.getContent().size());
-		for(Usuario u:usuariosBD.getContent()){
-			usuarios.add(new UsuarioJSON(u));
-		}
-		return new PageJSON<UsuarioJSON>(usuariosBD.getTotalElements(), usuarios);
+	@RequestMapping(method=RequestMethod.GET, path="/{centro}/{page}/{size}")
+    public PageJSON<Usuario> getByCentro(@PathVariable int page, @PathVariable int size, @PathVariable String centro) {
+		System.out.println(centro);
+		Page<Usuario> usuariosBD;		
+
+		usuariosBD=usuarios.getUsuarioByCentro(centro, new PageRequest(page-1, size));
+		
+		for(Usuario u:usuariosBD.getContent())
+			u.toJSON();
+		return new PageJSON<Usuario>(usuariosBD.getSize(), usuariosBD.getContent());
     }
 	
-	@RequestMapping(method=RequestMethod.GET, path="/pendientes/{page}/{size}")
-    public PageJSON<UsuarioPendiente> getPendientes(@PathVariable int page, @PathVariable int size) {
-		Page<UsuarioPendiente> pagina=usuarios.getPendientesDAO().findAll(new PageRequest(page-1, size));
+	@RequestMapping(method=RequestMethod.GET, path="all/{centro}/{page}/{size}")
+    public PageJSON<UsuariosJSON> getAllByCentro(@PathVariable int page, @PathVariable int size, @PathVariable String centro) {
+		System.out.println(centro);
+		List<UsuariosJSON> res=new ArrayList<UsuariosJSON>();
+
+		for(Usuario usuario:usuarios.getUsuarioByCentro(centro)){
+			res.add(new UsuariosJSON(usuario.toJSON()));
+		}
+		
+		for(UsuarioPendiente usuario:usuarios.getUsuarioPendienteByCentro(centro)){
+			res.add(new UsuariosJSON(usuario));
+		}
+		int total=res.size();
+		page--;
+		int max=page*size+size;
+		if(max>res.size())
+			max=res.size();
+		int ini=page*size;
+		if(ini>max)
+			ini=0;
+		res=res.subList(ini, max);
+
+		return new PageJSON<UsuariosJSON>(total, res);
+    }
+	
+	@RequestMapping(method=RequestMethod.GET, path="/pendientes/{centro}/{page}/{size}")
+    public PageJSON<UsuarioPendiente> getPendientes(@PathVariable int page, @PathVariable int size, @PathVariable String centro) {
+		System.out.println("Centro:"+centro);
+		Page<UsuarioPendiente> pagina=usuarios.getUsuarioPendienteByCentro(centro, new PageRequest(page-1, size));
 		return new PageJSON<UsuarioPendiente>(pagina.getTotalElements(), pagina.getContent());     
     }
 	
 	@RequestMapping(method=RequestMethod.POST, path="/pendiente")
-    public ResponseJSON<UsuarioPendiente> nuevoPendiente(@RequestBody UsuarioPendiente uPendiente) {
+    public ResponseJSON<UsuarioPendiente> nuevoPendiente(@RequestBody NuevoPendienteJSON nuevo) {
+		UsuarioPendiente uPendiente=nuevo.usuario;
 		String correo=uPendiente.getCorreo();
 		
 		UsuarioPendiente uPendienteBD=usuarios.getUsuarioPendienteByCorreo(correo);
 		
 		if(uPendienteBD==null){			
 			uPendiente.setFechaEnvio(new Date());
+			
+			Centro centro=centros.getDAO().findOne(new ObjectId(nuevo.centro));
+			uPendiente.setCentro(centro);
+			
 			uPendiente=usuarios.getPendientesDAO().save(uPendiente);
 			
 			usuarios.enviarEmail(uPendiente);

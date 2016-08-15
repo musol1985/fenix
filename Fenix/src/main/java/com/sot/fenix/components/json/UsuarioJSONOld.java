@@ -2,14 +2,14 @@ package com.sot.fenix.components.json;
 
 import com.sot.fenix.components.models.Usuario;
 
-public class UsuarioJSON{
+public class UsuarioJSONOld{
 	private String id;
 	private String correo;
 	private String nombre;
 	private boolean admin;
 	private boolean root;
 	
-	public UsuarioJSON(Usuario u){
+	public UsuarioJSONOld(Usuario u){
 		this.id=u.getId().toHexString();
 		this.correo=u.getUsername();
 		this.nombre=u.getNombre();

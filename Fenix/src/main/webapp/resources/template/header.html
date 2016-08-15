@@ -7,8 +7,11 @@
         </div>
     </li>
 
+ 	<li class="hidden-xs">
+        <a href="index.html" class="m-l-10" data-ng-click="mactrl.sidebarStat($event)"><img src="resources/img/logo.png" alt=""></a>
+    </li>
     <li class="logo hidden-xs">
-        <a data-ui-sref="home" data-ng-click="mactrl.sidebarStat($event)">Material Admin</a>
+        <a data-ui-sref="home" data-ng-click="mactrl.sidebarStat($event)">{{mactrl.user.centro.nombre}}</a>
     </li>
 
     <li class="pull-right">

@@ -23,7 +23,11 @@
         	<img class="lcb-user" src="resources/img/profile-pics/1471099531_Swift.png" alt="">
         	 <c:url var="loginUrl" value="/login" />    
         	<form name="myForm" id="myForm" class="form-horizontal" novalidate action="${loginUrl}" method="post">
-	        	<div class="input-group m-b-20 p-t-20">
+        		<div class="input-group p-t-30">
+	                <span class="input-group-addon"><i class="zmdi zmdi-store"></i></span>
+                	<input type="text" ng-model="user.centro" id="centro" name="centro" class="form-control" required readonly ng-init="user.centro = '${centro }'"/>							   
+	            </div>
+	        	<div class="input-group m-b-20">
 	        		<input type="hidden" ng-model="user.idPendiente" id="idPendiente" name="idPendiente" ng-init="user.idPendiente= '${id }'"/>
 	                <span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
                 		
@@ -44,7 +48,7 @@
                 <div class="input-group m-b-20">
                    	<span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
                    	<div class="fg-line">                   		
-                          <input type="text" ng-model="user.password" id="password" name="password" class="form-control" placeholder="Contraseña" required ng-minlength="3"/>							   
+                          <input type="password" ng-model="user.password" id="password" name="password" class="form-control" placeholder="Contraseña" required ng-minlength="3"/>							   
 					</div>
                 </div>
                	<div ng-show="!myForm.password.$pristine" class="has-error input-group-addon ">
@@ -56,7 +60,7 @@
                 <div class="input-group">
                    	<span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
                    	<div class="fg-line">                   		
-                          <input type="text" ng-model="password2" id="password2" name="password2" class="form-control" placeholder="Confirmar contraseña" pw-check="password" required ng-minlength="3"/>							   
+                          <input type="password" ng-model="password2" id="password2" name="password2" class="form-control" placeholder="Confirmar contraseña" pw-check="password" required ng-minlength="3"/>							   
 					</div>					
                 </div>
                 <div class="has-error input-group-addon ">

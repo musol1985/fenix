@@ -1,18 +1,23 @@
 package com.sot.fenix.components.rest;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sot.fenix.components.json.CentroJSON;
+import com.sot.fenix.components.json.NuevoCentroJSON;
+import com.sot.fenix.components.json.PageJSON;
 import com.sot.fenix.components.json.ResponseJSON;
+import com.sot.fenix.components.json.ResponseListJSON;
 import com.sot.fenix.components.models.Centro;
-import com.sot.fenix.components.models.Usuario;
 import com.sot.fenix.components.models.UsuarioPendiente;
 import com.sot.fenix.components.services.CentroService;
 import com.sot.fenix.components.services.UsuarioService;
@@ -31,36 +36,50 @@ public class CentroREST{
     }
 	
 	@RequestMapping(method=RequestMethod.POST,path="/nuevo")
-    public ResponseJSON<CentroJSON> nuevo(@RequestBody CentroJSON centroJSON) {
+    public ResponseJSON<Centro> nuevo(@RequestBody NuevoCentroJSON nuevoCentro) {
 		
-		if(usuarios.getUsuarioByLogin(centroJSON.correoAdmin)==null){
+		if(usuarios.getUsuarioByLogin(nuevoCentro.centro.getCorreoAdmin())==null){
 			
-			Centro centro=new Centro();
+			nuevoCentro.centro.getUbicacion().setPosicion(new GeoJsonPoint(nuevoCentro.posicion.lat, nuevoCentro.posicion.lng));
 			
-			centro.setCorreoAdmin(centroJSON.correoAdmin);
-			centro.setNombre(centroJSON.nombre);
-			centro.setPoblacion(centroJSON.poblacion);
-			centro.setUsuarios(new ArrayList<Usuario>());
+			centros.getDAO().save(nuevoCentro.centro);
 			
-			centros.getDAO().save(centro);
-			
-			UsuarioPendiente usuario=usuarios.getUsuarioPendienteByCorreo(centroJSON.correoAdmin);
+			UsuarioPendiente usuario=usuarios.getUsuarioPendienteByCorreo(nuevoCentro.centro.getCorreoAdmin());
 			
 			if(usuario==null){
 				usuario=new UsuarioPendiente();
-				usuario.setCorreo(centroJSON.correoAdmin);
+				usuario.setCorreo(nuevoCentro.centro.getCorreoAdmin());
+				usuario.setNombre(nuevoCentro.nombreAdmin);
 				usuario.setFechaEnvio(new Date());
+				usuario.setCentro(nuevoCentro.centro);
 				
 				usuarios.getPendientesDAO().save(usuario);
 			}
 			
 			usuarios.enviarEmail(usuario);
 			
-			return new ResponseJSON<CentroJSON>(ResponseJSON.OK, new CentroJSON(centro));
+			return new ResponseJSON<Centro>(ResponseJSON.OK, nuevoCentro.centro.toJSON());
 		}
 		
 
-		return new ResponseJSON<CentroJSON>(ResponseJSON.YA_EXISTE);
+		return new ResponseJSON<Centro>(ResponseJSON.YA_EXISTE);
+    }
+	
+	
+	@RequestMapping(method=RequestMethod.GET, path="/all/{page}/{size}")
+    public PageJSON<Centro> getAll(@PathVariable int page, @PathVariable int size) {
+		Page<Centro> centros=this.centros.getDAO().findAll(new PageRequest(page-1, size));   
+		for(Centro c:centros)
+			c.toJSON();
+		return new PageJSON<Centro>(centros.getTotalElements(), centros.getContent());
+    }
+	
+	@RequestMapping(method=RequestMethod.GET, path="/all")
+    public ResponseListJSON<Centro> getAll() {
+		List<Centro> centros=this.centros.getDAO().findAll();   
+		for(Centro c:centros)
+			c.toJSON();
+		return new ResponseListJSON<Centro>(ResponseJSON.OK, centros);
     }
 
 }

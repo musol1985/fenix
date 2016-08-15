@@ -11,6 +11,8 @@ materialAdmin
     	userService.getCurrentUser().then(function(data){
     		self.user=userService.current;
     		
+    		self.skinSwitch(userService.current.centro.color);
+    		
     		growlService.growl('Welcome back '+self.user.nombre+'!', 'inverse')
     	});
 

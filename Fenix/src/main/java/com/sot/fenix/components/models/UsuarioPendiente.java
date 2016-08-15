@@ -6,6 +6,7 @@ import java.util.Date;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -32,6 +33,9 @@ public class UsuarioPendiente implements Serializable{
 	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy HH:mm")
 	private Date fechaEnvio;
+	
+	@DBRef
+	private Centro centro;
 
 	public String getId() {
 		return id;
@@ -63,6 +67,14 @@ public class UsuarioPendiente implements Serializable{
 
 	public void setFechaEnvio(Date fechaEnvio) {
 		this.fechaEnvio = fechaEnvio;
-	}	
+	}
 
+	public Centro getCentro() {
+		return centro;
+	}
+
+	public void setCentro(Centro centro) {
+		this.centro = centro;
+	}	
+	
 }

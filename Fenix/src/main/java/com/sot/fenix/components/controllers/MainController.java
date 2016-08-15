@@ -68,6 +68,7 @@ public class MainController{
 		    	model.addAttribute("correo", uPendienteBD.getCorreo());
 		    	model.addAttribute("id", uPendienteBD.getId());
 		    	model.addAttribute("nombre", uPendienteBD.getNombre());
+		    	model.addAttribute("centro", uPendienteBD.getCentro().getNombre());
 		    	
 		        return "/registrar.jsp";
 	    	}else{

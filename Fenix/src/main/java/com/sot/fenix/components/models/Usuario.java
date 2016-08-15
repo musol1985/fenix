@@ -7,20 +7,24 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sot.fenix.components.models.Perfil.PERFILES;
-import com.sot.fenix.config.SecurityConfig;
 
 @Document
+@JsonIgnoreProperties({ "authorities" })
 public class Usuario implements UserDetails {
 
 	@Id
 	@JsonIgnore
 	private ObjectId id;
+	
+	private transient String sId;
 	
 	@Indexed(unique = true)
 	private String username;
@@ -29,6 +33,10 @@ public class Usuario implements UserDetails {
 	
 	@JsonIgnore
 	private String password;
+	
+	@Indexed
+	@DBRef
+	private Centro centro;
 	
 	private boolean accountNonExpired = true;
 	private boolean accountNonLocked = true;
@@ -138,4 +146,31 @@ public class Usuario implements UserDetails {
 	public boolean isRoot(){
 		return perfil==PERFILES.ROOT;
 	}
+
+	public Centro getCentro() {
+		return centro;
+	}
+
+	public void setCentro(Centro centro) {
+		this.centro = centro;
+	}
+	
+	public Usuario toJSON(){
+		sId=getId().toHexString();
+		return this;
+	}
+	
+	public void fromJSON(){
+		id=new ObjectId(sId);
+	}
+
+	public String getsId() {
+		return sId;
+	}
+
+	public void setsId(String sId) {
+		this.sId = sId;
+	}
+	
+	
 }

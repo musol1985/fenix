@@ -12,20 +12,25 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Document
 public class Centro{
+	
+	public enum TIPO{BELLEZA, SANIDAD}
 
 	@Id
 	@JsonIgnore
 	private ObjectId id;
 	
+	private transient String sId;
+	
 	private String nombre;
 	
-	private String poblacion;
+	private Ubicacion ubicacion;
+	
+	private String color;
 		
 	@Indexed
 	private String correoAdmin;
 	
-	@DBRef
-	private List<Usuario> usuarios;
+	private TIPO tipo;
 
 	public ObjectId getId() {
 		return id;
@@ -43,12 +48,14 @@ public class Centro{
 		this.nombre = nombre;
 	}
 
-	public String getPoblacion() {
-		return poblacion;
+
+
+	public Ubicacion getUbicacion() {
+		return ubicacion;
 	}
 
-	public void setPoblacion(String poblacion) {
-		this.poblacion = poblacion;
+	public void setUbicacion(Ubicacion ubicacion) {
+		this.ubicacion = ubicacion;
 	}
 
 	public String getCorreoAdmin() {
@@ -59,13 +66,38 @@ public class Centro{
 		this.correoAdmin = correoAdmin;
 	}
 
-	public List<Usuario> getUsuarios() {
-		return usuarios;
+	public TIPO getTipo() {
+		return tipo;
 	}
 
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
+	public void setTipo(TIPO tipo) {
+		this.tipo = tipo;
 	}
 
+	public Centro toJSON(){
+		sId=getId().toHexString();
+		return this;
+	}
+	
+	public void fromJSON(){
+		id=new ObjectId(sId);
+	}
+
+	public String getsId() {
+		return sId;
+	}
+
+	public void setsId(String sId) {
+		this.sId = sId;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+	
 	
 }

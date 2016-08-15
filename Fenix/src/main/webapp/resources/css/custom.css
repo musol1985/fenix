@@ -1,0 +1,15 @@
+
+.lista {
+  min-height: 600px
+}
+
+.centro{
+	text-align: center;
+}
+
+.lista-colores{
+	 display: inline;
+  list-style-type: none;
+  margin-right: 6px;
+  float: left;
+}
