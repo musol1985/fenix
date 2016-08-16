@@ -29,8 +29,8 @@ public class UsuarioService {
 	@Autowired
 	MongoTemplate template;
 	
-	public Usuario getUsuarioByLogin(String login){
-		return usuarios.findByUsername(login);
+	public Usuario getUsuarioByCorreo(String login){
+		return usuarios.findByCorreo(login);
 	}
 	
 	/*public List<Usuario> getUsuarioByCentro(String centro){

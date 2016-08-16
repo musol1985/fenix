@@ -1,30 +1,17 @@
 package com.sot.fenix.components.models;
 
-import java.io.Serializable;
 import java.util.Date;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Document
-public class UsuarioPendiente implements Serializable{
+public class UsuarioPendiente extends AModelId implements IUsuario{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	@Id
-	private String id;
-	
 	@Indexed(unique = true)
 	private String correo;
 
@@ -37,14 +24,10 @@ public class UsuarioPendiente implements Serializable{
 	@DBRef
 	private Centro centro;
 
-	public String getId() {
-		return id;
-	}
+	public UsuarioPendiente() {
 
-	public void setId(String id) {
-		this.id = id;
 	}
-
+	
 	public String getCorreo() {
 		return correo;
 	}
@@ -75,6 +58,17 @@ public class UsuarioPendiente implements Serializable{
 
 	public void setCentro(Centro centro) {
 		this.centro = centro;
-	}	
+	}
+
+	@Override
+	public boolean isAdmin() {
+		return (centro!=null && centro.getCorreoAdmin().equals(correo));		
+	}
+
+	@Override
+	public boolean isPendiente() {
+		return true;
+	}
+
 	
 }

@@ -13,7 +13,7 @@ import com.sot.fenix.components.models.Usuario;
 
 @Repository
 public interface UsuarioDAO extends MongoRepository<Usuario, ObjectId>{
-	public Usuario findByUsername(String username);
+	public Usuario findByCorreo(String correo);
 	
 
 	public Page<Usuario> findByCentro(Centro centro, Pageable pageable);

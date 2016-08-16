@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -18,16 +16,10 @@ import com.sot.fenix.components.models.Perfil.PERFILES;
 
 @Document
 @JsonIgnoreProperties({ "authorities" })
-public class Usuario implements UserDetails {
+public class Usuario extends AModelId implements UserDetails, IUsuario {
 
-	@Id
-	@JsonIgnore
-	private ObjectId id;
-	
-	private transient String sId;
-	
 	@Indexed(unique = true)
-	private String username;
+	private String correo;
 	
 	private String nombre;
 	
@@ -115,22 +107,6 @@ public class Usuario implements UserDetails {
 		return perfiles;
 	}
 
-	public ObjectId getId() {
-		return id;
-	}
-
-	public void setId(ObjectId id) {
-		this.id = id;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
 	public PERFILES getPerfil() {
 		return perfil;
 	}
@@ -154,23 +130,24 @@ public class Usuario implements UserDetails {
 	public void setCentro(Centro centro) {
 		this.centro = centro;
 	}
-	
-	public Usuario toJSON(){
-		sId=getId().toHexString();
-		return this;
+
+	@Override
+	public String getUsername() {
+		return correo;
 	}
 	
-	public void fromJSON(){
-		id=new ObjectId(sId);
+
+	public String getCorreo() {
+		return correo;
 	}
 
-	public String getsId() {
-		return sId;
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
 
-	public void setsId(String sId) {
-		this.sId = sId;
+	@Override
+	public boolean isPendiente() {
+		return false;
 	}
-	
 	
 }

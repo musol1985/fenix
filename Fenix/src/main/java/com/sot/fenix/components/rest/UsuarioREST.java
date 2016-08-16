@@ -1,14 +1,12 @@
 package com.sot.fenix.components.rest;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,8 +19,8 @@ import com.sot.fenix.components.json.NuevoPendienteJSON;
 import com.sot.fenix.components.json.PageJSON;
 import com.sot.fenix.components.json.RegistrarJSON;
 import com.sot.fenix.components.json.ResponseJSON;
-import com.sot.fenix.components.json.UsuariosJSON;
 import com.sot.fenix.components.models.Centro;
+import com.sot.fenix.components.models.IUsuario;
 import com.sot.fenix.components.models.Perfil.PERFILES;
 import com.sot.fenix.components.models.Usuario;
 import com.sot.fenix.components.models.UsuarioPendiente;
@@ -43,28 +41,25 @@ public class UsuarioREST{
     public Usuario current() {
 		String current=usuarios.getCurrent();
 		
-		Usuario usuario=usuarios.getUsuarioByLogin(current);
-		
-		usuario.getCentro().toJSON();
-		usuario.toJSON();
+		Usuario usuario=usuarios.getUsuarioByCorreo(current);
 		
 		return usuario;
     }
 	
 	@RequestMapping(method=RequestMethod.GET, path="/{id}")
-    public Usuario get(@PathVariable String id) {
-		return usuarios.getUsuarioByLogin(id);     
+    public Usuario get(@PathVariable String id) {		
+		return usuarios.getDAO().findOne(new ObjectId(id));     
     }
 	
 	
 	@RequestMapping(method=RequestMethod.POST, path="/registrar")
     public ResponseJSON<Usuario> registrar(@RequestBody RegistrarJSON registrar) {
-		UsuarioPendiente uPendienteBD=usuarios.getPendientesDAO().findOne(registrar.idPendiente);
+		UsuarioPendiente uPendienteBD=usuarios.getPendientesDAO().findOne(new ObjectId(registrar.idPendiente));
 
 		if(uPendienteBD!=null){			
-			if(usuarios.getUsuarioByLogin(uPendienteBD.getCorreo())==null){									
+			if(usuarios.getUsuarioByCorreo(uPendienteBD.getCorreo())==null){									
 					Usuario usuario=new Usuario();
-					usuario.setUsername(uPendienteBD.getCorreo());
+					usuario.setCorreo(uPendienteBD.getCorreo());
 					usuario.setNombre(registrar.nombre);
 					usuario.setPassword(registrar.password);
 					
@@ -80,7 +75,7 @@ public class UsuarioREST{
 					usuarios.getDAO().save(usuario);
 					usuarios.getPendientesDAO().delete(uPendienteBD);
 					
-					if(centro.getsId()==null || centro.getsId().isEmpty()){
+					if(centro.getId()==null){
 						centros.getDAO().save(centro);
 					}
 					
@@ -99,24 +94,18 @@ public class UsuarioREST{
 		Page<Usuario> usuariosBD;		
 
 		usuariosBD=usuarios.getUsuarioByCentro(centro, new PageRequest(page-1, size));
-		
-		for(Usuario u:usuariosBD.getContent())
-			u.toJSON();
+
 		return new PageJSON<Usuario>(usuariosBD.getSize(), usuariosBD.getContent());
     }
 	
 	@RequestMapping(method=RequestMethod.GET, path="all/{centro}/{page}/{size}")
-    public PageJSON<UsuariosJSON> getAllByCentro(@PathVariable int page, @PathVariable int size, @PathVariable String centro) {
+    public PageJSON<IUsuario> getAllByCentro(@PathVariable int page, @PathVariable int size, @PathVariable String centro) {
 		System.out.println(centro);
-		List<UsuariosJSON> res=new ArrayList<UsuariosJSON>();
+		List<IUsuario> res=new ArrayList<IUsuario>();
 
-		for(Usuario usuario:usuarios.getUsuarioByCentro(centro)){
-			res.add(new UsuariosJSON(usuario.toJSON()));
-		}
+		res.addAll(usuarios.getUsuarioByCentro(centro));		
+		res.addAll(usuarios.getUsuarioPendienteByCentro(centro));
 		
-		for(UsuarioPendiente usuario:usuarios.getUsuarioPendienteByCentro(centro)){
-			res.add(new UsuariosJSON(usuario));
-		}
 		int total=res.size();
 		page--;
 		int max=page*size+size;
@@ -127,7 +116,7 @@ public class UsuarioREST{
 			ini=0;
 		res=res.subList(ini, max);
 
-		return new PageJSON<UsuariosJSON>(total, res);
+		return new PageJSON<IUsuario>(total, res);
     }
 	
 	@RequestMapping(method=RequestMethod.GET, path="/pendientes/{centro}/{page}/{size}")
@@ -171,7 +160,9 @@ public class UsuarioREST{
 		
 		if(usuario==null){						
 			return new ResponseJSON<UsuarioPendiente>(ResponseJSON.NO_EXISTE);
-		}else{			
+		}else if(usuario.isAdmin()){
+			return new ResponseJSON<UsuarioPendiente>(ResponseJSON.ES_ADMIN);
+		}else{
 			usuarios.getDAO().delete(usuario);
 			
 			return new ResponseJSON<UsuarioPendiente>(ResponseJSON.OK);
@@ -181,7 +172,7 @@ public class UsuarioREST{
 	@RequestMapping(method=RequestMethod.DELETE, path="/pendiente/{id}")
 	@ResponseBody
     public ResponseJSON<UsuarioPendiente> eliminarPendiente(@PathVariable String id) {
-		UsuarioPendiente uPendienteBD=usuarios.getPendientesDAO().findOne(id);
+		UsuarioPendiente uPendienteBD=usuarios.getPendientesDAO().findOne(new ObjectId(id));
 		
 		if(uPendienteBD==null){						
 			return new ResponseJSON<UsuarioPendiente>(ResponseJSON.NO_EXISTE);
@@ -195,7 +186,7 @@ public class UsuarioREST{
 	@RequestMapping(method=RequestMethod.GET, path="/pendiente/correo/{id}")
 	@ResponseBody
     public ResponseJSON<UsuarioPendiente> enviarCorreo(@PathVariable String id) {
-		UsuarioPendiente uPendienteBD=usuarios.getPendientesDAO().findOne(id);
+		UsuarioPendiente uPendienteBD=usuarios.getPendientesDAO().findOne(new ObjectId(id));
 		
 		if(uPendienteBD==null){						
 			return new ResponseJSON<UsuarioPendiente>(ResponseJSON.NO_EXISTE);

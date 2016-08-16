@@ -1,4 +1,4 @@
-package com.samples.config;
+package test.fenix.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,12 +8,12 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import com.mongodb.MongoClient;
 
 @Configuration
-@EnableMongoRepositories("com.sot.fenix.db")
+@EnableMongoRepositories("com.sot.fenix.dao")
 public class TestDBConfig {
  
 	 @Bean
 	 public MongoTemplate mongoTemplate() throws Exception {
-		 return new MongoTemplate(new MongoClient("${mongoTestHost}"), "${mongoTestDb}");
+		 return new MongoTemplate(new MongoClient("localhost"), "FenixTest");
 	 }
  
 }

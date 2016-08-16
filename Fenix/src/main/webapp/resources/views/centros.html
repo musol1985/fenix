@@ -21,7 +21,7 @@
 
             <div class="listview lv-user m-t-20">
                 <div class="lv-item media" ng-repeat="w in datos" ng-click="seleccionarCentro(w)" ng-class="{ 'active' : w.seleccionado==true  }">
-                    <div class="lv-avatar bgm-blue pull-left">{{w.nombre.substr(0,1)}}</div>
+                    <div class="lv-avatar bgm-{{w.color}} pull-left">{{w.nombre.substr(0,1)}}</div>
                     <div class="media-body">
                         <div class="lv-title">{{w.nombre}}</div>
                         <div class="lv-small">{{w.correoAdmin }}</div>
@@ -172,7 +172,7 @@
 		                        <td data-title="'Admin'">
 				                      <div class="checkbox pull-left">
 				                       <label>
-				                           <input type="checkbox" data-ng-checked="w.admin" value="" readonly>
+				                           <input type="checkbox" data-ng-checked="w.admin" value="" ng-disabled="true">
 				                           <i class="input-helper"></i>
 				                       </label>
 				                   </div>	             
@@ -180,7 +180,7 @@
 				                <td data-title="'Pendiente'">
 				                      <div class="checkbox pull-left">
 				                       <label>
-				                           <input type="checkbox" data-ng-checked="w.pendiente" value="" readonly>
+				                           <input type="checkbox" data-ng-checked="w.pendiente" value=""  ng-disabled="true">
 				                           <i class="input-helper"></i>
 				                       </label>
 				                   </div>	             

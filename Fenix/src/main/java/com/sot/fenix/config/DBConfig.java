@@ -49,7 +49,7 @@ public class DBConfig {
 		db.insert(c);
 		
 		Usuario u=new Usuario();
-		u.setUsername("root");
+		u.setCorreo("root");
 		u.setNombre("root");
 		u.setPassword("16f84a#16f84a");
 		u.setPerfil(PERFILES.ROOT);

@@ -3,6 +3,7 @@ package com.sot.fenix.components.controllers;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -62,7 +63,7 @@ public class MainController{
 	    @RequestMapping(value = "/registrar", method = RequestMethod.GET)
 	    public String loginPage(ModelMap model, @RequestParam String id) {
 	    	
-	    	UsuarioPendiente uPendienteBD=usuarios.getPendientesDAO().findOne(id);
+	    	UsuarioPendiente uPendienteBD=usuarios.getPendientesDAO().findOne(new ObjectId(id));
 	    	
 	    	if(uPendienteBD!=null){
 		    	model.addAttribute("correo", uPendienteBD.getCorreo());

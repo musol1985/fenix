@@ -1,25 +1,12 @@
 package com.sot.fenix.components.models;
 
-import java.util.List;
-
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Document
-public class Centro{
+public class Centro extends AModelId{
 	
 	public enum TIPO{BELLEZA, SANIDAD}
-
-	@Id
-	@JsonIgnore
-	private ObjectId id;
-	
-	private transient String sId;
 	
 	private String nombre;
 	
@@ -32,13 +19,6 @@ public class Centro{
 	
 	private TIPO tipo;
 
-	public ObjectId getId() {
-		return id;
-	}
-
-	public void setId(ObjectId id) {
-		this.id = id;
-	}
 
 	public String getNombre() {
 		return nombre;
@@ -72,23 +52,6 @@ public class Centro{
 
 	public void setTipo(TIPO tipo) {
 		this.tipo = tipo;
-	}
-
-	public Centro toJSON(){
-		sId=getId().toHexString();
-		return this;
-	}
-	
-	public void fromJSON(){
-		id=new ObjectId(sId);
-	}
-
-	public String getsId() {
-		return sId;
-	}
-
-	public void setsId(String sId) {
-		this.sId = sId;
 	}
 
 	public String getColor() {

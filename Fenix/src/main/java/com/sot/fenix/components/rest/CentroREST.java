@@ -38,7 +38,7 @@ public class CentroREST{
 	@RequestMapping(method=RequestMethod.POST,path="/nuevo")
     public ResponseJSON<Centro> nuevo(@RequestBody NuevoCentroJSON nuevoCentro) {
 		
-		if(usuarios.getUsuarioByLogin(nuevoCentro.centro.getCorreoAdmin())==null){
+		if(usuarios.getUsuarioByCorreo(nuevoCentro.centro.getCorreoAdmin())==null){
 			
 			nuevoCentro.centro.getUbicacion().setPosicion(new GeoJsonPoint(nuevoCentro.posicion.lat, nuevoCentro.posicion.lng));
 			
@@ -58,7 +58,7 @@ public class CentroREST{
 			
 			usuarios.enviarEmail(usuario);
 			
-			return new ResponseJSON<Centro>(ResponseJSON.OK, nuevoCentro.centro.toJSON());
+			return new ResponseJSON<Centro>(ResponseJSON.OK, nuevoCentro.centro);
 		}
 		
 
@@ -69,16 +69,14 @@ public class CentroREST{
 	@RequestMapping(method=RequestMethod.GET, path="/all/{page}/{size}")
     public PageJSON<Centro> getAll(@PathVariable int page, @PathVariable int size) {
 		Page<Centro> centros=this.centros.getDAO().findAll(new PageRequest(page-1, size));   
-		for(Centro c:centros)
-			c.toJSON();
+
 		return new PageJSON<Centro>(centros.getTotalElements(), centros.getContent());
     }
 	
 	@RequestMapping(method=RequestMethod.GET, path="/all")
     public ResponseListJSON<Centro> getAll() {
 		List<Centro> centros=this.centros.getDAO().findAll();   
-		for(Centro c:centros)
-			c.toJSON();
+
 		return new ResponseListJSON<Centro>(ResponseJSON.OK, centros);
     }
 

@@ -29,7 +29,7 @@ public class LoginProvider implements AuthenticationProvider {
 	}
 	
 	public UsernamePasswordAuthenticationToken autenticar(String username, String password)throws BadCredentialsException{
-		 Usuario usuario=usuarios.getUsuarioByLogin(username);
+		 Usuario usuario=usuarios.getUsuarioByCorreo(username);
 		 
 		 if(usuario==null)
 	        	throw new BadCredentialsException("Nombre de usuario incorrecto");

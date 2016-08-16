@@ -1,56 +1,5 @@
 materialAdmin
 
-   /* .controller('tablasCtrl', function($scope, $filter, $sce, ngTableParams, userService) {
-    	var self=this;
-
-    	this.tablaUsuarios={};
-    	
-    	this.tablaUsuarios.datos=[];
-    	
-    	this.tablaUsuarios.tabla=new ngTableParams({
-            page: 1,            // show first page
-            count: 10          // count per page
-        }, {
-            total: self.tablaUsuarios.datos.length, // length of data
-            getData: function($defer, params) {
-            	userService.getAll().then(function(data){
-            		self.tablaUsuarios.datos=data;
-                });
-            }
-        });
-    	
-    	
-    	this.tUsuariosPendiente={};
-    	
-    	this.tUsuariosPendiente.datos=[];
-    	
-    	this.tUsuariosPendiente.tabla=new ngTableParams({
-            page: 1,            // show first page
-            count: 10          // count per page
-        }, {
-            total: self.tUsuariosPendiente.datos.length, // length of data
-            getData: function($defer, params) {
-            	userService.getAll().then(function(data){
-            		self.tUsuariosPendiente.datos=data;
-                });
-            }
-        });
-    	
-    	this.tUsuariosPendiente.usuario={correo:'', nombre:''}
-    	
-    	this.tUsuariosPendiente.nuevo=function(){
-    		userService.nuevoPendiente(self.tUsuariosPendiente.usuario).then(function(data){
-        		alert(data);
-            });
-    	}
-
-    	this.tUsuariosPendiente.submit=function(){
-    		self.tUsuariosPendiente.nuevo();
-    	}
-    
-    })*/
-    
-    
     .controller('tablaUsuarios', function($scope, $filter, $sce, ngTableParams, userService, errorService, modalService, $uibModal) {
     	var self=this;
     	
@@ -97,7 +46,7 @@ materialAdmin
     	}
     	
     	$scope.setCentroSesion=function(){    		
-    		$scope.centro=userService.current.centro.sId;
+    		$scope.centro=userService.current.centro.id;
     	}
 
     	$scope.refrescar=function(){
@@ -107,7 +56,7 @@ materialAdmin
         $scope.eliminar = function(item){
         	console.log(item);
         	errorService.alertaSiNo("Eliminar", "¿Seguro que quieres eliminar el usuario?", function(){
-        		errorService.procesar(userService.eliminar(item.sId),{
+        		errorService.procesar(userService.eliminar(item.id),{
 	   				 0:{
 	   					 growl: true,   				 
 	   					 texto: "Usuario eliminado correctamente",
@@ -126,7 +75,7 @@ materialAdmin
         }
         
         $scope.$on('onSeleccionarCentro', function (event, centro) { 
-        	$scope.setCentro(centro.sId);
+        	$scope.setCentro(centro.id);
         	self.tabla.reload();
         });
     })
@@ -141,7 +90,7 @@ materialAdmin
             count: 10          // count per page
         }, {
             getData: function($defer, params) {
-            	userService.getPendientes(params.page(), params.count(), userService.current.centro.sId).then(function(res){
+            	userService.getPendientes(params.page(), params.count(), userService.current.centro.id).then(function(res){
             		self.datos=res.data;
             		params.total(res.total);
             		$defer.resolve(self.datos);            		
@@ -155,7 +104,7 @@ materialAdmin
     			usuario:{'correo':'','nombre':''},
     			
     			guardar:function(){    				
-    				var request={centro: userService.current.centro.sId, usuario: $scope.modal.usuario};
+    				var request={centro: userService.current.centro.id, usuario: $scope.modal.usuario};
     				errorService.procesar(userService.nuevoPendiente(request),{
 	    				 0:{
 	    					 growl: true,   				 
@@ -236,16 +185,16 @@ materialAdmin
     	var self=this;
     	
     	$scope.datos=[];
-    	$scope.centro={sId:'-1'};
+    	$scope.centro={id:'-1'};
     	
     	$scope.cargarDatos=function(){
     		centroService.getAll().then(function(res){
         		console.log("Cargando centros...");
         		$scope.datos=res.data;        
         		
-        		if($scope.centro.sId!='-1'){    			
+        		if($scope.centro.id!='-1'){    			
         			angular.forEach($scope.datos, function(centro) {
-        				if($scope.centro.sId==centro.sId){
+        				if($scope.centro.id==centro.id){
         					$scope.seleccionarCentro(centro);
         				}
         			});
@@ -330,7 +279,7 @@ materialAdmin
     	}
     	
     	$scope.refrescarUsuarios=function(){
-    		if($scope.centro.sId!='-1')
+    		if($scope.centro.id!='-1')
     			$scope.seleccionarCentro($scope.centro);    		    		    		    		
     	}
     	
@@ -342,7 +291,7 @@ materialAdmin
         
         $scope.eliminar = function(item){
         	
-        	errorService.alertaSiNo("Eliminar", "¿Seguro que quieres eliminar el usuario?", function(){
+        	errorService.alertaSiNo("Eliminar", "¿Seguro que quieres eliminar el centro?", function(){
         		errorService.procesar(userService.eliminarPendiente(item.id),{
 	   				 0:{
 	   					 growl: true,   				 
