@@ -58,6 +58,11 @@ materialAdmin
                 url: '/usuarios',
                 templateUrl: 'resources/views/usuarios.html'
             })
+            
+            .state('configuracion.prestaciones', {
+                url: '/prestaciones',
+                templateUrl: 'resources/views/prestaciones.html'
+            })
 
             //------------------------------
             // HEADERS

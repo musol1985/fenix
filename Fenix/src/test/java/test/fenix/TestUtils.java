@@ -17,5 +17,17 @@ public class TestUtils {
 
 	        return mapper.writeValueAsBytes(object);
 	    }
+	    
+	    public static String convertObjectToString(Object object) throws IOException {
+	        ObjectMapper mapper = new ObjectMapper();
+
+	        return mapper.writeValueAsString(object);
+	    }
+	    
+	    public static <T> T convertStringToObject(String object, Class<T> obj) throws IOException {
+	        ObjectMapper mapper = new ObjectMapper();
+
+	        return mapper.readValue(object, obj);
+	    }
 	
 }

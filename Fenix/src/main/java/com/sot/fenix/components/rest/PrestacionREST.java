@@ -1,5 +1,6 @@
 package com.sot.fenix.components.rest;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,18 +30,47 @@ public class PrestacionREST{
 		return new PageJSON<Prestacion>(prestaciones.getSize(), prestaciones.getContent());
     }
 	
+	@RequestMapping(method=RequestMethod.GET, path="{id}")
+    public ResponseJSON<Prestacion> getByCentro(@PathVariable String id) {
+
+		Prestacion p=prestaciones.getDAO().findOne(new ObjectId(id));	
+		if(p!=null){
+			return new ResponseJSON<Prestacion>(ResponseJSON.OK, p);
+		}else{
+			return new ResponseJSON<Prestacion>(ResponseJSON.NO_EXISTE);
+		}
+    }
 	
-	@RequestMapping(method=RequestMethod.POST,path="nueva")
-    public ResponseJSON<Prestacion> nuevoPendiente(@RequestBody Prestacion prestacion) {
-System.out.println("iu");
-		if(prestacion.getId()!=null && prestaciones.getDAO().findByCentroAndId(prestacion.getCentro(), prestacion.getId())!=null){
-			System.out.println("iu2");
+	
+	@RequestMapping(method=RequestMethod.PUT)
+    public ResponseJSON<Prestacion> nueva(@RequestBody Prestacion prestacion) {
+		if(prestaciones.getDAO().findByCentroAndNombre(prestacion.getCentro(), prestacion.getNombre())!=null){
 			return new ResponseJSON<Prestacion>(ResponseJSON.YA_EXISTE);
 		}else{
-			System.out.println("iu3");
 			prestaciones.getDAO().save(prestacion);
 			
+			return new ResponseJSON<Prestacion>(ResponseJSON.OK, prestacion);
+		}
+    }
+	
+	@RequestMapping(method=RequestMethod.POST)
+    public ResponseJSON<Prestacion> modificar(@RequestBody Prestacion prestacion) {
+		if(prestaciones.getDAO().findOne(prestacion.getId())==null)
+			return new ResponseJSON<Prestacion>(ResponseJSON.NO_EXISTE);
+		
+		prestaciones.getDAO().save(prestacion);
+			
+		return new ResponseJSON<Prestacion>(ResponseJSON.OK, prestacion);
+    }
+	
+	@RequestMapping(method=RequestMethod.DELETE, path="/{prestacion}")
+    public ResponseJSON<Prestacion> eliminar(@PathVariable String prestacion) {
+		Prestacion p=prestaciones.getDAO().findOne(new ObjectId(prestacion));
+		if(p!=null){
+			prestaciones.getDAO().delete(p);
 			return new ResponseJSON<Prestacion>(ResponseJSON.OK);
+		}else{
+			return new ResponseJSON<Prestacion>(ResponseJSON.NO_EXISTE);
 		}
     }
 	

@@ -12,5 +12,5 @@ import com.sot.fenix.components.models.Prestacion;
 @Repository
 public interface PrestacionDAO extends MongoRepository<Prestacion, ObjectId>{
 	public Page<Prestacion> findByCentro(Centro centro, Pageable pageable);
-	public Prestacion findByCentroAndId(Centro centro, ObjectId id);
+	public Prestacion findByCentroAndNombre(Centro centro, String nombre);
 }

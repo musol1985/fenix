@@ -86,11 +86,14 @@ materialAdmin
     
     .service('modalService', [function(){
 
-    	this.mostrar = function(uibModal, contenido){
-    		return modalInstances(true, '', 'static', true, uibModal, contenido)
+    	this.mostrar = function(uibModal, contenido, template){
+    		return modalInstances(true, '', 'static', true, uibModal, contenido, template)
     	}
     	
-    	function modalInstances(animation, size, backdrop, keyboard, uibModal, contenido) {
+    	function modalInstances(animation, size, backdrop, keyboard, uibModal, contenido, template) {
+    		if(!template)
+    			template="myModalContent.html";
+    		
             var modalInstance = uibModal.open({
                 animation: animation,
                 templateUrl: 'myModalContent.html',
@@ -137,6 +140,10 @@ materialAdmin
             );
             return deferred.promise;
         }
+    	
+    	this.getCentro=function(){
+    		return this.current.centro;
+    	}
     	
     	this.getAll=function(page, size) {
             var deferred = $q.defer();
@@ -276,6 +283,92 @@ materialAdmin
                 },
                 function(errResponse){
                     console.error('Error while fetching Users');
+                    deferred.reject(errResponse);
+                }
+            );
+            return deferred.promise;
+        }
+    }])
+    
+    // =========================================================================
+    // PrestacionService
+    // =========================================================================
+    
+    .service('prestacionService', ['$http', '$q', function($http, $q){
+        this.getByCentro=function (centro, page, size) {
+            var deferred = $q.defer();
+            
+            $http.get("prestacion/"+centro+"/"+page+"/"+size)
+                .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error prestacion.getByCentro');
+                    deferred.reject(errResponse);
+                }
+            );
+            return deferred.promise;
+        }
+    	
+    	this.get=function(id) {
+            var deferred = $q.defer();
+
+            $http.get("prestacion/"+id)
+                .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error prsestacion.get');
+                    deferred.reject(errResponse);
+                }
+            );
+            return deferred.promise;
+        }
+    	
+    	this.nueva=function(prestacion) {
+            var deferred = $q.defer();
+
+            $http.put("prestacion", prestacion)
+                .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error creando una prestacion');
+                    deferred.reject(errResponse);
+                }
+            );
+            return deferred.promise;
+        }
+    	
+    	this.modificar=function(prestacion) {
+            var deferred = $q.defer();
+
+            $http.post("prestacion", prestacion)
+                .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error modificando una prestacion');
+                    deferred.reject(errResponse);
+                }
+            );
+            return deferred.promise;
+        }
+    	
+    	this.eliminar=function(id) {
+            var deferred = $q.defer();
+
+            $http.delete("prestacion/"+id)
+                .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error eliminando una prestacion');
                     deferred.reject(errResponse);
                 }
             );

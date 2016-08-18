@@ -22,10 +22,10 @@ public class PrestacionService {
 		return prestaciones.findByCentro(c, page);
 	}
 	
-	public Prestacion getByCentroId(String centro, ObjectId id){
+	public Prestacion getByCentroAndNombre(String centro, String nombre){
 		Centro c=new Centro();
 		c.setId(new ObjectId(centro));
-		return prestaciones.findByCentroAndId(c, id);
+		return prestaciones.findByCentroAndNombre(c, nombre);
 	}
 	
 	public PrestacionDAO getDAO(){

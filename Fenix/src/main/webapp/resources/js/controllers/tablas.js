@@ -286,16 +286,127 @@ materialAdmin
     	$scope.nuevo = function () {
     		$scope.modalInstance=modalService.mostrar($uibModal, $scope.modal);
         };
-        
+         
 
+    })
+    
+    // =========================================================================
+    // Prestaciones
+    // =========================================================================
+    
+    .controller('prestaciones', function($rootScope, $scope, $http, limitToFilter, $filter, $sce, $q, ngTableParams, userService, centroService, prestacionService, errorService, modalService, $uibModal) {
+    	var self=this;
+    	
+    	$scope.datos=[];
+    	
+    	this.tabla=new ngTableParams({
+            page: 1,            // show first page
+            count: 10          // count per page
+        }, {
+            getData: function($defer, params) {
+            		$scope.cargarDatos(params);
+            		
+            		$defer.resolve(self.datos);            		
+                }
+        });
+    	
+    	$scope.cargarDatos=function(params){
+    		prestacionService.getByCentro(userService.getCentro().id, params.page(), params.count()).then(function(res){
+    			self.datos=res.data;
+        		params.total(res.total);  
+            }, function(error){
+            	errorService.alertaGrowl("Error al obtener prestaciones", 'danger');
+            });
+    	}
+
+    	$scope.modal={
+    			data:{},
+    	
+    			getNew:function(){
+    				return {id:'', nombre:'', color:'', centro:userService.getCentro().id};
+    			},    			    		
+    			
+    			mostrar:function(reset){
+    				if(reset)
+    					$scope.modal.data=this.getNew();
+    				$scope.modalInstance=modalService.mostrar($uibModal, $scope.modal, "resources/template/modals/prestacion.html");
+    			},
+    			
+    			guardar:function(){    				
+    				var data=$scope.modal.data;
+    				var accion;
+    				
+    				if(data.id==''){
+    					accion=prestacionService.nueva(data);
+    				}else{
+    					accion=prestacionService.modificar(data);
+    				}
+    				
+    				errorService.procesar(accion,{
+	    				 0:{
+	    					 growl: true,   				 
+	    					 texto: "Prestación creada",
+	    					 tipo: "success",
+	    					 onProcesar: function(){
+	    						 $scope.refrescar();
+	    					 }
+	    				 },
+	    				 1:{
+		   					 titulo: "Atención",    				 
+		   					 texto: "La prestación no existe",
+		   					 tipo: "warning"
+		   				 },
+	    				 2:{
+		   					 titulo: "Atención",    				 
+		   					 texto: "Ya existe una prestación con ese nombre",
+		   					 tipo: "warning"
+		   				 },
+		   				onError:function(){
+		   					$scope.modal.mostrar(false);
+	    				 }
+    				});
+    				
+    				$scope.modalInstance.close();
+    			},
+    	        
+    	        setColor : function(color){
+    	        	this.data.color=color;
+    	        },
+    	        
+    	        getColores :function(){
+    	        	return   [
+    	                         'lightblue',
+    	                         'bluegray',
+    	                         'cyan',
+    	                         'teal',
+    	                         'green',
+    	                         'orange',
+    	                         'blue',
+    	                         'purple'
+    	                     ]
+    	        }    
+    	}
+    	
+    	$scope.refrescar=function(){
+    		self.tabla.reload();		    		    		    		
+    	}
+    	
+    	$scope.nuevo = function () {
+    		$scope.modal.mostrar(true);
+        };
+         
+        $scope.modificar = function (data) {
+        	$scope.modal.data=angular.copy(data);
+    		$scope.modal.mostrar(false);
+        };
         
         $scope.eliminar = function(item){
-        	
-        	errorService.alertaSiNo("Eliminar", "¿Seguro que quieres eliminar el centro?", function(){
-        		errorService.procesar(userService.eliminarPendiente(item.id),{
+        	console.log(item);
+        	errorService.alertaSiNo("Eliminar", "¿Seguro que quieres eliminar la prestación?", function(){
+        		errorService.procesar(prestacionService.eliminar(item.id),{
 	   				 0:{
 	   					 growl: true,   				 
-	   					 texto: "Usuario pendiente eliminado correctamente",
+	   					 texto: "Prestación eliminada correctamente",
 	   					 tipo: "success",
 	   					 onProcesar: function(){
 	   						 $scope.refrescar();
@@ -303,34 +414,10 @@ materialAdmin
 	   				 },
 	   				 1:{
 	   					 titulo: "Atención",    				 
-	   					 texto: "No existe un usuario pendiente con ese correo",
+	   					 texto: "No existe la prestación",
 	   					 tipo: "warning"
 	   				 }
         		});
         	});
         }
-        
-        $scope.enviarMail =function(item){
-    		errorService.procesar(userService.enviarCorreo(item.id),{
-   				 0:{
-   					 growl: true,   				 
-   					 texto: "Correo de activacion enviado a "+item.correo,
-   					 tipo: "success",
-   					 onProcesar: function(response){
-   						//var item=$filter('filter')(self.datos, function (d) {return response.data.id === item.id;})[0];
-
-   						 //item.fechaEnvio=response.data.fechaEnvio;   	
-   						 $scope.refrescar();
-   					 }
-   				 },
-   				 1:{
-   					 titulo: "Atención",    				 
-   					 texto: "No existe un usuario pendiente con ese correo",
-   					 tipo: "warning"
-   				 }
-    		});
-        }
-        
-        
-
     })
