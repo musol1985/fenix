@@ -116,6 +116,13 @@
 		    <artifactId>spring-data-mongodb</artifactId>
 		    <version>1.9.1.RELEASE</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.querydsl/querydsl-core -->
+		<dependency>
+		    <groupId>com.querydsl</groupId>
+		    <artifactId>querydsl-core</artifactId>
+		    <version>4.0.1</version>
+		</dependency>
+		
     </dependencies>
     <build>
         <finalName>${project.artifactId}-${project.version}</finalName>

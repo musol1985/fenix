@@ -25,7 +25,7 @@
 							      <input type="hidden" name="color" ng-model="modalContent.data.color" class="form-control">
 
 								  <ul class="skin-switch lista-colores" >
-								      <li ng-repeat="r in modalContent.getColores()" class="lista-colores ss-skin bgm-{{ r }}" data-ng-click="modalContent.setColor(r)"/>
+								      <li ng-repeat="r in modalContent.getColores()" class="lista-colores ss-skin bgm-{{ r }}" ng-class="{ 'color-seleccionado' :modalContent.data.color==r }" data-ng-click="modalContent.setColor(r)"/>
                                   </ul>
                               </div>
                           </div>

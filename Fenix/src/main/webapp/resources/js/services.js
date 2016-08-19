@@ -96,7 +96,7 @@ materialAdmin
     		
             var modalInstance = uibModal.open({
                 animation: animation,
-                templateUrl: 'myModalContent.html',
+                templateUrl: template,
                 controller: 'ModalInstanceCtrl',
                 size: size,
                 backdrop: backdrop,

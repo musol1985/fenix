@@ -13,3 +13,8 @@
   margin-right: 6px;
   float: left;
 }
+
+.color-seleccionado{
+	border-color: black;
+    border-style: solid;
+}
