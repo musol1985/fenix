@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 import com.mongodb.MongoClient;
 import com.sot.fenix.components.models.Centro;
+import com.sot.fenix.components.models.Cliente;
 import com.sot.fenix.components.models.Perfil.PERFILES;
 import com.sot.fenix.components.models.Usuario;
 
@@ -56,6 +57,13 @@ public class DBConfig {
 		u.setCentro(c);
 		
 		db.insert(u);
+		
+		Cliente c3=new Cliente();c3.setId(null);c3.setNombre("juan2");c3.setApellido1("Martinc3");c3.setApellido2("Lopez");c3.setCentro(c);c3.setCorreo("juan@gmail.com");c3.setDni("123");c3.setTelefono(6123);
+		db.insert(c3);
+		c3=new Cliente();c3.setId(null);c3.setNombre("juan3");c3.setApellido1("ZMartinc3");c3.setApellido2("Lopez");c3.setCentro(c);c3.setCorreo("juan@gmail.com");c3.setDni("1234");c3.setTelefono(6123);
+		db.insert(c3);
+		c3=new Cliente();c3.setId(null);c3.setNombre("juan4");c3.setApellido1("Martinc3");c3.setApellido2("Lopez");c3.setCentro(c);c3.setCorreo("juan@gmail.com");c3.setDni("1223");c3.setTelefono(6123);
+		db.insert(c3);
 	}
 
 }

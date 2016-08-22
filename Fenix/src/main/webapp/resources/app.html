@@ -23,7 +23,7 @@
 
     </head>
 
-    <body data-ng-class="{ 'sw-toggled': mactrl.layoutType === '1'}">
+    <body data-ng-class="{ 'sw-toggled': mactrl.layoutType === '1'}" data-ng-controller="contextoCtrl as contexto" >
 
         <data ui-view></data>
 
@@ -115,9 +115,11 @@
         <script src="resources/js/config.js"></script>
         <script src="resources/js/controllers/main.js"></script>
         <script src="resources/js/services.js"></script>
+        <script src="resources/js/services/rest.js"></script>
         <script src="resources/js/templates.js"></script>
         <script src="resources/js/controllers/ui-bootstrap.js"></script>
         <script src="resources/js/controllers/table.js"></script>
+        <script src="resources/js/controllers/fenix.js"></script>
         <script src="resources/js/controllers/tablas.js"></script>
 
 
