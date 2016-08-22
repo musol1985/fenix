@@ -194,6 +194,7 @@
 <div id="top-search-wrap">
     <div class="tsw-inner">
         <i id="top-search-close" class="zmdi zmdi-arrow-left" data-ng-click="hctrl.closeSearch()"></i>
-        <input type="text">
+        <input type="text" ng-model="asyncSelected" placeholder="Locations loaded via $http" uib-typeahead="address for address in getLocation($viewValue)" typeahead-loading="loadingLocations" class="form-control">
+        
     </div>
 </div>

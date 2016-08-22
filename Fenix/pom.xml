@@ -114,16 +114,21 @@
 		<dependency>
 		    <groupId>org.springframework.data</groupId>
 		    <artifactId>spring-data-mongodb</artifactId>
-		    <version>1.9.1.RELEASE</version>
+		    <version>1.10.0.BUILD-SNAPSHOT</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.querydsl/querydsl-core -->
-		<dependency>
-		    <groupId>com.querydsl</groupId>
-		    <artifactId>querydsl-core</artifactId>
-		    <version>4.0.1</version>
-		</dependency>
+
 		
     </dependencies>
+    <repositories>
+	    <repository>
+	        <id>spring-snapshots</id>
+	        <name>Spring Snapshots</name>
+	        <url>https://repo.spring.io/libs-snapshot</url>
+	        <snapshots>
+	            <enabled>true</enabled>
+	        </snapshots>
+	    </repository>
+	</repositories>
     <build>
         <finalName>${project.artifactId}-${project.version}</finalName>
         <plugins>

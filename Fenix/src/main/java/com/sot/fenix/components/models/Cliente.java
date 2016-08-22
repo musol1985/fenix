@@ -1,6 +1,8 @@
 package com.sot.fenix.components.models;
 
 import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -9,22 +11,17 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
-@Document(language="spanish")
+@Document
+@CompoundIndexes({
+    @CompoundIndex(name = "cliente_idx", def = "{'dni': 1, 'nombre': 1, 'apellido1': 1, 'apellido2': 1, 'telefono': 1}")
+})
 public class Cliente extends AModelId {
 
-	@TextIndexed(weight=5)
+
 	private String dni;
-	
-	@TextIndexed(weight=10)
 	private String nombre;
-	
-	@TextIndexed(weight=12)
 	private String apellido1;
-	
-	@TextIndexed(weight=13)
 	private String apellido2;
-	
-	@TextIndexed
 	private int telefono;
 	
 	@Indexed
@@ -97,4 +94,5 @@ public class Cliente extends AModelId {
 			centro.id=new ObjectId(id);
 		}
 	}
+
 }
