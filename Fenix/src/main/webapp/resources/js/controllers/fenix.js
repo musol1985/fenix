@@ -10,7 +10,7 @@ materialAdmin
         
         this.seleccionarCliente=function($item, $model){
         	if($item.id==-1){
-        		this.crearCliente($item.texto);
+        		this.crearCliente($item.busqueda);
         	}        	
         }
         
@@ -25,7 +25,7 @@ materialAdmin
     			data:{},
     	
     			getNew:function(){
-    				return {dni:'', nombre:'', color:''};
+    				return {dni:'', nombre:'', color:'', sexo:1};
     			},    			    		
     			
     			mostrar:function(reset){

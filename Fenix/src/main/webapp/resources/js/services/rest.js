@@ -187,15 +187,15 @@ materialAdmin
                 .then(
                 function (response) {   
                 	var res=response.data.map(function(item){
-                    	item.texto=item.nombre+" "+item.apellido1+" "+item.apellido2+"   "+item.telefono;
+                    	item.texto=item.nombre+" "+item.apellidos+", "+item.dni+", "+item.telefono;
      
                     	return item;
                     })
-                    
+                    console.log(res);
                     if(res.length==0){
-                    	res=[{texto:'No se ha encontrado. Pulsa enter para crear uno nuevo', id:-1, texto:texto}];
+                    	res=[{texto:'No se ha encontrado. Pulsa enter para crear uno nuevo', id:-1, busqueda:texto}];
                     }
-                    
+                    console.log(res);
                     deferred.resolve(res);
                 },
                 function(errResponse){

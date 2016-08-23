@@ -18,3 +18,7 @@
 	border-color: black;
     border-style: solid;
 }
+
+.has-error .input-group-addon {
+  background-color: transparent;
+}

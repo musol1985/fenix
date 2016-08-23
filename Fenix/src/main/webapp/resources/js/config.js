@@ -28,7 +28,8 @@ materialAdmin
                                 files: [
                                     'resources/vendors/sparklines/jquery.sparkline.min.js',
                                     'resources/vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js',
-                                    'resources/vendors/bower_components/simpleWeather/jquery.simpleWeather.min.js'
+                                    'resources/vendors/bower_components/simpleWeather/jquery.simpleWeather.min.js',
+                                    'resources/vendors/input-mask/input-mask.min.js'
                                 ]
                             }
                         ])
