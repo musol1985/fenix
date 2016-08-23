@@ -1,0 +1,43 @@
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Nuevo Cliente</h4>
+                </div>
+                <div class="modal-body">
+
+				<form name="myForm" class="form-horizontal" novalidate>
+				
+					<div class="row">
+                          <div class="form-group col-md-12" ng-class="{ 'has-error' : myForm.dni.$invalid  && !myForm.dni.$pristine, 'has-success': myForm.dni.$invalid && !myForm.dni.$pristine}">
+                              <label class="col-md-2 control-lable" for="nombre">DNI/NIE *</label>
+                              <div class="col-md-7">
+                                  <input type="text" ng-model="modalContent.data.dni" id="dni" name="dni" class="username form-control input-sm" placeholder="Introduce el DNI" required ng-minlength="3"/>
+								   <p ng-show="myForm.dni.$invalid" class="help-block">
+									Este campo es obligatorio
+							      </p>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="form-group col-md-12" ng-class="{ 'has-error' : myForm.nombre.$invalid  && !myForm.nombre.$pristine, 'has-success': myForm.nombre.$invalid && !myForm.nombre.$pristine}">
+                              <label class="col-md-2 control-lable" for="nombre">Nombre *</label>
+                              <div class="col-md-7">
+                                  <input type="text" ng-model="modalContent.data.nombre" id="nombre" name="nombre" class="username form-control input-sm" placeholder="Introduce el nombre" required ng-minlength="3"/>
+								   <p ng-show="myForm.nombre.$invalid" class="help-block">
+									Este campo es obligatorio
+							      </p>
+                              </div>
+                          </div>
+                      </div>
+
+
+					<div class="modal-footer">
+						<button class="btn bgm-blue btn-lg" ng-click="modalContent.guardar()" ng-disabled="myForm.$invalid">
+							Guardar
+						</button> 
+                    	<button class="btn bgm-red btn-lg" ng-click="cancel()">Cancelar</button>
+                	</div>
+                  </form>
+
+                </div>
+

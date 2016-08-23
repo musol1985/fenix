@@ -191,6 +191,11 @@ materialAdmin
      
                     	return item;
                     })
+                    
+                    if(res.length==0){
+                    	res=[{texto:'No se ha encontrado. Pulsa enter para crear uno nuevo', id:-1, texto:texto}];
+                    }
+                    
                     deferred.resolve(res);
                 },
                 function(errResponse){
