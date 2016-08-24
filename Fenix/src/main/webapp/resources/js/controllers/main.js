@@ -164,6 +164,7 @@ materialAdmin
         // Top Search
         this.openSearch = function(){
             angular.element('#header').addClass('search-toggled');
+            angular.element('#top-search-wrap').find('input').val('');
             angular.element('#top-search-wrap').find('input').focus();
         },
 

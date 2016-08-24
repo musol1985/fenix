@@ -21,7 +21,7 @@ public class Cliente extends AModelId {
 	private String dni;
 	private String nombre;
 	private String apellidos;
-	private int telefono;
+	private String telefono;
 	
 	@Indexed
 	@DBRef
@@ -41,10 +41,10 @@ public class Cliente extends AModelId {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public int getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
-	public void setTelefono(int telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 	public Centro getCentro() {

@@ -92,10 +92,10 @@
 					</div>
 
 					<div class="modal-footer  m-t-30">
-						<button class="btn bgm-blue btn-lg" ng-click="modalContent.guardar()" ng-disabled="myForm.$invalid">
+						<button class="btn bgm-blue btn-lg" ng-click="modalContent.guardar(true)" ng-disabled="myForm.$invalid">
 							Crear y Seleccionar
 						</button>
-						<button class="btn bgm-blue btn-lg" ng-click="modalContent.guardar()" ng-disabled="myForm.$invalid">
+						<button class="btn bgm-blue btn-lg" ng-click="modalContent.guardar(false)" ng-disabled="myForm.$invalid">
 							Solo crear
 						</button>  
                     	<button class="btn bgm-red btn-lg" ng-click="cancel()">Cancelar</button>

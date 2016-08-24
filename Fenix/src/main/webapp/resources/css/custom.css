@@ -22,3 +22,45 @@
 .has-error .input-group-addon {
   background-color: transparent;
 }
+
+
+.vcentro{
+	vertical-align: middle;
+}
+
+.cliente-info{
+	    margin-bottom:2px
+}
+
+#top-search-wrap #top-search-ultimo {
+  position: absolute;
+  top: 15px;
+  font-size: 23px;
+  font-style: normal;
+  width: 45px;
+  text-align: center;
+  border-radius: 2px 0px 0px 2px;
+  cursor: pointer;
+  left: 60px;
+  height: 40px;
+  padding-top: 9px;
+}
+#top-search-wrap #top-search-ultimo:hover {
+  background-color: #e3e3e3;
+}
+@media (max-width: 767px) {
+  #top-search-wrap #top-search-ultimo {
+    right: 7px;
+  }
+}
+
+#top-search-wrap #busqueda {
+  border: 0;
+  height: 40px;
+  padding: 0 10px 0 110px;
+  font-size: 18px;
+  width: 500px;
+  border-radius: 2px;
+  background-color: #efefef;
+  width: 100%;
+}

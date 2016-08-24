@@ -58,11 +58,11 @@ public class DBConfig {
 		
 		db.insert(u);
 		
-		Cliente c3=new Cliente();c3.setId(null);c3.setNombre("juan2");c3.setApellidos("Martinc3 Garcia");c3.setCentro(c);c3.setCorreo("juan@gmail.com");c3.setDni("123");c3.setTelefono(6123);
+		Cliente c3=new Cliente();c3.setId(null);c3.setNombre("juan2");c3.setApellidos("Martinc3 Garcia");c3.setCentro(c);c3.setCorreo("juan@gmail.com");c3.setDni("123");c3.setTelefono("6123");
 		db.insert(c3);
-		c3=new Cliente();c3.setId(null);c3.setNombre("juan3");c3.setApellidos("ZMartinc3 Garcia");c3.setCentro(c);c3.setCorreo("juan@gmail.com");c3.setDni("1234");c3.setTelefono(6123);
+		c3=new Cliente();c3.setId(null);c3.setNombre("juan3");c3.setApellidos("ZMartinc3 Garcia");c3.setCentro(c);c3.setCorreo("juan@gmail.com");c3.setDni("1234");c3.setTelefono("6123");
 		db.insert(c3);
-		c3=new Cliente();c3.setId(null);c3.setNombre("juan4");c3.setApellidos("Martinc3 Garcia");c3.setCentro(c);c3.setCorreo("juan@gmail.com");c3.setDni("1223");c3.setTelefono(6123);
+		c3=new Cliente();c3.setId(null);c3.setNombre("juan4");c3.setApellidos("Martinc3 Garcia");c3.setCentro(c);c3.setCorreo("juan@gmail.com");c3.setDni("1223");c3.setTelefono("6123");
 		db.insert(c3);
 	}
 
