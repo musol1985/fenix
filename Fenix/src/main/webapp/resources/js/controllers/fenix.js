@@ -21,8 +21,49 @@ materialAdmin
         }
         
         this.crearCliente=function(valor){
-        	var data={dni:valor, nombre:'', color:'', sexo:1, centro:userService.getCentro().id};
+        	if(this.isDNInoLetra()){
+        		valor=this.calcularLetraDNI(valor);
+        	}
+        	
+        	var dni=this.isDNIoNIE(valor)?valor:"";
+        	var apellidos=this.isApellidos(valor)?valor:"";
+        	var nombre=(!this.isApellidos(valor)&&this.isNombre(valor))?valor:"";   
+        	var telefono=this.isTelefono(valor)?valor:"";
+        	
+        	
+        	var data={dni:dni, nombre:nombre, sexo:1, telefono:telefono, apellidos:apellidos, centro:userService.getCentro().id};
         	$scope.modal.mostrar(data);
+        }
+        
+        this.calcularLetraDNI=function(valor){
+        	cadena="TRWAGMYFPDXBNJZSQVHLCKET" 
+    		posicion = valor % 23 
+    		return cadena.substring(posicion,posicion+1) 
+        }
+        
+        this.isDNInoLetra=function(valor){
+        	var regexp = /\d{8}/;
+        	return regexp.test(value);  
+        }
+        
+        this.isDNIoNIE=function(valor){
+        	var regexp = /(^\d{8}[A-Z]$|[A-Z]\d{7}[A-Z])/;
+        	return regexp.test(value);        	
+        }
+        
+        this.isNombre=function(valor){
+        	var regexp = /\s/;
+        	return regexp.test(value);        	
+        }
+        
+        this.isApellidos=function(valor){
+        	var regexp = /\S/;
+        	return regexp.test(value);        	
+        }
+        
+        this.isTelefono=function(valor){
+        	var regexp = /6\d{8}/;
+        	return regexp.test(value);        	
         }
         
         this.hasCliente=function(){
