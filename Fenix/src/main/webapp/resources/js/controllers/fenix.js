@@ -21,13 +21,23 @@ materialAdmin
         }
         
         this.crearCliente=function(valor){
-        	if(this.isDNInoLetra()){
-        		valor=this.calcularLetraDNI(valor);
+        	if(this.isDNInoLetra(valor)){
+        		valor+=this.calcularLetraDNI(valor);
         	}
         	
         	var dni=this.isDNIoNIE(valor)?valor:"";
-        	var apellidos=this.isApellidos(valor)?valor:"";
-        	var nombre=(!this.isApellidos(valor)&&this.isNombre(valor))?valor:"";   
+        	var apellidos="";
+        	var nombre="";
+        	
+        	if(this.isTexto(valor)){
+        		if(valor.indexOf(" ")>-1){
+        			nombre=valor.split(" ")[0];
+        			apellidos=valor.split(" ")[1];
+        		}else{
+        			nombre=valor;
+        		}
+        	}
+        	
         	var telefono=this.isTelefono(valor)?valor:"";
         	
         	
@@ -42,28 +52,23 @@ materialAdmin
         }
         
         this.isDNInoLetra=function(valor){
-        	var regexp = /\d{8}/;
-        	return regexp.test(value);  
+        	var regexp = /^\d{8}$/;
+        	return regexp.test(valor);  
         }
         
         this.isDNIoNIE=function(valor){
         	var regexp = /(^\d{8}[A-Z]$|[A-Z]\d{7}[A-Z])/;
-        	return regexp.test(value);        	
+        	return regexp.test(valor);        	
         }
         
-        this.isNombre=function(valor){
-        	var regexp = /\s/;
-        	return regexp.test(value);        	
-        }
-        
-        this.isApellidos=function(valor){
-        	var regexp = /\S/;
-        	return regexp.test(value);        	
+        this.isTexto=function(valor){
+        	var regexp =/^\D+$/;
+        	return regexp.test(valor);        	
         }
         
         this.isTelefono=function(valor){
-        	var regexp = /6\d{8}/;
-        	return regexp.test(value);        	
+        	var regexp = /^6\d{8}$/;
+        	return regexp.test(valor);        	
         }
         
         this.hasCliente=function(){
@@ -117,18 +122,13 @@ materialAdmin
 	    							 $scope.cliente=res.data;
 	    					 }
 	    				 },
-	    				 1:{
-		   					 titulo: "Atención",    				 
-		   					 texto: "La prestación no existe",
-		   					 tipo: "warning"
-		   				 },
 	    				 2:{
 		   					 titulo: "Atención",    				 
-		   					 texto: "Ya existe una prestación con ese nombre",
+		   					 texto: "Ya existe un cliente con ese DNI o NIE",
 		   					 tipo: "warning"
 		   				 },
 		   				onError:function(){
-		   					$scope.modal.mostrar(false);
+		   					$scope.modal.mostrar(data);
 	    				 }
     				});
     				

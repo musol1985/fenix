@@ -1,7 +1,4 @@
 
-.lista {
-  min-height: 600px
-}
 
 .centro{
 	text-align: center;
@@ -63,4 +60,15 @@
   border-radius: 2px;
   background-color: #efefef;
   width: 100%;
+}
+
+.lista{
+	overflow:auto;
+	max-height: 600px;
+	min-height: 400px;
+}
+
+@media (max-width: 767px) {
+.lista{
+	max-height: 545px;
 }

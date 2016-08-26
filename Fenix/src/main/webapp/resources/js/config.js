@@ -64,6 +64,47 @@ materialAdmin
                 url: '/prestaciones',
                 templateUrl: 'resources/views/prestaciones.html'
             })
+            
+            //------------------------------
+            // CITAS
+            //------------------------------
+            .state ('citacion', {
+                url: '/citacion',
+                templateUrl: 'resources/views/common.html'
+            })
+            
+            .state ('citacion.citas', {
+                url: '/citas',
+                templateUrl: 'resources/views/citas.html',
+                resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {
+                                name: 'css',
+                                insertBefore: '#app-level',
+                                files: [
+                                    'resources/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css',
+                                ]
+                            },
+                            {
+                                name: 'vendors',
+                                files: [
+                                    'resources/vendors/bower_components/moment/min/moment.min.js',
+                                    'resources/vendors/bower_components/fullcalendar/dist/fullcalendar.min.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
+            })
+            
+            //------------------------------
+            // TEST
+            //------------------------------
+            .state ('test', {
+                url: '/test',
+                templateUrl: 'resources/views/common.html'
+            })
 
             //------------------------------
             // HEADERS
