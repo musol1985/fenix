@@ -2830,15 +2830,13 @@ body.login-content:before {
 }
 
 #calendar .fc-toolbar {
-  height: 300px;
+  height: 50px;
   background-image: url('../img/cal-header.jpg');
   background-repeat: no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  background-position: center;
-  background-position: inherit;
 }
 
 #calendar .fc-toolbar:before {
@@ -2852,7 +2850,6 @@ body.login-content:before {
 }
 
 #calendar .fc-toolbar .fc-center {
-  margin-top: 238px;
   position: relative;
 }
 
@@ -2898,7 +2895,7 @@ body.login-content:before {
 
 .fc-toolbar {
   margin-bottom: 0;
-  padding: 20px 7px 19px;
+  padding: 8px 7px 19px;
   position: relative;
 }
 

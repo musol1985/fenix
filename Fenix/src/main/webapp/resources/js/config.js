@@ -90,7 +90,8 @@ materialAdmin
                                 name: 'vendors',
                                 files: [
                                     'resources/vendors/bower_components/moment/min/moment.min.js',
-                                    'resources/vendors/bower_components/fullcalendar/dist/fullcalendar.min.js'
+                                    'resources/vendors/bower_components/fullcalendar/dist/fullcalendar.min.js',
+                                    'resources/vendors/bower_components/fullcalendar/dist/lang/es.js'
                                 ]
                             }
                         ])
