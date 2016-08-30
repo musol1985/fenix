@@ -109,7 +109,7 @@ public class TestClientes {
 	
 	@Test
 	public void nuevo() throws Exception {
-		Cliente c3=new Cliente();c3.setId(null);c3.setNombre("juan2");c3.setApellidos("Martinc3");c3.setCentro(centro);c3.setCorreo("juan@gmail.com");c3.setDni("123");c3.setTelefono(6123);
+		Cliente c3=new Cliente();c3.setId(null);c3.setNombre("juan2");c3.setApellidos("Martinc3");c3.setCentro(centro);c3.setCorreo("juan@gmail.com");c3.setDni("123");c3.setTelefono("6123");
 
 	    mockMvc.perform(MockMvcRequestBuilders.put("/cliente")
 	    		.contentType(TestUtils.APPLICATION_JSON_UTF8)
@@ -131,7 +131,7 @@ public class TestClientes {
 	
 	@Test
 	public void modificar() throws Exception {
-		Cliente c3=new Cliente();c3.setId(null);c3.setNombre("juan2");c3.setApellidos("Martinc3");c3.setCentro(centro);c3.setCorreo("juan@gmail.com");c3.setDni("123");c3.setTelefono(6123);
+		Cliente c3=new Cliente();c3.setId(null);c3.setNombre("juan2");c3.setApellidos("Martinc3");c3.setCentro(centro);c3.setCorreo("juan@gmail.com");c3.setDni("123");c3.setTelefono("6123");
 		clientes.getDAO().save(c3);
 		
 	    mockMvc.perform(MockMvcRequestBuilders.post("/cliente")
@@ -156,16 +156,16 @@ public class TestClientes {
 	@Test
 	public void getAll() throws Exception {
 		
-		Cliente c1=new Cliente();c1.setNombre("juan");c1.setApellidos("Martinc1");c1.setCentro(centro);c1.setCorreo("juan@gmail.com");c1.setDni("123");c1.setTelefono(6123);
+		Cliente c1=new Cliente();c1.setNombre("juan");c1.setApellidos("Martinc1");c1.setCentro(centro);c1.setCorreo("juan@gmail.com");c1.setDni("123");c1.setTelefono("6123");
 		clientes.getDAO().save(c1);
-		Cliente c2=new Cliente();c2.setId(null);c2.setNombre("jua2");c2.setApellidos("Martinc2");c2.setCentro(centro);c2.setCorreo("juan@gmail.com");c2.setDni("134");c2.setTelefono(6123);
+		Cliente c2=new Cliente();c2.setId(null);c2.setNombre("jua2");c2.setApellidos("Martinc2");c2.setCentro(centro);c2.setCorreo("juan@gmail.com");c2.setDni("134");c2.setTelefono("6123");
 		clientes.getDAO().save(c2);
-		Cliente c3=new Cliente();c3.setId(null);c3.setNombre("juan2");c3.setApellidos("Martinc3");c3.setCentro(centro);c3.setCorreo("juan@gmail.com");c3.setDni("123");c3.setTelefono(6123);
+		Cliente c3=new Cliente();c3.setId(null);c3.setNombre("juan2");c3.setApellidos("Martinc3");c3.setCentro(centro);c3.setCorreo("juan@gmail.com");c3.setDni("123");c3.setTelefono("6123");
 		clientes.getDAO().save(c3);
 		
 		Centro cen=getCentro("Centro test2");		
 		centros.getDAO().save(cen);
-		Cliente c4=new Cliente();c4.setId(null);c4.setNombre("juan2");c4.setApellidos("Martinc4");c4.setCentro(cen);c4.setCorreo("juan@gmail.com");c4.setDni("123");c4.setTelefono(6123);
+		Cliente c4=new Cliente();c4.setId(null);c4.setNombre("juan2");c4.setApellidos("Martinc4");c4.setCentro(cen);c4.setCorreo("juan@gmail.com");c4.setDni("123");c4.setTelefono("6123");
 		clientes.getDAO().save(c4);
 		
 		ClienteRequest r=new ClienteRequest();
