@@ -19,6 +19,7 @@ import com.sot.fenix.components.json.NuevoPendienteJSON;
 import com.sot.fenix.components.json.PageJSON;
 import com.sot.fenix.components.json.RegistrarJSON;
 import com.sot.fenix.components.json.ResponseJSON;
+import com.sot.fenix.components.json.ResponseListJSON;
 import com.sot.fenix.components.models.Centro;
 import com.sot.fenix.components.models.IUsuario;
 import com.sot.fenix.components.models.Perfil.PERFILES;
@@ -96,6 +97,14 @@ public class UsuarioREST{
 		usuariosBD=usuarios.getUsuarioByCentro(centro, new PageRequest(page-1, size));
 
 		return new PageJSON<Usuario>(usuariosBD.getSize(), usuariosBD.getContent());
+    }
+	
+	@RequestMapping(method=RequestMethod.GET, path="lista/{centro}")
+    public ResponseListJSON<Usuario> getListaByCentro(@PathVariable String centro) {
+		
+		List<Usuario> res=usuarios.getDAO().findByCentro_id(new ObjectId(centro));
+
+		return new ResponseListJSON<Usuario>(ResponseJSON.OK, res);
     }
 	
 	@RequestMapping(method=RequestMethod.GET, path="all/{centro}/{page}/{size}")

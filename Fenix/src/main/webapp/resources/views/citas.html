@@ -1,37 +1,26 @@
-<div class="container" data-ng-controller="tablaCentros as centrosCtr">
+<div class="container" data-ng-controller="citasController as citasCtr">
 
 
 <div class="card m-b-0 citas" id="messages-main">
 
         <div class="ms-menu citas" data-ng-class="{ 'toggled': mactrl.lvMenuStat }">
             <div class="card-header ch-alt clearfix" >
+            	<p class="f-500 c-black m-b-15">Profesional</p>
+                    <select chosen data-placeholder="Profesional" class="w-100" ng-options="item as item.nombre for item in profesionales track by item.id" ng-model="profesional"> 
+                 
+                    </select>
+                    
+                <div class="m-t-15">    
             	<h2>Prestaciones<small>Arrastre una prestacion a una hora</small></h2>
-
-
-				<ul class="lv-actions actions">
-                    	<li>
-                            <a href="" ng-click="refrescar()">
-                                <i class="zmdi zmdi-refresh"></i>
-                            </a>
-                        </li>
-                </ul>
+            	</div>
             </div>
 
-            <div class="listview lv-user m-t-20 citas">
-                <div class="lv-item media" data-draggable ng-repeat="w in datos" ng-click="seleccionarCentro(w)" ng-class="{ 'active' : w.seleccionado==true  }">
-                    <div class="lv-avatar bgm-{{w.color}} pull-left">{{w.nombre.substr(0,1)}}</div>
+            <div class="listview lv-user m-t-5 citas">
+                <div class="lv-item media" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" data-jqyoui-draggable="{placeholder:true, animate:false, deepCopy:true}" ng-repeat="p in prestaciones" ng-click="seleccionarPrestacion(p)" ng-class="{ 'active' : p.seleccionado==true  }">
+                    <div class="lv-avatar bgm-{{p.color}} pull-left">{{p.nombre.substr(0,1)}}</div>
                     <div class="media-body">
-                        <div class="lv-title">{{w.nombre}}</div>
-                        <div class="lv-small">{{w.correoAdmin }}</div>
-                        <div class="lv-small">{{w.ubicacion.poblacion }}</div>
+                        <div class="lv-title">{{p.nombre}}</div>
                     </div>
-                    <ul class="lv-actions actions">
-                    	<li>
-                            <a href="" ng-click="eliminar(w)">
-                                <i class="zmdi zmdi-delete"></i>
-                            </a>
-                        </li>
-	                </ul>
                 </div>
             </div>
 
@@ -65,11 +54,12 @@
    
                 </div>
 
-                 <div id="calendar" data-calendario class="citas"></div>
+                 <div id="calendar-widget" data-calendario class="citas"></div>
             
                 
                 <div class="clearfix"></div>
             </div>
         </div>
-    </div>
+    </div>  
 </div>
+

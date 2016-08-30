@@ -138,3 +138,37 @@ materialAdmin
     	
 
 })
+
+
+	// =========================================================================
+    // Citas
+    // =========================================================================
+    
+    .controller('citasController', function($rootScope, $scope, $http, $q,  prestacionService, userService) {
+    	$scope.prestaciones=[];
+    	$scope.profesionales=[];
+    	
+    	$scope.cargarPrestaciones=function(){
+    		prestacionService.getAllByCentro(userService.getCentro().id).then(function(res){
+        		console.log("Cargando prestaciones...");
+        		$scope.prestaciones=res.data;        
+            }, function(error){
+            	errorService.alertaGrowl("Error al obtener las prestaciones", 'danger');
+            });
+    	}
+    	
+    	$scope.cargarProfesionales=function(){
+    		userService.getListaByCentro(userService.getCentro().id).then(function(res){
+        		console.log("Cargando profesionales...");        		
+        		res.data.splice(0, 0, {'id':'-1', 'nombre':'CUALQUIERA'});
+        		$scope.profesionales=res.data;  
+        		$scope.profesional=res.data[0];
+            }, function(error){
+            	errorService.alertaGrowl("Error al obtener las prestaciones", 'danger');
+            });
+    		
+    	}
+    	
+    	$scope.cargarPrestaciones();
+    	$scope.cargarProfesionales();
+    })

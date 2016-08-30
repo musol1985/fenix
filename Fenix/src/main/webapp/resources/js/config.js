@@ -84,6 +84,7 @@ materialAdmin
                                 insertBefore: '#app-level',
                                 files: [
                                     'resources/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css',
+                                    'resources/vendors/bower_components/chosen/chosen.min.css'
                                 ]
                             },
                             {
@@ -91,7 +92,11 @@ materialAdmin
                                 files: [
                                     'resources/vendors/bower_components/moment/min/moment.min.js',
                                     'resources/vendors/bower_components/fullcalendar/dist/fullcalendar.min.js',
-                                    'resources/vendors/bower_components/fullcalendar/dist/lang/es.js'
+                                    'resources/vendors/bower_components/fullcalendar/dist/lang/es.js',
+                                    'resources/vendors/bower_components/angular-dragdrop/src/angular-dragdrop.min.js',
+                                    'resources/vendors/bower_components/jquery-ui/jquery-ui.min.js',
+                                    'resources/vendors/bower_components/chosen/chosen.jquery.js',
+                                    'resources/vendors/bower_components/angular-chosen-localytics/chosen.js'
                                 ]
                             }
                         ])

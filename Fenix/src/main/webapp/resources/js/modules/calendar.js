@@ -245,9 +245,24 @@ materialAdmin
                     selectHelper: true,
                     editable: true,
                     droppable: true,
-                    drop: function(date) {
-                        alert("Dropped on " + date.format());
-                    },
+                    drop: function(date) { // this function is called when something is dropped
+            			
+        				// retrieve the dropped element's stored Event Object
+        				var originalEventObject = $(this).data('eventObject');
+        				
+        				// we need to copy it, so that multiple events don't have a reference to the same object
+        				var copiedEventObject = $.extend({}, originalEventObject);
+        				
+        				// assign it the date that was reported
+        				copiedEventObject.start = date;
+        				
+        				// render the event on the calendar
+        				// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+        				$('#calendar-widget').fullCalendar('renderEvent', copiedEventObject, true);
+
+        				return true;
+        			},
+
 
                     //Add Events
                     events: [
@@ -346,19 +361,4 @@ materialAdmin
             }
         }
     })
-    
-    
-        //Change Calendar Views
-    .directive('draggable', function(){
-        return {
-            restrict: 'A',
-            link: function(scope, element, attrs) {
-            	alert("ie");
-            	element.draggable({
-            	    revert: true,      // immediately snap back to original position
-            	    revertDuration: 0  //
-            	});
-
-            }
-        }
-    })
+   

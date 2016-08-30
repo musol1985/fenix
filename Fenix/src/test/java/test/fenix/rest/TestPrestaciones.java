@@ -167,6 +167,15 @@ public class TestPrestaciones {
 	}
 	
 	@Test
+	public void getAllByCentro() throws Exception {
+
+	    mockMvc.perform(MockMvcRequestBuilders.get("/prestacion/all/"+centro.getId().toHexString()))
+			.andExpect(status().isOk())
+			.andDo(print())
+			.andExpect(jsonPath("$.data[0].id").value(prestacion.getId().toHexString()));			
+	}
+	
+	@Test
 	public void get() throws Exception {
 
 	    mockMvc.perform(MockMvcRequestBuilders.get("/prestacion/"+prestacion.getId().toHexString()))

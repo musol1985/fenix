@@ -18,4 +18,5 @@ public interface UsuarioDAO extends MongoRepository<Usuario, ObjectId>{
 
 	public Page<Usuario> findByCentro(Centro centro, Pageable pageable);
 	public List<Usuario> findByCentro(Centro centro);
+	public List<Usuario> findByCentro_id(ObjectId centro);
 }

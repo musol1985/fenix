@@ -78,6 +78,22 @@ materialAdmin
             return deferred.promise;
         }
     	
+    	this.getListaByCentro=function(centro) {
+            var deferred = $q.defer();
+
+            $http.get("usuario/lista/"+centro)
+                .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error while fetching Users');
+                    deferred.reject(errResponse);
+                }
+            );
+            return deferred.promise;
+        }
+    	
     	this.getPendientes=function(page, size, centro) {
             var deferred = $q.defer();
 
@@ -248,6 +264,22 @@ materialAdmin
             var deferred = $q.defer();
             
             $http.get("prestacion/"+centro+"/"+page+"/"+size)
+                .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error prestacion.getByCentro');
+                    deferred.reject(errResponse);
+                }
+            );
+            return deferred.promise;
+        }
+        
+        this.getAllByCentro=function (centro) {
+            var deferred = $q.defer();
+            
+            $http.get("prestacion/all/"+centro)
                 .then(
                 function (response) {
                     deferred.resolve(response.data);

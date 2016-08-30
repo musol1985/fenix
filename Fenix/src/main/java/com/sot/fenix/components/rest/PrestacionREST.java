@@ -1,5 +1,7 @@
 package com.sot.fenix.components.rest;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sot.fenix.components.json.PageJSON;
 import com.sot.fenix.components.json.ResponseJSON;
+import com.sot.fenix.components.json.ResponseListJSON;
 import com.sot.fenix.components.models.Prestacion;
 import com.sot.fenix.components.services.PrestacionService;
 
@@ -28,6 +31,14 @@ public class PrestacionREST{
 		Page<Prestacion> prestaciones=this.prestaciones.getByCentro(centro, new PageRequest(page-1, size));		
 
 		return new PageJSON<Prestacion>(prestaciones.getSize(), prestaciones.getContent());
+    }
+	
+	@RequestMapping(method=RequestMethod.GET, path="all/{centro}")
+    public ResponseListJSON<Prestacion> getAllByCentro(@PathVariable String centro) {
+
+		List<Prestacion> prestaciones=this.prestaciones.getDAO().findByCentro_id(new ObjectId(centro));
+
+		return new ResponseListJSON<Prestacion>(ResponseJSON.OK, prestaciones);
     }
 	
 	@RequestMapping(method=RequestMethod.GET, path="{id}")
