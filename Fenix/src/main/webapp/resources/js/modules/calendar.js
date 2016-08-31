@@ -217,7 +217,7 @@ materialAdmin
     // =========================================================================
     // CALENDARIO
     // =========================================================================
-    .directive('calendario', function($compile){
+    .directive('calendario', function($compile, $rootScope){
         return {
             restrict: 'A',
             scope: {
@@ -258,9 +258,10 @@ materialAdmin
         				
         				// render the event on the calendar
         				// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-        				$('#calendar-widget').fullCalendar('renderEvent', copiedEventObject, true);
-
-        				return true;
+        				//$('#calendar-widget').fullCalendar('renderEvent', copiedEventObject, true);
+        				console.log("drag in calendar: ");
+        				console.log($(this));
+        				$rootScope.$broadcast('onDragCita', copiedEventObject);
         			},
 
 

@@ -173,6 +173,7 @@
         <script src="resources/js/config.js"></script>
         <script src="resources/js/controllers/main.js"></script>
         <script src="resources/js/services.js"></script>
+        <script src="resources/js/services/rest.js"></script>
         <script src="resources/js/templates.js"></script>
         <script src="resources/js/controllers/ui-bootstrap.js"></script>
         <script src="resources/js/controllers/table.js"></script>

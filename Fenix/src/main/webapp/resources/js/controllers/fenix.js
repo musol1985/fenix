@@ -1,5 +1,5 @@
 materialAdmin
-.controller('contextoCtrl', function($scope, $http, $timeout, errorService, messageService, clienteService, userService, modalService, $uibModal) {
+.controller('contextoCtrl', function($scope, $rootScope, $http, $timeout, errorService, messageService, clienteService, userService, modalService, $uibModal) {
     	
     	$scope.cliente;      
         
@@ -15,6 +15,8 @@ materialAdmin
         		console.log("Cliente seleccionado");
         		console.log($item);
         		$scope.cliente=$item;
+        		
+        		$rootScope.$broadcast('onSeleccionarCliente', $item);
         	}   
         	
         	angular.element('#header').removeClass('search-toggled');
@@ -87,6 +89,7 @@ materialAdmin
         
         this.cancelarSeleccion=function(){
         	$scope.cliente=undefined;
+        	$rootScope.$broadcast('onSeleccionarCliente', undefined);
         }
         
         this.modificarCliente=function(){
@@ -118,8 +121,10 @@ materialAdmin
 	    					 texto: "Cliente creado",
 	    					 tipo: "success",
 	    					 onProcesar: function(res){
-	    						 if(seleccionar)
+	    						 if(seleccionar){
 	    							 $scope.cliente=res.data;
+	    							 $rootScope.$broadcast('onSeleccionarCliente', res.data);
+	    						 }
 	    					 }
 	    				 },
 	    				 2:{
@@ -147,6 +152,7 @@ materialAdmin
     .controller('citasController', function($rootScope, $scope, $http, $q,  prestacionService, userService) {
     	$scope.prestaciones=[];
     	$scope.profesionales=[];
+    	$scope.cliente;
     	
     	$scope.cargarPrestaciones=function(){
     		prestacionService.getAllByCentro(userService.getCentro().id).then(function(res){
@@ -160,9 +166,20 @@ materialAdmin
     	$scope.cargarProfesionales=function(){
     		userService.getListaByCentro(userService.getCentro().id).then(function(res){
         		console.log("Cargando profesionales...");        		
-        		res.data.splice(0, 0, {'id':'-1', 'nombre':'CUALQUIERA'});
+        		
+        		angular.forEach(res.data, function(value, key) {
+        			if(value.id==userService.current.id){
+        				value.nombre+=" (YO)";  
+        				value.grupo="";
+        				$scope.profesional=value;
+        			}else{
+        				value.grupo="Otros profesionales";
+        			}
+    			});
+        		
+        		
+        		res.data.splice(0, 0, {'id':'-1', 'nombre':'CUALQUIERA', grupo:''});
         		$scope.profesionales=res.data;  
-        		$scope.profesional=res.data[0];
             }, function(error){
             	errorService.alertaGrowl("Error al obtener las prestaciones", 'danger');
             });
@@ -171,4 +188,21 @@ materialAdmin
     	
     	$scope.cargarPrestaciones();
     	$scope.cargarProfesionales();
+    	
+    	$scope.onDragPrestacion=function(item){
+    		console.log(item.target);
+    	}
+    	
+    	
+    	$scope.$on('onDragCita', function (event, cita) { 
+    		if($scope.cliente && $scope.prestacion && $scope.profesional){
+    			$('#calendar-widget').fullCalendar('renderEvent', cita, true);
+    		}else{
+    			alert("crear cita");
+    		}    		
+        });
+    	
+    	$scope.$on('onSeleccionarCliente', function (event, cliente) { 
+    		$scope.cliente=cliente;
+        });
     })
