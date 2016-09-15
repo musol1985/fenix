@@ -34,8 +34,8 @@ public class CitaREST{
     }
 	
 	
-	@RequestMapping(method=RequestMethod.GET, path="/all/{start}/{end}/{centro}")
-    public ResponseListJSON<Cita> get(@PathVariable @DateTimeFormat(pattern="yyyy-MM-dd") Date start, @PathVariable @DateTimeFormat(pattern="yyyy-MM-dd") Date end, @PathVariable String centro) {
+	@RequestMapping(method=RequestMethod.GET, path="/{centro}/{start}/{end}")
+    public ResponseListJSON<Cita> get(@PathVariable String centro, @PathVariable @DateTimeFormat(pattern="yyyyMMdd") Date start, @PathVariable @DateTimeFormat(pattern="yyyyMMdd") Date end) {
 		List<Cita> res=citas.getDAO().findByFechaIniGreaterThanEqualAndFechaFinLessThanEqualAndCentro_id(start, end, new ObjectId(centro));
 		return new ResponseListJSON<Cita>(ResponseJSON.OK, res);	
     }

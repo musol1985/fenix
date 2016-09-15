@@ -4,9 +4,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -26,8 +30,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.sot.fenix.components.json.ResponseJSON;
 import com.sot.fenix.components.models.Centro;
 import com.sot.fenix.components.models.Centro.TIPO;
-import com.sot.fenix.components.models.Cita.ESTADO;
 import com.sot.fenix.components.models.Cita;
+import com.sot.fenix.components.models.Cita.ESTADO;
 import com.sot.fenix.components.models.Perfil.PERFILES;
 import com.sot.fenix.components.models.Prestacion;
 import com.sot.fenix.components.models.Ubicacion;
@@ -123,6 +127,22 @@ public class TestCitas {
 		return u;
 	}
 	
+	private Cita getCita(int offset){
+		Cita c=new Cita();
+		c.setCentro(centro);
+		c.setFechaIni(getDate(offset));
+		c.setFechaFin(getDate(offset+30));
+		c.setEstado(ESTADO.PROGRAMADA);
+		return c;
+		
+	}
+	
+	private Date getDate(int offset){
+		Calendar date = Calendar.getInstance();
+		long t= date.getTimeInMillis();
+		return new Date(t + (offset * 60000));
+	}
+	
 	
 	
 	@After
@@ -142,6 +162,12 @@ public class TestCitas {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static String fromDate(Date date){
+		DateFormat df = new SimpleDateFormat("yyyyMMdd");
+   
+		return df.format(date);
 	}
 	
 	@Test
@@ -165,6 +191,20 @@ public class TestCitas {
 	}
 	
 	
-	
+	@Test
+	public void get() throws Exception {
+		List<Cita> citas=new ArrayList<Cita>();
+		for(int i=0;i<10;i++)
+			citas.add(getCita(10*i));
+		
+		this.citas.getDAO().save(citas);
+		
+	    mockMvc.perform(MockMvcRequestBuilders.get("/cita/"+centro.getId().toHexString()+"/"+fromDate(citas.get(0).getFechaIni())+"/"+fromDate(citas.get(6).getFechaIni())))
+			.andExpect(status().isOk())
+			.andDo(print())
+			.andExpect(jsonPath("$.data[0].id").value(prestacion.getId().toHexString()));	
+		
+
+	}
 
 }

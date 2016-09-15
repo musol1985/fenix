@@ -16,7 +16,7 @@
             </div>
 
             <div class="listview lv-user m-t-5 citas">
-                <div class="lv-item media" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" data-jqyoui-draggable="{placeholder:true, animate:false, deepCopy:true, onStart: 'onDragPrestacion'}" ng-repeat="p in prestaciones" ng-click="seleccionarPrestacion(p)" ng-class="{ 'active' : p.seleccionado==true  }">
+                <div class="lv-item media" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" data-jqyoui-draggable="{placeholder:true, animate:false, deepCopy:true, onStart: 'onDragPrestacion()'}" ng-repeat="p in prestaciones" ng-click="seleccionarPrestacion(p)" ng-class="{ 'active' : p.seleccionado==true  }">
                     <div class="lv-avatar bgm-{{p.color}} pull-left">{{p.nombre.substr(0,1)}}</div>
                     <div class="media-body">
                         <div class="lv-title">{{p.nombre}}</div>
