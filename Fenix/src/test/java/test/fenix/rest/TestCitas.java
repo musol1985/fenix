@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,6 +48,7 @@ import com.sot.fenix.config.SecurityConfig;
 
 import test.fenix.TestUtils;
 import test.fenix.config.TestDBConfig;
+import static org.hamcrest.Matchers.hasSize;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -195,14 +197,16 @@ public class TestCitas {
 	public void get() throws Exception {
 		List<Cita> citas=new ArrayList<Cita>();
 		for(int i=0;i<10;i++)
-			citas.add(getCita(10*i));
+			citas.add(getCita(1440*i));
 		
 		this.citas.getDAO().save(citas);
 		
-	    mockMvc.perform(MockMvcRequestBuilders.get("/cita/"+centro.getId().toHexString()+"/"+fromDate(citas.get(0).getFechaIni())+"/"+fromDate(citas.get(6).getFechaIni())))
+		
+		
+	    mockMvc.perform(MockMvcRequestBuilders.get("/cita/"+centro.getId().toHexString()+"/"+fromDate(citas.get(0).getFechaIni())+"/"+fromDate(citas.get(7).getFechaIni())))
 			.andExpect(status().isOk())
 			.andDo(print())
-			.andExpect(jsonPath("$.data[0].id").value(prestacion.getId().toHexString()));	
+			.andExpect(jsonPath("$.data", hasSize(7)));	
 		
 
 	}
