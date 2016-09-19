@@ -84,9 +84,17 @@ public class Cita extends AModelId{
 	}
 	
 	
+	@JsonGetter("start")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm")
+	public Date getJsonStart(){
+		return fechaIni;
+	}
 	
-	
-	
+	@JsonGetter("end")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm")
+	public Date getJsonEnd(){
+		return fechaFin;
+	}
 	/*@DBRef
 	private Usuario profesional;
 	

@@ -35,15 +35,15 @@ public class CitaREST{
     }
     
 	@RequestMapping(method=RequestMethod.GET, path="/in")
-    public ResponseListJSON<Cita> modificar(@RequestParam("centro") String centro, @RequestParam("start") @DateTimeFormat(pattern="yyyy-MM-dd") Date start,  @RequestParam("end") @DateTimeFormat(pattern="yyyy-MM-dd") Date end) {
+    public List<Cita> modificar(@RequestParam("centro") String centro, @RequestParam("start") @DateTimeFormat(pattern="yyyy-MM-dd") Date start,  @RequestParam("end") @DateTimeFormat(pattern="yyyy-MM-dd") Date end) {
 		List<Cita> res=citas.getDAO().findByFechaIniGreaterThanEqualAndFechaFinLessThanEqualAndCentro_id(start, end, new ObjectId(centro));
-		return new ResponseListJSON<Cita>(ResponseJSON.OK, res);	
+		return res;	
     }
 	
 	@RequestMapping(method=RequestMethod.POST, path="/all")
-    public ResponseListJSON<Cita> modificar(@RequestBody CitasRequest req) {
+    public List<Cita> modificar(@RequestBody CitasRequest req) {
 		List<Cita> res=citas.getDAO().findByFechaIniGreaterThanEqualAndFechaFinLessThanEqualAndCentro_id(req.start, req.end, new ObjectId(req.centro));
-		return new ResponseListJSON<Cita>(ResponseJSON.OK, res);	
+		return res;	
 	}
 	
 }
