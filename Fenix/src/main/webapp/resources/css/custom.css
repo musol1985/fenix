@@ -75,6 +75,7 @@
 
 .citas{
 	overflow:auto;
+	width:'400px';
 	max-height: 700px;
 	min-height: 900px;
 }

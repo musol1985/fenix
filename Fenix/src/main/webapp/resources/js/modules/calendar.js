@@ -245,6 +245,7 @@ materialAdmin
                     selectHelper: true,
                     editable: true,
                     droppable: true,
+                    slotDuration:'00:10:00',
                     drop: function(date) { // this function is called when something is dropped
             			
         				// retrieve the dropped element's stored Event Object
@@ -271,9 +272,7 @@ materialAdmin
         		        },
         		        error: function() {
         		            alert('there was an error while fetching events!');
-        		        },
-        		        color: 'yellow',   // a non-ajax option
-        		        textColor: 'black' // a non-ajax option
+        		        }
         		    },
 
                     //On Day Select
@@ -283,10 +282,10 @@ materialAdmin
                             end: end
                         });
                     },
-                    eventRender: function(event, element) {
+                    /*eventRender: function(event, element) {
                         console.log("!!!!"+element);
                         element.append("<div class='lv-avatar bgm-red pull-left'>P</div>");
-                    },
+                    },*/
                     eventDataTransform:function(evento){
                     	console.log("->"+evento);
                     	return evento;
@@ -300,3 +299,26 @@ materialAdmin
         }
     })
    
+    //Huecos
+    .directive('huecos', function(){
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs) {
+                element.on('click', function(){
+                    $('#calendar-widget').fullCalendar('option','slotDuration', "00:"+attrs.minutos+":00");                
+                })
+            }
+        }
+    })
+    
+    //Huecos
+    .directive('vista', function(){
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs) {
+                element.on('click', function(){
+                    $('#calendar-widget').fullCalendar('changeView',attrs.nombre);                
+                })
+            }
+        }
+    })

@@ -265,7 +265,7 @@ materialAdmin
     //====================================
     .controller('DatepickerDemoCtrl', function ($scope) {
         $scope.today = function() {
-            $scope.dt = new Date();
+            $scope.dt = new Date();            
         };
         $scope.today();
 

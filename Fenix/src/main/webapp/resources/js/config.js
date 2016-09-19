@@ -19,7 +19,8 @@ materialAdmin
                                 name: 'css',
                                 insertBefore: '#app-level',
                                 files: [
-                                    'resources/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css',
+                                     'resources/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+                                    'resources/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css'
                                 ]
                             },
                             {
@@ -29,7 +30,8 @@ materialAdmin
                                     'resources/vendors/sparklines/jquery.sparkline.min.js',
                                     'resources/vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js',
                                     'resources/vendors/bower_components/simpleWeather/jquery.simpleWeather.min.js',
-                                    'resources/vendors/input-mask/input-mask.min.js'
+                                    'resources/vendors/input-mask/input-mask.min.js',
+                                    'resources/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
                                 ]
                             }
                         ])
@@ -83,16 +85,18 @@ materialAdmin
                                 name: 'css',
                                 insertBefore: '#app-level',
                                 files: [
+                                    'resources/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
                                     'resources/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css',
-                                    'resources/vendors/bower_components/chosen/chosen.min.css'
+                                    'resources/vendors/bower_components/chosen/chosen.min.css'                                    
                                 ]
                             },
                             {
                                 name: 'vendors',
                                 files: [
+                                    'resources/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
                                     'resources/vendors/bower_components/moment/min/moment.min.js',
                                     'resources/vendors/bower_components/fullcalendar/dist/fullcalendar.min.js',
-                                    'resources/vendors/bower_components/fullcalendar/dist/lang/es.js',
+                                    'resources/vendors/bower_components/fullcalendar/dist/locale/es.js',
                                     'resources/vendors/bower_components/angular-dragdrop/src/angular-dragdrop.min.js',
                                     'resources/vendors/bower_components/jquery-ui/jquery-ui.min.js',
                                     'resources/vendors/bower_components/chosen/chosen.jquery.js',
@@ -110,6 +114,43 @@ materialAdmin
             .state ('test', {
                 url: '/test',
                 templateUrl: 'resources/views/common.html'
+            })
+            
+        	
+            .state ('test.edu', {
+                url: '/form-components',
+                templateUrl: 'resources/views/form-components.html',
+                resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {
+                                name: 'css',
+                                insertBefore: '#app-level',
+                                files: [
+                                    'resources/vendors/bower_components/nouislider/jquery.nouislider.css',
+                                    'resources/vendors/farbtastic/farbtastic.css',
+                                    'resources/vendors/bower_components/summernote/dist/summernote.css',
+                                    'resources/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+                                    'resources/vendors/bower_components/chosen/chosen.min.css'
+                                ]
+                            },
+                            {
+                                name: 'vendors',
+                                files: [
+                                    'resources/vendors/input-mask/input-mask.min.js',
+                                    'resources/vendors/bower_components/nouislider/jquery.nouislider.min.js',
+                                    'resources/vendors/bower_components/moment/min/moment.min.js',
+                                    'resources/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+                                    'resources/vendors/bower_components/summernote/dist/summernote.min.js',
+                                    'resources/vendors/fileinput/fileinput.min.js',
+                                    'resources/vendors/bower_components/chosen/chosen.jquery.js',
+                                    'resources/vendors/bower_components/angular-chosen-localytics/chosen.js',
+                                    'resources/vendors/bower_components/angular-farbtastic/angular-farbtastic.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
             })
 
             //------------------------------

@@ -4,11 +4,20 @@
 <div class="card m-b-0 citas" id="messages-main">
 
         <div class="ms-menu citas" data-ng-class="{ 'toggled': mactrl.lvMenuStat }">
-            <div class="card-header ch-alt clearfix" >
+            <div class="card-header ch-alt clearfix" data-ng-controller="DatepickerDemoCtrl">
+            	<div class="datepicker-demo">
+            	<div class="dd-block">
+                    <div class="date-picker dp-blue">
+                        <uib-datepicker show-weeks="false" ng-model="dt" min-date="minDate" class="dp"></uib-datepicker>
+                    </div>
+                </div>
+                
+                </div>
+
             	<p class="f-500 c-black m-b-15">Profesional</p>
-                    <select chosen data-placeholder="Profesional" class="w-100" ng-options="item as item.nombre group by item.grupo for item in profesionales track by item.id" ng-model="profesional"> 
-                 
-                    </select>
+                <select chosen data-placeholder="Profesional" class="w-100" ng-options="item as item.nombre group by item.grupo for item in profesionales track by item.id" ng-model="profesional"> 
+             
+                </select>
                     
                 <div class="m-t-15">    
             	<h2>Prestaciones<small>Arrastre una prestacion a una hora</small></h2>
@@ -47,7 +56,47 @@
                             <a href="" ng-click="refrescarUsuarios()">
                                 <i class="zmdi zmdi-refresh"></i>
                             </a>
-                        </li>                     
+                        </li>  
+                        <li class="dropdown" uib-dropdown>
+			                <a href="" uib-dropdown-toggle>
+			                    <i class="zmdi zmdi-time-interval"></i>
+			                </a>
+			
+			                <ul class="dropdown-menu dropdown-menu-right">
+			                    <li  data-huecos data-minutos="10">
+			                        <a href="">Huecos cada 10 minutos</a>
+			                    </li>
+			                    <li  data-huecos data-minutos="20">
+			                        <a href="">Huecos cada 20 minutos</a>
+			                    </li>
+			                    <li  data-huecos data-minutos="30">
+			                        <a href="">Huecos cada 30 minutos</a>
+			                    </li>
+			                    <li  data-huecos data-minutos="40">
+			                        <a href="">Huecos cada 40 minutos</a>
+			                    </li>
+			                    <li  data-huecos data-minutos="50">
+			                        <a href="">Huecos cada 50 minutos</a>
+			                    </li>
+			                    <li  data-huecos data-minutos="60">
+			                        <a href="">Huecos cada 60 minutos</a>
+			                    </li>
+			                </ul>
+			            </li>  
+			            <li class="dropdown" uib-dropdown>
+			                <a href="" uib-dropdown-toggle>
+			                    <i class="tm-icon zmdi zmdi-view-agenda"></i>
+			                </a>
+			
+			                <ul class="dropdown-menu pull-right dm-icon">
+			                    <li  data-vista data-nombre="agendaDay">
+			                        <a href=""><i class="zmdi zmdi-view-day"></i> Diario</a>
+			                    </li>
+			                    <li  data-vista data-nombre="agendaWeek">
+			                        <a href=""><i class="zmdi zmdi-view-week"></i> Semanal</a>
+			                    </li>
+			                </ul>
+			            </li>                 
                     </ul>
                     
                     <button class="btn bgm-red btn-float waves-effect" ng-click="nuevo()"><i class="zmdi zmdi-plus"></i></button>
