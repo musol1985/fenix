@@ -189,21 +189,28 @@ materialAdmin
     	$scope.cargarPrestaciones();
     	$scope.cargarProfesionales();
     	
-    	$scope.onDragPrestacion=function(item){
-    		console.log(item.target);
+    	$scope.onDragPrestacion=function(item, scope, prestacion){    		
+    		$scope.prestacion=prestacion;
     	}
     	
     	
     	$scope.$on('onDragCita', function (event, cita) { 
     		if($scope.cliente && $scope.prestacion && $scope.profesional){
-    			$('#calendar-widget').fullCalendar('renderEvent', cita, true);
-    		}else{
-    			alert("crear cita");
     			var request={};
     			request.fechaIni=cita.start.format("DD/MM/YYYY HH:mm:ss");
-    			request.fechaFin=cita.start.add(30, "m").format("DD/MM/YYYY HH:mm:ss");
+    			request.fechaFin=cita.start.add(120, "m").format("DD/MM/YYYY HH:mm:ss");
     			request.centro=userService.getCentro().id;
+    			
+    			request.prestacion=$scope.prestacion.id;
+    			request.cliente=$scope.cliente.id;
+    			
     			citaService.nueva(request);
+    			
+    			cita.color=$scope.prestacion.color;
+    			cita.title=$scope.cliente.nombre+" "+$scope.cliente.apellidos;
+    			$('#calendar-widget').fullCalendar('renderEvent', cita, true);
+    		}else{
+
     		}    		
         });
     	

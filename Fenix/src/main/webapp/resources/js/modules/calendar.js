@@ -282,6 +282,14 @@ materialAdmin
                             start: start, 
                             end: end
                         });
+                    },
+                    eventRender: function(event, element) {
+                        console.log("!!!!"+element);
+                        element.append("<div class='lv-avatar bgm-red pull-left'>P</div>");
+                    },
+                    eventDataTransform:function(evento){
+                    	console.log("->"+evento);
+                    	return evento;
                     }
                 });
                 

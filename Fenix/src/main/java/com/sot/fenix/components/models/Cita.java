@@ -29,7 +29,11 @@ public class Cita extends AModelId{
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy HH:mm")
 	private Date fechaFin;
 	
+	@DBRef
+	private Prestacion prestacion;
 	
+	@DBRef
+	private Cliente cliente;
 
 	public ESTADO getEstado() {
 		return estado;
@@ -58,6 +62,43 @@ public class Cita extends AModelId{
 			centro.id=new ObjectId(id);
 		}
 	}
+	
+	@JsonGetter("cliente")
+	public String getJsonCliente(){
+		if(cliente==null)
+			return "";
+		return cliente.getId().toHexString();
+	}
+	
+	@JsonSetter("cliente")
+	public void setJsonCliente(String id) {
+		if(id!=null && !id.isEmpty()){
+			cliente=new Cliente();
+			cliente.id=new ObjectId(id);
+		}
+	}
+	
+	@JsonGetter("title")
+	public String setJsonTitle() {
+		if(cliente!=null)
+			return cliente.getNombre()+" "+cliente.getApellidos();
+		return "";
+	}
+	
+	@JsonSetter("prestacion")
+	public void setJsonPrestacion(String id) {
+		if(id!=null && !id.isEmpty()){
+			prestacion=new Prestacion();
+			prestacion.id=new ObjectId(id);
+		}
+	}
+	
+	@JsonGetter("prestacion")
+	public String getJsonPrestacion(){
+		if(prestacion==null)
+			return "";
+		return prestacion.getId().toHexString();
+	}
 
 	public void setCentro(Centro centro) {
 		this.centro = centro;
@@ -83,7 +124,21 @@ public class Cita extends AModelId{
 		this.fechaFin = fechaFin;
 	}
 	
+	public Prestacion getPrestacion() {
+		return prestacion;
+	}
+
+	public void setPrestacion(Prestacion prestacion) {
+		this.prestacion = prestacion;
+	}
 	
+	@JsonGetter("color")
+	public String getJsonColor(){
+		if(prestacion!=null)
+			return prestacion.getColor();
+		return "";
+	}
+
 	@JsonGetter("start")
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm")
 	public Date getJsonStart(){
@@ -95,6 +150,17 @@ public class Cita extends AModelId{
 	public Date getJsonEnd(){
 		return fechaFin;
 	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	
+	
+	
 	/*@DBRef
 	private Usuario profesional;
 	
