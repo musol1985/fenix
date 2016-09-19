@@ -6,12 +6,13 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sot.fenix.components.json.CitasRequest;
 import com.sot.fenix.components.json.ResponseJSON;
 import com.sot.fenix.components.json.ResponseListJSON;
 import com.sot.fenix.components.models.Cita;
@@ -32,13 +33,18 @@ public class CitaREST{
 		System.out.println(cita);
 		return new ResponseJSON<Cita>(ResponseJSON.OK, cita);	
     }
-	
-	
-	@RequestMapping(method=RequestMethod.GET, path="/{centro}/{start}/{end}")
-    public ResponseListJSON<Cita> get(@PathVariable String centro, @PathVariable @DateTimeFormat(pattern="yyyyMMdd") Date start, @PathVariable @DateTimeFormat(pattern="yyyyMMdd") Date end) {
+    
+	@RequestMapping(method=RequestMethod.GET, path="/in")
+    public ResponseListJSON<Cita> modificar(@RequestParam("centro") String centro, @RequestParam("start") @DateTimeFormat(pattern="yyyy-MM-dd") Date start,  @RequestParam("end") @DateTimeFormat(pattern="yyyy-MM-dd") Date end) {
 		List<Cita> res=citas.getDAO().findByFechaIniGreaterThanEqualAndFechaFinLessThanEqualAndCentro_id(start, end, new ObjectId(centro));
 		return new ResponseListJSON<Cita>(ResponseJSON.OK, res);	
     }
+	
+	@RequestMapping(method=RequestMethod.POST, path="/all")
+    public ResponseListJSON<Cita> modificar(@RequestBody CitasRequest req) {
+		List<Cita> res=citas.getDAO().findByFechaIniGreaterThanEqualAndFechaFinLessThanEqualAndCentro_id(req.start, req.end, new ObjectId(req.centro));
+		return new ResponseListJSON<Cita>(ResponseJSON.OK, res);	
+	}
 	
 }
 
