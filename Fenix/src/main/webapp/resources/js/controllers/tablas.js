@@ -80,7 +80,7 @@ materialAdmin
         });
     })
     
-    .controller('tablaUsuarioPendiente', function($scope, $filter, $sce, ngTableParams, userService, errorService, modalService, $uibModal) {
+    .controller('tablaUsuarioPendiente', function($scope, $rootScope, $filter, $sce, ngTableParams, userService, errorService, modalService, $uibModal) {
     	var self=this;
     	
     	this.datos=[];
@@ -101,7 +101,7 @@ materialAdmin
         });
 
     	$scope.modal={
-    			usuario:{'correo':'','nombre':''},
+    			usuario:{'correo':'','nombre':'','color':''},
     			
     			guardar:function(){    				
     				var request={centro: userService.current.centro.id, usuario: $scope.modal.usuario};
@@ -179,6 +179,11 @@ materialAdmin
    				 }
     		});
         }
+        
+        $scope.$on('onSeleccionarColor', function (event, color) { 
+    		$scope.modal.usuario.color=color;
+    		console.log($scope.modal.usuario);
+        });
     })
     
     .controller('tablaCentros', function($rootScope, $scope, $http, limitToFilter, $filter, $sce, $q, ngTableParams, userService, centroService, ubicacionService, errorService, modalService, $uibModal) {

@@ -21,6 +21,8 @@ public class UsuarioPendiente extends AModelId implements IUsuario{
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy HH:mm")
 	private Date fechaEnvio;
 	
+	private String color;
+	
 	@DBRef
 	private Centro centro;
 
@@ -68,6 +70,14 @@ public class UsuarioPendiente extends AModelId implements IUsuario{
 	@Override
 	public boolean isPendiente() {
 		return true;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 	

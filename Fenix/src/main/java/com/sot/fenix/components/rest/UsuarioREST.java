@@ -63,6 +63,7 @@ public class UsuarioREST{
 					usuario.setCorreo(uPendienteBD.getCorreo());
 					usuario.setNombre(registrar.nombre);
 					usuario.setPassword(registrar.password);
+					usuario.setColor(uPendienteBD.getColor());
 					
 					Centro centro=uPendienteBD.getCentro();
 					

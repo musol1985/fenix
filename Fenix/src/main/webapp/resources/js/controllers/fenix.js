@@ -218,3 +218,36 @@ materialAdmin
     		$scope.cliente=cliente;
         });
     })
+    
+    
+    // =========================================================================
+    // Citas
+    // =========================================================================
+    
+    .controller('coloresController', function($scope, $rootScope) {
+    	 //Tags
+        $scope.colores = [
+            'teal',
+            'red',
+            'pink',
+            'blue',
+            'lime',
+            'green',
+            'cyan',
+            'orange',
+            'purple',
+            'gray',
+            'black',
+        ]
+        
+        //Select Tag
+        $scope.color = '';
+        
+        $scope.onClickColor = function(tag, $index) {
+            $scope.activeState = $index;
+            $scope.color = tag;
+            
+            $rootScope.$broadcast('onSeleccionarColor', tag);
+        } 
+    })
+   

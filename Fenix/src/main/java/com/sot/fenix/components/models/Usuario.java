@@ -26,6 +26,8 @@ public class Usuario extends AModelId implements UserDetails, IUsuario {
 	@JsonIgnore
 	private String password;
 	
+	private String color;
+	
 	@Indexed
 	@DBRef
 	private Centro centro;
@@ -149,5 +151,14 @@ public class Usuario extends AModelId implements UserDetails, IUsuario {
 	public boolean isPendiente() {
 		return false;
 	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+	
 	
 }

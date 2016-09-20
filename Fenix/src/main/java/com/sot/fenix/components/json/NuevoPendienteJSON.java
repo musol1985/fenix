@@ -4,6 +4,5 @@ import com.sot.fenix.components.models.UsuarioPendiente;
 
 public class NuevoPendienteJSON{
 	public String centro;	
-	public UsuarioPendiente usuario;
-	
+	public UsuarioPendiente usuario;	
 }
