@@ -21,6 +21,10 @@ public class Prestacion extends AModelId{
 	private Centro centro;
 	
 	private String color;
+	
+	private int duracion;
+	
+	private int importe;
 
 	public String getNombre() {
 		return nombre;
@@ -59,6 +63,22 @@ public class Prestacion extends AModelId{
 
 	public void setColor(String color) {
 		this.color = color;
+	}
+
+	public int getDuracion() {
+		return duracion;
+	}
+
+	public void setDuracion(int duracion) {
+		this.duracion = duracion;
+	}
+
+	public int getImporte() {
+		return importe;
+	}
+
+	public void setImporte(int importe) {
+		this.importe = importe;
 	}
 	
 	

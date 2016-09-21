@@ -31,6 +31,12 @@
 		                        <td data-title="'Color'">
 		                         <div class="lv-avatar bgm-{{w.color}} pull-left">{{w.nombre.substr(0,1)}}</div>
 		                        </td>
+		                        <td data-title="'Importe'">
+		                         	{{w.importe}}
+		                        </td>
+		                        <td data-title="'Duracion'">
+		                         	{{w.duracion}}
+		                        </td>
 		                        <td data-title="'Acciones'">
 		                            <button type="button" class="btn btn-warning" ng-click="modificar(w)"><i class="zmdi zmdi-edit"></i></button>
 		                            <button type="button" class="btn btn-danger" ng-click="eliminar(w)"><i class="zmdi zmdi-delete"></i></button>

@@ -17,6 +17,22 @@
                               </div>
                           </div>
                       </div>
+                      <div class="row">
+                          <div class="form-group col-md-12">
+                              <label class="col-md-2 control-lable" for="nombre">Importe</label>
+                              <div class="col-md-7">
+                                  <input type="text" ng-model="modalContent.data.importe" id="importe" name="importe" class="username form-control input-sm" placeholder="Introduce el importe en €"/>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="form-group col-md-12">
+                              <label class="col-md-2 control-lable" for="nombre">Duracion</label>
+                              <div class="col-md-7">
+                                  <input type="text" ng-model="modalContent.data.duracion" id="duracion" name="duracion" class="username form-control input-sm" placeholder="Introduce la duración en minutos"/>
+                              </div>
+                          </div>
+                      </div>
 
 						<div class="row">
                           <div class="form-group col-md-12" ng-class="{ 'has-error' : myForm.color.$invalid && !myForm.color.$pristine, 'has-success': myForm.color.$invalid && !myForm.color.$pristine}">
