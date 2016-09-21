@@ -1,9 +1,9 @@
 <div class="container" data-ng-controller="citasController as citasCtr">
 
 
-<div class="card m-b-0 citas" id="messages-main">
-
-        <div class="ms-menu citas" data-ng-class="{ 'toggled': mactrl.lvMenuStat }">
+<div class="card m-b-0" id="lista-main">
+		
+        <div class="ms-menu" data-ng-class="{ 'toggled': mactrl.lvMenuStat }">
             <div class="card-header ch-alt clearfix" data-ng-controller="DatepickerDemoCtrl">
             	<div class="datepicker-demo">
             	<div class="dd-block">
@@ -29,7 +29,7 @@
                     <div class="lv-avatar bgm-{{p.color}} pull-left">{{p.nombre.substr(0,1)}}</div>
                     <div class="media-body">
                         <div class="lv-title">{{p.nombre}}</div>
-                        <div class="lv-small">{{p.duracion }}m {{p.importe}}€</div>
+                        <div class="lv-small"><i class="zmdi zmdi-time"></i> {{p.duracion }}m &nbsp;&nbsp;&nbsp;<i class="zmdi zmdi-card"></i> {{p.importe}}€</div>
                         <div class="lv-small"></div>
                     </div>
                 </div>

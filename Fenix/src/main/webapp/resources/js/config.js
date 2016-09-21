@@ -87,7 +87,7 @@ materialAdmin
                                 files: [
                                     'resources/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
                                     'resources/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css',
-                                    'resources/vendors/bower_components/chosen/chosen.min.css'                                    
+                                    'resources/vendors/bower_components/chosen/chosen.min.css'
                                 ]
                             },
                             {

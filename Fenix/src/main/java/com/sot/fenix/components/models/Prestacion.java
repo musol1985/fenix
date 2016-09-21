@@ -24,7 +24,7 @@ public class Prestacion extends AModelId{
 	
 	private int duracion;
 	
-	private int importe;
+	private float importe;
 
 	public String getNombre() {
 		return nombre;
@@ -73,11 +73,11 @@ public class Prestacion extends AModelId{
 		this.duracion = duracion;
 	}
 
-	public int getImporte() {
+	public float getImporte() {
 		return importe;
 	}
 
-	public void setImporte(int importe) {
+	public void setImporte(float importe) {
 		this.importe = importe;
 	}
 	
