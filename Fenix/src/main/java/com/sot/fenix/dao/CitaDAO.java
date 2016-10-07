@@ -13,6 +13,9 @@ import com.sot.fenix.components.models.Cita;
 public interface CitaDAO extends MongoRepository<Cita, ObjectId>{	
 	//public Cliente findByCentro_idAndDni(ObjectId centro, String dni);
 	
+	public List<Cita> findByFechaIniGreaterThanEqualAndFechaFinLessThanEqualAndCentro_idAndProfesional_idAndPrestacion_id(Date fechaIni, Date fechaFin, ObjectId centroId, ObjectId profesionalId, ObjectId prestacionId);
+	public List<Cita> findByFechaIniGreaterThanEqualAndFechaFinLessThanEqualAndCentro_idAndProfesional_id(Date fechaIni, Date fechaFin, ObjectId centroId, ObjectId profesionalId);
+	public List<Cita> findByFechaIniGreaterThanEqualAndFechaFinLessThanEqualAndCentro_idAndPrestacion_id(Date fechaIni, Date fechaFin, ObjectId centroId, ObjectId prestacionId);
 	public List<Cita> findByFechaIniGreaterThanEqualAndFechaFinLessThanEqualAndCentro_id(Date fechaIni, Date fechaFin, ObjectId centroId);
 
 }

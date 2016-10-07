@@ -42,7 +42,7 @@ public class CitaREST{
 	
 	@RequestMapping(method=RequestMethod.POST, path="/all")
     public List<Cita> modificar(@RequestBody CitasRequest req) {
-		List<Cita> res=citas.getDAO().findByFechaIniGreaterThanEqualAndFechaFinLessThanEqualAndCentro_id(req.start, req.end, new ObjectId(req.centro));
+		List<Cita> res=citas.buscar(req);
 		return res;	
 	}
 	

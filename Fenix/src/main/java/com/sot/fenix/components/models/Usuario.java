@@ -16,7 +16,7 @@ import com.sot.fenix.components.models.Perfil.PERFILES;
 
 @Document
 @JsonIgnoreProperties({ "authorities" })
-public class Usuario extends AModelId implements UserDetails, IUsuario {
+public class Usuario extends AModelId implements UserDetails, IUsuario, ICodDescr{
 
 	@Indexed(unique = true)
 	private String correo;
@@ -158,6 +158,16 @@ public class Usuario extends AModelId implements UserDetails, IUsuario {
 
 	public void setColor(String color) {
 		this.color = color;
+	}
+
+	@Override
+	public String getCodigo() {
+		return id.toHexString();
+	}
+
+	@Override
+	public String getDescripcion() {
+		return nombre;
 	}
 	
 	

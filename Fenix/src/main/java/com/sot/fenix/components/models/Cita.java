@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.sot.fenix.components.json.CodigoDescripcionJSON;
 
 @Document
 public class Cita extends AModelId{
@@ -33,6 +34,9 @@ public class Cita extends AModelId{
 	private Prestacion prestacion;
 	
 	@DBRef
+	private Usuario profesional;
+	
+	@DBRef
 	private Cliente cliente;
 
 	public ESTADO getEstado() {
@@ -42,11 +46,7 @@ public class Cita extends AModelId{
 	public void setEstado(ESTADO estado) {
 		this.estado = estado;
 	}
-	
-	@JsonGetter("profesional")
-	public String getJsonProfesional(){
-		return "Eduardo Martin";
-	}
+
 	
 	@JsonGetter("centro")
 	public String getJsonCentro(){
@@ -64,10 +64,11 @@ public class Cita extends AModelId{
 	}
 	
 	@JsonGetter("cliente")
-	public String getJsonCliente(){
+	public CodigoDescripcionJSON getJsonCliente(){
 		if(cliente==null)
-			return "";
-		return cliente.getId().toHexString();
+			return new CodigoDescripcionJSON();
+		CodigoDescripcionJSON cd=new CodigoDescripcionJSON(cliente);
+		return cd;
 	}
 	
 	@JsonSetter("cliente")
@@ -77,13 +78,7 @@ public class Cita extends AModelId{
 			cliente.id=new ObjectId(id);
 		}
 	}
-	
-	@JsonGetter("title")
-	public String setJsonTitle() {
-		if(cliente!=null)
-			return cliente.getNombre()+" "+cliente.getApellidos();
-		return "";
-	}
+
 	
 	@JsonSetter("prestacion")
 	public void setJsonPrestacion(String id) {
@@ -94,10 +89,27 @@ public class Cita extends AModelId{
 	}
 	
 	@JsonGetter("prestacion")
-	public String getJsonPrestacion(){
+	public CodigoDescripcionJSON getJsonPrestacion(){
 		if(prestacion==null)
-			return "";
-		return prestacion.getId().toHexString();
+			return new CodigoDescripcionJSON();
+		CodigoDescripcionJSON cd=new CodigoDescripcionJSON(prestacion);
+		return cd;
+	}
+	
+	@JsonSetter("profesional")
+	public void setJsonProfesional(String id) {
+		if(id!=null && !id.isEmpty()){
+			profesional=new Usuario();
+			profesional.id=new ObjectId(id);
+		}
+	}
+	
+	@JsonGetter("profesional")
+	public CodigoDescripcionJSON setJsonProfesional() {
+		if(profesional==null)
+			return new CodigoDescripcionJSON();
+		CodigoDescripcionJSON cd=new CodigoDescripcionJSON(profesional);
+		return cd;
 	}
 
 	public void setCentro(Centro centro) {
@@ -106,6 +118,16 @@ public class Cita extends AModelId{
 
 	public Centro getCentro() {
 		return centro;
+	}
+	
+	
+
+	public Usuario getProfesional() {
+		return profesional;
+	}
+
+	public void setProfesional(Usuario profesional) {
+		this.profesional = profesional;
 	}
 
 	public Date getFechaIni() {

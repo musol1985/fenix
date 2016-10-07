@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 @Document
 @CompoundIndexes({@CompoundIndex(name="idx_nombre_centro",def="{nombre:1,centro:1}")})
-public class Prestacion extends AModelId{
+public class Prestacion extends AModelId implements ICodDescr{
 	
 	private String nombre;
 	
@@ -79,6 +79,16 @@ public class Prestacion extends AModelId{
 
 	public void setImporte(float importe) {
 		this.importe = importe;
+	}
+
+	@Override
+	public String getCodigo() {
+		return id.toHexString();
+	}
+
+	@Override
+	public String getDescripcion() {
+		return nombre;
 	}
 	
 	

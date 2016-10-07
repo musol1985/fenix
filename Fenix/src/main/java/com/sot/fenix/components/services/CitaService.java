@@ -11,9 +11,10 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.repository.query.parser.Part;
 import org.springframework.stereotype.Service;
 
+import com.sot.fenix.components.json.CitasRequest;
+import com.sot.fenix.components.models.Cita;
 import com.sot.fenix.components.models.Cliente;
 import com.sot.fenix.dao.CitaDAO;
-import com.sot.fenix.dao.ClienteDAO;
 
 @Service
 public class CitaService {
@@ -35,6 +36,19 @@ public class CitaService {
 		
 		
 		return template.find(q, Cliente.class);
+	}
+	
+	
+	public List<Cita> buscar(CitasRequest req){
+		if(req.profesional!=null && req.prestacion!=null){
+			return dao.findByFechaIniGreaterThanEqualAndFechaFinLessThanEqualAndCentro_idAndProfesional_idAndPrestacion_id(req.start, req.end, new ObjectId(req.centro), new ObjectId(req.profesional), new ObjectId(req.prestacion));
+		}else if(req.profesional!=null){
+			return dao.findByFechaIniGreaterThanEqualAndFechaFinLessThanEqualAndCentro_idAndProfesional_id(req.start, req.end, new ObjectId(req.centro), new ObjectId(req.profesional));
+		}else if(req.prestacion!=null){
+			return dao.findByFechaIniGreaterThanEqualAndFechaFinLessThanEqualAndCentro_idAndPrestacion_id(req.start, req.end, new ObjectId(req.centro), new ObjectId(req.prestacion));
+		}else{
+			return dao.findByFechaIniGreaterThanEqualAndFechaFinLessThanEqualAndCentro_id(req.start, req.end, new ObjectId(req.centro));
+		}
 	}
 	
 	public CitaDAO getDAO(){

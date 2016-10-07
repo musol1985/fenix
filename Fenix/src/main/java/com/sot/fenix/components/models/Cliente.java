@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 @CompoundIndexes({
     @CompoundIndex(name = "cliente_idx", def = "{'dni': 1, 'nombre': 1, 'apellido1': 1, 'apellido2': 1, 'telefono': 1}")
 })
-public class Cliente extends AModelId {
+public class Cliente extends AModelId implements ICodDescr {
 
 
 	private String dni;
@@ -85,6 +85,14 @@ public class Cliente extends AModelId {
 			centro=new Centro();
 			centro.id=new ObjectId(id);
 		}
+	}
+	@Override
+	public String getCodigo() {
+		return id.toHexString();
+	}
+	@Override
+	public String getDescripcion() {
+		return nombre+" "+apellidos;
 	}
 
 }
