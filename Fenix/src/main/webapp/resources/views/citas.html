@@ -4,15 +4,8 @@
 <div class="card m-b-0" id="lista-main">
 		
         <div class="ms-menu" data-ng-class="{ 'toggled': mactrl.lvMenuStat }">
-            <div class="card-header ch-alt clearfix" data-ng-controller="DatepickerDemoCtrl">
-            	<div class="datepicker-demo">
-            	<div class="dd-block">
-                    <div class="date-picker dp-blue">
-                        <uib-datepicker show-weeks="false" ng-model="dt" min-date="minDate" class="dp"></uib-datepicker>
-                    </div>
-                </div>
-                
-                </div>
+            <div class="card-header ch-alt clearfix">
+            	
 
             	<p class="f-500 c-black m-b-15">Profesional</p>
                 <select chosen data-placeholder="Profesional" class="w-100" ng-options="item as item.nombre group by item.grupo for item in profesionales track by item.id" ng-model="profesional"> 
@@ -97,11 +90,17 @@
 			                    <li  data-vista data-nombre="agendaWeek">
 			                        <a href=""><i class="zmdi zmdi-view-week"></i> Semanal</a>
 			                    </li>
+			                    <li  data-vista data-nombre="month">
+			                        <a href=""><i class="zmdi zmdi-view-month"></i> Mensual</a>
+			                    </li>
+			                    <li  data-vista data-nombre="custom">
+			                        <a href=""><i class="zmdi zmdi-view-month"></i> Custom</a>
+			                    </li>
 			                </ul>
 			            </li>                 
                     </ul>
                     
-                    <button class="btn bgm-red btn-float waves-effect" ng-click="nuevo()"><i class="zmdi zmdi-plus"></i></button>
+                    <button class="btn bgm-red btn-float waves-effect" ng-click="nueva()"><i class="zmdi zmdi-plus"></i></button>
    
                 </div>
 

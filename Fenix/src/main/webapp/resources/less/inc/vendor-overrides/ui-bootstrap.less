@@ -1,4 +1,4 @@
-.datepicker-color(@color) {
+.uib-datepicker-color(@color) {
     .tr-dpnav {
         th {
             background: @color;
@@ -22,7 +22,7 @@
     }
 }
 
-.date-picker {
+.uib-datepicker {
 
     .dp-inline {
         .z-depth(1);
@@ -30,7 +30,7 @@
     }
 
     &:not(.dp-blue):not(.dp-red) {
-        .datepicker-color(@m-teal);
+        .uib-datepicker-color(@m-teal);
     }
 
     .dropdown-menu {
@@ -170,8 +170,8 @@
 }
 
 
-.dp-blue { .datepicker-color(@m-blue); }
-.dp-red { .datepicker-color(@m-red); }
+.dp-blue { .uib-datepicker-color(@m-blue); }
+.dp-red { .uib-datepicker-color(@m-red); }
 
 .dp-actions {
     padding: 10px 20px 20px;

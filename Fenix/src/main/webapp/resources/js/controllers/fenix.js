@@ -149,7 +149,7 @@ materialAdmin
     // Citas
     // =========================================================================
     
-    .controller('citasController', function($rootScope, $scope, $http, $q,  prestacionService, userService, citaService) {
+    .controller('citasController', function($rootScope, $scope, $http, $q,  prestacionService, userService, citaService, modalService, $uibModal) {
     	$scope.prestaciones=[];
     	$scope.profesionales=[];
     	$scope.cliente;
@@ -217,6 +217,63 @@ materialAdmin
     	$scope.$on('onSeleccionarCliente', function (event, cliente) { 
     		$scope.cliente=cliente;
         });
+    	
+    	
+    	$scope.nueva=function(){
+    		$scope.modal.mostrar(true);
+    	}
+    	
+    	
+    	$scope.modal={
+    			
+    			data:{profesional:{}}, 		
+    			profesionalesModal:[],
+    			
+    			mostrar:function(datos){
+    				angular.copy($scope.profesionales, $scope.modal.profesionalesModal);    			
+    				$scope.modal.profesionalesModal=$scope.modal.profesionalesModal.splice(1);
+    				
+    				//$scope.modal.data=datos;
+    				
+    				console.log($scope.profesional);
+    				$scope.modal.data.profesional=$scope.profesional;
+    				console.log($scope.modal.data.profesional);
+    				$scope.modalInstance=modalService.mostrar($uibModal, $scope.modal, "resources/template/modals/cita.html");
+    			},
+    			
+    			guardar:function(seleccionar){    				
+    				var data=$scope.modal.data;
+    				var accion;
+    				
+
+    				/*accion=clienteService.nuevo(data);
+
+    				
+    				errorService.procesar(accion,{
+	    				 0:{
+	    					 growl: true,   				 
+	    					 texto: "Cliente creado",
+	    					 tipo: "success",
+	    					 onProcesar: function(res){
+	    						 if(seleccionar){
+	    							 $scope.cliente=res.data;
+	    							 $rootScope.$broadcast('onSeleccionarCliente', res.data);
+	    						 }
+	    					 }
+	    				 },
+	    				 2:{
+		   					 titulo: "Atención",    				 
+		   					 texto: "Ya existe un cliente con ese DNI o NIE",
+		   					 tipo: "warning"
+		   				 },
+		   				onError:function(){
+		   					$scope.modal.mostrar(data);
+	    				 }
+    				});*/
+    				
+    				$scope.modalInstance.close();
+    			}   
+    	}
     })
     
     

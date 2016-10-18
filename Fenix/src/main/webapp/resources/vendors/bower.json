@@ -15,8 +15,8 @@
   ],
   "dependencies": {
     "angular-animate": "~1.4.8",
-    "angular-chosen-localytics": "~1.0.7",
-    "angular-bootstrap": "~0.14.3",
+    "angular-chosen-localytics": "^1.5.0",
+    "angular-bootstrap": "~2.2.0",
     "angular-farbtastic": "*",
     "angular-loading-bar": "~0.8.0",
     "angular-nouislider": "~0.3.1",
@@ -49,7 +49,7 @@
     "sweetalert": "~1.0.1",
     "Waves": "waves#~0.7.4",
     "angular": "1.4.7",
-    "angular-google-maps-geocoder":"0.0.2",
-    "angular-dragdrop":"~1.0.13"
+    "angular-google-maps-geocoder": "0.0.2",
+    "angular-dragdrop": "~1.0.13"
   }
 }

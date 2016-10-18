@@ -217,12 +217,12 @@ materialAdmin
     // =========================================================================
     // CALENDARIO
     // =========================================================================
-    .directive('calendario', function($compile, $rootScope, userService){
+    .directive('calendario', function($compile, $rootScope, userService, $templateCache){
         return {
             restrict: 'A',
             scope: {
                 select: '&',
-                actionLinks: '=',
+                actionLinks: '='               
             },
             link: function(scope, element, attrs) {
                 
@@ -230,13 +230,38 @@ materialAdmin
                 var d = date.getDate();
                 var m = date.getMonth();
                 var y = date.getFullYear();
+                
+                var FC = $.fullCalendar; // a reference to FullCalendar's root namespace
+                var View = FC.BasicView;      // the class that all views must inherit from
+                var customView= View.extend({
+
+                	
+
+                });
+                
+                FC.views.custom = {
+                		'class': customView,
+                		duration: { months: 1 }, // important for prev/next
+                		defaults: {
+                			fixedWeekCount: true
+                		}
+                	};
 
                 //Generate the Calendar
                 element.fullCalendar({
+                	customButtons: {
+                        myCustomButton: {
+                        	icon:'circle-triangle-d',
+                        	themeIcon :'circle-triangle-d',     
+                            click: function() {
+                                alert('clicked the custom button!');
+                            }
+                        }
+                    },
                     header: {
                         right: '',
-                        center: 'prev, title, next',
-                        left: ''
+                        center: 'prev, title, myCustomButton, next',
+                        left: 'today'
                     },
                     defaultView: 'agendaDay',
                     lang: 'es',
@@ -295,7 +320,12 @@ materialAdmin
                   
                 //Add action links in calendar header
                 element.find('.fc-toolbar').append($compile(scope.actionLinks)(scope));
+                
+               /* var template=$templateCache.get("resources/template/datepicker/calendar.html");
+                element.find('.fc-toolbar').append($compile(template)(scope));*/
+                
             }
+            
         }
     })
    
@@ -311,7 +341,7 @@ materialAdmin
         }
     })
     
-    //Huecos
+    //Vista
     .directive('vista', function(){
         return {
             restrict: 'A',
@@ -322,3 +352,6 @@ materialAdmin
             }
         }
     })
+    
+    
+    
