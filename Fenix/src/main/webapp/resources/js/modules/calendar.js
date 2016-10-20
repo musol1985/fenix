@@ -222,7 +222,9 @@ materialAdmin
             restrict: 'A',
             scope: {
                 select: '&',
-                actionLinks: '='               
+                actionLinks: '=',
+                onPreAjax: '&',
+                onGetEvents: '&'
             },
             link: function(scope, element, attrs) {
                 
@@ -233,14 +235,10 @@ materialAdmin
                 
                 var FC = $.fullCalendar; // a reference to FullCalendar's root namespace
                 var View = FC.BasicView;      // the class that all views must inherit from
-                var customView= View.extend({
-
-                	
-
-                });
+                var customMonthView= View.extend({});
                 
-                FC.views.custom = {
-                		'class': customView,
+                FC.views.customMes = {
+                		'class': customMonthView,
                 		duration: { months: 1 }, // important for prev/next
                 		defaults: {
                 			fixedWeekCount: true
@@ -265,6 +263,8 @@ materialAdmin
                     },
                     defaultView: 'agendaDay',
                     lang: 'es',
+                    allDaySlot: false,
+                    businessHours: true,
                     theme: true, //Do not remove this as it ruin the design
                     selectable: true,
                     selectHelper: true,
@@ -289,17 +289,19 @@ materialAdmin
         				console.log($(this));
         				$rootScope.$broadcast('onDragCita', copiedEventObject);
         			},
-        			events: {
+        			eventSources: [{
         		        url: 'cita/in',
         		        type: 'GET',
-        		        data: {
-        		        	centro:userService.getCentro().id
-        		        },
+        		        data: scope.onPreAjax,
         		        error: function() {
-        		            alert('there was an error while fetching events!');
-        		        }
-        		    },
-
+        		            	alert('there was an error while fetching events!');
+        		        	}
+        				},
+        				function(start, end){        					
+        					scope.onGetEvents({start:start, end:end});
+        				}        		                		
+        				]
+        			,
                     //On Day Select
                     select: function(start, end, allDay) {
                         scope.select({

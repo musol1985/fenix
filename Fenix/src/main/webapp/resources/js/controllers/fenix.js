@@ -154,6 +154,44 @@ materialAdmin
     	$scope.profesionales=[];
     	$scope.cliente;
     	
+    	$scope.onPreAjax=function(){
+    		return {
+	        	centro:userService.getCentro().id
+	        };
+    	}
+    	
+    	$scope.onGetEvents=function(start, end){
+    		var centro=userService.getCentro();
+    		
+    		var patron=centro.horario.patrones[start.day()];
+    		
+    		var res=[];
+    		
+    		patron.horas.forEach(function(value, key) {
+    			console.log(start);
+    			console.log(start.add(value.ini.horas, "h"));
+    			console.log(start.add(value.ini.horas, "h").add(value.ini.minutos,"m"));
+    			console.log(start.add(value.ini.horas, "h").add(value.ini.minutos,"m"));
+    			var s=start.clone().add(value.ini.horas, "h").add(value.ini.minutos,"m");
+    			console.log(s);
+    			var e=start.clone().add(value.fin.horas, "h").add(value.fin.minutos,"m");
+    			console.log(e);
+    			
+    			res.push({
+					id: 'availableForMeeting',
+					start: s,
+					end: e,
+					rendering: 'background',
+					color: '#257e4a'
+				});
+
+    		});
+    		
+    		console.log(res);
+
+    		return res;
+    	}
+    	
     	$scope.cargarPrestaciones=function(){
     		prestacionService.getAllByCentro(userService.getCentro().id).then(function(res){
         		console.log("Cargando prestaciones...");

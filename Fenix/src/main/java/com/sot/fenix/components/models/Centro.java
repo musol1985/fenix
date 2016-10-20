@@ -18,6 +18,8 @@ public class Centro extends AModelId{
 	private String correoAdmin;
 	
 	private TIPO tipo;
+	
+	private Horario horario;
 
 
 	public String getNombre() {
@@ -61,6 +63,15 @@ public class Centro extends AModelId{
 	public void setColor(String color) {
 		this.color = color;
 	}
+
+	public Horario getHorario() {
+		return horario;
+	}
+
+	public void setHorario(Horario horario) {
+		this.horario = horario;
+	}
+	
 	
 	
 }

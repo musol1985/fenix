@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import com.mongodb.MongoClient;
 import com.sot.fenix.components.models.Centro;
 import com.sot.fenix.components.models.Cliente;
+import com.sot.fenix.components.models.Horario;
 import com.sot.fenix.components.models.Perfil.PERFILES;
 import com.sot.fenix.components.models.Usuario;
 
@@ -46,6 +47,7 @@ public class DBConfig {
 		c.setNombre("Centro ADMIN");
 		c.setCorreoAdmin("root");
 		c.setColor("teal");
+		c.setHorario(Horario.getGenerico());
 		
 		db.insert(c);
 		
