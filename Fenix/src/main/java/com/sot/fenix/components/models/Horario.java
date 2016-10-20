@@ -27,13 +27,13 @@ public class Horario extends AModelId{
 	public static Horario getGenerico(){
 		Horario h=new Horario();
 		
-		h.addPatron(Patron.getGenerico(DIA.DOMINGO));
-		h.addPatron(Patron.getGenerico(DIA.LUNES));
-		h.addPatron(Patron.getGenerico(DIA.MARTES));
-		h.addPatron(Patron.getGenerico(DIA.MIERCOLES));
-		h.addPatron(Patron.getGenerico(DIA.JUEVES));
+		//h.addPatron(Patron.getGenericoDescanso(DIA.DOMINGO));
+		h.addPatron(Patron.getGenericoDescanso(DIA.LUNES));
+		h.addPatron(Patron.getGenericoDescanso(DIA.MARTES));
+		h.addPatron(Patron.getGenericoDescanso(DIA.MIERCOLES));
+		h.addPatron(Patron.getGenericoDescanso(DIA.JUEVES));
 		h.addPatron(Patron.getGenerico(DIA.VIERNES));
-		h.addPatron(Patron.getGenerico(DIA.SABADO));
+		//h.addPatron(Patron.getGenerico(DIA.SABADO));
 		
 		h.festivos=new ArrayList<Date>();
 		

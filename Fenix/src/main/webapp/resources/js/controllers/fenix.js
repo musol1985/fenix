@@ -167,25 +167,18 @@ materialAdmin
     		
     		var res=[];
     		
-    		patron.horas.forEach(function(value, key) {
-    			console.log(start);
-    			console.log(start.add(value.ini.horas, "h"));
-    			console.log(start.add(value.ini.horas, "h").add(value.ini.minutos,"m"));
-    			console.log(start.add(value.ini.horas, "h").add(value.ini.minutos,"m"));
-    			var s=start.clone().add(value.ini.horas, "h").add(value.ini.minutos,"m");
-    			console.log(s);
-    			var e=start.clone().add(value.fin.horas, "h").add(value.fin.minutos,"m");
-    			console.log(e);
-    			
-    			res.push({
-					id: 'availableForMeeting',
-					start: s,
-					end: e,
-					rendering: 'background',
-					color: '#257e4a'
-				});
-
-    		});
+    		for(var i=0;i<end.diff(start, 'days');i++){
+    			var dia=start.clone().add(i,'days').format("YYYY-MM-DD");
+	    		patron.horas.forEach(function(value, key) {	    			
+	    			res.push({
+						id: 'disponible',
+						start: dia+" "+value.ini,
+						end: dia+" "+value.fin,
+						rendering: 'background'
+					});
+	
+	    		});
+    		}
     		
     		console.log(res);
 

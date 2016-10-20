@@ -20,7 +20,7 @@ public class Patron {
 		this.horas=new ArrayList<Franja>(1);
 	}
 	
-	public void addHora(Hora ini, Hora fin){
+	public void addHora(String ini, String fin){
 		horas.add(new Franja(ini, fin));
 	}
 	
@@ -46,7 +46,14 @@ public class Patron {
 	
 	public static Patron getGenerico(DIA dia){
 		Patron p=new Patron(dia);
-		p.addHora(new Hora(8,0), new Hora(20,0));
+		p.addHora("08:00", "20:00");
+		return p;
+	}
+	
+	public static Patron getGenericoDescanso(DIA dia){
+		Patron p=new Patron(dia);
+		p.addHora("08:00", "13:30");
+		p.addHora("16:00", "20:00");
 		return p;
 	}
 }

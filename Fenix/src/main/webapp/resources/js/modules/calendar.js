@@ -264,7 +264,6 @@ materialAdmin
                     defaultView: 'agendaDay',
                     lang: 'es',
                     allDaySlot: false,
-                    businessHours: true,
                     theme: true, //Do not remove this as it ruin the design
                     selectable: true,
                     selectHelper: true,
@@ -297,8 +296,8 @@ materialAdmin
         		            	alert('there was an error while fetching events!');
         		        	}
         				},
-        				function(start, end){        					
-        					scope.onGetEvents({start:start, end:end});
+        				function(start, end, timezone, callback){        					
+        					callback(scope.onGetEvents({start:start, end:end}));
         				}        		                		
         				]
         			,
@@ -314,6 +313,7 @@ materialAdmin
                         element.append("<div class='lv-avatar bgm-red pull-left'>P</div>");
                     },*/
                     eventDataTransform:function(evento){
+                    	evento.constraint="disponible";
                     	console.log("->"+evento);
                     	return evento;
                     }

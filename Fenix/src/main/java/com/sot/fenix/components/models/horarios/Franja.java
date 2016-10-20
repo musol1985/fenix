@@ -1,32 +1,32 @@
 package com.sot.fenix.components.models.horarios;
 
 public class Franja {
-	private Hora ini;
-	private Hora fin;
+	private String ini;
+	private String fin;
 
 	
 	public Franja(){
 		
 	}
 	
-	public Franja(Hora ini, Hora fin){
+	public Franja(String ini, String fin){
 		this.ini=ini;
 		this.fin=fin;
 	}
 
-	public Hora getIni() {
+	public String getIni() {
 		return ini;
 	}
 
-	public void setIni(Hora ini) {
+	public void setIni(String ini) {
 		this.ini = ini;
 	}
 
-	public Hora getFin() {
+	public String getFin() {
 		return fin;
 	}
 
-	public void setFin(Hora fin) {
+	public void setFin(String fin) {
 		this.fin = fin;
 	}
 }
