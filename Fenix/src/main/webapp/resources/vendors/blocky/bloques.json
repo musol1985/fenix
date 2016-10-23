@@ -1,0 +1,293 @@
+[{
+  "type": "horario",
+  "message0": "Horario %1 Laborables %2 Vacaciones %3 Especiales %4",
+  "args0": [
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_statement",
+      "name": "horario"
+    },
+    {
+      "type": "input_statement",
+      "name": "vacas"
+    },
+    {
+      "type": "input_statement",
+      "name": "esp"
+    }
+  ],
+  "colour": 210,
+  "tooltip": "",
+  "helpUrl": "http://www.example.com/"
+},
+{
+  "type": "mes",
+  "message0": "Mes %1 %2",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "mes",
+      "options": [
+        [
+          "Enero",
+          "1"
+        ],
+        [
+          "Febrero",
+          "2"
+        ],
+        [
+          "Marzo",
+          "3"
+        ],
+        [
+          "Abril",
+          "4"
+        ],
+        [
+          "Mayo",
+          "5"
+        ],
+        [
+          "Junio",
+          "6"
+        ],
+        [
+          "Julio",
+          "7"
+        ],
+        [
+          "Agosto",
+          "8"
+        ],
+        [
+          "Septiembre",
+          "9"
+        ],
+        [
+          "Octubre",
+          "10"
+        ],
+        [
+          "Noviembre",
+          "11"
+        ],
+        [
+          "Diciembre",
+          "12"
+        ]
+      ]
+    },
+    {
+      "type": "input_statement",
+      "name": "NAME"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 120,
+  "tooltip": "",
+  "helpUrl": "http://www.example.com/"
+},
+{
+  "type": "dia",
+  "message0": "Dia %1 %2",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "dias",
+      "options": [
+        [
+          "Lunes",
+          "1"
+        ],
+        [
+          "Martes",
+          "2"
+        ],
+        [
+          "Miercoles",
+          "3"
+        ],
+        [
+          "Jueves",
+          "4"
+        ],
+        [
+          "Viernes",
+          "5"
+        ],
+        [
+          "Sabado",
+          "6"
+        ],
+        [
+          "Domingo",
+          "7"
+        ]
+      ]
+    },
+    {
+      "type": "input_statement",
+      "name": "NAME"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "",
+  "helpUrl": "http://www.example.com/"
+},
+{
+  "type": "diasintervalo",
+  "message0": "Dias desde el  %1 al %2 %3",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "dIni",
+      "value": 0,
+      "min": 1,
+      "max": 31
+    },
+    {
+      "type": "field_number",
+      "name": "dFin",
+      "value": 31,
+      "min": 1,
+      "max": 31
+    },
+    {
+      "type": "input_statement",
+      "name": "NAME"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "",
+  "helpUrl": "http://www.example.com/"
+},
+{
+  "type": "diassemanaintervalo",
+  "message0": "Dias desde el  %1 hasta el  %2 %3",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "diaIni",
+      "options": [
+        [
+          "Lunes",
+          "1"
+        ],
+        [
+          "Martes",
+          "2"
+        ],
+        [
+          "Miercoles",
+          "3"
+        ],
+        [
+          "Jueves",
+          "4"
+        ],
+        [
+          "Viernes",
+          "5"
+        ],
+        [
+          "Sabado",
+          "6"
+        ],
+        [
+          "Domingo",
+          "7"
+        ]
+      ]
+    },
+    {
+      "type": "field_dropdown",
+      "name": "NAME",
+      "options": [
+        [
+          "Lunes",
+          "1"
+        ],
+        [
+          "Martes",
+          "2"
+        ],
+        [
+          "Miercoles",
+          "3"
+        ],
+        [
+          "Jueves",
+          "4"
+        ],
+        [
+          "Viernes",
+          "5"
+        ],
+        [
+          "Sabado",
+          "6"
+        ],
+        [
+          "Domingo",
+          "7"
+        ]
+      ]
+    },
+    {
+      "type": "input_statement",
+      "name": "NAME"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "",
+  "helpUrl": "http://www.example.com/"
+},
+{
+  "type": "hora",
+  "message0": "Hora desde las %1 : %2 a las %3 : %4",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "h",
+      "value": 0,
+      "min": 0,
+      "max": 23
+    },
+    {
+      "type": "field_number",
+      "name": "m",
+      "value": 0,
+      "min": 0,
+      "max": 59
+    },
+    {
+      "type": "field_number",
+      "name": "hf",
+      "value": 0,
+      "min": 0,
+      "max": 23
+    },
+    {
+      "type": "field_number",
+      "name": "mf",
+      "value": 0,
+      "min": 0,
+      "max": 59
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 20,
+  "tooltip": "",
+  "helpUrl": "http://www.example.com/"
+}]

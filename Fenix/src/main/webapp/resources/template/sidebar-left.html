@@ -43,6 +43,8 @@
             	<li data-ng-if="mactrl.isRoot()"><a data-ui-sref-active="active" data-ui-sref="configuracion.centros" data-ng-click="mactrl.sidebarStat($event)">Centros</a></li>
             	<li data-ng-if="!mactrl.isRoot() && mactrl.isAdmin()"><a data-ui-sref-active="active" data-ui-sref="configuracion.centro" data-ng-click="mactrl.sidebarStat($event)">Centro</a></li>
             	<li data-ng-if="mactrl.isAdmin()"><a data-ui-sref-active="active" data-ui-sref="configuracion.prestaciones" data-ng-click="mactrl.sidebarStat($event)">Prestaciones</a></li>
+            	<li data-ng-if="mactrl.isAdmin()"><a data-ui-sref-active="active" data-ui-sref="configuracion.horarios" data-ng-click="mactrl.sidebarStat($event)">Horarios</a></li>
+                
                 
                 <li><a data-ui-sref-active="active" data-ui-sref="configuracion.usuarios" data-ng-click="mactrl.sidebarStat($event)">Usuarios</a></li>                
             </ul>

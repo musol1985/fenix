@@ -1,0 +1,57 @@
+<div>
+<div id="blocklyDiv" style="height: 480px; width: 100%"></div>
+		                   <xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
+							  <category name="General" colour="#5ca6a4">
+							    <block type="horario"></block>
+							    <block type="hora">
+							      <field name="h">0</field>
+							      <field name="m">0</field>
+							      <field name="hf">0</field>
+							      <field name="mf">0</field>
+							    </block>
+							  </category>
+							  <category name="Meses" colour="#66a65c">
+							    <block type="mes">
+							      <field name="mes">1</field>
+							    </block>
+							    <block type="mes_intervalo">
+							      <field name="mesIni">0</field>
+							      <field name="mesFin">0</field>
+							    </block>
+							  </category>
+							  <category name="Semanas" colour="#a15ca6">
+							    <block type="semana">
+							      <field name="semanas">1</field>
+							    </block>
+							    <block type="semana_intervalo">
+							      <field name="semanaIni">1</field>
+							      <field name="semanaFin">1</field>
+							    </block>
+							  </category>
+							  <category name="Dias" colour="#90a65c">
+							    <block type="dia">
+							      <field name="dias">1</field>
+							    </block>
+							    <block type="dias_semana_intervalo">
+							      <field name="diaIni">1</field>
+							      <field name="NAME">1</field>
+							    </block>
+							    <block type="dias_intervalo">
+							      <field name="dIni">1</field>
+							      <field name="dFin">31</field>
+							    </block>
+							  </category>
+							</xml>
+							<script>
+							  var workspace = Blockly.inject('blocklyDiv',
+							      {toolbox: document.getElementById('toolbox')});
+							  
+							  function showCode() {
+							      // Generate JavaScript code and display it.
+							      Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+							      var code = Blockly.JavaScript.workspaceToCode(workspace);
+							      alert(code);
+							    }
+							</script>
+							
+							</div>

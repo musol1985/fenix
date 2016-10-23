@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.sot.fenix.components.models.Horario.DIA;
+import com.sot.fenix.components.models.HorarioOld.DIA;
 
 public class Patron {
 	private DIA dia;

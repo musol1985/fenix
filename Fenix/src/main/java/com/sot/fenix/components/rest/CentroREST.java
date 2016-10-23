@@ -18,7 +18,7 @@ import com.sot.fenix.components.json.PageJSON;
 import com.sot.fenix.components.json.ResponseJSON;
 import com.sot.fenix.components.json.ResponseListJSON;
 import com.sot.fenix.components.models.Centro;
-import com.sot.fenix.components.models.Horario;
+import com.sot.fenix.components.models.HorarioOld;
 import com.sot.fenix.components.models.UsuarioPendiente;
 import com.sot.fenix.components.services.CentroService;
 import com.sot.fenix.components.services.UsuarioService;
@@ -42,7 +42,7 @@ public class CentroREST{
 		if(usuarios.getUsuarioByCorreo(nuevoCentro.centro.getCorreoAdmin())==null){
 			
 			nuevoCentro.centro.getUbicacion().setPosicion(new GeoJsonPoint(nuevoCentro.posicion.lat, nuevoCentro.posicion.lng));
-			nuevoCentro.centro.setHorario(Horario.getGenerico());
+			//nuevoCentro.centro.setHorario(HorarioOld.getGenerico());
 			
 			centros.getDAO().save(nuevoCentro.centro);
 			

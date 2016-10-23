@@ -1,0 +1,51 @@
+<div class="container">
+
+    	<div class="card"  data-ng-controller="horarios as horarioCtr">
+                <div class="card-header ch-alt m-b-20">
+                    <h2>Horarios<small>Lista de horarios</small></h2>
+                    <ul class="actions">
+                        <li>
+                            <a href="" ng-click="refrescar()">
+                                <i class="zmdi zmdi-refresh-alt"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="zmdi zmdi-download"></i>
+                            </a>
+                        </li>
+                    </ul>
+
+    	    
+                    <button class="btn bgm-red btn-float waves-effect" data-ui-sref="configuracion.horario"><i class="zmdi zmdi-plus"></i></button>
+                </div>
+
+
+                <div class="card-body card-padding">
+                    <div class="table-responsive">
+		                <table ng-table="horarioCtr.tabla" class="table table-striped table-vmiddle">
+		                    <tr ng-repeat="w in horarioCtr.datos"  >
+		                        <td data-title="'Nombre'">
+		                            <b>{{w.nombre.substr(0,1)}}</b>{{w.nombre.substr(1)}}
+		                        </td>
+		                        <td data-title="'Color'">
+		                         <div class="lv-avatar bgm-{{w.color}} pull-left">{{w.nombre.substr(0,1)}}</div>
+		                        </td>
+		                        <td data-title="'Importe'">
+		                         	{{w.importe}}
+		                        </td>
+		                        <td data-title="'Duracion'">
+		                         	{{w.duracion}}
+		                        </td>
+		                        <td data-title="'Acciones'">
+		                            <button type="button" class="btn btn-warning" ng-click="modificar(w)"><i class="zmdi zmdi-edit"></i></button>
+		                            <button type="button" class="btn btn-danger" ng-click="eliminar(w)"><i class="zmdi zmdi-delete"></i></button>
+		                        </td>
+		                    </tr>
+		                </table>
+		            </div>
+                </div>
+      </div>       
+</div>
+
+

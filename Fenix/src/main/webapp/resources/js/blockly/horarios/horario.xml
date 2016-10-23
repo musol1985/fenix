@@ -1,0 +1,589 @@
+<xml xmlns="http://www.w3.org/1999/xhtml"><block type="factory_base" id="M^Ozh+S[8;}+sM?/c7IO" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="NONE"></mutation>
+    <field name="NAME">Horario</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">NONE</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="d8s=o6:~gdE;Qr8GR{2^">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="j,qy**6.ZNvftD`LpRkb">
+            <field name="TEXT">Horario</field>
+          </block>
+        </statement>
+        <next>
+          <block type="input_statement" id="{Ekn*lphKEIPNlkFvae)">
+            <field name="INPUTNAME">laborables</field>
+            <field name="ALIGN">LEFT</field>
+            <statement name="FIELDS">
+              <block type="field_static" id="Vt~_60(nI[51;diu~P=X">
+                <field name="TEXT">Laborables</field>
+              </block>
+            </statement>
+            <value name="TYPE">
+              <shadow type="type_null" id="~,|l:?3J1I^lAQtIy.lt"></shadow>
+            </value>
+            <next>
+              <block type="input_statement" id="PB!b7f#Vktj2NgO89z(y">
+                <field name="INPUTNAME">vacas</field>
+                <field name="ALIGN">LEFT</field>
+                <statement name="FIELDS">
+                  <block type="field_static" id="3q[E2e}TPYFF,oHgxJ.B">
+                    <field name="TEXT">Vacaciones</field>
+                  </block>
+                </statement>
+                <value name="TYPE">
+                  <shadow type="type_null" id="3*mYP-Q?7kzD?%?e5TVN"></shadow>
+                </value>
+                <next>
+                  <block type="input_statement" id="BxVCuXQ%:kc7;q;+b%mE">
+                    <field name="INPUTNAME">esp</field>
+                    <field name="ALIGN">LEFT</field>
+                    <statement name="FIELDS">
+                      <block type="field_static" id="Hy,Zr]qepTO]/$sT.1;s">
+                        <field name="TEXT">Especiales</field>
+                      </block>
+                    </statement>
+                    <value name="TYPE">
+                      <shadow type="type_null" id="W=^2k2-/8pAot33,PrGs"></shadow>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <value name="COLOUR">
+      <block type="colour_hue" id="|$QZ~sRsO(LG51zxc.$?">
+        <mutation colour="#5b80a5"></mutation>
+        <field name="HUE">210</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="doGJo?{Ym5e`3jN5Eteg" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">mes</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_statement" id="^`_f%gD)/ocjE_@fIK|s">
+        <field name="INPUTNAME">NAME</field>
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="^ZoXz/;m$#:AhV*lJU-8">
+            <field name="TEXT">Mes</field>
+            <next>
+              <block type="field_dropdown" id="VF|vRf_Dn_zLQyq6()]$">
+                <mutation options="12"></mutation>
+                <field name="FIELDNAME">mes</field>
+                <field name="USER0">Enero</field>
+                <field name="CPU0">1</field>
+                <field name="USER1">Febrero</field>
+                <field name="CPU1">2</field>
+                <field name="USER2">Marzo</field>
+                <field name="CPU2">3</field>
+                <field name="USER3">Abril</field>
+                <field name="CPU3">4</field>
+                <field name="USER4">Mayo</field>
+                <field name="CPU4">5</field>
+                <field name="USER5">Junio</field>
+                <field name="CPU5">6</field>
+                <field name="USER6">Julio</field>
+                <field name="CPU6">7</field>
+                <field name="USER7">Agosto</field>
+                <field name="CPU7">8</field>
+                <field name="USER8">Septiembre</field>
+                <field name="CPU8">9</field>
+                <field name="USER9">Octubre</field>
+                <field name="CPU9">10</field>
+                <field name="USER10">Noviembre</field>
+                <field name="CPU10">11</field>
+                <field name="USER11">Diciembre</field>
+                <field name="CPU11">12</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <value name="TYPE">
+          <shadow type="type_null" id="X~^;PlYJ7,l$@w8OmV3E"></shadow>
+        </value>
+      </block>
+    </statement>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="uzM*S%IO]j}ZDS:5Xzdz"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="~12V:_r@SA6KNAg_)?s1"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="q^CZsrZ*2d`Fp/H([4(I">
+        <mutation colour="#5ba55b"></mutation>
+        <field name="HUE">120</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="LMFVu|DJ|FaRpM!WZBdv" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">dia</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_statement" id="9Zs(G4cb0O$PY]vFB.o{">
+        <field name="INPUTNAME">NAME</field>
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="#0^CU-(S;6;q^cHGc2M?">
+            <field name="TEXT">Dia</field>
+            <next>
+              <block type="field_dropdown" id="!Y4AHqt]?VQ^t@jlU8BY">
+                <mutation options="7"></mutation>
+                <field name="FIELDNAME">dias</field>
+                <field name="USER0">Lunes</field>
+                <field name="CPU0">1</field>
+                <field name="USER1">Martes</field>
+                <field name="CPU1">2</field>
+                <field name="USER2">Miercoles</field>
+                <field name="CPU2">3</field>
+                <field name="USER3">Jueves</field>
+                <field name="CPU3">4</field>
+                <field name="USER4">Viernes</field>
+                <field name="CPU4">5</field>
+                <field name="USER5">Sabado</field>
+                <field name="CPU5">6</field>
+                <field name="USER6">Domingo</field>
+                <field name="CPU6">7</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <value name="TYPE">
+          <shadow type="type_null" id="b}1#d=gkAaiZR,vykZ-n"></shadow>
+        </value>
+      </block>
+    </statement>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="WPRq+,nk9@fM?lvhs6dB"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="l76%NWUE+W)5v2QA$W0n"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="H_k0m=oX-`*Ux*0T8~w#">
+        <mutation colour="#9fa55b"></mutation>
+        <field name="HUE">65</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="$A:g5nsg_/z~S2+VhQ|$" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">hora</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="wo#DFBGjCjxRg6gyOX*I">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="W.S;zLb1UlLO^q+IJUb9">
+            <field name="TEXT">Hora desde las</field>
+            <next>
+              <block type="field_number" id="Y-}eT$J3CQaM|E,l.ie-">
+                <field name="VALUE">0</field>
+                <field name="FIELDNAME">h</field>
+                <field name="MIN">0</field>
+                <field name="MAX">23</field>
+                <field name="PRECISION">0</field>
+                <next>
+                  <block type="field_static" id="4,rUSNFaB49B]oFQ;,B3">
+                    <field name="TEXT">:</field>
+                    <next>
+                      <block type="field_number" id="~3DC[MuTCgNZ,Yp6~C9y">
+                        <field name="VALUE">0</field>
+                        <field name="FIELDNAME">m</field>
+                        <field name="MIN">0</field>
+                        <field name="MAX">59</field>
+                        <field name="PRECISION">0</field>
+                        <next>
+                          <block type="field_static" id="75ut~}3,}$B5PHT-,f}f">
+                            <field name="TEXT">hasta las</field>
+                            <next>
+                              <block type="field_number" id="I@|FXmGAzDTQ:XHtltP]">
+                                <field name="VALUE">0</field>
+                                <field name="FIELDNAME">hf</field>
+                                <field name="MIN">0</field>
+                                <field name="MAX">23</field>
+                                <field name="PRECISION">0</field>
+                                <next>
+                                  <block type="field_static" id=";H%HxlJa$!sO=*2lLu?U">
+                                    <field name="TEXT">:</field>
+                                    <next>
+                                      <block type="field_number" id="Frjr?;S^0+R4VYC0lxPk">
+                                        <field name="VALUE">0</field>
+                                        <field name="FIELDNAME">mf</field>
+                                        <field name="MIN">0</field>
+                                        <field name="MAX">59</field>
+                                        <field name="PRECISION">0</field>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="0z{rnvw3v.C`J{PJ=+4p"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="1uKIuu@4i$31bzpEvU59"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="jB`:=Bl/,`D)e/9?n[/!">
+        <mutation colour="#a5745b"></mutation>
+        <field name="HUE">20</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="0qVD)5he(+G~LG?MdQWf" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="NONE"></mutation>
+    <field name="NAME">mes_intervalo</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">NONE</field>
+    <statement name="INPUTS">
+      <block type="input_statement" id="*7Pj7bz:o9pJSGBrw2+0">
+        <field name="INPUTNAME">meses</field>
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="Q*/SRveJ#c#x8Y4b@o`b">
+            <field name="TEXT">Meses desde</field>
+            <next>
+              <block type="field_dropdown" id="77,Xykh`;EP{/8J*vs3_">
+                <mutation options="12"></mutation>
+                <field name="FIELDNAME">mesIni</field>
+                <field name="USER0">Enero</field>
+                <field name="CPU0">0</field>
+                <field name="USER1">Febrero</field>
+                <field name="CPU1">1</field>
+                <field name="USER2">Marzo</field>
+                <field name="CPU2">2</field>
+                <field name="USER3">Abril</field>
+                <field name="CPU3">3</field>
+                <field name="USER4">Mayo</field>
+                <field name="CPU4">4</field>
+                <field name="USER5">Junio</field>
+                <field name="CPU5">5</field>
+                <field name="USER6">Julio</field>
+                <field name="CPU6">6</field>
+                <field name="USER7">Agosto</field>
+                <field name="CPU7">7</field>
+                <field name="USER8">Septiembre</field>
+                <field name="CPU8">8</field>
+                <field name="USER9">Octubre</field>
+                <field name="CPU9">9</field>
+                <field name="USER10">Noviembre</field>
+                <field name="CPU10">10</field>
+                <field name="USER11">Diciembre</field>
+                <field name="CPU11">11</field>
+                <next>
+                  <block type="field_static" id="vG|6oeEXtnqaj.OY{8Lm">
+                    <field name="TEXT">hasta</field>
+                    <next>
+                      <block type="field_dropdown" id="9vQ;-^{+klu=fJ`e+(Xz">
+                        <mutation options="12"></mutation>
+                        <field name="FIELDNAME">mesFin</field>
+                        <field name="USER0">Enero</field>
+                        <field name="CPU0">0</field>
+                        <field name="USER1">Febrero</field>
+                        <field name="CPU1">1</field>
+                        <field name="USER2">Marzo</field>
+                        <field name="CPU2">2</field>
+                        <field name="USER3">Abril</field>
+                        <field name="CPU3">3</field>
+                        <field name="USER4">Mayo</field>
+                        <field name="CPU4">4</field>
+                        <field name="USER5">Junio</field>
+                        <field name="CPU5">5</field>
+                        <field name="USER6">Julio</field>
+                        <field name="CPU6">6</field>
+                        <field name="USER7">Agosto</field>
+                        <field name="CPU7">7</field>
+                        <field name="USER8">Septiembre</field>
+                        <field name="CPU8">8</field>
+                        <field name="USER9">Octubre</field>
+                        <field name="CPU9">9</field>
+                        <field name="USER10">Noviembre</field>
+                        <field name="CPU10">10</field>
+                        <field name="USER11">Diciembre</field>
+                        <field name="CPU11">11</field>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <value name="TYPE">
+          <shadow type="type_null" id="!?F2ah:X(=RLhUz-@82)"></shadow>
+        </value>
+      </block>
+    </statement>
+    <value name="COLOUR">
+      <block type="colour_hue" id=")yHeM4*n?)pab.P1fP=v">
+        <mutation colour="#5ba55b"></mutation>
+        <field name="HUE">120</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="doGJo?{Ym5e`3jN5Eteg" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">dias_semana_intervalo</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_statement" id="^`_f%gD)/ocjE_@fIK|s">
+        <field name="INPUTNAME">NAME</field>
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="^ZoXz/;m$#:AhV*lJU-8">
+            <field name="TEXT">Dias desde el </field>
+            <next>
+              <block type="field_dropdown" id="WOA020;6@19Bnjindd;0">
+                <mutation options="7"></mutation>
+                <field name="FIELDNAME">diaIni</field>
+                <field name="USER0">Lunes</field>
+                <field name="CPU0">1</field>
+                <field name="USER1">Martes</field>
+                <field name="CPU1">2</field>
+                <field name="USER2">Miercoles</field>
+                <field name="CPU2">3</field>
+                <field name="USER3">Jueves</field>
+                <field name="CPU3">4</field>
+                <field name="USER4">Viernes</field>
+                <field name="CPU4">5</field>
+                <field name="USER5">Sabado</field>
+                <field name="CPU5">6</field>
+                <field name="USER6">Domingo</field>
+                <field name="CPU6">7</field>
+                <next>
+                  <block type="field_static" id="f3@2[fT?/?Fq(9GWx~1U">
+                    <field name="TEXT">hasta el </field>
+                    <next>
+                      <block type="field_dropdown" id="5BX/G6SwEo;+y=BSmNp3">
+                        <mutation options="7"></mutation>
+                        <field name="FIELDNAME">NAME</field>
+                        <field name="USER0">Lunes</field>
+                        <field name="CPU0">1</field>
+                        <field name="USER1">Martes</field>
+                        <field name="CPU1">2</field>
+                        <field name="USER2">Miercoles</field>
+                        <field name="CPU2">3</field>
+                        <field name="USER3">Jueves</field>
+                        <field name="CPU3">4</field>
+                        <field name="USER4">Viernes</field>
+                        <field name="CPU4">5</field>
+                        <field name="USER5">Sabado</field>
+                        <field name="CPU5">6</field>
+                        <field name="USER6">Domingo</field>
+                        <field name="CPU6">7</field>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <value name="TYPE">
+          <shadow type="type_null" id="X~^;PlYJ7,l$@w8OmV3E"></shadow>
+        </value>
+      </block>
+    </statement>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="iN[Lb5=8bHc$;q}-;?,h"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="DoXD[j7KC-lYmSN`MPkX"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id=":Dxz$.|dC~mQ/Nd8]VzQ">
+        <mutation colour="#9fa55b"></mutation>
+        <field name="HUE">65</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id=".2(neugj?u!,BE}^s76#" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">dias_intervalo</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_statement" id="D9A`yr.=,rf0K!$n*iNV">
+        <field name="INPUTNAME">NAME</field>
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="?,cG{Z`ipnmdQ5.L).]]">
+            <field name="TEXT">Dias desde el </field>
+            <next>
+              <block type="field_number" id="t?6nChOd^G4ykk,5B9O#">
+                <field name="VALUE">0</field>
+                <field name="FIELDNAME">dIni</field>
+                <field name="MIN">1</field>
+                <field name="MAX">31</field>
+                <field name="PRECISION">0</field>
+                <next>
+                  <block type="field_static" id="/b)GyF+E/*=UE{T%[QW/">
+                    <field name="TEXT">al</field>
+                    <next>
+                      <block type="field_number" id=".7.CnOQt3DB_Fx%=Qyf~">
+                        <field name="VALUE">31</field>
+                        <field name="FIELDNAME">dFin</field>
+                        <field name="MIN">1</field>
+                        <field name="MAX">31</field>
+                        <field name="PRECISION">0</field>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <value name="TYPE">
+          <shadow type="type_null" id="dWz]zIE(gQ/w.:NjVxtH"></shadow>
+        </value>
+      </block>
+    </statement>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="s[w?YKIF7EyhkU#sEY!B"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="K4g9+tsUFEYHPY?4O^DY"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="s?FJJ)z{v,Iy6@F{]*0$">
+        <mutation colour="#9fa55b"></mutation>
+        <field name="HUE">65</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="=@^y3Vp7f|e1v~40UEwr" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">semana</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_statement" id="66DHp[S:t39pD:24BJhq">
+        <field name="INPUTNAME">semana</field>
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="ds0-HwKqsk1jIzY,8)15">
+            <field name="TEXT">Semana</field>
+            <next>
+              <block type="field_dropdown" id="a;i_[:Y|W/e34luDwhxY">
+                <mutation options="5"></mutation>
+                <field name="FIELDNAME">semanas</field>
+                <field name="USER0">Primera</field>
+                <field name="CPU0">1</field>
+                <field name="USER1">Segunda</field>
+                <field name="CPU1">2</field>
+                <field name="USER2">Tercera</field>
+                <field name="CPU2">3</field>
+                <field name="USER3">Cuarta</field>
+                <field name="CPU3">4</field>
+                <field name="USER4">Quinta</field>
+                <field name="CPU4">5</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <value name="TYPE">
+          <shadow type="type_null" id="`8W6G]+PA/F7JTfmUifv"></shadow>
+        </value>
+      </block>
+    </statement>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="O%IUAkmQ}jvGx[~m(F$,"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="2a,,Eduh~.eA5J`9p#^f"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="EUwnl5.e=,kTv)y;|1|c">
+        <mutation colour="#995ba5"></mutation>
+        <field name="HUE">290</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="=@^y3Vp7f|e1v~40UEwr" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">semana_intervalo</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_statement" id="66DHp[S:t39pD:24BJhq">
+        <field name="INPUTNAME">semana</field>
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="ds0-HwKqsk1jIzY,8)15">
+            <field name="TEXT">Desde la semana </field>
+            <next>
+              <block type="field_dropdown" id="a;i_[:Y|W/e34luDwhxY">
+                <mutation options="5"></mutation>
+                <field name="FIELDNAME">semanaIni</field>
+                <field name="USER0">Primera</field>
+                <field name="CPU0">1</field>
+                <field name="USER1">Segunda</field>
+                <field name="CPU1">2</field>
+                <field name="USER2">Tercera</field>
+                <field name="CPU2">3</field>
+                <field name="USER3">Cuarta</field>
+                <field name="CPU3">4</field>
+                <field name="USER4">Quinta</field>
+                <field name="CPU4">5</field>
+                <next>
+                  <block type="field_static" id="#*qAvxN|5;GyT.MmH?9U">
+                    <field name="TEXT">hasta la </field>
+                    <next>
+                      <block type="field_dropdown" id="6cma3);~7Cgc*4uN@/kL">
+                        <mutation options="5"></mutation>
+                        <field name="FIELDNAME">semanaFin</field>
+                        <field name="USER0">Primera</field>
+                        <field name="CPU0">1</field>
+                        <field name="USER1">Segunda</field>
+                        <field name="CPU1">2</field>
+                        <field name="USER2">Tercera</field>
+                        <field name="CPU2">3</field>
+                        <field name="USER3">Cuarta</field>
+                        <field name="CPU3">4</field>
+                        <field name="USER4">Quinta</field>
+                        <field name="CPU4">5</field>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <value name="TYPE">
+          <shadow type="type_null" id="`8W6G]+PA/F7JTfmUifv"></shadow>
+        </value>
+      </block>
+    </statement>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="O%IUAkmQ}jvGx[~m(F$,"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="2a,,Eduh~.eA5J`9p#^f"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="EUwnl5.e=,kTv)y;|1|c">
+        <mutation colour="#995ba5"></mutation>
+        <field name="HUE">290</field>
+      </block>
+    </value>
+  </block></xml>

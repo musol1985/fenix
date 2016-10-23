@@ -426,3 +426,70 @@ materialAdmin
         	});
         }
     })
+    
+    
+    // =========================================================================
+    // Prestaciones
+    // =========================================================================
+    
+    .controller('horarios', function($rootScope, $scope, $http, limitToFilter, $filter, $sce, $q, ngTableParams, userService, centroService, prestacionService, errorService, modalService, $uibModal) {
+    	var self=this;
+    	
+    	$scope.datos=[];
+    	
+    	this.tabla=new ngTableParams({
+            page: 1,            // show first page
+            count: 10          // count per page
+        }, {
+            getData: function($defer, params) {
+            		$scope.cargarDatos(params);
+            		
+            		$defer.resolve(self.datos);            		
+                }
+        });
+    	
+    	$scope.cargarDatos=function(params){
+    		prestacionService.getByCentro(userService.getCentro().id, params.page(), params.count()).then(function(res){
+    			self.datos=res.data;
+        		params.total(res.total);  
+            }, function(error){
+            	errorService.alertaGrowl("Error al obtener prestaciones", 'danger');
+            });
+    	}
+    	
+    	$scope.refrescar=function(){
+    		self.tabla.reload();		    		    		    		
+    	}
+    	
+    	$scope.nuevo = function () {
+    		
+        };
+        
+        $scope.eliminar = function(item){
+        	console.log(item);
+        	errorService.alertaSiNo("Eliminar", "¿Seguro que quieres eliminar la prestación?", function(){
+        		errorService.procesar(prestacionService.eliminar(item.id),{
+	   				 0:{
+	   					 growl: true,   				 
+	   					 texto: "Prestación eliminada correctamente",
+	   					 tipo: "success",
+	   					 onProcesar: function(){
+	   						 $scope.refrescar();
+	   					 }
+	   				 },
+	   				 1:{
+	   					 titulo: "Atención",    				 
+	   					 texto: "No existe la prestación",
+	   					 tipo: "warning"
+	   				 }
+        		});
+        	});
+        }
+    })
+    
+    .controller('editorHorario', function($scope) {
+    	$scope.tabs = [
+    	    { title:'Dynamic Title 1', content:'Dynamic content 1' },
+    	    { title:'Dynamic Title 2', content:'Dynamic content 2', disabled: true }
+    	  ];
+    })

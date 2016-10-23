@@ -67,6 +67,33 @@ materialAdmin
                 templateUrl: 'resources/views/prestaciones.html'
             })
             
+            .state('configuracion.horarios', {
+                url: '/horarios',
+                templateUrl: 'resources/views/horarios.html'
+            })
+            
+            .state('configuracion.horario', {
+                url: '/horario',
+                templateUrl: 'resources/views/horario.html',
+                resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {                            	
+                            	serie:true,
+                                name: 'vendors',
+                                files: [ 
+                                	'resources/vendors/blocky/blockly_compressed.js',
+                                	'resources/vendors/blocky/blocks_compressed.js',
+                                	'resources/vendors/blocky/javascript_compressed.js',
+                                	'resources/vendors/blocky/msg/js/es.js',
+                                	'resources/js/blockly/horarios/bloques.js',
+                                	'resources/js/blockly/horarios/generador.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
+            })
             //------------------------------
             // CITAS
             //------------------------------

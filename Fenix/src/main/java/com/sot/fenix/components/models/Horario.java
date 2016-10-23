@@ -1,67 +1,22 @@
 package com.sot.fenix.components.models;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import com.sot.fenix.components.models.horarios.Patron;
-
-@Document
-public class Horario extends AModelId{
-	public enum DIA{DOMINGO, LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO};
-
+public class Horario  extends AModelId{
+	public String expresion;
+	public String nombre;
 	
-	private List<Patron> patrones;
-	private List<Date> festivos;
 	
-	public void addPatron(Patron p){
-		if(patrones==null)
-			patrones=new ArrayList<Patron>(7);
-		patrones.add(p);
-	}
 	
-
-	
-	public static Horario getGenerico(){
-		Horario h=new Horario();
-		
-		//h.addPatron(Patron.getGenericoDescanso(DIA.DOMINGO));
-		h.addPatron(Patron.getGenericoDescanso(DIA.LUNES));
-		h.addPatron(Patron.getGenericoDescanso(DIA.MARTES));
-		h.addPatron(Patron.getGenericoDescanso(DIA.MIERCOLES));
-		h.addPatron(Patron.getGenericoDescanso(DIA.JUEVES));
-		h.addPatron(Patron.getGenerico(DIA.VIERNES));
-		//h.addPatron(Patron.getGenerico(DIA.SABADO));
-		
-		h.festivos=new ArrayList<Date>();
-		
-		return h;
+	public String getExpresion() {
+		return expresion;
 	}
-
-
-
-	public List<Patron> getPatrones() {
-		return patrones;
+	public void setExpresion(String expresion) {
+		this.expresion = expresion;
 	}
-
-
-
-	public void setPatrones(List<Patron> patrones) {
-		this.patrones = patrones;
+	public String getNombre() {
+		return nombre;
 	}
-
-
-
-	public List<Date> getFestivos() {
-		return festivos;
-	}
-
-
-
-	public void setFestivos(List<Date> festivos) {
-		this.festivos = festivos;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	
 	
