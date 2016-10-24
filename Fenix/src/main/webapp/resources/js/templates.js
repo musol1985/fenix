@@ -86,7 +86,7 @@ angular.module('materialAdmin').run(['$templateCache', function($templateCache) 
 
 
   $templateCache.put('resources/template/editores/horario.html',
-    "<li ng-class=\"[{active: active, disabled: disabled}, classes]\" class=\"uib-tab nav-item\"><a href ng-click=\"select($event)\" class=\"nav-link\" uib-tab-heading-transclude>{{heading}}</a> xxxxx</li>"
+    "<div class=\"modal-header\"><h4 class=\"modal-title\">Probar horario</h4></div><div class=\"modal-body\"><div class=\"row\"><div id=\"calendar-widget\" data-testcalendario class=\"citas\"></div></div><div class=\"modal-footer m-t-30\"><button class=\"btn bgm-red btn-lg\" ng-click=\"cancel()\">Cerrar</button></div></div>"
   );
 
 
@@ -117,6 +117,11 @@ angular.module('materialAdmin').run(['$templateCache', function($templateCache) 
 
   $templateCache.put('resources/template/tabs/tabset.html',
     "<div class=\"clearfix\"><ul class=\"tab-nav\" ng-class=\"{'tn-vertical': vertical, 'tn-justified': justified, 'tab-nav-right': right}\" ng-transclude></ul><div class=\"tab-content\"><div class=\"tab-pane\" ng-repeat=\"tab in tabs\" ng-class=\"{active: tab.active}\" tab-content-transclude=\"tab\"></div></div></div>"
+  );
+
+
+  $templateCache.put('uib/template/blockly.html',
+    "<div><div id=\"blocklyDiv\" style=\"height: {{height}}; width: {{width}}\"></div></div>"
   );
 
 }]);

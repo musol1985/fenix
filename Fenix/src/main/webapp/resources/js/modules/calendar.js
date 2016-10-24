@@ -212,6 +212,48 @@ materialAdmin
             }
         }
     })
+    
+    
+    // =========================================================================
+    // CALENDARIO
+    // =========================================================================
+    .directive('testcalendario', function($compile, $rootScope, userService, $templateCache){
+        return {
+            restrict: 'A',
+            scope: {
+                select: '&',
+                actionLinks: '=',
+                onPreAjax: '&',
+                onGetEvents: '&'
+            },
+            link: function(scope, element, attrs) {
+                
+                var date = new Date();
+                var d = date.getDate();
+                var m = date.getMonth();
+                var y = date.getFullYear();
+
+                //Generate the Calendar
+                element.fullCalendar({
+                    header: {
+                        right: '',
+                        center: 'prev, title, next',
+                        left: 'today'
+                    },
+                    defaultView: 'agendaDay',
+                    lang: 'es',
+                    allDaySlot: false,
+                    theme: true, //Do not remove this as it ruin the design
+                    selectable: true,
+                    selectHelper: true,
+                    editable: true,
+                    droppable: true,
+                    slotDuration:'00:10:00'
+                });            
+            }
+            
+        }
+    })
 
     
     // =========================================================================
