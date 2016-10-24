@@ -20,7 +20,8 @@ Blockly.JavaScript['mes'] = function(block) {
   if(statements_name!=""){
 	  code+="   "+statements_name;
   }else{
-	  code+="	huecos.push({start:moment.clone().format('YYYY-MM-DD'),end:moment.clone().add(1, 'days').format('YYYY-MM-DD')});";
+	  code+="   var dia=moment.format('YYYY-MM-DD');"
+	  code+="	huecos.push({start:dia+' 00:00',end:dia+' 23:59', id: 'disponible', color: '#257e4a'});";
   }
   return code+="}";
 };
@@ -29,8 +30,15 @@ Blockly.JavaScript['dia'] = function(block) {
   var dropdown_dias = block.getFieldValue('dias');
   var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
   // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
-  return code;
+  var code = 'if(moment.weekday()=='+dropdown_dias+'){';
+  
+  if(statements_name!=""){
+	  code+="   "+statements_name;
+  }else{
+	  code+="   var dia=moment.format('YYYY-MM-DD');"
+	  code+="	huecos.push({start:dia+' 00:00',end:dia+' 23:59', id: 'disponible', color: '#257e4a'});";
+  }
+  return code+="}";
 };
 
 Blockly.JavaScript['hora'] = function(block) {
@@ -38,8 +46,12 @@ Blockly.JavaScript['hora'] = function(block) {
   var number_m = block.getFieldValue('m');
   var number_hf = block.getFieldValue('hf');
   var number_mf = block.getFieldValue('mf');
+  
+  var hIni=number_h+":"+number_m;
+  var hFin=number_hf+":"+number_mf;
   // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
+  var code="   var dia=moment.format('YYYY-MM-DD');"
+  code+="	huecos.push({start:dia+' "+hIni+"',end:dia+' "+hFin+"', id: 'disponible', color: '#257e4a'});";
   return code;
 };
 

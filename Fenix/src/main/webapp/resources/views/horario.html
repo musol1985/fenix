@@ -6,6 +6,16 @@
                 <div class="card-header ch-alt m-b-20">
                     <h2>Horario<small>Editar el horario</small></h2>
                     <ul class="actions">
+                    	<li ng-show="!editor">
+                            <a href="" ng-click="toggleEditor()">
+                                <i class="zmdi zmdi-border-color"></i>
+                            </a>
+                        </li>
+                        <li ng-show="editor">
+                            <a href="" ng-click="toggleEditor(true)">
+                                <i class="zmdi zmdi-search"></i>
+                            </a>
+                        </li>
                         <li>
                             <a href="" ng-click="test()">
                                 <i class="zmdi zmdi-card-sd"></i>
@@ -18,17 +28,19 @@
                         </li>
                     </ul>    	                        
                 </div>
-	
-	<ui-blockly toolbox="resources/js/blockly/horarios/toolbox.xml" 
-				start-workspace="resources/js/blockly/horarios/workspace.xml" 
-				width="100%" height="480px"/>
-	
+		<button ng-click="mostrarCodigo()">Show JavaScript</button>
     		<button onclick="showCode()">Show JavaScript</button>
-	
-		
+    		
+	<div ng-show="editor">    		
+		<ui-blockly toolbox="resources/js/blockly/horarios/toolbox.xml" 
+					start-workspace="resources/js/blockly/horarios/workspace.xml" 
+					width="100%" height="480px" model="blockly"/>
+				
+	</div>
+	<div ng-show="!editor">
+		<div id="calendar-widget" testcalendario procesar-dia="aplicarHorario(dia)" model="calendario" class="citas"></div>  
+	</div>
 
-
-	            <p>Add quick, dynamic tab functionality to transition through panes of local content, even via dropdown menus. <a target="_blank" href="http://angular-ui.github.io/bootstrap/#/tabs">Read more...</a></p>
 
 		
         	

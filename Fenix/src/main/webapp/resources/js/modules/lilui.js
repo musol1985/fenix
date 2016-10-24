@@ -33,6 +33,14 @@ materialAdmin
 		}
 		
 		$scope.load();
+		$scope.model={};
+		
+		if($scope.model){
+			$scope.model.getCode=function(){
+				Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+			    return Blockly.JavaScript.workspaceToCode($scope.workspace);
+			}
+		}
 	})
 
 	.directive('uiBlockly', function($compile, $rootScope) {
@@ -42,7 +50,8 @@ materialAdmin
 			    	toolbox: '@',
 			    	width: '@',
 			    	height: '@',
-			    	startWorkspace: '@'
+			    	startWorkspace: '@',
+			    	model: '='
 			},		  
 		    controller: 'uiBlocklyController',
 		    controllerAs: 'blockly',		    

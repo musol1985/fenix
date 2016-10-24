@@ -78,6 +78,13 @@ materialAdmin
                 resolve: {
                     loadPlugin: function($ocLazyLoad) {
                         return $ocLazyLoad.load ([
+                        	{
+                                name: 'css',
+                                insertBefore: '#app-level',
+                                files: [
+                                    'resources/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css'
+                                ]
+                            },
                             {                            	
                             	serie:true,
                                 name: 'vendors',
@@ -87,7 +94,10 @@ materialAdmin
                                 	'resources/vendors/blocky/javascript_compressed.js',
                                 	'resources/vendors/blocky/msg/js/es.js',
                                 	'resources/js/blockly/horarios/bloques.js',
-                                	'resources/js/blockly/horarios/generador.js'
+                                	'resources/js/blockly/horarios/generador.js',
+                                    'resources/vendors/bower_components/moment/min/moment.min.js',
+                                    'resources/vendors/bower_components/fullcalendar/dist/fullcalendar.js',
+                                    'resources/vendors/bower_components/fullcalendar/dist/locale/es.js',
                                 ]
                             }
                         ])
