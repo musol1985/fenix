@@ -69,9 +69,11 @@ Blockly.Blocks['mes_intervalo'] = {
     this.appendStatementInput("meses")
         .setCheck(null)
         .appendField("Meses desde")
-        .appendField(new Blockly.FieldDropdown([["Enero", "0"], ["Febrero", "1"], ["Marzo", "2"], ["Abril", "3"], ["Mayo", "4"], ["Junio", "5"], ["Julio", "6"], ["Agosto", "7"], ["Septiembre", "8"], ["Octubre", "9"], ["Noviembre", "10"], ["Diciembre", "11"]]), "mesIni")
+        .appendField(new Blockly.FieldDropdown([["Enero", "1"], ["Febrero", "2"], ["Marzo", "3"], ["Abril", "4"], ["Mayo", "5"], ["Junio", "6"], ["Julio", "7"], ["Agosto", "8"], ["Septiembre", "9"], ["Octubre", "10"], ["Noviembre", "11"], ["Diciembre", "12"]]), "mesIni")
         .appendField("hasta")
-        .appendField(new Blockly.FieldDropdown([["Enero", "0"], ["Febrero", "1"], ["Marzo", "2"], ["Abril", "3"], ["Mayo", "4"], ["Junio", "5"], ["Julio", "6"], ["Agosto", "7"], ["Septiembre", "8"], ["Octubre", "9"], ["Noviembre", "10"], ["Diciembre", "11"]]), "mesFin");
+        .appendField(new Blockly.FieldDropdown([["Enero", "1"], ["Febrero", "2"], ["Marzo", "3"], ["Abril", "4"], ["Mayo", "5"], ["Junio", "6"], ["Julio", "7"], ["Agosto", "8"], ["Septiembre", "9"], ["Octubre", "10"], ["Noviembre", "11"], ["Diciembre", "12"]]), "mesFin");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
     this.setColour(120);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
@@ -135,6 +137,38 @@ Blockly.Blocks['semana_intervalo'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(290);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.Blocks['festivo'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Festivo")
+        .appendField(new Blockly.FieldNumber(0, 1, 31), "dia")
+        .appendField("de")
+        .appendField(new Blockly.FieldDropdown([["Enero", "1"], ["Febrero", "2"], ["Marzo", "3"], ["Abril", "4"], ["Mayo", "5"], ["Junio", "6"], ["Julio", "7"], ["Agosto", "8"], ["Septiembre", "9"], ["Octubre", "10"], ["Noviembre", "11"], ["Diciembre", "12"]]), "mes");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(160);
+    this.setTooltip('');
+    this.setHelpUrl('http://www.example.com/');
+  }
+};
+
+Blockly.Blocks['festivo_anual'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Festivo")
+        .appendField(new Blockly.FieldNumber(0, 1, 31), "dia")
+        .appendField("de")
+        .appendField(new Blockly.FieldDropdown([["Enero", "1"], ["Febrero", "2"], ["Marzo", "3"], ["Abril", "4"], ["Mayo", "5"], ["Junio", "6"], ["Julio", "7"], ["Agosto", "8"], ["Septiembre", "9"], ["Octubre", "10"], ["Noviembre", "11"], ["Diciembre", "12"]]), "mes")
+        .appendField("de")
+        .appendField(new Blockly.FieldNumber(2016, 1900, 3000), "anyo");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(160);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
   }

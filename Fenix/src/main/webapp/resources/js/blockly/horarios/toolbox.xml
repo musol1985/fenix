@@ -1,12 +1,6 @@
 <xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
   <category name="General" colour="#5ca6a4">
     <block type="horario"></block>
-    <block type="hora">
-      <field name="h">0</field>
-      <field name="m">0</field>
-      <field name="hf">0</field>
-      <field name="mf">0</field>
-    </block>
   </category>
   <category name="Meses" colour="#66a65c">
     <block type="mes">
@@ -37,6 +31,25 @@
     <block type="dias_intervalo">
       <field name="dIni">1</field>
       <field name="dFin">31</field>
+    </block>
+  </category>
+  <category name="Horas" colour="#a6885c">
+    <block type="hora">
+      <field name="h">0</field>
+      <field name="m">0</field>
+      <field name="hf">0</field>
+      <field name="mf">0</field>
+    </block>
+  </category>
+  <category name="Festivos" colour="#5ca68d">
+    <block type="festivo">
+      <field name="dia">1</field>
+      <field name="mes">1</field>
+    </block>
+    <block type="festivo_anual">
+      <field name="dia">1</field>
+      <field name="mes">1</field>
+      <field name="anyo">2016</field>
     </block>
   </category>
 </xml>

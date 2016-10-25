@@ -252,10 +252,10 @@
       </block>
     </value>
   </block><block type="factory_base" id="0qVD)5he(+G~LG?MdQWf" deletable="false" movable="false" x="0" y="0">
-    <mutation connections="NONE"></mutation>
+    <mutation connections="BOTH"></mutation>
     <field name="NAME">mes_intervalo</field>
     <field name="INLINE">AUTO</field>
-    <field name="CONNECTIONS">NONE</field>
+    <field name="CONNECTIONS">BOTH</field>
     <statement name="INPUTS">
       <block type="input_statement" id="*7Pj7bz:o9pJSGBrw2+0">
         <field name="INPUTNAME">meses</field>
@@ -268,29 +268,29 @@
                 <mutation options="12"></mutation>
                 <field name="FIELDNAME">mesIni</field>
                 <field name="USER0">Enero</field>
-                <field name="CPU0">0</field>
+                <field name="CPU0">1</field>
                 <field name="USER1">Febrero</field>
-                <field name="CPU1">1</field>
+                <field name="CPU1">2</field>
                 <field name="USER2">Marzo</field>
-                <field name="CPU2">2</field>
+                <field name="CPU2">3</field>
                 <field name="USER3">Abril</field>
-                <field name="CPU3">3</field>
+                <field name="CPU3">4</field>
                 <field name="USER4">Mayo</field>
-                <field name="CPU4">4</field>
+                <field name="CPU4">5</field>
                 <field name="USER5">Junio</field>
-                <field name="CPU5">5</field>
+                <field name="CPU5">6</field>
                 <field name="USER6">Julio</field>
-                <field name="CPU6">6</field>
+                <field name="CPU6">7</field>
                 <field name="USER7">Agosto</field>
-                <field name="CPU7">7</field>
+                <field name="CPU7">8</field>
                 <field name="USER8">Septiembre</field>
-                <field name="CPU8">8</field>
+                <field name="CPU8">9</field>
                 <field name="USER9">Octubre</field>
-                <field name="CPU9">9</field>
+                <field name="CPU9">10</field>
                 <field name="USER10">Noviembre</field>
-                <field name="CPU10">10</field>
+                <field name="CPU10">11</field>
                 <field name="USER11">Diciembre</field>
-                <field name="CPU11">11</field>
+                <field name="CPU11">12</field>
                 <next>
                   <block type="field_static" id="vG|6oeEXtnqaj.OY{8Lm">
                     <field name="TEXT">hasta</field>
@@ -299,29 +299,29 @@
                         <mutation options="12"></mutation>
                         <field name="FIELDNAME">mesFin</field>
                         <field name="USER0">Enero</field>
-                        <field name="CPU0">0</field>
+                        <field name="CPU0">1</field>
                         <field name="USER1">Febrero</field>
-                        <field name="CPU1">1</field>
+                        <field name="CPU1">2</field>
                         <field name="USER2">Marzo</field>
-                        <field name="CPU2">2</field>
+                        <field name="CPU2">3</field>
                         <field name="USER3">Abril</field>
-                        <field name="CPU3">3</field>
+                        <field name="CPU3">4</field>
                         <field name="USER4">Mayo</field>
-                        <field name="CPU4">4</field>
+                        <field name="CPU4">5</field>
                         <field name="USER5">Junio</field>
-                        <field name="CPU5">5</field>
+                        <field name="CPU5">6</field>
                         <field name="USER6">Julio</field>
-                        <field name="CPU6">6</field>
+                        <field name="CPU6">7</field>
                         <field name="USER7">Agosto</field>
-                        <field name="CPU7">7</field>
+                        <field name="CPU7">8</field>
                         <field name="USER8">Septiembre</field>
-                        <field name="CPU8">8</field>
+                        <field name="CPU8">9</field>
                         <field name="USER9">Octubre</field>
-                        <field name="CPU9">9</field>
+                        <field name="CPU9">10</field>
                         <field name="USER10">Noviembre</field>
-                        <field name="CPU10">10</field>
+                        <field name="CPU10">11</field>
                         <field name="USER11">Diciembre</field>
-                        <field name="CPU11">11</field>
+                        <field name="CPU11">12</field>
                       </block>
                     </next>
                   </block>
@@ -335,6 +335,12 @@
         </value>
       </block>
     </statement>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="0OQ3$S7iA}lG)jCQfuCs"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="+B,/!=c$k$n]g-K.8FBR"></shadow>
+    </value>
     <value name="COLOUR">
       <block type="colour_hue" id=")yHeM4*n?)pab.P1fP=v">
         <mutation colour="#5ba55b"></mutation>
@@ -584,6 +590,162 @@
       <block type="colour_hue" id="EUwnl5.e=,kTv)y;|1|c">
         <mutation colour="#995ba5"></mutation>
         <field name="HUE">290</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="doGJo?{Ym5e`3jN5Eteg" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">festivo</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="cJxmm%Rz3a@{NdK5h$T-">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="^ZoXz/;m$#:AhV*lJU-8">
+            <field name="TEXT">Festivo</field>
+            <next>
+              <block type="field_number" id=".?]O(V)bMVFQz!LjkaAq">
+                <field name="VALUE">0</field>
+                <field name="FIELDNAME">dia</field>
+                <field name="MIN">1</field>
+                <field name="MAX">31</field>
+                <field name="PRECISION">0</field>
+                <next>
+                  <block type="field_static" id="Y$#O$a6UDIV6Em4lUcOz">
+                    <field name="TEXT">de</field>
+                    <next>
+                      <block type="field_dropdown" id="VF|vRf_Dn_zLQyq6()]$">
+                        <mutation options="12"></mutation>
+                        <field name="FIELDNAME">mes</field>
+                        <field name="USER0">Enero</field>
+                        <field name="CPU0">1</field>
+                        <field name="USER1">Febrero</field>
+                        <field name="CPU1">2</field>
+                        <field name="USER2">Marzo</field>
+                        <field name="CPU2">3</field>
+                        <field name="USER3">Abril</field>
+                        <field name="CPU3">4</field>
+                        <field name="USER4">Mayo</field>
+                        <field name="CPU4">5</field>
+                        <field name="USER5">Junio</field>
+                        <field name="CPU5">6</field>
+                        <field name="USER6">Julio</field>
+                        <field name="CPU6">7</field>
+                        <field name="USER7">Agosto</field>
+                        <field name="CPU7">8</field>
+                        <field name="USER8">Septiembre</field>
+                        <field name="CPU8">9</field>
+                        <field name="USER9">Octubre</field>
+                        <field name="CPU9">10</field>
+                        <field name="USER10">Noviembre</field>
+                        <field name="CPU10">11</field>
+                        <field name="USER11">Diciembre</field>
+                        <field name="CPU11">12</field>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="uzM*S%IO]j}ZDS:5Xzdz"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="~12V:_r@SA6KNAg_)?s1"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="o@|01A0Vc7%tD0U2;)u]">
+        <mutation colour="#5ba58c"></mutation>
+        <field name="HUE">160</field>
+      </block>
+    </value>
+  </block><block type="factory_base" id="doGJo?{Ym5e`3jN5Eteg" deletable="false" movable="false" x="0" y="0">
+    <mutation connections="BOTH"></mutation>
+    <field name="NAME">festivo_anual</field>
+    <field name="INLINE">AUTO</field>
+    <field name="CONNECTIONS">BOTH</field>
+    <statement name="INPUTS">
+      <block type="input_dummy" id="cJxmm%Rz3a@{NdK5h$T-">
+        <field name="ALIGN">LEFT</field>
+        <statement name="FIELDS">
+          <block type="field_static" id="^ZoXz/;m$#:AhV*lJU-8">
+            <field name="TEXT">Festivo</field>
+            <next>
+              <block type="field_number" id=".?]O(V)bMVFQz!LjkaAq">
+                <field name="VALUE">0</field>
+                <field name="FIELDNAME">dia</field>
+                <field name="MIN">1</field>
+                <field name="MAX">31</field>
+                <field name="PRECISION">0</field>
+                <next>
+                  <block type="field_static" id="Y$#O$a6UDIV6Em4lUcOz">
+                    <field name="TEXT">de</field>
+                    <next>
+                      <block type="field_dropdown" id="VF|vRf_Dn_zLQyq6()]$">
+                        <mutation options="12"></mutation>
+                        <field name="FIELDNAME">mes</field>
+                        <field name="USER0">Enero</field>
+                        <field name="CPU0">1</field>
+                        <field name="USER1">Febrero</field>
+                        <field name="CPU1">2</field>
+                        <field name="USER2">Marzo</field>
+                        <field name="CPU2">3</field>
+                        <field name="USER3">Abril</field>
+                        <field name="CPU3">4</field>
+                        <field name="USER4">Mayo</field>
+                        <field name="CPU4">5</field>
+                        <field name="USER5">Junio</field>
+                        <field name="CPU5">6</field>
+                        <field name="USER6">Julio</field>
+                        <field name="CPU6">7</field>
+                        <field name="USER7">Agosto</field>
+                        <field name="CPU7">8</field>
+                        <field name="USER8">Septiembre</field>
+                        <field name="CPU8">9</field>
+                        <field name="USER9">Octubre</field>
+                        <field name="CPU9">10</field>
+                        <field name="USER10">Noviembre</field>
+                        <field name="CPU10">11</field>
+                        <field name="USER11">Diciembre</field>
+                        <field name="CPU11">12</field>
+                        <next>
+                          <block type="field_static" id=";qW^G.B}-ywfiJ5H.5~/">
+                            <field name="TEXT">de</field>
+                            <next>
+                              <block type="field_number" id=",.xYmc-~IGk(p;Ps?|).">
+                                <field name="VALUE">2016</field>
+                                <field name="FIELDNAME">anyo</field>
+                                <field name="MIN">1900</field>
+                                <field name="MAX">3000</field>
+                                <field name="PRECISION">0</field>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+    <value name="TOPTYPE">
+      <shadow type="type_null" id="uzM*S%IO]j}ZDS:5Xzdz"></shadow>
+    </value>
+    <value name="BOTTOMTYPE">
+      <shadow type="type_null" id="~12V:_r@SA6KNAg_)?s1"></shadow>
+    </value>
+    <value name="COLOUR">
+      <block type="colour_hue" id="Wvs9e32f,0;EmIuTc%`{">
+        <mutation colour="#5ba58c"></mutation>
+        <field name="HUE">160</field>
       </block>
     </value>
   </block></xml>

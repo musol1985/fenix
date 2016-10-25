@@ -222,7 +222,8 @@ materialAdmin
             restrict: 'A',
             scope: {
                 procesarDia: '&',
-                model: '='
+                model: '=',
+                height: '@'
             },
             transclude: true,
             link: function(scope, element, attrs) {
@@ -261,7 +262,7 @@ materialAdmin
                     editable: true,
                     droppable: true,
                     slotDuration:'00:15:00',
-                    height: 350,
+                    height: parseInt(scope.height),
                     navLinks: true,
                     navLinkDayClick: 'agendaWeek',
                     eventSources: [
