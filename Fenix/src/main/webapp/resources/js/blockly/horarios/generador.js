@@ -5,9 +5,44 @@ Blockly.JavaScript['horario'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
   var code = "function comprobarHorario(moment){";
   code+="	var huecos=[];"
+  code+="	var procesado=function(dia){";
+  code+="		huecos.forEach(function(value, key) {";
+  code+="			return true;";
+  code+="		});";
+  code+="		return false;";
+  code+="	}";	
   code+="	"+statements_laborables;
   code+="	return huecos;"
   code+="}";
+  
+  var funcion=function(moment){
+	  var huecos=[];
+	  
+	  var isProcesado=function(moment){
+		  var procesado=false;
+		  huecos.forEach(function(value, key){
+			  if(moment.format('YYYY-MM-DD')==value.moment.format('YYYY-MM-DD')){
+				  procesado=true;			  
+			  }
+		  });
+		  return procesado;
+	  };
+	  
+	  var addHueco=function(hueco){
+		  if(!isProcesado(hueco.moment)){
+			  huecos.push({start:hueco.start, end: hueco.end, id: hueco.id, color: hueco.color});
+		  }
+		  
+	  };
+	  
+	  //##STATEMENTS_LABORABLES
+	  return huecos;
+  };
+  
+  var code=String(funcion).replace("//##STATEMENTS_LABORABLES", statements_laborables);
+  
+  console.log(code);
+  
   return code;
 };
 
@@ -15,15 +50,13 @@ Blockly.JavaScript['mes'] = function(block) {
   var dropdown_mes = block.getFieldValue('mes');
   var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
   // TODO: Assemble JavaScript into code variable.
-  var code = 'console.log("Mes:"+moment.month());'
-	  code+= 'console.log("Drop"+'+dropdown_mes+');'
-	  code+='if((moment.month()-1)==parseInt('+dropdown_mes+')){';
+   var code = 'if((moment.month()+1)==parseInt('+dropdown_mes+')){';
   
   if(statements_name!=""){
 	  code+="   "+statements_name;
   }else{
 	  code+="   var dia=moment.format('YYYY-MM-DD');"
-	  code+="	huecos.push({start:dia+' 00:00',end:dia+' 23:59', id: 'disponible', color: '#257e4a'});";
+	  code+="	addHueco({start:dia+' 00:00',end:dia+' 23:59', id: 'disponible', color: '#257e4a', moment: moment});";
   }
   return code+="}";
 };
@@ -38,7 +71,7 @@ Blockly.JavaScript['dia'] = function(block) {
 	  code+="   "+statements_name;
   }else{
 	  code+="   var dia=moment.format('YYYY-MM-DD');"
-	  code+="	huecos.push({start:dia+' 00:00',end:dia+' 23:59', id: 'disponible', color: '#257e4a'});";
+	  code+="	addHueco({start:dia+' 00:00',end:dia+' 23:59', id: 'disponible', color: '#257e4a', moment: moment});";
   }
   return code+="}";
 };
@@ -58,7 +91,9 @@ Blockly.JavaScript['hora'] = function(block) {
   var hFin=number_hf+":"+number_mf;
   // TODO: Assemble JavaScript into code variable.
   var code="   var dia=moment.format('YYYY-MM-DD');"
-  code+="	huecos.push({start:dia+' "+hIni+"',end:dia+' "+hFin+"', id: 'disponible', color: '#257e4a'});";
+  code+="	addHueco({start:dia+' "+hIni+"',end:dia+' "+hFin+"', id: 'disponible', color: '#257e4a', moment: moment});";
+  code+=" console.log('horas...."+hIni+"');"
+  code+=" console.log('horas...."+hFin+"');"
   return code;
 };
 
@@ -67,8 +102,15 @@ Blockly.JavaScript['mes_intervalo'] = function(block) {
   var dropdown_mesfin = block.getFieldValue('mesFin');
   var statements_meses = Blockly.JavaScript.statementToCode(block, 'meses');
   // TODO: Assemble JavaScript into code variable.
-  var code = '...;\n';
-  return code;
+  var code = 'if((moment.month()+1)>=parseInt('+dropdown_mesini+') && (moment.month()+1)<=parseInt('+dropdown_mesfin+')){';
+  
+  if(statements_meses!=""){
+	  code+="   "+statements_meses;
+  }else{
+	  code+="   var dia=moment.format('YYYY-MM-DD');"
+	  code+="	addHueco({start:dia+' 00:00',end:dia+' 23:59', id: 'disponible', color: '#257e4a', moment: moment});";
+  }
+  return code+="}";
 };
 
 Blockly.JavaScript['dias_semana_intervalo'] = function(block) {

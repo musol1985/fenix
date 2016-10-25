@@ -124,4 +124,9 @@ angular.module('materialAdmin').run(['$templateCache', function($templateCache) 
     "<div><div id=\"blocklyDiv\" style=\"height: {{height}}; width: {{width}}\"></div></div>"
   );
 
+
+  $templateCache.put('uib/template/mantenimiento.html',
+    "<div class=\"card\"><div class=\"card-header ch-alt m-b-20\"><h2>{{nombre}}<small>{{descripcion}}</small></h2><ul class=\"actions\"><li><a href=\"\" ng-click=\"refrescar()\"><i class=\"zmdi zmdi-refresh-alt\"></i></a></li><li><a href=\"\"><i class=\"zmdi zmdi-download\"></i></a></li></ul><button class=\"btn bgm-red btn-float waves-effect\" ng-click=\"nuevo()\"><i class=\"zmdi zmdi-plus\"></i></button></div><div class=\"card-body card-padding\"><div ng-repeat=\"r in datos\"><div>ROW:{{r.nombre}}</div><div ng-transclude></div></div></div></div>"
+  );
+
 }]);

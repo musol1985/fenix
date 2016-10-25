@@ -1,4 +1,11 @@
 <div class="container">
+<div data-ng-controller="horarios as horarioCtr">
+	<uimantenimiento nombre="holaaa" model="modelo" ng-model="row" on-refrescar="refrescando()" on-nuevo="crear()" get-datos="getDatos()">
+		<div>hola</div>
+		<div>x{{row.nombre}}</div>
+	</uimantenimiento>
+</div>
+
 
     	<div class="card"  data-ng-controller="horarios as horarioCtr">
                 <div class="card-header ch-alt m-b-20">
@@ -17,7 +24,7 @@
                     </ul>
 
     	    
-                    <button class="btn bgm-red btn-float waves-effect" data-ui-sref="configuracion.horario"><i class="zmdi zmdi-plus"></i></button>
+                    <button class="btn bgm-red btn-float waves-effect" data-ui-sref="nuevo"><i class="zmdi zmdi-plus"></i></button>
                 </div>
 
 

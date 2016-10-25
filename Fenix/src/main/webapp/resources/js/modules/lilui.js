@@ -61,4 +61,48 @@ materialAdmin
 		    transclude: true
 		  };
 	})
-    
+	
+	
+	// =========================================================================
+    // MANTENIMIENTO
+    // =========================================================================
+    .controller('uimantenimientoController', function($scope, $http) {
+		$scope.model={};
+
+		$scope.model.getCode=function(){
+			Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+		    return Blockly.JavaScript.workspaceToCode($scope.workspace);
+		}
+		
+		$scope.refrescar=function(){
+			if($scope.onRefrescar)
+				$scope.onRefrescar();			
+		}
+		
+		$scope.nuevo=function(){
+			if($scope.onNuevo)
+				$scope.onNuevo();
+		}
+		
+		$scope.datos=$scope.getDatos();
+	})
+	
+	.directive('uimantenimiento', function($compile, $rootScope) {
+		  return {
+			restrict: 'EA',
+			scope: {
+			    	model: '=',
+			    	nombre: '@',
+			    	descripcion: '@',
+			    	onRefrescar: '&',
+			    	onNuevo: '&',
+			    	getDatos: '&'
+			},		  
+		    controller: 'uimantenimientoController',
+		    controllerAs: 'mant',		    
+		    templateUrl: function(element, attrs) {
+		      return attrs.templateUrl || 'uib/template/mantenimiento.html';
+		    },
+		    transclude: true
+		  };
+	})

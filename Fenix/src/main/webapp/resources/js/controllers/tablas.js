@@ -432,10 +432,24 @@ materialAdmin
     // Prestaciones
     // =========================================================================
     
-    .controller('horarios', function($rootScope, $scope, $http, limitToFilter, $filter, $sce, $q, ngTableParams, userService, centroService, prestacionService, errorService, modalService, $uibModal) {
+    .controller('horarios', function($state, $rootScope, $scope, $http, limitToFilter, $filter, $sce, $q, ngTableParams, userService, centroService, prestacionService, errorService, modalService, $uibModal) {
     	var self=this;
     	
     	$scope.datos=[];
+    	
+    	$scope.getDatos=function(){
+    		return [
+    			{nombre:'hola'},{nombre:'adios'}
+    		];
+    	}
+    	
+    	$scope.refrescando=function(){
+    		alert("refrescando");
+    	}
+    	
+    	$scope.crear=function(){
+    		$state.go('configuracion.horario');
+    	}
     	
     	this.tabla=new ngTableParams({
             page: 1,            // show first page
