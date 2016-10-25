@@ -66,8 +66,9 @@ materialAdmin
 	// =========================================================================
     // MANTENIMIENTO
     // =========================================================================
-    .controller('uimantenimientoController', function($scope, $http) {
+    .controller('uimantenimientoController', function($scope, $http, ngTableParams, userService, centroService, prestacionService, errorService) {
 		$scope.model={};
+		var self=this;
 
 		$scope.model.getCode=function(){
 			Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
@@ -76,7 +77,7 @@ materialAdmin
 		
 		$scope.refrescar=function(){
 			if($scope.onRefrescar)
-				$scope.onRefrescar();			
+				$scope.onRefrescar({test:"dddd"});			
 		}
 		
 		$scope.nuevo=function(){
@@ -84,7 +85,24 @@ materialAdmin
 				$scope.onNuevo();
 		}
 		
-		$scope.datos=$scope.getDatos();
+		//self.datos=$scope.model.datos;
+
+		this.tabla=new ngTableParams({
+            page: 1,            // show first page
+            count: 10          // count per page
+        }, {
+        	getData: function($defer, params) {
+        		$scope.getDatos({params:params, callback:function(data, total){
+        			self.datos=data;
+            		params.total(total); 
+            		$scope.model.datos=self.datos;
+        		}});
+        		$defer.resolve(self.datos);            		
+            }
+        });
+		$scope.tabla=this.tabla;
+		
+		
 	})
 	
 	.directive('uimantenimiento', function($compile, $rootScope) {

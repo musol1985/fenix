@@ -1169,6 +1169,7 @@ function($scope, NgTableParams, $timeout, $parse, $compile, $attrs, $element, ng
         ngTableEventsChannel.onPagesChanged(bindPagesToScope, $scope, isMyPublisher);
 
         function bindDataToScope(params, newDatapage){
+        	debugger;
             if (params.settings().groupBy) {
                 $scope.$groups = newDatapage;
             } else {

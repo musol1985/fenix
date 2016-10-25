@@ -437,10 +437,12 @@ materialAdmin
     	
     	$scope.datos=[];
     	
-    	$scope.getDatos=function(){
-    		return [
-    			{nombre:'hola'},{nombre:'adios'}
-    		];
+    	$scope.getDatos=function(params, onComplete){
+    		prestacionService.getByCentro(userService.getCentro().id, params.page(), params.count()).then(function(res){
+    			onComplete(res.data, res.total);
+            }, function(error){
+            	errorService.alertaGrowl("Error al obtener prestaciones", 'danger');
+            });
     	}
     	
     	$scope.refrescando=function(){
@@ -457,7 +459,6 @@ materialAdmin
         }, {
             getData: function($defer, params) {
             		$scope.cargarDatos(params);
-            		
             		$defer.resolve(self.datos);            		
                 }
         });
