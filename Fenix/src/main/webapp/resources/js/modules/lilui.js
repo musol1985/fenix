@@ -66,8 +66,8 @@ materialAdmin
 	// =========================================================================
     // MANTENIMIENTO
     // =========================================================================
-    .controller('uimantenimientoController', function($scope, $http, ngTableParams, userService, centroService, prestacionService, errorService) {
-		$scope.model={};
+    .controller('uimantenimientoController', function($q, $filter, $timeout,$scope, $http, ngTableParams, userService, centroService, prestacionService, errorService) {
+		/*$scope.model={};
 		var self=this;
 
 		$scope.model.getCode=function(){
@@ -100,9 +100,33 @@ materialAdmin
         		$defer.resolve(self.datos);            		
             }
         });
-		$scope.tabla=this.tabla;
-		
-		
+		$scope.tabla=this.tabla;*/
+    	$scope.model={};
+    	$scope.model.datos = [];
+
+    	  $scope.callServer = function callServer(tableState) {
+
+    		  $scope.isLoading = true;
+
+    	    var pagination = tableState.pagination;
+
+    	    var start = pagination.start || 0;     // This is NOT the page number, but the index of item in the list that you want to use to display the table.
+    	    var number = pagination.number || 10;  // Number of entries showed per page.
+
+    	    $scope.cargarDatos(start+1, number, function(data, pages){
+    	    	$scope.model.datos = data;
+    	    	tableState.pagination.numberOfPages = pages;
+    	    	$scope.isLoading = false;
+    	    });
+    	  };
+    	  
+    	  $scope.cargarDatos=function(start, count, onComplete){
+	      		prestacionService.getByCentro(userService.getCentro().id, start, count).then(function(res){	      			
+	          		onComplete(res.data, res.paginas);
+	              }, function(error){
+	              	errorService.alertaGrowl("Error al obtener prestaciones", 'danger');
+	              });
+	      	}
 	})
 	
 	.directive('uimantenimiento', function($compile, $rootScope) {

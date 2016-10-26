@@ -1,26 +1,17 @@
 <div class="container">
 <div data-ng-controller="horarios as horarioCtr">
 	<uimantenimiento nombre="holaaa" descripcion="ieee" model="horarios" on-refrescar="refrescando()" on-nuevo="crear()" get-datos="getDatos(params, callback)">
-	***{{horarios.datos|json}}
-		<tr ng-repeat="r in horarios.datos"  >
-		{{r.nombre}}
-                  <td data-title="'Nombre'">
-                      <b>{{w.nombre.substr(0,1)}}</b>{{w.nombre.substr(1)}}
-                  </td>
-                  <td data-title="'Color'">
-                   <div class="lv-avatar bgm-{{w.color}} pull-left">{{w.nombre.substr(0,1)}}</div>
-                  </td>
-                  <td data-title="'Importe'">
-                   	{{w.importe}}
-                  </td>
-                  <td data-title="'Duracion'">
-                   	{{w.duracion}}
-                  </td>
-                  <td data-title="'Acciones'">
-                      <button type="button" class="btn btn-warning" ng-click="modificar(w)"><i class="zmdi zmdi-edit"></i></button>
-                      <button type="button" class="btn btn-danger" ng-click="eliminar(w)"><i class="zmdi zmdi-delete"></i></button>
-                  </td>
-              </tr>
+	<tbody >			
+			<tr ng-repeat="row in horarios.datos">
+				<td>{{row.id}}</td>
+				<td>{{row.nombre}}</td>
+				<td>{{row.age}}</td>
+				<td>{{row.saved}}</td>
+			</tr>
+	</tbody>
+	
+	<br>-----------
+	
 	</uimantenimiento>
 </div>
 

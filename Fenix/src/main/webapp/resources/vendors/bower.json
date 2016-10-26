@@ -50,6 +50,7 @@
     "Waves": "waves#~0.7.4",
     "angular": "1.4.7",
     "angular-google-maps-geocoder": "0.0.2",
-    "angular-dragdrop": "~1.0.13"
+    "angular-dragdrop": "~1.0.13",
+    "angular-smart-table":"*"
   }
 }

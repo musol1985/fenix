@@ -30,7 +30,7 @@ public class PrestacionREST{
 
 		Page<Prestacion> prestaciones=this.prestaciones.getByCentro(centro, new PageRequest(page-1, size));		
 
-		return new PageJSON<Prestacion>(prestaciones.getSize(), prestaciones.getContent());
+		return new PageJSON<Prestacion>(prestaciones.getSize(), prestaciones.getTotalPages(), prestaciones.getContent());
     }
 	
 	@RequestMapping(method=RequestMethod.GET, path="all/{centro}")

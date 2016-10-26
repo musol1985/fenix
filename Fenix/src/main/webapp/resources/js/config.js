@@ -98,6 +98,8 @@ materialAdmin
                                     'resources/vendors/bower_components/moment/min/moment.min.js',
                                     'resources/vendors/bower_components/fullcalendar/dist/fullcalendar.js',
                                     'resources/vendors/bower_components/fullcalendar/dist/locale/es.js',
+                                    'resources/vendors/bower_components/angular-smart-table/dist/smart-table.js'
+                                    
                                 ]
                             }
                         ])
