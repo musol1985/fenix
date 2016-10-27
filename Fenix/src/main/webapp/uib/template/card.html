@@ -1,0 +1,25 @@
+<div class="card">
+	<div class="card-header ch-alt m-b-20">
+	    <h2>{{titulo}}<small>{{descripcion}}</small></h2>
+	 
+	    <ul class="actions">
+	        <li >
+	            <a href="" ng-click="refrescar()">
+	                <i class="zmdi zmdi-refresh-alt"></i>
+	            </a>
+	        </li>
+	        <ng-transclude  ng-transclude-slot="uicardactions"></ng-transclude>
+	    </ul>
+
+
+	    <button class="btn bgm-red btn-float waves-effect" ng-click="nuevo()"><i class="zmdi zmdi-plus"></i></button>
+	</div>
+	
+	
+	<div class="card-body card-padding" ng-transclude="uicardbody">
+		      
+    </div>
+	
+ </div>       
+
+

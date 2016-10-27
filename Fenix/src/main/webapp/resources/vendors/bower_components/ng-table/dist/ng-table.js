@@ -1275,14 +1275,17 @@ app.factory('ngTableColumn', [function () {
  * @description
  * Directive that instantiates {@link ngTableController ngTableController}.
  */
-app.directive('ngTable', ['$q', '$parse',
-    function($q, $parse) {
+app.directive('ngTable', ['$q', '$parse','ngTableParams',
+    function($q, $parse,ngTableParams) {
         'use strict';
 
         return {
             restrict: 'A',
             priority: 1001,
-            scope: true,
+            scope: {
+            	ngTableGetDatos:'&',
+            	ngTableModel:'='
+            },
             controller: 'ngTableController',
             compile: function(element) {
                 var columns = [],
@@ -1348,6 +1351,22 @@ app.directive('ngTable', ['$q', '$parse',
                     controller.setupBindingsToInternalScope(attrs.ngTable);
                     controller.loadFilterData(columns);
                     controller.compileDirectiveTemplates();
+                    
+                    console.log(attrs.pagsize);
+                    
+                    controller.tabla=new ngTableParams({
+                        page: 1,            // show first page
+                        count: 10          // count per page
+                    }, {
+                    	 getData: function($defer, params) {
+                     			scope.ngTableGetDatos({params:params, onComplete: function(datos){
+                     				scope.ngTableModel=datos;                     			  
+                     			}
+                     		});     
+                     		$defer.resolve(scope.ngTableModel);
+                         }
+                    });
+                    scope.tabla=controller.tabla;
                 };
             }
         }

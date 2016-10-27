@@ -125,8 +125,13 @@ angular.module('materialAdmin').run(['$templateCache', function($templateCache) 
   );
 
 
-  $templateCache.put('uib/template/mantenimiento.html',
-    "<div class=\"card\"><div class=\"card-header ch-alt m-b-20\"><h2>{{nombre}}<small>{{descripcion}}</small></h2><ul class=\"actions\"><li><a href=\"\" ng-click=\"refrescar()\"><i class=\"zmdi zmdi-refresh-alt\"></i></a></li><li><a href=\"\"><i class=\"zmdi zmdi-download\"></i></a></li></ul><button class=\"btn bgm-red btn-float waves-effect\" ng-click=\"nuevo()\"><i class=\"zmdi zmdi-plus\"></i></button></div><div class=\"card-body card-padding\"><div class=\"table-responsive\"><table class=\"table\" st-pipe=\"callServer\" st-table=\"model.datos\"><thead><tr><th st-sort=\"id\">id</th><th st-sort=\"name\">name</th><th st-sort=\"age\">age</th><th st-sort=\"saved\">saved people</th></tr><tr><th><input st-search=\"id\"></th><th><input st-search=\"name\"></th><th><input st-search=\"age\"></th><th><input st-search=\"saved\"></th></tr></thead><tbody ng-show=\"!isLoading\" ng-transclude></tbody><tbody ng-show=\"isLoading\"><tr><td colspan=\"4\" class=\"text-center\">Loading ...</td></tr></tbody><tfoot><tr><td class=\"text-center\" st-pagination=\"\" st-items-by-page=\"10\" colspan=\"4\"></td></tr></tfoot></table></div></div></div>"
+  $templateCache.put('uib/template/card.html',
+    "<div class=\"card\"><div class=\"card-header ch-alt m-b-20\"><h2>{{titulo}}<small>{{descripcion}}</small></h2><ul class=\"actions\"><li><a href=\"\" ng-click=\"refrescar()\"><i class=\"zmdi zmdi-refresh-alt\"></i></a></li><ng-transclude ng-transclude-slot=\"uicardactions\"></ng-transclude></ul><button class=\"btn bgm-red btn-float waves-effect\" ng-click=\"nuevo()\"><i class=\"zmdi zmdi-plus\"></i></button></div><div class=\"card-body card-padding\" ng-transclude=\"uicardbody\"></div></div>"
+  );
+
+
+  $templateCache.put('uib/template/cardactions.html',
+    "<ul class=\"actions\"><ng-transclude></ng-transclude></ul>"
   );
 
 }]);

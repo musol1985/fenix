@@ -66,7 +66,7 @@ materialAdmin
 	// =========================================================================
     // MANTENIMIENTO
     // =========================================================================
-    .controller('uimantenimientoController', function($q, $filter, $timeout,$scope, $http, ngTableParams, userService, centroService, prestacionService, errorService) {
+    .controller('uicardController', function($q, $filter, $timeout,$scope, $http, ngTableParams, userService, centroService, prestacionService, errorService) {
 		/*$scope.model={};
 		var self=this;
 
@@ -129,22 +129,22 @@ materialAdmin
 	      	}
 	})
 	
-	.directive('uimantenimiento', function($compile, $rootScope) {
+	.directive('uicard', function($compile, $rootScope) {
 		  return {
 			restrict: 'EA',
 			scope: {
 			    	model: '=',
-			    	nombre: '@',
+			    	titulo: '@',
 			    	descripcion: '@',
 			    	onRefrescar: '&',
-			    	onNuevo: '&',
-			    	getDatos: '&'
+			    	onNuevo: '&'
 			},		  
-		    controller: 'uimantenimientoController',
-		    controllerAs: 'mant',		    
+		    controller: 'uicardController',
+		    controllerAs: 'ctrl',		    
 		    templateUrl: function(element, attrs) {
-		      return attrs.templateUrl || 'uib/template/mantenimiento.html';
+		      return attrs.templateUrl || 'uib/template/card.html';
 		    },
 		    transclude: true
 		  };
 	})
+	

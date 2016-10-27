@@ -433,17 +433,17 @@ materialAdmin
     // =========================================================================
     
     .controller('horarios', function($state, $rootScope, $scope, $http, limitToFilter, $filter, $sce, $q, ngTableParams, userService, centroService, prestacionService, errorService, modalService, $uibModal) {
-    	var self=this;
-    	
     	$scope.datos=[];
     	
-    	$scope.getDatos=function(params, onComplete){
-    		prestacionService.getByCentro(userService.getCentro().id, params.page(), params.count()).then(function(res){
+    	$scope.hola=function(params, onComplete){
+
+    		prestacionService.getByCentro(userService.getCentro().id, 1, 10).then(function(res){
     			onComplete(res.data, res.total);
             }, function(error){
             	errorService.alertaGrowl("Error al obtener prestaciones", 'danger');
             });
     	}
+    	
     	
     	$scope.refrescando=function(){
     		alert("refrescando");
@@ -453,27 +453,9 @@ materialAdmin
     		$state.go('configuracion.horario');
     	}
     	
-    	this.tabla=new ngTableParams({
-            page: 1,            // show first page
-            count: 10          // count per page
-        }, {
-            getData: function($defer, params) {
-            		$scope.cargarDatos(params);
-            		$defer.resolve(self.datos);            		
-                }
-        });
-    	
-    	$scope.cargarDatos=function(params){
-    		prestacionService.getByCentro(userService.getCentro().id, params.page(), params.count()).then(function(res){
-    			self.datos=res.data;
-        		params.total(res.total);  
-            }, function(error){
-            	errorService.alertaGrowl("Error al obtener prestaciones", 'danger');
-            });
-    	}
     	
     	$scope.refrescar=function(){
-    		self.tabla.reload();		    		    		    		
+    		$scope.tabla.reload();		    		    		    		
     	}
     	
     	$scope.nuevo = function () {
