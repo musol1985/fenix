@@ -144,7 +144,10 @@ materialAdmin
 		    templateUrl: function(element, attrs) {
 		      return attrs.templateUrl || 'uib/template/card.html';
 		    },
-		    transclude: true
+		    transclude: {
+		    	'ul':'ul',		    
+		    	'cuerpo':'cuerpo'
+		    }
 		  };
 	})
 	

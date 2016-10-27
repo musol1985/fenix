@@ -48,7 +48,7 @@
     "summernote": "~0.6.7",
     "sweetalert": "~1.0.1",
     "Waves": "waves#~0.7.4",
-    "angular": "1.4.7",
+    "angular": "1.5.8",
     "angular-google-maps-geocoder": "0.0.2",
     "angular-dragdrop": "~1.0.13",
     "angular-smart-table":"*"
