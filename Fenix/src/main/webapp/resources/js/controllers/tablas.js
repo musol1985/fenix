@@ -302,23 +302,10 @@ materialAdmin
     .controller('prestaciones', function($rootScope, $scope, $http, limitToFilter, $filter, $sce, $q, ngTableParams, userService, centroService, prestacionService, errorService, modalService, $uibModal) {
     	var self=this;
     	
-    	$scope.datos=[];
-    	
-    	this.tabla=new ngTableParams({
-            page: 1,            // show first page
-            count: 10          // count per page
-        }, {
-            getData: function($defer, params) {
-            		$scope.cargarDatos(params);
-            		
-            		$defer.resolve(self.datos);            		
-                }
-        });
-    	
-    	$scope.cargarDatos=function(params){
-    		prestacionService.getByCentro(userService.getCentro().id, params.page(), params.count()).then(function(res){
-    			self.datos=res.data;
-        		params.total(res.total);  
+    	$scope.cargarDatos=function(params, onComplete){
+
+    		prestacionService.getByCentro(userService.getCentro().id, 1, 10).then(function(res){
+    			onComplete(res.data, res.total);
             }, function(error){
             	errorService.alertaGrowl("Error al obtener prestaciones", 'danger');
             });
