@@ -35,7 +35,7 @@ module.exports = function(grunt) {
                 }
             },
             b: {
-                files: ['resources/template/**/*.html'], // which files to watch
+                files: ['resources/template/**/*.html','uib/template/**.html'], // which files to watch
                 tasks: ['ngtemplates'],
                 options: {
                     nospawn: true
@@ -43,15 +43,15 @@ module.exports = function(grunt) {
             },
             controllers: {
             	files: ['resources/js/controllers/mantenimientos/**/*.js'], // which files to watch
-                tasks: ['concat:controllers','uglify:controllers']
+                tasks: ['concat:controllers']
             },
             services: {
             	files: ['resources/js/services/rest/*.js'], // which files to watch
-                tasks: ['concat:services','uglify:services']
+                tasks: ['concat:services']
             },
             directives: {
             	files: ['resources/js/directives/**/*.js'], // which files to watch
-                tasks: ['concat:directives','uglify:directives']
+                tasks: ['concat:directives']
             }
         },
         uglify:{

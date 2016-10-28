@@ -126,7 +126,17 @@ angular.module('materialAdmin').run(['$templateCache', function($templateCache) 
 
 
   $templateCache.put('uib/template/card.html',
-    "<div class=\"card\"><div class=\"card-header ch-alt m-b-20\"><h2>{{titulo}}<small>{{descripcion}}</small></h2><ng-transclude ng-transclude-slot=\"ul\"></ng-transclude><button class=\"btn bgm-red btn-float waves-effect\" ng-click=\"nuevo()\"><i class=\"zmdi zmdi-plus\"></i></button></div><div class=\"card-body card-padding\" ng-transclude=\"cuerpo\"></div></div>"
+    "<div class=\"card\"><div class=\"card-header ch-alt m-b-20\"><h2>{{titulo}}<small>{{descripcion}}</small></h2><ng-transclude ng-transclude-slot=\"ul\"></ng-transclude><button class=\"btn bgm-red btn-float waves-effect\" ng-click=\"onAction()\"><i class=\"zmdi zmdi-plus\"></i></button></div><div class=\"card-body card-padding\" ng-transclude=\"cuerpo\"></div></div>"
+  );
+
+
+  $templateCache.put('uib/template/lista.html',
+    "<div class=\"listview lv-user m-t-20\"><div class=\"lv-item media\" ng-repeat=\"item in datos\" ng-click=\"seleccionar(item)\" ng-class=\"{ 'active' : item.seleccionado==true  }\"><div ng-transclude=\"listaitem\"></div><ng-transclude ng-transclude-slot=\"ul\"></ng-transclude></div></div>"
+  );
+
+
+  $templateCache.put('uib/template/listaitem.html',
+    "<div class=\"lv-avatar bgm-{{color}} pull-left\">{{titulo.substr(0,1)}}</div><div class=\"media-body\"><div class=\"lv-title\">{{titulo}}</div><div class=\"lv-small\">{{descripcion}}</div><div class=\"lv-small\">{{subDescripcion}}</div></div>"
   );
 
 }]);

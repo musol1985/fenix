@@ -3,43 +3,28 @@
 // Usuarios
 // =========================================================================
 materialAdmin
-    .controller('tablaUsuarios', function($scope, $filter, $sce, ngTableParams, userService, errorService, modalService, $uibModal) {
-    	var self=this;
+    .controller('usuarios', function($scope, $filter, $sce, ngTableParams, userService, errorService, modalService, $uibModal) {
     	
-    	this.datos=[];    
+    	$scope.getDatosByCentro=function(params, onComplete){
+    		if($scope.centro!="-1")
+	    		userService.getAllByCentro(params.page(), params.count(), $scope.centro).then(function(res){
+	    			onComplete(res.data, res.total);         		
+	            }, function(error){
+	            	errorService.alertaGrowl("Error al obtener usuarios", 'danger');
+	            });
+    	}  
     	
-    	$scope.todos=false;
+    	$scope.getDatos=function(params, onComplete){
+    		userService.getByCentro(params.page(), params.count(), $scope.centro).then(function(res){
+    			onComplete(res.data, res.total);               		
+            }, function(error){
+            	errorService.alertaGrowl("Error al obtener usuarios", 'danger');
+            });
+    	}
+    	
     	$scope.centro="-1";
     	
-    	this.tabla=new ngTableParams({
-            page: 1,            // show first page
-            count: 10          // count per page
-        }, {
-            getData: function($defer, params) {
-            	if($scope.centro!="-1"){
-	            	if($scope.todos){
-		            	userService.getAllByCentro(params.page(), params.count(), $scope.centro).then(function(res){
-		            		self.datos=res.data;
-		            		params.total(res.total);
-		            		$defer.resolve(self.datos);            		
-		                }, function(error){
-		                	errorService.alertaGrowl("Error al obtener usuarios", 'danger');
-		                });
-	            	}else{
-	            		userService.getByCentro(params.page(), params.count(), $scope.centro).then(function(res){
-		            		self.datos=res.data;
-		            		params.total(res.total);
-		            		$defer.resolve(self.datos);            		
-		                }, function(error){
-		                	errorService.alertaGrowl("Error al obtener usuarios", 'danger');
-		                });
-	            	}
-            	}
-            }
-        });
-    	
-    	
-    	
+
     	$scope.setTodos=function(valor){
     		$scope.todos=valor;
     	}
@@ -52,8 +37,12 @@ materialAdmin
     		$scope.centro=userService.current.centro.id;
     	}
 
-    	$scope.refrescar=function(){
-    		self.tabla.reload();
+    	$scope.refrescar=function(tabla){
+    		if(tabla){
+    			tabla.reload();
+    		}else{
+    			this.usuariosCtr.tabla.reload();
+    		}
     	}
         
         $scope.eliminar = function(item){
@@ -79,7 +68,7 @@ materialAdmin
         
         $scope.$on('onSeleccionarCentro', function (event, centro) { 
         	$scope.setCentro(centro.id);
-        	self.tabla.reload();
+        	$scope.refrescar();
         });
     })
     

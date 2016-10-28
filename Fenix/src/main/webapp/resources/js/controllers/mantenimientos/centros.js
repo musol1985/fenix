@@ -32,7 +32,6 @@ materialAdmin
     		if($scope.centro)
     			$scope.centro.seleccionado=false;
     		$scope.centro=row;
-    		row.seleccionado=true;
     		
     		$rootScope.$broadcast('onSeleccionarCentro', row);
     	}

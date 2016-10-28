@@ -19,28 +19,25 @@
                 <button class="btn bgm-red btn-float waves-effect" ng-click="nuevo()"><i class="zmdi zmdi-plus"></i></button>
             </div>
 
-            <div class="listview lv-user m-t-20">
-                <div class="lv-item media" ng-repeat="w in datos" ng-click="seleccionarCentro(w)" ng-class="{ 'active' : w.seleccionado==true  }">
-                    <div class="lv-avatar bgm-{{w.color}} pull-left">{{w.nombre.substr(0,1)}}</div>
-                    <div class="media-body">
-                        <div class="lv-title">{{w.nombre}}</div>
-                        <div class="lv-small">{{w.correoAdmin }}</div>
-                        <div class="lv-small">{{w.ubicacion.poblacion }}</div>
-                    </div>
-                    <ul class="lv-actions actions">
+			<uilista datos="datos" on-seleccionar="seleccionarCentro(item)">
+					<listaitem uilistaitem 
+								color="$parent.item.color" 
+								titulo="$parent.item.nombre"
+								descripcion="$parent.item.correoAdmin"
+								sub-descripcion="$parent.item.ubicacion.poblacion"/>						
+			         
+					<ul class="lv-actions actions">
                     	<li>
-                            <a href="" ng-click="eliminar(w)">
+                            <a href="" ng-click="eliminar($parent.item)">
                                 <i class="zmdi zmdi-delete"></i>
                             </a>
                         </li>
 	                </ul>
-                </div>
-            </div>
-
+			</uilista>
 
         </div>
  
-        <div class="ms-body">
+        <div class="ms-body" data-ng-controller="usuarios as usuariosCtr">
             <div class="listview lv-message">
                 <div class="card-header ch-alt clearfix">
                     <div id="ms-menu-trigger"  data-ng-class="{ 'open': mactrl.lvMenuStat }" data-ng-click="mactrl.lvMenuStat = (mactrl.lvMenuStat===true ? false : true )">
@@ -57,7 +54,7 @@
 
                     <ul class="lv-actions actions">
                     	<li>
-                            <a href="" ng-click="refrescarUsuarios()">
+                            <a href="" ng-click="refrescar(usuariosCtr)">
                                 <i class="zmdi zmdi-refresh"></i>
                             </a>
                         </li>                     
@@ -160,9 +157,9 @@
                     
                 </div>
                 
-                <div ng-show="centro.sId!='-1'" class="table-responsive" data-ng-controller="tablaUsuarios as tUsuarioCtr">
-		                <table ng-table="tUsuarioCtr.tabla" class="table table-striped table-vmiddle" ng-init="setTodos(true)">
-		                    <tr ng-repeat="w in tUsuarioCtr.datos"  >
+                <div ng-show="centro.sId!='-1'" class="table-responsive">
+                		<table  ng-table="tabla" ng-table-get-datos="getDatosByCentro(params, onComplete)" ng-table-model="rows" ng-Table-Ref="usuariosCtr" pagsize="10" class="table table-striped table-vmiddle">
+				             <tr ng-repeat="w in rows"  >
 		                        <td data-title="'Nombre'">
 		                            {{ w.nombre }}
 		                        </td>
@@ -186,7 +183,7 @@
 				                   </div>	             
 				                </td>
 		                    </tr>
-		                </table>
+				         </table> 
 		            </div>
                 
                 <div class="clearfix"></div>

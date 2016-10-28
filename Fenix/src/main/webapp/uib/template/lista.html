@@ -1,0 +1,11 @@
+ <div class="listview lv-user m-t-20">
+     <div class="lv-item media" ng-repeat="item in datos" ng-click="seleccionar(item)" ng-class="{ 'active' : item.seleccionado==true  }">
+         
+         <div ng-transclude="listaitem">
+			
+	     </div>
+         <ng-transclude ng-transclude-slot="ul">
+			
+	     </ng-transclude>
+     </div>
+ </div>
