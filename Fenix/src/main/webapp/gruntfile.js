@@ -14,16 +14,6 @@ module.exports = function(grunt) {
                 cleancss: true
             }
         },
-        csssplit: {
-            your_target: {
-                src: ['resources/css/app.css'],
-                dest: 'resources/css/app.min.css',
-                options: {
-                    maxSelectors: 4095,
-                    suffix: '.'
-                }
-            },
-        },
         ngtemplates: {
           materialAdmin: {
             src: ['resources/template/**.html', 'resources/template/**/**.html', 'uib/template/**.html'],
@@ -50,16 +40,60 @@ module.exports = function(grunt) {
                 options: {
                     nospawn: true
                 }
+            },
+            controllers: {
+            	files: ['resources/js/controllers/mantenimientos/**/*.js'], // which files to watch
+                tasks: ['concat:controllers','uglify:controllers']
+            },
+            services: {
+            	files: ['resources/js/services/rest/*.js'], // which files to watch
+                tasks: ['concat:services','uglify:services']
             }
+        },
+        uglify:{
+        	libs: {
+        	      files: {
+        	        'resources/vendors/bower_components/ng-table/dist/ng-table.min.js': ['resources/vendors/bower_components/ng-table/dist/ng-table.js']
+        	      }
+        	},
+        	controllers:{
+        		files: {        	        
+        	        'resources/js/controllers/dist/lilapp.min.js': ['resources/js/controllers/dist/lilapp.js']
+        	      }
+        	},
+        	services:{
+        		files: {        	        
+        	        'resources/js/services/dist/lilapp.min.js': ['resources/js/services/dist/lilapp.js']
+        	      }
+        	}
+        },
+        concat: {
+        	controllers:{
+	            options: {
+	              separator: ';\n',
+	            },
+	            files: {        	        
+	    	        'resources/js/controllers/dist/lilapp.js': ['resources/js/controllers/mantenimientos/**/*.js']
+	    	    }
+        	},
+        	services:{
+	            options: {
+	              separator: ';\n',
+	            },
+	            files: {        	        
+	    	        'resources/js/services/dist/lilapp.js': ['resources/js/services/rest/**/*.js']
+	    	    }
+        	}
         }
     });
 
     // Load the plugin that provides the "less" task.
     grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-csssplit');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-angular-templates');
-
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    
     // Default task(s).
     grunt.registerTask('default', ['less']);
 
