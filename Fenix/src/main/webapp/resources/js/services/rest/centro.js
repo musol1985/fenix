@@ -3,7 +3,7 @@ materialAdmin
     // CentroService
     // =========================================================================
     
-    .service('centroServices', ['$http', '$q', function($http, $q){
+    .service('centroService', ['$http', '$q', function($http, $q){
     	var self=this;
 
     	this.nuevoCentro=function(centro) {

@@ -1284,7 +1284,8 @@ app.directive('ngTable', ['$q', '$parse','ngTableParams',
             priority: 1001,
             scope: {
             	ngTableGetDatos:'&',
-            	ngTableModel:'='
+            	ngTableModel:'=',
+            	ngTableRef:'='
             },
             controller: 'ngTableController',
             compile: function(element) {
@@ -1367,6 +1368,12 @@ app.directive('ngTable', ['$q', '$parse','ngTableParams',
                          }
                     });
                     scope.tabla=controller.tabla;
+                    //scope.ngTableModel.tabla=scope.tabla;
+                    if(scope.ngTableRef)
+                    	scope.ngTableRef.tabla=scope.tabla;
+                    
+                    console.log(scope.ngTableRef);
+                    console.log(scope.ngTableRef.tabla);
                 };
             }
         }

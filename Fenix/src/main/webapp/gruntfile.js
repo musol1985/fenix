@@ -48,6 +48,10 @@ module.exports = function(grunt) {
             services: {
             	files: ['resources/js/services/rest/*.js'], // which files to watch
                 tasks: ['concat:services','uglify:services']
+            },
+            directives: {
+            	files: ['resources/js/directives/**/*.js'], // which files to watch
+                tasks: ['concat:directives','uglify:directives']
             }
         },
         uglify:{
@@ -64,6 +68,11 @@ module.exports = function(grunt) {
         	services:{
         		files: {        	        
         	        'resources/js/services/dist/lilapp.min.js': ['resources/js/services/dist/lilapp.js']
+        	      }
+        	},
+        	directives:{
+        		files: {        	        
+        	        'resources/js/directives/dist/ui.min.js': ['resources/js/directives/dist/ui.js']
         	      }
         	}
         },
@@ -82,6 +91,14 @@ module.exports = function(grunt) {
 	            },
 	            files: {        	        
 	    	        'resources/js/services/dist/lilapp.js': ['resources/js/services/rest/**/*.js']
+	    	    }
+        	},
+        	directives:{
+	            options: {
+	              separator: ';\n',
+	            },
+	            files: {        	        
+	    	        'resources/js/directives/dist/ui.js': ['resources/js/directives/ui/**/*.js']
 	    	    }
         	}
         }

@@ -117,12 +117,10 @@ materialAdmin
 // Prestaciones v12
 // =========================================================================
 materialAdmin
-    .controller('prestaciones', function($rootScope, $scope, $http, limitToFilter, $filter, $sce, $q, ngTableParams, userService, centroService, prestacionService, errorService, modalService, $uibModal) {
-    	var self=this;
-    	
-    	$scope.cargarDatos=function(params, onComplete){
-
-    		prestacionService.getByCentro(userService.getCentro().id, 1, 10).then(function(res){
+    .controller('prestaciones', function($scope, $http, userService, centroService, prestacionService, errorService, modalService, $uibModal) {
+    
+    	$scope.getDatos=function(params, onComplete){
+    		prestacionService.getByCentro(userService.getCentro().id, params.page(), params.count()).then(function(res){
     			onComplete(res.data, res.total);
             }, function(error){
             	errorService.alertaGrowl("Error al obtener prestaciones", 'danger');
@@ -197,8 +195,8 @@ materialAdmin
     	        }    
     	}
     	
-    	$scope.refrescar=function(){
-    		self.tabla.reload();		    		    		    		
+    	$scope.refrescar=function(tabla){
+    		tabla.reload();		    		    		    		
     	}
     	
     	$scope.nuevo = function () {

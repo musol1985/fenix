@@ -1,51 +1,33 @@
 <div class="container">
-
-    	<div class="card"  data-ng-controller="prestaciones as presCtr">
-                <div class="card-header ch-alt m-b-20">
-                    <h2>Prestaciones<small>Lista de prestaciones</small></h2>
-                    <ul class="actions">
-                        <li>
-                            <a href="" ng-click="refrescar()">
-                                <i class="zmdi zmdi-refresh-alt"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <i class="zmdi zmdi-download"></i>
-                            </a>
-                        </li>
-                    </ul>
-
-    	    	
-                    <button class="btn bgm-red btn-float waves-effect" ng-click="nuevo()"><i class="zmdi zmdi-plus"></i></button>
-                </div>
-
-
-                <div class="card-body card-padding">
-                    <div class="table-responsive">
-		                <table  ng-table="tabla" ng-table-get-datos="cargarDatos(params, onComplete)" ng-table-model="rows" pagsize="10" class="table table-striped table-vmiddle">
-		                    <tr ng-repeat="w in rows"  >
-		                        <td data-title="'Nombre'">
-		                            <b>{{w.nombre.substr(0,1)}}</b>{{w.nombre.substr(1)}}
-		                        </td>
-		                        <td data-title="'Color'">
-		                         <div class="lv-avatar bgm-{{w.color}} pull-left">{{w.nombre.substr(0,1)}}</div>
-		                        </td>
-		                        <td data-title="'Importe'">
-		                         	{{w.importe}}
-		                        </td>
-		                        <td data-title="'Duracion'">
-		                         	{{w.duracion}}
-		                        </td>
-		                        <td data-title="'Acciones'">
-		                            <button type="button" class="btn btn-warning" ng-click="modificar(w)"><i class="zmdi zmdi-edit"></i></button>
-		                            <button type="button" class="btn btn-danger" ng-click="eliminar(w)"><i class="zmdi zmdi-delete"></i></button>
-		                        </td>
-		                    </tr>
-		                </table>
-		            </div>
-                </div>
-      </div>       
+	<div data-ng-controller="prestaciones as presCtr">
+		<uicard titulo="Prestaciones" descripcion="Mantenimiento de prestaciones" on-action="nuevo()">
+			<ul class="actions">
+				<li><a href="" ng-click="refrescar(presCtr.tabla)"><i class="zmdi zmdi-refresh-alt"></i></a></li>
+			</ul>
+			<cuerpo>
+				<table  ng-table="tabla" ng-table-get-datos="getDatos(params, onComplete)" ng-table-model="rows" ng-Table-Ref="presCtr" pagsize="10" class="table table-striped table-vmiddle">
+		             <tr ng-repeat="w in rows"  >
+		                 <td data-title="'Nombre'">
+		                     <b>{{w.nombre.substr(0,1)}}</b>{{w.nombre.substr(1)}}
+		                 </td>
+		                 <td data-title="'Color'">
+		                  <div class="lv-avatar bgm-{{w.color}} pull-left">{{w.nombre.substr(0,1)}}</div>
+		                 </td>
+		                 <td data-title="'Importe'">
+		                  	{{w.importe}}
+		                 </td>
+		                 <td data-title="'Duracion'">
+		                  	{{w.duracion}}
+		                 </td>
+		                 <td data-title="'Acciones'">
+		                     <button type="button" class="btn btn-warning" ng-click="modificar(w)"><i class="zmdi zmdi-edit"></i></button>
+		                     <button type="button" class="btn btn-danger" ng-click="eliminar(w)"><i class="zmdi zmdi-delete"></i></button>
+		                 </td>
+		             </tr>
+		         </table> 
+			</cuerpo>
+		</uicard>
+	</div>       
 </div>
 
 
