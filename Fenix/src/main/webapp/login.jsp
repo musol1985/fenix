@@ -13,8 +13,7 @@
         <link href="resources/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
 
         <!-- CSS -->
-        <link href="resources/css/app.min.1.css" rel="stylesheet">
-        <link href="resources/css/app.min.2.css" rel="stylesheet">
+        <link href="resources/css/app.css" rel="stylesheet">
     </head>
 
     <body class="login-content" data-ng-controller="loginCtrl as lctrl">
