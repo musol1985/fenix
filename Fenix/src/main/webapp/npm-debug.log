@@ -1,0 +1,1803 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'grunt-contrib-concat',
+1 verbose cli   '--save-dev' ]
+2 info using npm@2.15.9
+3 info using node@v4.6.0
+4 verbose install initial load of C:\Users\Edu\git\fenix\Fenix\src\main\webapp\package.json
+5 warn package.json superflat-admin@0.1.0 No description
+6 warn package.json superflat-admin@0.1.0 No repository field.
+7 warn package.json superflat-admin@0.1.0 No README data
+8 warn package.json superflat-admin@0.1.0 No license field.
+9 verbose installManyTop reading scoped package data from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt\package.json
+10 verbose installManyTop reading scoped package data from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-angular-templates\package.json
+11 verbose installManyTop reading scoped package data from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-less\package.json
+12 verbose installManyTop reading scoped package data from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-uglify\package.json
+13 verbose installManyTop reading scoped package data from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-watch\package.json
+14 verbose installManyTop reading scoped package data from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-csssplit\package.json
+15 info package.json grunt-angular-templates@1.1.0 No license field.
+16 info package.json grunt-csssplit@0.4.1 No license field.
+17 verbose readDependencies loading dependencies from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\package.json
+18 silly cache add args [ 'grunt-contrib-concat', null ]
+19 verbose cache add spec grunt-contrib-concat
+20 silly cache add parsed spec Result {
+20 silly cache add   raw: 'grunt-contrib-concat',
+20 silly cache add   scope: null,
+20 silly cache add   name: 'grunt-contrib-concat',
+20 silly cache add   rawSpec: '',
+20 silly cache add   spec: 'latest',
+20 silly cache add   type: 'tag' }
+21 silly addNamed grunt-contrib-concat@latest
+22 verbose addNamed "latest" is being treated as a dist-tag for grunt-contrib-concat
+23 info addNameTag [ 'grunt-contrib-concat', 'latest' ]
+24 silly mapToRegistry name grunt-contrib-concat
+25 silly mapToRegistry using default registry
+26 silly mapToRegistry registry https://registry.npmjs.org/
+27 silly mapToRegistry data Result {
+27 silly mapToRegistry   raw: 'grunt-contrib-concat',
+27 silly mapToRegistry   scope: null,
+27 silly mapToRegistry   name: 'grunt-contrib-concat',
+27 silly mapToRegistry   rawSpec: '',
+27 silly mapToRegistry   spec: 'latest',
+27 silly mapToRegistry   type: 'tag' }
+28 silly mapToRegistry uri https://registry.npmjs.org/grunt-contrib-concat
+29 verbose addNameTag registry:https://registry.npmjs.org/grunt-contrib-concat not in flight; fetching
+30 verbose request uri https://registry.npmjs.org/grunt-contrib-concat
+31 verbose request no auth needed
+32 info attempt registry request try #1 at 20:52:18
+33 verbose request id 8bc36034094e6513
+34 http request GET https://registry.npmjs.org/grunt-contrib-concat
+35 http 200 https://registry.npmjs.org/grunt-contrib-concat
+36 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+36 verbose headers   etag: '"1F0IJOGWUWAAGM4IJ94M3WE8U"',
+36 verbose headers   'content-type': 'application/json',
+36 verbose headers   'content-encoding': 'gzip',
+36 verbose headers   'cache-control': 'max-age=300',
+36 verbose headers   'content-length': '8239',
+36 verbose headers   'accept-ranges': 'bytes',
+36 verbose headers   date: 'Tue, 08 Nov 2016 19:52:21 GMT',
+36 verbose headers   via: '1.1 varnish',
+36 verbose headers   age: '239',
+36 verbose headers   connection: 'keep-alive',
+36 verbose headers   'x-served-by': 'cache-cdg8721-CDG',
+36 verbose headers   'x-cache': 'HIT',
+36 verbose headers   'x-cache-hits': '1',
+36 verbose headers   'x-timer': 'S1478634741.815115,VS0,VE0',
+36 verbose headers   vary: 'Accept-Encoding' }
+37 silly get cb [ 200,
+37 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+37 silly get     etag: '"1F0IJOGWUWAAGM4IJ94M3WE8U"',
+37 silly get     'content-type': 'application/json',
+37 silly get     'content-encoding': 'gzip',
+37 silly get     'cache-control': 'max-age=300',
+37 silly get     'content-length': '8239',
+37 silly get     'accept-ranges': 'bytes',
+37 silly get     date: 'Tue, 08 Nov 2016 19:52:21 GMT',
+37 silly get     via: '1.1 varnish',
+37 silly get     age: '239',
+37 silly get     connection: 'keep-alive',
+37 silly get     'x-served-by': 'cache-cdg8721-CDG',
+37 silly get     'x-cache': 'HIT',
+37 silly get     'x-cache-hits': '1',
+37 silly get     'x-timer': 'S1478634741.815115,VS0,VE0',
+37 silly get     vary: 'Accept-Encoding' } ]
+38 verbose get saving grunt-contrib-concat to C:\Users\Edu\AppData\Roaming\npm-cache\registry.npmjs.org\grunt-contrib-concat\.cache.json
+39 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+40 silly addNameTag next cb for grunt-contrib-concat with tag latest
+41 silly addNamed grunt-contrib-concat@1.0.1
+42 verbose addNamed "1.0.1" is a plain semver version for grunt-contrib-concat
+43 silly mapToRegistry name grunt-contrib-concat
+44 silly mapToRegistry using default registry
+45 silly mapToRegistry registry https://registry.npmjs.org/
+46 silly mapToRegistry data Result {
+46 silly mapToRegistry   raw: 'grunt-contrib-concat',
+46 silly mapToRegistry   scope: null,
+46 silly mapToRegistry   name: 'grunt-contrib-concat',
+46 silly mapToRegistry   rawSpec: '',
+46 silly mapToRegistry   spec: 'latest',
+46 silly mapToRegistry   type: 'tag' }
+47 silly mapToRegistry uri https://registry.npmjs.org/grunt-contrib-concat
+48 verbose addRemoteTarball https://registry.npmjs.org/grunt-contrib-concat/-/grunt-contrib-concat-1.0.1.tgz not in flight; adding
+49 verbose addRemoteTarball [ 'https://registry.npmjs.org/grunt-contrib-concat/-/grunt-contrib-concat-1.0.1.tgz',
+49 verbose addRemoteTarball   '61509863084e871d7e86de48c015259ed97745bd' ]
+50 info retry fetch attempt 1 at 20:52:18
+51 info attempt registry request try #1 at 20:52:18
+52 http fetch GET https://registry.npmjs.org/grunt-contrib-concat/-/grunt-contrib-concat-1.0.1.tgz
+53 http fetch 200 https://registry.npmjs.org/grunt-contrib-concat/-/grunt-contrib-concat-1.0.1.tgz
+54 silly fetchAndShaCheck shasum 61509863084e871d7e86de48c015259ed97745bd
+55 verbose addTmpTarball C:\Users\Edu\AppData\Local\Temp\npm-4584-699e875f\registry.npmjs.org\grunt-contrib-concat\-\grunt-contrib-concat-1.0.1.tgz not in flight; adding
+56 verbose addTmpTarball already have metadata; skipping unpack for grunt-contrib-concat@1.0.1
+57 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+58 silly cache afterAdd grunt-contrib-concat@1.0.1
+59 verbose afterAdd C:\Users\Edu\AppData\Roaming\npm-cache\grunt-contrib-concat\1.0.1\package\package.json not in flight; writing
+60 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+61 verbose afterAdd C:\Users\Edu\AppData\Roaming\npm-cache\grunt-contrib-concat\1.0.1\package\package.json written
+62 silly install resolved [ { name: 'grunt-contrib-concat',
+62 silly install resolved     description: 'Concatenate files.',
+62 silly install resolved     version: '1.0.1',
+62 silly install resolved     author: { name: 'Grunt Team', url: 'http://gruntjs.com/' },
+62 silly install resolved     repository:
+62 silly install resolved      { type: 'git',
+62 silly install resolved        url: 'git+https://github.com/gruntjs/grunt-contrib-concat.git' },
+62 silly install resolved     license: 'MIT',
+62 silly install resolved     engines: { node: '>=0.10.0' },
+62 silly install resolved     main: 'tasks/concat.js',
+62 silly install resolved     scripts: { test: 'grunt test' },
+62 silly install resolved     dependencies: { chalk: '^1.0.0', 'source-map': '^0.5.3' },
+62 silly install resolved     devDependencies:
+62 silly install resolved      { grunt: '^1.0.0',
+62 silly install resolved        'grunt-contrib-clean': '^1.0.0',
+62 silly install resolved        'grunt-contrib-internal': '^1.1.0',
+62 silly install resolved        'grunt-contrib-jshint': '^1.0.0',
+62 silly install resolved        'grunt-contrib-nodeunit': '^1.0.0' },
+62 silly install resolved     peerDependencies: { grunt: '>=0.4.0' },
+62 silly install resolved     keywords: [ 'gruntplugin' ],
+62 silly install resolved     files: [ 'tasks' ],
+62 silly install resolved     appveyor_id: 'l42173901ms416km',
+62 silly install resolved     contributors:
+62 silly install resolved      [ [Object],
+62 silly install resolved        [Object],
+62 silly install resolved        [Object],
+62 silly install resolved        [Object],
+62 silly install resolved        [Object],
+62 silly install resolved        [Object],
+62 silly install resolved        [Object],
+62 silly install resolved        [Object],
+62 silly install resolved        [Object],
+62 silly install resolved        [Object],
+62 silly install resolved        [Object],
+62 silly install resolved        [Object],
+62 silly install resolved        [Object],
+62 silly install resolved        [Object],
+62 silly install resolved        [Object],
+62 silly install resolved        [Object],
+62 silly install resolved        [Object],
+62 silly install resolved        [Object],
+62 silly install resolved        [Object] ],
+62 silly install resolved     gitHead: 'dcc347f41a8b77de83f4caa83b0d80f114c2a9fd',
+62 silly install resolved     bugs: { url: 'https://github.com/gruntjs/grunt-contrib-concat/issues' },
+62 silly install resolved     homepage: 'https://github.com/gruntjs/grunt-contrib-concat#readme',
+62 silly install resolved     _id: 'grunt-contrib-concat@1.0.1',
+62 silly install resolved     _shasum: '61509863084e871d7e86de48c015259ed97745bd',
+62 silly install resolved     _from: 'grunt-contrib-concat@latest',
+62 silly install resolved     _npmVersion: '2.15.2',
+62 silly install resolved     _nodeVersion: '4.4.1',
+62 silly install resolved     _npmUser: { name: 'shama', email: 'kyle@dontkry.com' },
+62 silly install resolved     maintainers: [ [Object], [Object], [Object], [Object], [Object], [Object] ],
+62 silly install resolved     dist:
+62 silly install resolved      { shasum: '61509863084e871d7e86de48c015259ed97745bd',
+62 silly install resolved        tarball: 'https://registry.npmjs.org/grunt-contrib-concat/-/grunt-contrib-concat-1.0.1.tgz' },
+62 silly install resolved     _npmOperationalInternal:
+62 silly install resolved      { host: 'packages-16-east.internal.npmjs.com',
+62 silly install resolved        tmp: 'tmp/grunt-contrib-concat-1.0.1.tgz_1461166949774_0.2737891632132232' },
+62 silly install resolved     directories: {},
+62 silly install resolved     _resolved: 'https://registry.npmjs.org/grunt-contrib-concat/-/grunt-contrib-concat-1.0.1.tgz' } ]
+63 info install grunt-contrib-concat@1.0.1 into C:\Users\Edu\git\fenix\Fenix\src\main\webapp
+64 info installOne grunt-contrib-concat@1.0.1
+65 verbose installOne of grunt-contrib-concat to C:\Users\Edu\git\fenix\Fenix\src\main\webapp not in flight; installing
+66 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache\_locks correctMkdir not in flight; initializing
+67 verbose lock using C:\Users\Edu\AppData\Roaming\npm-cache\_locks\grunt-contrib-concat-7550e5d0da8bc565.lock for C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat
+68 silly install write writing grunt-contrib-concat 1.0.1 to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat
+69 verbose unbuild node_modules\grunt-contrib-concat
+70 silly gentlyRm C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat is being purged from base C:\Users\Edu\git\fenix\Fenix\src\main\webapp
+71 verbose gentlyRm don't care about contents; nuking C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat
+72 verbose tar unpack C:\Users\Edu\AppData\Roaming\npm-cache\grunt-contrib-concat\1.0.1\package.tgz
+73 verbose tar unpacking to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat
+74 silly gentlyRm C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat is being purged
+75 verbose gentlyRm don't care about contents; nuking C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat
+76 silly gunzTarPerm modes [ '777', '666' ]
+77 silly gunzTarPerm extractEntry package.json
+78 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+79 silly gunzTarPerm extractEntry README.md
+80 silly gunzTarPerm modified mode [ 'README.md', 420, 438 ]
+81 silly gunzTarPerm extractEntry CHANGELOG
+82 silly gunzTarPerm modified mode [ 'CHANGELOG', 420, 438 ]
+83 silly gunzTarPerm extractEntry tasks/concat.js
+84 silly gunzTarPerm modified mode [ 'tasks/concat.js', 420, 438 ]
+85 silly gunzTarPerm extractEntry tasks/lib/comment.js
+86 silly gunzTarPerm modified mode [ 'tasks/lib/comment.js', 420, 438 ]
+87 silly gunzTarPerm extractEntry tasks/lib/sourcemap.js
+88 silly gunzTarPerm modified mode [ 'tasks/lib/sourcemap.js', 420, 438 ]
+89 verbose write writing to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\package.json
+90 info preinstall grunt-contrib-concat@1.0.1
+91 verbose readDependencies loading dependencies from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\package.json
+92 silly prepareForInstallMany adding chalk@^1.0.0 from grunt-contrib-concat dependencies
+93 silly prepareForInstallMany adding source-map@^0.5.3 from grunt-contrib-concat dependencies
+94 verbose readDependencies loading dependencies from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\package.json
+95 silly cache add args [ 'chalk@^1.0.0', null ]
+96 verbose cache add spec chalk@^1.0.0
+97 silly cache add args [ 'source-map@^0.5.3', null ]
+98 verbose cache add spec source-map@^0.5.3
+99 silly cache add parsed spec Result {
+99 silly cache add   raw: 'chalk@^1.0.0',
+99 silly cache add   scope: null,
+99 silly cache add   name: 'chalk',
+99 silly cache add   rawSpec: '^1.0.0',
+99 silly cache add   spec: '>=1.0.0 <2.0.0',
+99 silly cache add   type: 'range' }
+100 silly addNamed chalk@>=1.0.0 <2.0.0
+101 verbose addNamed ">=1.0.0 <2.0.0" is a valid semver range for chalk
+102 silly addNameRange { name: 'chalk', range: '>=1.0.0 <2.0.0', hasData: false }
+103 silly mapToRegistry name chalk
+104 silly mapToRegistry using default registry
+105 silly mapToRegistry registry https://registry.npmjs.org/
+106 silly mapToRegistry data Result {
+106 silly mapToRegistry   raw: 'chalk',
+106 silly mapToRegistry   scope: null,
+106 silly mapToRegistry   name: 'chalk',
+106 silly mapToRegistry   rawSpec: '',
+106 silly mapToRegistry   spec: 'latest',
+106 silly mapToRegistry   type: 'tag' }
+107 silly mapToRegistry uri https://registry.npmjs.org/chalk
+108 verbose addNameRange registry:https://registry.npmjs.org/chalk not in flight; fetching
+109 silly cache add parsed spec Result {
+109 silly cache add   raw: 'source-map@^0.5.3',
+109 silly cache add   scope: null,
+109 silly cache add   name: 'source-map',
+109 silly cache add   rawSpec: '^0.5.3',
+109 silly cache add   spec: '>=0.5.3 <0.6.0',
+109 silly cache add   type: 'range' }
+110 silly addNamed source-map@>=0.5.3 <0.6.0
+111 verbose addNamed ">=0.5.3 <0.6.0" is a valid semver range for source-map
+112 silly addNameRange { name: 'source-map', range: '>=0.5.3 <0.6.0', hasData: false }
+113 silly mapToRegistry name source-map
+114 silly mapToRegistry using default registry
+115 silly mapToRegistry registry https://registry.npmjs.org/
+116 silly mapToRegistry data Result {
+116 silly mapToRegistry   raw: 'source-map',
+116 silly mapToRegistry   scope: null,
+116 silly mapToRegistry   name: 'source-map',
+116 silly mapToRegistry   rawSpec: '',
+116 silly mapToRegistry   spec: 'latest',
+116 silly mapToRegistry   type: 'tag' }
+117 silly mapToRegistry uri https://registry.npmjs.org/source-map
+118 verbose addNameRange registry:https://registry.npmjs.org/source-map not in flight; fetching
+119 verbose request uri https://registry.npmjs.org/chalk
+120 verbose request no auth needed
+121 info attempt registry request try #1 at 20:52:19
+122 verbose etag "CFX7J3CRG06BFCKOX6TJASR3"
+123 http request GET https://registry.npmjs.org/chalk
+124 verbose request uri https://registry.npmjs.org/source-map
+125 verbose request no auth needed
+126 info attempt registry request try #1 at 20:52:19
+127 verbose etag "3W1Q5MUYG4Q8Y8F2IOPUO3VY0"
+128 http request GET https://registry.npmjs.org/source-map
+129 http 304 https://registry.npmjs.org/chalk
+130 verbose headers { date: 'Tue, 08 Nov 2016 19:52:22 GMT',
+130 verbose headers   via: '1.1 varnish',
+130 verbose headers   'cache-control': 'max-age=300',
+130 verbose headers   etag: '"CFX7J3CRG06BFCKOX6TJASR3"',
+130 verbose headers   age: '236',
+130 verbose headers   connection: 'keep-alive',
+130 verbose headers   'x-served-by': 'cache-cdg8721-CDG',
+130 verbose headers   'x-cache': 'HIT',
+130 verbose headers   'x-cache-hits': '3',
+130 verbose headers   'x-timer': 'S1478634742.454859,VS0,VE0',
+130 verbose headers   vary: 'Accept-Encoding' }
+131 silly get cb [ 304,
+131 silly get   { date: 'Tue, 08 Nov 2016 19:52:22 GMT',
+131 silly get     via: '1.1 varnish',
+131 silly get     'cache-control': 'max-age=300',
+131 silly get     etag: '"CFX7J3CRG06BFCKOX6TJASR3"',
+131 silly get     age: '236',
+131 silly get     connection: 'keep-alive',
+131 silly get     'x-served-by': 'cache-cdg8721-CDG',
+131 silly get     'x-cache': 'HIT',
+131 silly get     'x-cache-hits': '3',
+131 silly get     'x-timer': 'S1478634742.454859,VS0,VE0',
+131 silly get     vary: 'Accept-Encoding' } ]
+132 verbose etag https://registry.npmjs.org/chalk from cache
+133 verbose get saving chalk to C:\Users\Edu\AppData\Roaming\npm-cache\registry.npmjs.org\chalk\.cache.json
+134 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+135 silly addNameRange number 2 { name: 'chalk', range: '>=1.0.0 <2.0.0', hasData: true }
+136 silly addNameRange versions [ 'chalk',
+136 silly addNameRange   [ '0.1.0',
+136 silly addNameRange     '0.1.1',
+136 silly addNameRange     '0.2.0',
+136 silly addNameRange     '0.2.1',
+136 silly addNameRange     '0.3.0',
+136 silly addNameRange     '0.4.0',
+136 silly addNameRange     '0.5.0',
+136 silly addNameRange     '0.5.1',
+136 silly addNameRange     '1.0.0',
+136 silly addNameRange     '1.1.0',
+136 silly addNameRange     '1.1.1',
+136 silly addNameRange     '1.1.2',
+136 silly addNameRange     '1.1.3' ] ]
+137 silly addNamed chalk@1.1.3
+138 verbose addNamed "1.1.3" is a plain semver version for chalk
+139 silly cache afterAdd chalk@1.1.3
+140 verbose afterAdd C:\Users\Edu\AppData\Roaming\npm-cache\chalk\1.1.3\package\package.json not in flight; writing
+141 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+142 verbose afterAdd C:\Users\Edu\AppData\Roaming\npm-cache\chalk\1.1.3\package\package.json written
+143 http 304 https://registry.npmjs.org/source-map
+144 verbose headers { date: 'Tue, 08 Nov 2016 19:52:22 GMT',
+144 verbose headers   via: '1.1 varnish',
+144 verbose headers   'cache-control': 'max-age=300',
+144 verbose headers   etag: '"3W1Q5MUYG4Q8Y8F2IOPUO3VY0"',
+144 verbose headers   age: '242',
+144 verbose headers   connection: 'keep-alive',
+144 verbose headers   'x-served-by': 'cache-cdg8730-CDG',
+144 verbose headers   'x-cache': 'HIT',
+144 verbose headers   'x-cache-hits': '10',
+144 verbose headers   'x-timer': 'S1478634742.668576,VS0,VE0',
+144 verbose headers   vary: 'Accept-Encoding' }
+145 silly get cb [ 304,
+145 silly get   { date: 'Tue, 08 Nov 2016 19:52:22 GMT',
+145 silly get     via: '1.1 varnish',
+145 silly get     'cache-control': 'max-age=300',
+145 silly get     etag: '"3W1Q5MUYG4Q8Y8F2IOPUO3VY0"',
+145 silly get     age: '242',
+145 silly get     connection: 'keep-alive',
+145 silly get     'x-served-by': 'cache-cdg8730-CDG',
+145 silly get     'x-cache': 'HIT',
+145 silly get     'x-cache-hits': '10',
+145 silly get     'x-timer': 'S1478634742.668576,VS0,VE0',
+145 silly get     vary: 'Accept-Encoding' } ]
+146 verbose etag https://registry.npmjs.org/source-map from cache
+147 verbose get saving source-map to C:\Users\Edu\AppData\Roaming\npm-cache\registry.npmjs.org\source-map\.cache.json
+148 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+149 silly addNameRange number 2 { name: 'source-map', range: '>=0.5.3 <0.6.0', hasData: true }
+150 silly addNameRange versions [ 'source-map',
+150 silly addNameRange   [ '0.0.0',
+150 silly addNameRange     '0.1.0',
+150 silly addNameRange     '0.1.1',
+150 silly addNameRange     '0.1.2',
+150 silly addNameRange     '0.1.3',
+150 silly addNameRange     '0.1.4',
+150 silly addNameRange     '0.1.5',
+150 silly addNameRange     '0.1.6',
+150 silly addNameRange     '0.1.7',
+150 silly addNameRange     '0.1.8',
+150 silly addNameRange     '0.1.9',
+150 silly addNameRange     '0.1.10',
+150 silly addNameRange     '0.1.11',
+150 silly addNameRange     '0.1.12',
+150 silly addNameRange     '0.1.13',
+150 silly addNameRange     '0.1.14',
+150 silly addNameRange     '0.1.15',
+150 silly addNameRange     '0.1.16',
+150 silly addNameRange     '0.1.17',
+150 silly addNameRange     '0.1.18',
+150 silly addNameRange     '0.1.19',
+150 silly addNameRange     '0.1.20',
+150 silly addNameRange     '0.1.21',
+150 silly addNameRange     '0.1.22',
+150 silly addNameRange     '0.1.23',
+150 silly addNameRange     '0.1.24',
+150 silly addNameRange     '0.1.25',
+150 silly addNameRange     '0.1.26',
+150 silly addNameRange     '0.1.27',
+150 silly addNameRange     '0.1.28',
+150 silly addNameRange     '0.1.29',
+150 silly addNameRange     '0.1.30',
+150 silly addNameRange     '0.1.31',
+150 silly addNameRange     '0.1.32',
+150 silly addNameRange     '0.1.33',
+150 silly addNameRange     '0.1.34',
+150 silly addNameRange     '0.1.35',
+150 silly addNameRange     '0.1.36',
+150 silly addNameRange     '0.1.37',
+150 silly addNameRange     '0.1.38',
+150 silly addNameRange     '0.1.39',
+150 silly addNameRange     '0.1.40',
+150 silly addNameRange     '0.1.41',
+150 silly addNameRange     '0.1.42',
+150 silly addNameRange     '0.1.43',
+150 silly addNameRange     '0.2.0',
+150 silly addNameRange     '0.3.0',
+150 silly addNameRange     '0.4.0',
+150 silly addNameRange     '0.4.1',
+150 silly addNameRange     '0.4.2',
+150 silly addNameRange     '0.4.3',
+150 silly addNameRange     '0.4.4',
+150 silly addNameRange     '0.5.0',
+150 silly addNameRange     '0.5.1',
+150 silly addNameRange     '0.5.2',
+150 silly addNameRange     '0.5.3',
+150 silly addNameRange     '0.5.4',
+150 silly addNameRange     '0.5.5',
+150 silly addNameRange     '0.5.6' ] ]
+151 silly addNamed source-map@0.5.6
+152 verbose addNamed "0.5.6" is a plain semver version for source-map
+153 silly cache afterAdd source-map@0.5.6
+154 verbose afterAdd C:\Users\Edu\AppData\Roaming\npm-cache\source-map\0.5.6\package\package.json not in flight; writing
+155 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+156 verbose afterAdd C:\Users\Edu\AppData\Roaming\npm-cache\source-map\0.5.6\package\package.json written
+157 silly install resolved [ { name: 'chalk',
+157 silly install resolved     version: '1.1.3',
+157 silly install resolved     description: 'Terminal string styling done right. Much color.',
+157 silly install resolved     license: 'MIT',
+157 silly install resolved     repository: { type: 'git', url: 'git+https://github.com/chalk/chalk.git' },
+157 silly install resolved     maintainers: [ [Object], [Object], [Object] ],
+157 silly install resolved     engines: { node: '>=0.10.0' },
+157 silly install resolved     scripts:
+157 silly install resolved      { test: 'xo && mocha',
+157 silly install resolved        bench: 'matcha benchmark.js',
+157 silly install resolved        coverage: 'nyc npm test && nyc report',
+157 silly install resolved        coveralls: 'nyc npm test && nyc report --reporter=text-lcov | coveralls' },
+157 silly install resolved     files: [ 'index.js' ],
+157 silly install resolved     keywords:
+157 silly install resolved      [ 'color',
+157 silly install resolved        'colour',
+157 silly install resolved        'colors',
+157 silly install resolved        'terminal',
+157 silly install resolved        'console',
+157 silly install resolved        'cli',
+157 silly install resolved        'string',
+157 silly install resolved        'str',
+157 silly install resolved        'ansi',
+157 silly install resolved        'style',
+157 silly install resolved        'styles',
+157 silly install resolved        'tty',
+157 silly install resolved        'formatting',
+157 silly install resolved        'rgb',
+157 silly install resolved        '256',
+157 silly install resolved        'shell',
+157 silly install resolved        'xterm',
+157 silly install resolved        'log',
+157 silly install resolved        'logging',
+157 silly install resolved        'command-line',
+157 silly install resolved        'text' ],
+157 silly install resolved     dependencies:
+157 silly install resolved      { 'ansi-styles': '^2.2.1',
+157 silly install resolved        'escape-string-regexp': '^1.0.2',
+157 silly install resolved        'has-ansi': '^2.0.0',
+157 silly install resolved        'strip-ansi': '^3.0.0',
+157 silly install resolved        'supports-color': '^2.0.0' },
+157 silly install resolved     devDependencies:
+157 silly install resolved      { coveralls: '^2.11.2',
+157 silly install resolved        matcha: '^0.6.0',
+157 silly install resolved        mocha: '*',
+157 silly install resolved        nyc: '^3.0.0',
+157 silly install resolved        'require-uncached': '^1.0.2',
+157 silly install resolved        'resolve-from': '^1.0.0',
+157 silly install resolved        semver: '^4.3.3',
+157 silly install resolved        xo: '*' },
+157 silly install resolved     xo: { envs: [Object] },
+157 silly install resolved     gitHead: '0d8d8c204eb87a4038219131ad4d8369c9f59d24',
+157 silly install resolved     bugs: { url: 'https://github.com/chalk/chalk/issues' },
+157 silly install resolved     homepage: 'https://github.com/chalk/chalk#readme',
+157 silly install resolved     _id: 'chalk@1.1.3',
+157 silly install resolved     _shasum: 'a8115c55e4a702fe4d150abd3872822a7e09fc98',
+157 silly install resolved     _from: 'chalk@>=1.0.0 <2.0.0',
+157 silly install resolved     _npmVersion: '2.14.2',
+157 silly install resolved     _nodeVersion: '0.10.32',
+157 silly install resolved     _npmUser: { name: 'qix', email: 'i.am.qix@gmail.com' },
+157 silly install resolved     dist:
+157 silly install resolved      { shasum: 'a8115c55e4a702fe4d150abd3872822a7e09fc98',
+157 silly install resolved        tarball: 'https://registry.npmjs.org/chalk/-/chalk-1.1.3.tgz' },
+157 silly install resolved     _npmOperationalInternal:
+157 silly install resolved      { host: 'packages-12-west.internal.npmjs.com',
+157 silly install resolved        tmp: 'tmp/chalk-1.1.3.tgz_1459210604109_0.3892582862172276' },
+157 silly install resolved     directories: {},
+157 silly install resolved     _resolved: 'https://registry.npmjs.org/chalk/-/chalk-1.1.3.tgz',
+157 silly install resolved     readme: 'ERROR: No README data found!' },
+157 silly install resolved   { name: 'source-map',
+157 silly install resolved     description: 'Generates and consumes source maps',
+157 silly install resolved     version: '0.5.6',
+157 silly install resolved     homepage: 'https://github.com/mozilla/source-map',
+157 silly install resolved     author: { name: 'Nick Fitzgerald', email: 'nfitzgerald@mozilla.com' },
+157 silly install resolved     contributors:
+157 silly install resolved      [ [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object],
+157 silly install resolved        [Object] ],
+157 silly install resolved     repository:
+157 silly install resolved      { type: 'git',
+157 silly install resolved        url: 'git+ssh://git@github.com/mozilla/source-map.git' },
+157 silly install resolved     main: './source-map.js',
+157 silly install resolved     files:
+157 silly install resolved      [ 'source-map.js',
+157 silly install resolved        'lib/',
+157 silly install resolved        'dist/source-map.debug.js',
+157 silly install resolved        'dist/source-map.js',
+157 silly install resolved        'dist/source-map.min.js',
+157 silly install resolved        'dist/source-map.min.js.map' ],
+157 silly install resolved     engines: { node: '>=0.10.0' },
+157 silly install resolved     license: 'BSD-3-Clause',
+157 silly install resolved     scripts:
+157 silly install resolved      { test: 'npm run build && node test/run-tests.js',
+157 silly install resolved        build: 'webpack --color',
+157 silly install resolved        toc: 'doctoc --title \'## Table of Contents\' README.md && doctoc --title \'## Table of Contents\' CONTRIBUTING.md' },
+157 silly install resolved     devDependencies: { doctoc: '^0.15.0', webpack: '^1.12.0' },
+157 silly install resolved     gitHead: 'aa0398ced67beebea34f0d36f766505656c344f6',
+157 silly install resolved     bugs: { url: 'https://github.com/mozilla/source-map/issues' },
+157 silly install resolved     _id: 'source-map@0.5.6',
+157 silly install resolved     _shasum: '75ce38f52bf0733c5a7f0c118d81334a2bb5f412',
+157 silly install resolved     _from: 'source-map@>=0.5.3 <0.6.0',
+157 silly install resolved     _npmVersion: '3.3.12',
+157 silly install resolved     _nodeVersion: '5.3.0',
+157 silly install resolved     _npmUser: { name: 'nickfitzgerald', email: 'fitzgen@gmail.com' },
+157 silly install resolved     maintainers: [ [Object], [Object], [Object] ],
+157 silly install resolved     dist:
+157 silly install resolved      { shasum: '75ce38f52bf0733c5a7f0c118d81334a2bb5f412',
+157 silly install resolved        tarball: 'https://registry.npmjs.org/source-map/-/source-map-0.5.6.tgz' },
+157 silly install resolved     _npmOperationalInternal:
+157 silly install resolved      { host: 'packages-12-west.internal.npmjs.com',
+157 silly install resolved        tmp: 'tmp/source-map-0.5.6.tgz_1462209962516_0.9263619624543935' },
+157 silly install resolved     directories: {},
+157 silly install resolved     _resolved: 'https://registry.npmjs.org/source-map/-/source-map-0.5.6.tgz',
+157 silly install resolved     readme: 'ERROR: No README data found!' } ]
+158 info install chalk@1.1.3 into C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat
+159 info install source-map@0.5.6 into C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat
+160 info installOne chalk@1.1.3
+161 verbose installOne of chalk to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat not in flight; installing
+162 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache\_locks correctMkdir not in flight; initializing
+163 info installOne source-map@0.5.6
+164 verbose installOne of source-map to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat not in flight; installing
+165 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache\_locks correctMkdir not in flight; initializing
+166 verbose lock using C:\Users\Edu\AppData\Roaming\npm-cache\_locks\source-map-a41c05092bb0e98c.lock for C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\source-map
+167 silly install write writing source-map 0.5.6 to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\source-map
+168 verbose lock using C:\Users\Edu\AppData\Roaming\npm-cache\_locks\chalk-cdc595b116cfdbe0.lock for C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk
+169 silly install write writing chalk 1.1.3 to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk
+170 verbose unbuild node_modules\grunt-contrib-concat\node_modules\source-map
+171 verbose unbuild node_modules\grunt-contrib-concat\node_modules\chalk
+172 silly gentlyRm C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\source-map is being purged from base C:\Users\Edu\git\fenix\Fenix\src\main\webapp
+173 verbose gentlyRm don't care about contents; nuking C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\source-map
+174 verbose tar unpack C:\Users\Edu\AppData\Roaming\npm-cache\source-map\0.5.6\package.tgz
+175 verbose tar unpacking to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\source-map
+176 silly gentlyRm C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\source-map is being purged
+177 verbose gentlyRm don't care about contents; nuking C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\source-map
+178 silly gunzTarPerm modes [ '777', '666' ]
+179 silly gentlyRm C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk is being purged from base C:\Users\Edu\git\fenix\Fenix\src\main\webapp
+180 verbose gentlyRm don't care about contents; nuking C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk
+181 verbose tar unpack C:\Users\Edu\AppData\Roaming\npm-cache\chalk\1.1.3\package.tgz
+182 verbose tar unpacking to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk
+183 silly gentlyRm C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk is being purged
+184 verbose gentlyRm don't care about contents; nuking C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk
+185 silly gunzTarPerm modes [ '777', '666' ]
+186 silly gunzTarPerm extractEntry package.json
+187 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+188 silly gunzTarPerm extractEntry package.json
+189 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+190 silly gunzTarPerm extractEntry README.md
+191 silly gunzTarPerm modified mode [ 'README.md', 420, 438 ]
+192 silly gunzTarPerm extractEntry LICENSE
+193 silly gunzTarPerm modified mode [ 'LICENSE', 420, 438 ]
+194 silly gunzTarPerm extractEntry index.js
+195 silly gunzTarPerm modified mode [ 'index.js', 420, 438 ]
+196 silly gunzTarPerm extractEntry license
+197 silly gunzTarPerm modified mode [ 'license', 420, 438 ]
+198 silly gunzTarPerm extractEntry source-map.js
+199 silly gunzTarPerm modified mode [ 'source-map.js', 420, 438 ]
+200 silly gunzTarPerm extractEntry lib/array-set.js
+201 silly gunzTarPerm modified mode [ 'lib/array-set.js', 420, 438 ]
+202 silly gunzTarPerm extractEntry lib/base64-vlq.js
+203 silly gunzTarPerm modified mode [ 'lib/base64-vlq.js', 420, 438 ]
+204 silly gunzTarPerm extractEntry readme.md
+205 silly gunzTarPerm modified mode [ 'readme.md', 420, 438 ]
+206 silly gunzTarPerm extractEntry lib/base64.js
+207 silly gunzTarPerm modified mode [ 'lib/base64.js', 420, 438 ]
+208 silly gunzTarPerm extractEntry lib/binary-search.js
+209 silly gunzTarPerm modified mode [ 'lib/binary-search.js', 420, 438 ]
+210 silly gunzTarPerm extractEntry lib/mapping-list.js
+211 silly gunzTarPerm modified mode [ 'lib/mapping-list.js', 420, 438 ]
+212 silly gunzTarPerm extractEntry lib/quick-sort.js
+213 silly gunzTarPerm modified mode [ 'lib/quick-sort.js', 420, 438 ]
+214 silly gunzTarPerm extractEntry lib/source-map-consumer.js
+215 silly gunzTarPerm modified mode [ 'lib/source-map-consumer.js', 420, 438 ]
+216 silly gunzTarPerm extractEntry lib/source-map-generator.js
+217 silly gunzTarPerm modified mode [ 'lib/source-map-generator.js', 420, 438 ]
+218 silly gunzTarPerm extractEntry lib/source-node.js
+219 silly gunzTarPerm modified mode [ 'lib/source-node.js', 420, 438 ]
+220 verbose write writing to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\package.json
+221 info preinstall chalk@1.1.3
+222 verbose readDependencies loading dependencies from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\package.json
+223 silly prepareForInstallMany adding ansi-styles@^2.2.1 from chalk dependencies
+224 silly prepareForInstallMany adding escape-string-regexp@^1.0.2 from chalk dependencies
+225 silly prepareForInstallMany adding has-ansi@^2.0.0 from chalk dependencies
+226 silly prepareForInstallMany adding strip-ansi@^3.0.0 from chalk dependencies
+227 silly prepareForInstallMany adding supports-color@^2.0.0 from chalk dependencies
+228 verbose readDependencies loading dependencies from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\package.json
+229 silly gunzTarPerm extractEntry lib/util.js
+230 silly gunzTarPerm modified mode [ 'lib/util.js', 420, 438 ]
+231 silly gunzTarPerm extractEntry dist/source-map.debug.js
+232 silly gunzTarPerm modified mode [ 'dist/source-map.debug.js', 420, 438 ]
+233 silly cache add args [ 'ansi-styles@^2.2.1', null ]
+234 verbose cache add spec ansi-styles@^2.2.1
+235 silly cache add args [ 'escape-string-regexp@^1.0.2', null ]
+236 verbose cache add spec escape-string-regexp@^1.0.2
+237 silly cache add parsed spec Result {
+237 silly cache add   raw: 'ansi-styles@^2.2.1',
+237 silly cache add   scope: null,
+237 silly cache add   name: 'ansi-styles',
+237 silly cache add   rawSpec: '^2.2.1',
+237 silly cache add   spec: '>=2.2.1 <3.0.0',
+237 silly cache add   type: 'range' }
+238 silly addNamed ansi-styles@>=2.2.1 <3.0.0
+239 verbose addNamed ">=2.2.1 <3.0.0" is a valid semver range for ansi-styles
+240 silly addNameRange { name: 'ansi-styles', range: '>=2.2.1 <3.0.0', hasData: false }
+241 silly mapToRegistry name ansi-styles
+242 silly mapToRegistry using default registry
+243 silly mapToRegistry registry https://registry.npmjs.org/
+244 silly mapToRegistry data Result {
+244 silly mapToRegistry   raw: 'ansi-styles',
+244 silly mapToRegistry   scope: null,
+244 silly mapToRegistry   name: 'ansi-styles',
+244 silly mapToRegistry   rawSpec: '',
+244 silly mapToRegistry   spec: 'latest',
+244 silly mapToRegistry   type: 'tag' }
+245 silly mapToRegistry uri https://registry.npmjs.org/ansi-styles
+246 verbose addNameRange registry:https://registry.npmjs.org/ansi-styles not in flight; fetching
+247 silly cache add parsed spec Result {
+247 silly cache add   raw: 'escape-string-regexp@^1.0.2',
+247 silly cache add   scope: null,
+247 silly cache add   name: 'escape-string-regexp',
+247 silly cache add   rawSpec: '^1.0.2',
+247 silly cache add   spec: '>=1.0.2 <2.0.0',
+247 silly cache add   type: 'range' }
+248 silly addNamed escape-string-regexp@>=1.0.2 <2.0.0
+249 verbose addNamed ">=1.0.2 <2.0.0" is a valid semver range for escape-string-regexp
+250 silly addNameRange { name: 'escape-string-regexp',
+250 silly addNameRange   range: '>=1.0.2 <2.0.0',
+250 silly addNameRange   hasData: false }
+251 silly mapToRegistry name escape-string-regexp
+252 silly mapToRegistry using default registry
+253 silly mapToRegistry registry https://registry.npmjs.org/
+254 silly mapToRegistry data Result {
+254 silly mapToRegistry   raw: 'escape-string-regexp',
+254 silly mapToRegistry   scope: null,
+254 silly mapToRegistry   name: 'escape-string-regexp',
+254 silly mapToRegistry   rawSpec: '',
+254 silly mapToRegistry   spec: 'latest',
+254 silly mapToRegistry   type: 'tag' }
+255 silly mapToRegistry uri https://registry.npmjs.org/escape-string-regexp
+256 verbose addNameRange registry:https://registry.npmjs.org/escape-string-regexp not in flight; fetching
+257 silly cache add args [ 'has-ansi@^2.0.0', null ]
+258 verbose cache add spec has-ansi@^2.0.0
+259 silly cache add parsed spec Result {
+259 silly cache add   raw: 'has-ansi@^2.0.0',
+259 silly cache add   scope: null,
+259 silly cache add   name: 'has-ansi',
+259 silly cache add   rawSpec: '^2.0.0',
+259 silly cache add   spec: '>=2.0.0 <3.0.0',
+259 silly cache add   type: 'range' }
+260 silly addNamed has-ansi@>=2.0.0 <3.0.0
+261 verbose addNamed ">=2.0.0 <3.0.0" is a valid semver range for has-ansi
+262 silly addNameRange { name: 'has-ansi', range: '>=2.0.0 <3.0.0', hasData: false }
+263 silly mapToRegistry name has-ansi
+264 silly mapToRegistry using default registry
+265 silly mapToRegistry registry https://registry.npmjs.org/
+266 silly mapToRegistry data Result {
+266 silly mapToRegistry   raw: 'has-ansi',
+266 silly mapToRegistry   scope: null,
+266 silly mapToRegistry   name: 'has-ansi',
+266 silly mapToRegistry   rawSpec: '',
+266 silly mapToRegistry   spec: 'latest',
+266 silly mapToRegistry   type: 'tag' }
+267 silly mapToRegistry uri https://registry.npmjs.org/has-ansi
+268 verbose addNameRange registry:https://registry.npmjs.org/has-ansi not in flight; fetching
+269 silly cache add args [ 'strip-ansi@^3.0.0', null ]
+270 verbose cache add spec strip-ansi@^3.0.0
+271 silly cache add parsed spec Result {
+271 silly cache add   raw: 'strip-ansi@^3.0.0',
+271 silly cache add   scope: null,
+271 silly cache add   name: 'strip-ansi',
+271 silly cache add   rawSpec: '^3.0.0',
+271 silly cache add   spec: '>=3.0.0 <4.0.0',
+271 silly cache add   type: 'range' }
+272 silly addNamed strip-ansi@>=3.0.0 <4.0.0
+273 verbose addNamed ">=3.0.0 <4.0.0" is a valid semver range for strip-ansi
+274 silly addNameRange { name: 'strip-ansi', range: '>=3.0.0 <4.0.0', hasData: false }
+275 silly mapToRegistry name strip-ansi
+276 silly mapToRegistry using default registry
+277 silly mapToRegistry registry https://registry.npmjs.org/
+278 silly mapToRegistry data Result {
+278 silly mapToRegistry   raw: 'strip-ansi',
+278 silly mapToRegistry   scope: null,
+278 silly mapToRegistry   name: 'strip-ansi',
+278 silly mapToRegistry   rawSpec: '',
+278 silly mapToRegistry   spec: 'latest',
+278 silly mapToRegistry   type: 'tag' }
+279 silly mapToRegistry uri https://registry.npmjs.org/strip-ansi
+280 verbose addNameRange registry:https://registry.npmjs.org/strip-ansi not in flight; fetching
+281 silly cache add args [ 'supports-color@^2.0.0', null ]
+282 verbose cache add spec supports-color@^2.0.0
+283 silly cache add parsed spec Result {
+283 silly cache add   raw: 'supports-color@^2.0.0',
+283 silly cache add   scope: null,
+283 silly cache add   name: 'supports-color',
+283 silly cache add   rawSpec: '^2.0.0',
+283 silly cache add   spec: '>=2.0.0 <3.0.0',
+283 silly cache add   type: 'range' }
+284 silly addNamed supports-color@>=2.0.0 <3.0.0
+285 verbose addNamed ">=2.0.0 <3.0.0" is a valid semver range for supports-color
+286 silly addNameRange { name: 'supports-color',
+286 silly addNameRange   range: '>=2.0.0 <3.0.0',
+286 silly addNameRange   hasData: false }
+287 silly mapToRegistry name supports-color
+288 silly mapToRegistry using default registry
+289 silly mapToRegistry registry https://registry.npmjs.org/
+290 silly mapToRegistry data Result {
+290 silly mapToRegistry   raw: 'supports-color',
+290 silly mapToRegistry   scope: null,
+290 silly mapToRegistry   name: 'supports-color',
+290 silly mapToRegistry   rawSpec: '',
+290 silly mapToRegistry   spec: 'latest',
+290 silly mapToRegistry   type: 'tag' }
+291 silly mapToRegistry uri https://registry.npmjs.org/supports-color
+292 verbose addNameRange registry:https://registry.npmjs.org/supports-color not in flight; fetching
+293 verbose request uri https://registry.npmjs.org/strip-ansi
+294 verbose request no auth needed
+295 info attempt registry request try #1 at 20:52:19
+296 verbose etag "D2RTBFGD653HY2RKXRPKXLTE8"
+297 http request GET https://registry.npmjs.org/strip-ansi
+298 verbose request uri https://registry.npmjs.org/escape-string-regexp
+299 verbose request no auth needed
+300 info attempt registry request try #1 at 20:52:19
+301 verbose etag "7FR9NRVLQZ19IM9FJ89UGKL4F"
+302 http request GET https://registry.npmjs.org/escape-string-regexp
+303 verbose request uri https://registry.npmjs.org/ansi-styles
+304 verbose request no auth needed
+305 info attempt registry request try #1 at 20:52:19
+306 verbose etag "94H0KROSM6LLXZPICA81SIC10"
+307 http request GET https://registry.npmjs.org/ansi-styles
+308 verbose request uri https://registry.npmjs.org/has-ansi
+309 verbose request no auth needed
+310 info attempt registry request try #1 at 20:52:19
+311 verbose etag "DGXNIUSOJ6YN8ST2FGYU5Y99E"
+312 http request GET https://registry.npmjs.org/has-ansi
+313 verbose request uri https://registry.npmjs.org/supports-color
+314 verbose request no auth needed
+315 info attempt registry request try #1 at 20:52:19
+316 verbose etag "C9WZHHZJNHHTQJIQCYMZPJ0U8"
+317 http request GET https://registry.npmjs.org/supports-color
+318 silly gunzTarPerm extractEntry dist/source-map.js
+319 silly gunzTarPerm modified mode [ 'dist/source-map.js', 420, 438 ]
+320 silly gunzTarPerm extractEntry dist/source-map.min.js
+321 silly gunzTarPerm modified mode [ 'dist/source-map.min.js', 420, 438 ]
+322 silly gunzTarPerm extractEntry dist/source-map.min.js.map
+323 silly gunzTarPerm modified mode [ 'dist/source-map.min.js.map', 420, 438 ]
+324 silly gunzTarPerm extractEntry CHANGELOG.md
+325 silly gunzTarPerm modified mode [ 'CHANGELOG.md', 420, 438 ]
+326 verbose write writing to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\source-map\package.json
+327 http 304 https://registry.npmjs.org/escape-string-regexp
+328 verbose headers { date: 'Tue, 08 Nov 2016 19:52:22 GMT',
+328 verbose headers   via: '1.1 varnish',
+328 verbose headers   'cache-control': 'max-age=300',
+328 verbose headers   etag: '"7FR9NRVLQZ19IM9FJ89UGKL4F"',
+328 verbose headers   age: '210',
+328 verbose headers   connection: 'keep-alive',
+328 verbose headers   'x-served-by': 'cache-cdg8730-CDG',
+328 verbose headers   'x-cache': 'HIT',
+328 verbose headers   'x-cache-hits': '8',
+328 verbose headers   'x-timer': 'S1478634742.823046,VS0,VE0',
+328 verbose headers   vary: 'Accept-Encoding' }
+329 silly get cb [ 304,
+329 silly get   { date: 'Tue, 08 Nov 2016 19:52:22 GMT',
+329 silly get     via: '1.1 varnish',
+329 silly get     'cache-control': 'max-age=300',
+329 silly get     etag: '"7FR9NRVLQZ19IM9FJ89UGKL4F"',
+329 silly get     age: '210',
+329 silly get     connection: 'keep-alive',
+329 silly get     'x-served-by': 'cache-cdg8730-CDG',
+329 silly get     'x-cache': 'HIT',
+329 silly get     'x-cache-hits': '8',
+329 silly get     'x-timer': 'S1478634742.823046,VS0,VE0',
+329 silly get     vary: 'Accept-Encoding' } ]
+330 verbose etag https://registry.npmjs.org/escape-string-regexp from cache
+331 verbose get saving escape-string-regexp to C:\Users\Edu\AppData\Roaming\npm-cache\registry.npmjs.org\escape-string-regexp\.cache.json
+332 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+333 info preinstall source-map@0.5.6
+334 http 304 https://registry.npmjs.org/strip-ansi
+335 verbose headers { date: 'Tue, 08 Nov 2016 19:52:22 GMT',
+335 verbose headers   via: '1.1 varnish',
+335 verbose headers   'cache-control': 'max-age=300',
+335 verbose headers   etag: '"D2RTBFGD653HY2RKXRPKXLTE8"',
+335 verbose headers   age: '298',
+335 verbose headers   connection: 'keep-alive',
+335 verbose headers   'x-served-by': 'cache-cdg8721-CDG',
+335 verbose headers   'x-cache': 'HIT',
+335 verbose headers   'x-cache-hits': '14',
+335 verbose headers   'x-timer': 'S1478634742.827156,VS0,VE0',
+335 verbose headers   vary: 'Accept-Encoding' }
+336 silly get cb [ 304,
+336 silly get   { date: 'Tue, 08 Nov 2016 19:52:22 GMT',
+336 silly get     via: '1.1 varnish',
+336 silly get     'cache-control': 'max-age=300',
+336 silly get     etag: '"D2RTBFGD653HY2RKXRPKXLTE8"',
+336 silly get     age: '298',
+336 silly get     connection: 'keep-alive',
+336 silly get     'x-served-by': 'cache-cdg8721-CDG',
+336 silly get     'x-cache': 'HIT',
+336 silly get     'x-cache-hits': '14',
+336 silly get     'x-timer': 'S1478634742.827156,VS0,VE0',
+336 silly get     vary: 'Accept-Encoding' } ]
+337 verbose etag https://registry.npmjs.org/strip-ansi from cache
+338 verbose get saving strip-ansi to C:\Users\Edu\AppData\Roaming\npm-cache\registry.npmjs.org\strip-ansi\.cache.json
+339 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+340 verbose readDependencies loading dependencies from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\source-map\package.json
+341 verbose readDependencies loading dependencies from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\source-map\package.json
+342 silly addNameRange number 2 { name: 'escape-string-regexp',
+342 silly addNameRange   range: '>=1.0.2 <2.0.0',
+342 silly addNameRange   hasData: true }
+343 silly addNameRange versions [ 'escape-string-regexp',
+343 silly addNameRange   [ '1.0.0', '1.0.1', '1.0.2', '1.0.3', '1.0.4', '1.0.5' ] ]
+344 silly addNamed escape-string-regexp@1.0.5
+345 verbose addNamed "1.0.5" is a plain semver version for escape-string-regexp
+346 silly install resolved []
+347 verbose about to build C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\source-map
+348 info build C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\source-map
+349 silly cache afterAdd escape-string-regexp@1.0.5
+350 verbose afterAdd C:\Users\Edu\AppData\Roaming\npm-cache\escape-string-regexp\1.0.5\package\package.json not in flight; writing
+351 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+352 info linkStuff source-map@0.5.6
+353 silly linkStuff source-map@0.5.6 has C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules as its parent node_modules
+354 verbose linkBins source-map@0.5.6
+355 verbose linkMans source-map@0.5.6
+356 verbose rebuildBundles source-map@0.5.6
+357 info install source-map@0.5.6
+358 silly addNameRange number 2 { name: 'strip-ansi', range: '>=3.0.0 <4.0.0', hasData: true }
+359 silly addNameRange versions [ 'strip-ansi',
+359 silly addNameRange   [ '0.1.0',
+359 silly addNameRange     '0.1.1',
+359 silly addNameRange     '0.2.0',
+359 silly addNameRange     '0.2.1',
+359 silly addNameRange     '0.2.2',
+359 silly addNameRange     '0.3.0',
+359 silly addNameRange     '1.0.0',
+359 silly addNameRange     '2.0.0',
+359 silly addNameRange     '2.0.1',
+359 silly addNameRange     '3.0.0',
+359 silly addNameRange     '3.0.1' ] ]
+360 silly addNamed strip-ansi@3.0.1
+361 verbose addNamed "3.0.1" is a plain semver version for strip-ansi
+362 info postinstall source-map@0.5.6
+363 verbose afterAdd C:\Users\Edu\AppData\Roaming\npm-cache\escape-string-regexp\1.0.5\package\package.json written
+364 verbose unlock done using C:\Users\Edu\AppData\Roaming\npm-cache\_locks\source-map-a41c05092bb0e98c.lock for C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\source-map
+365 silly cache afterAdd strip-ansi@3.0.1
+366 verbose afterAdd C:\Users\Edu\AppData\Roaming\npm-cache\strip-ansi\3.0.1\package\package.json not in flight; writing
+367 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+368 verbose afterAdd C:\Users\Edu\AppData\Roaming\npm-cache\strip-ansi\3.0.1\package\package.json written
+369 http 304 https://registry.npmjs.org/ansi-styles
+370 verbose headers { date: 'Tue, 08 Nov 2016 19:52:23 GMT',
+370 verbose headers   via: '1.1 varnish',
+370 verbose headers   'cache-control': 'max-age=300',
+370 verbose headers   etag: '"94H0KROSM6LLXZPICA81SIC10"',
+370 verbose headers   age: '85',
+370 verbose headers   connection: 'keep-alive',
+370 verbose headers   'x-served-by': 'cache-cdg8721-CDG',
+370 verbose headers   'x-cache': 'HIT',
+370 verbose headers   'x-cache-hits': '5',
+370 verbose headers   'x-timer': 'S1478634743.314182,VS0,VE0',
+370 verbose headers   vary: 'Accept-Encoding' }
+371 silly get cb [ 304,
+371 silly get   { date: 'Tue, 08 Nov 2016 19:52:23 GMT',
+371 silly get     via: '1.1 varnish',
+371 silly get     'cache-control': 'max-age=300',
+371 silly get     etag: '"94H0KROSM6LLXZPICA81SIC10"',
+371 silly get     age: '85',
+371 silly get     connection: 'keep-alive',
+371 silly get     'x-served-by': 'cache-cdg8721-CDG',
+371 silly get     'x-cache': 'HIT',
+371 silly get     'x-cache-hits': '5',
+371 silly get     'x-timer': 'S1478634743.314182,VS0,VE0',
+371 silly get     vary: 'Accept-Encoding' } ]
+372 verbose etag https://registry.npmjs.org/ansi-styles from cache
+373 verbose get saving ansi-styles to C:\Users\Edu\AppData\Roaming\npm-cache\registry.npmjs.org\ansi-styles\.cache.json
+374 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+375 http 304 https://registry.npmjs.org/has-ansi
+376 verbose headers { date: 'Tue, 08 Nov 2016 19:52:23 GMT',
+376 verbose headers   via: '1.1 varnish',
+376 verbose headers   'cache-control': 'max-age=300',
+376 verbose headers   etag: '"DGXNIUSOJ6YN8ST2FGYU5Y99E"',
+376 verbose headers   age: '24',
+376 verbose headers   connection: 'keep-alive',
+376 verbose headers   'x-served-by': 'cache-cdg8730-CDG',
+376 verbose headers   'x-cache': 'HIT',
+376 verbose headers   'x-cache-hits': '1',
+376 verbose headers   'x-timer': 'S1478634743.314426,VS0,VE0',
+376 verbose headers   vary: 'Accept-Encoding' }
+377 silly get cb [ 304,
+377 silly get   { date: 'Tue, 08 Nov 2016 19:52:23 GMT',
+377 silly get     via: '1.1 varnish',
+377 silly get     'cache-control': 'max-age=300',
+377 silly get     etag: '"DGXNIUSOJ6YN8ST2FGYU5Y99E"',
+377 silly get     age: '24',
+377 silly get     connection: 'keep-alive',
+377 silly get     'x-served-by': 'cache-cdg8730-CDG',
+377 silly get     'x-cache': 'HIT',
+377 silly get     'x-cache-hits': '1',
+377 silly get     'x-timer': 'S1478634743.314426,VS0,VE0',
+377 silly get     vary: 'Accept-Encoding' } ]
+378 verbose etag https://registry.npmjs.org/has-ansi from cache
+379 verbose get saving has-ansi to C:\Users\Edu\AppData\Roaming\npm-cache\registry.npmjs.org\has-ansi\.cache.json
+380 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+381 silly addNameRange number 2 { name: 'ansi-styles', range: '>=2.2.1 <3.0.0', hasData: true }
+382 silly addNameRange versions [ 'ansi-styles',
+382 silly addNameRange   [ '0.1.0',
+382 silly addNameRange     '0.1.1',
+382 silly addNameRange     '0.1.2',
+382 silly addNameRange     '0.2.0',
+382 silly addNameRange     '1.0.0',
+382 silly addNameRange     '1.1.0',
+382 silly addNameRange     '2.0.0',
+382 silly addNameRange     '2.0.1',
+382 silly addNameRange     '2.1.0',
+382 silly addNameRange     '2.2.1' ] ]
+383 silly addNamed ansi-styles@2.2.1
+384 verbose addNamed "2.2.1" is a plain semver version for ansi-styles
+385 silly cache afterAdd ansi-styles@2.2.1
+386 verbose afterAdd C:\Users\Edu\AppData\Roaming\npm-cache\ansi-styles\2.2.1\package\package.json not in flight; writing
+387 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+388 silly addNameRange number 2 { name: 'has-ansi', range: '>=2.0.0 <3.0.0', hasData: true }
+389 silly addNameRange versions [ 'has-ansi',
+389 silly addNameRange   [ '0.1.0', '1.0.0', '1.0.1', '1.0.2', '1.0.3', '2.0.0' ] ]
+390 silly addNamed has-ansi@2.0.0
+391 verbose addNamed "2.0.0" is a plain semver version for has-ansi
+392 silly cache afterAdd has-ansi@2.0.0
+393 verbose afterAdd C:\Users\Edu\AppData\Roaming\npm-cache\has-ansi\2.0.0\package\package.json not in flight; writing
+394 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+395 http 304 https://registry.npmjs.org/supports-color
+396 verbose headers { date: 'Tue, 08 Nov 2016 19:52:23 GMT',
+396 verbose headers   via: '1.1 varnish',
+396 verbose headers   'cache-control': 'max-age=300',
+396 verbose headers   etag: '"C9WZHHZJNHHTQJIQCYMZPJ0U8"',
+396 verbose headers   age: '281',
+396 verbose headers   connection: 'keep-alive',
+396 verbose headers   'x-served-by': 'cache-cdg8725-CDG',
+396 verbose headers   'x-cache': 'HIT',
+396 verbose headers   'x-cache-hits': '6',
+396 verbose headers   'x-timer': 'S1478634743.322675,VS0,VE0',
+396 verbose headers   vary: 'Accept-Encoding' }
+397 silly get cb [ 304,
+397 silly get   { date: 'Tue, 08 Nov 2016 19:52:23 GMT',
+397 silly get     via: '1.1 varnish',
+397 silly get     'cache-control': 'max-age=300',
+397 silly get     etag: '"C9WZHHZJNHHTQJIQCYMZPJ0U8"',
+397 silly get     age: '281',
+397 silly get     connection: 'keep-alive',
+397 silly get     'x-served-by': 'cache-cdg8725-CDG',
+397 silly get     'x-cache': 'HIT',
+397 silly get     'x-cache-hits': '6',
+397 silly get     'x-timer': 'S1478634743.322675,VS0,VE0',
+397 silly get     vary: 'Accept-Encoding' } ]
+398 verbose etag https://registry.npmjs.org/supports-color from cache
+399 verbose get saving supports-color to C:\Users\Edu\AppData\Roaming\npm-cache\registry.npmjs.org\supports-color\.cache.json
+400 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+401 verbose afterAdd C:\Users\Edu\AppData\Roaming\npm-cache\ansi-styles\2.2.1\package\package.json written
+402 verbose afterAdd C:\Users\Edu\AppData\Roaming\npm-cache\has-ansi\2.0.0\package\package.json written
+403 silly addNameRange number 2 { name: 'supports-color',
+403 silly addNameRange   range: '>=2.0.0 <3.0.0',
+403 silly addNameRange   hasData: true }
+404 silly addNameRange versions [ 'supports-color',
+404 silly addNameRange   [ '0.2.0',
+404 silly addNameRange     '1.0.0',
+404 silly addNameRange     '1.1.0',
+404 silly addNameRange     '1.2.0',
+404 silly addNameRange     '1.2.1',
+404 silly addNameRange     '1.3.0',
+404 silly addNameRange     '1.3.1',
+404 silly addNameRange     '2.0.0',
+404 silly addNameRange     '3.0.0',
+404 silly addNameRange     '3.0.1',
+404 silly addNameRange     '3.1.0',
+404 silly addNameRange     '3.1.1',
+404 silly addNameRange     '3.1.2' ] ]
+405 silly addNamed supports-color@2.0.0
+406 verbose addNamed "2.0.0" is a plain semver version for supports-color
+407 silly cache afterAdd supports-color@2.0.0
+408 verbose afterAdd C:\Users\Edu\AppData\Roaming\npm-cache\supports-color\2.0.0\package\package.json not in flight; writing
+409 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+410 verbose afterAdd C:\Users\Edu\AppData\Roaming\npm-cache\supports-color\2.0.0\package\package.json written
+411 silly install resolved [ { name: 'escape-string-regexp',
+411 silly install resolved     version: '1.0.5',
+411 silly install resolved     description: 'Escape RegExp special characters',
+411 silly install resolved     license: 'MIT',
+411 silly install resolved     repository:
+411 silly install resolved      { type: 'git',
+411 silly install resolved        url: 'git+https://github.com/sindresorhus/escape-string-regexp.git' },
+411 silly install resolved     author:
+411 silly install resolved      { name: 'Sindre Sorhus',
+411 silly install resolved        email: 'sindresorhus@gmail.com',
+411 silly install resolved        url: 'sindresorhus.com' },
+411 silly install resolved     maintainers: [ [Object], [Object] ],
+411 silly install resolved     engines: { node: '>=0.8.0' },
+411 silly install resolved     scripts: { test: 'xo && ava' },
+411 silly install resolved     files: [ 'index.js' ],
+411 silly install resolved     keywords:
+411 silly install resolved      [ 'escape',
+411 silly install resolved        'regex',
+411 silly install resolved        'regexp',
+411 silly install resolved        're',
+411 silly install resolved        'regular',
+411 silly install resolved        'expression',
+411 silly install resolved        'string',
+411 silly install resolved        'str',
+411 silly install resolved        'special',
+411 silly install resolved        'characters' ],
+411 silly install resolved     devDependencies: { ava: '*', xo: '*' },
+411 silly install resolved     gitHead: 'db124a3e1aae9d692c4899e42a5c6c3e329eaa20',
+411 silly install resolved     bugs: { url: 'https://github.com/sindresorhus/escape-string-regexp/issues' },
+411 silly install resolved     homepage: 'https://github.com/sindresorhus/escape-string-regexp',
+411 silly install resolved     _id: 'escape-string-regexp@1.0.5',
+411 silly install resolved     _shasum: '1b61c0562190a8dff6ae3bb2cf0200ca130b86d4',
+411 silly install resolved     _from: 'escape-string-regexp@>=1.0.2 <2.0.0',
+411 silly install resolved     _npmVersion: '2.14.12',
+411 silly install resolved     _nodeVersion: '4.2.6',
+411 silly install resolved     _npmUser: { name: 'jbnicolai', email: 'jappelman@xebia.com' },
+411 silly install resolved     dist:
+411 silly install resolved      { shasum: '1b61c0562190a8dff6ae3bb2cf0200ca130b86d4',
+411 silly install resolved        tarball: 'https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz' },
+411 silly install resolved     _npmOperationalInternal:
+411 silly install resolved      { host: 'packages-9-west.internal.npmjs.com',
+411 silly install resolved        tmp: 'tmp/escape-string-regexp-1.0.5.tgz_1456059312074_0.7245344955008477' },
+411 silly install resolved     directories: {},
+411 silly install resolved     _resolved: 'https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz',
+411 silly install resolved     readme: 'ERROR: No README data found!' },
+411 silly install resolved   { name: 'strip-ansi',
+411 silly install resolved     version: '3.0.1',
+411 silly install resolved     description: 'Strip ANSI escape codes',
+411 silly install resolved     license: 'MIT',
+411 silly install resolved     repository:
+411 silly install resolved      { type: 'git',
+411 silly install resolved        url: 'git+https://github.com/chalk/strip-ansi.git' },
+411 silly install resolved     author:
+411 silly install resolved      { name: 'Sindre Sorhus',
+411 silly install resolved        email: 'sindresorhus@gmail.com',
+411 silly install resolved        url: 'sindresorhus.com' },
+411 silly install resolved     maintainers: [ [Object], [Object] ],
+411 silly install resolved     engines: { node: '>=0.10.0' },
+411 silly install resolved     scripts: { test: 'xo && ava' },
+411 silly install resolved     files: [ 'index.js' ],
+411 silly install resolved     keywords:
+411 silly install resolved      [ 'strip',
+411 silly install resolved        'trim',
+411 silly install resolved        'remove',
+411 silly install resolved        'ansi',
+411 silly install resolved        'styles',
+411 silly install resolved        'color',
+411 silly install resolved        'colour',
+411 silly install resolved        'colors',
+411 silly install resolved        'terminal',
+411 silly install resolved        'console',
+411 silly install resolved        'string',
+411 silly install resolved        'tty',
+411 silly install resolved        'escape',
+411 silly install resolved        'formatting',
+411 silly install resolved        'rgb',
+411 silly install resolved        '256',
+411 silly install resolved        'shell',
+411 silly install resolved        'xterm',
+411 silly install resolved        'log',
+411 silly install resolved        'logging',
+411 silly install resolved        'command-line',
+411 silly install resolved        'text' ],
+411 silly install resolved     dependencies: { 'ansi-regex': '^2.0.0' },
+411 silly install resolved     devDependencies: { ava: '*', xo: '*' },
+411 silly install resolved     gitHead: '8270705c704956da865623e564eba4875c3ea17f',
+411 silly install resolved     bugs: { url: 'https://github.com/chalk/strip-ansi/issues' },
+411 silly install resolved     homepage: 'https://github.com/chalk/strip-ansi',
+411 silly install resolved     _id: 'strip-ansi@3.0.1',
+411 silly install resolved     _shasum: '6a385fb8853d952d5ff05d0e8aaf94278dc63dcf',
+411 silly install resolved     _from: 'strip-ansi@>=3.0.0 <4.0.0',
+411 silly install resolved     _npmVersion: '2.11.3',
+411 silly install resolved     _nodeVersion: '0.12.7',
+411 silly install resolved     _npmUser: { name: 'jbnicolai', email: 'jappelman@xebia.com' },
+411 silly install resolved     dist:
+411 silly install resolved      { shasum: '6a385fb8853d952d5ff05d0e8aaf94278dc63dcf',
+411 silly install resolved        tarball: 'https://registry.npmjs.org/strip-ansi/-/strip-ansi-3.0.1.tgz' },
+411 silly install resolved     _npmOperationalInternal:
+411 silly install resolved      { host: 'packages-9-west.internal.npmjs.com',
+411 silly install resolved        tmp: 'tmp/strip-ansi-3.0.1.tgz_1456057278183_0.28958667791448534' },
+411 silly install resolved     directories: {},
+411 silly install resolved     _resolved: 'https://registry.npmjs.org/strip-ansi/-/strip-ansi-3.0.1.tgz',
+411 silly install resolved     readme: 'ERROR: No README data found!' },
+411 silly install resolved   { name: 'ansi-styles',
+411 silly install resolved     version: '2.2.1',
+411 silly install resolved     description: 'ANSI escape codes for styling strings in the terminal',
+411 silly install resolved     license: 'MIT',
+411 silly install resolved     repository:
+411 silly install resolved      { type: 'git',
+411 silly install resolved        url: 'git+https://github.com/chalk/ansi-styles.git' },
+411 silly install resolved     author:
+411 silly install resolved      { name: 'Sindre Sorhus',
+411 silly install resolved        email: 'sindresorhus@gmail.com',
+411 silly install resolved        url: 'sindresorhus.com' },
+411 silly install resolved     maintainers: [ [Object] ],
+411 silly install resolved     engines: { node: '>=0.10.0' },
+411 silly install resolved     scripts: { test: 'mocha' },
+411 silly install resolved     files: [ 'index.js' ],
+411 silly install resolved     keywords:
+411 silly install resolved      [ 'ansi',
+411 silly install resolved        'styles',
+411 silly install resolved        'color',
+411 silly install resolved        'colour',
+411 silly install resolved        'colors',
+411 silly install resolved        'terminal',
+411 silly install resolved        'console',
+411 silly install resolved        'cli',
+411 silly install resolved        'string',
+411 silly install resolved        'tty',
+411 silly install resolved        'escape',
+411 silly install resolved        'formatting',
+411 silly install resolved        'rgb',
+411 silly install resolved        '256',
+411 silly install resolved        'shell',
+411 silly install resolved        'xterm',
+411 silly install resolved        'log',
+411 silly install resolved        'logging',
+411 silly install resolved        'command-line',
+411 silly install resolved        'text' ],
+411 silly install resolved     devDependencies: { mocha: '*' },
+411 silly install resolved     gitHead: '95c59b23be760108b6530ca1c89477c21b258032',
+411 silly install resolved     bugs: { url: 'https://github.com/chalk/ansi-styles/issues' },
+411 silly install resolved     homepage: 'https://github.com/chalk/ansi-styles#readme',
+411 silly install resolved     _id: 'ansi-styles@2.2.1',
+411 silly install resolved     _shasum: 'b432dd3358b634cf75e1e4664368240533c1ddbe',
+411 silly install resolved     _from: 'ansi-styles@>=2.2.1 <3.0.0',
+411 silly install resolved     _npmVersion: '3.8.3',
+411 silly install resolved     _nodeVersion: '4.3.0',
+411 silly install resolved     _npmUser: { name: 'sindresorhus', email: 'sindresorhus@gmail.com' },
+411 silly install resolved     dist:
+411 silly install resolved      { shasum: 'b432dd3358b634cf75e1e4664368240533c1ddbe',
+411 silly install resolved        tarball: 'https://registry.npmjs.org/ansi-styles/-/ansi-styles-2.2.1.tgz' },
+411 silly install resolved     _npmOperationalInternal:
+411 silly install resolved      { host: 'packages-12-west.internal.npmjs.com',
+411 silly install resolved        tmp: 'tmp/ansi-styles-2.2.1.tgz_1459197317833_0.9694824463222176' },
+411 silly install resolved     directories: {},
+411 silly install resolved     _resolved: 'https://registry.npmjs.org/ansi-styles/-/ansi-styles-2.2.1.tgz',
+411 silly install resolved     readme: 'ERROR: No README data found!' },
+411 silly install resolved   { name: 'has-ansi',
+411 silly install resolved     version: '2.0.0',
+411 silly install resolved     description: 'Check if a string has ANSI escape codes',
+411 silly install resolved     license: 'MIT',
+411 silly install resolved     repository:
+411 silly install resolved      { type: 'git',
+411 silly install resolved        url: 'git+https://github.com/sindresorhus/has-ansi.git' },
+411 silly install resolved     author:
+411 silly install resolved      { name: 'Sindre Sorhus',
+411 silly install resolved        email: 'sindresorhus@gmail.com',
+411 silly install resolved        url: 'sindresorhus.com' },
+411 silly install resolved     maintainers: [ [Object], [Object] ],
+411 silly install resolved     engines: { node: '>=0.10.0' },
+411 silly install resolved     scripts: { test: 'node test.js' },
+411 silly install resolved     files: [ 'index.js' ],
+411 silly install resolved     keywords:
+411 silly install resolved      [ 'ansi',
+411 silly install resolved        'styles',
+411 silly install resolved        'color',
+411 silly install resolved        'colour',
+411 silly install resolved        'colors',
+411 silly install resolved        'terminal',
+411 silly install resolved        'console',
+411 silly install resolved        'string',
+411 silly install resolved        'tty',
+411 silly install resolved        'escape',
+411 silly install resolved        'shell',
+411 silly install resolved        'xterm',
+411 silly install resolved        'command-line',
+411 silly install resolved        'text',
+411 silly install resolved        'regex',
+411 silly install resolved        'regexp',
+411 silly install resolved        're',
+411 silly install resolved        'match',
+411 silly install resolved        'test',
+411 silly install resolved        'find',
+411 silly install resolved        'pattern',
+411 silly install resolved        'has' ],
+411 silly install resolved     dependencies: { 'ansi-regex': '^2.0.0' },
+411 silly install resolved     devDependencies: { ava: '0.0.4' },
+411 silly install resolved     gitHead: '0722275e1bef139fcd09137da6e5550c3cd368b9',
+411 silly install resolved     bugs: { url: 'https://github.com/sindresorhus/has-ansi/issues' },
+411 silly install resolved     homepage: 'https://github.com/sindresorhus/has-ansi',
+411 silly install resolved     _id: 'has-ansi@2.0.0',
+411 silly install resolved     _shasum: '34f5049ce1ecdf2b0649af3ef24e45ed35416d91',
+411 silly install resolved     _from: 'has-ansi@>=2.0.0 <3.0.0',
+411 silly install resolved     _npmVersion: '2.11.2',
+411 silly install resolved     _nodeVersion: '0.12.5',
+411 silly install resolved     _npmUser: { name: 'sindresorhus', email: 'sindresorhus@gmail.com' },
+411 silly install resolved     dist:
+411 silly install resolved      { shasum: '34f5049ce1ecdf2b0649af3ef24e45ed35416d91',
+411 silly install resolved        tarball: 'https://registry.npmjs.org/has-ansi/-/has-ansi-2.0.0.tgz' },
+411 silly install resolved     directories: {},
+411 silly install resolved     _resolved: 'https://registry.npmjs.org/has-ansi/-/has-ansi-2.0.0.tgz',
+411 silly install resolved     readme: 'ERROR: No README data found!' },
+411 silly install resolved   { name: 'supports-color',
+411 silly install resolved     version: '2.0.0',
+411 silly install resolved     description: 'Detect whether a terminal supports color',
+411 silly install resolved     license: 'MIT',
+411 silly install resolved     repository:
+411 silly install resolved      { type: 'git',
+411 silly install resolved        url: 'git+https://github.com/chalk/supports-color.git' },
+411 silly install resolved     author:
+411 silly install resolved      { name: 'Sindre Sorhus',
+411 silly install resolved        email: 'sindresorhus@gmail.com',
+411 silly install resolved        url: 'sindresorhus.com' },
+411 silly install resolved     maintainers: [ [Object], [Object] ],
+411 silly install resolved     engines: { node: '>=0.8.0' },
+411 silly install resolved     scripts: { test: 'mocha' },
+411 silly install resolved     files: [ 'index.js' ],
+411 silly install resolved     keywords:
+411 silly install resolved      [ 'color',
+411 silly install resolved        'colour',
+411 silly install resolved        'colors',
+411 silly install resolved        'terminal',
+411 silly install resolved        'console',
+411 silly install resolved        'cli',
+411 silly install resolved        'ansi',
+411 silly install resolved        'styles',
+411 silly install resolved        'tty',
+411 silly install resolved        'rgb',
+411 silly install resolved        '256',
+411 silly install resolved        'shell',
+411 silly install resolved        'xterm',
+411 silly install resolved        'command-line',
+411 silly install resolved        'support',
+411 silly install resolved        'supports',
+411 silly install resolved        'capability',
+411 silly install resolved        'detect' ],
+411 silly install resolved     devDependencies: { mocha: '*', 'require-uncached': '^1.0.2' },
+411 silly install resolved     gitHead: '8400d98ade32b2adffd50902c06d9e725a5c6588',
+411 silly install resolved     bugs: { url: 'https://github.com/chalk/supports-color/issues' },
+411 silly install resolved     homepage: 'https://github.com/chalk/supports-color',
+411 silly install resolved     _id: 'supports-color@2.0.0',
+411 silly install resolved     _shasum: '535d045ce6b6363fa40117084629995e9df324c7',
+411 silly install resolved     _from: 'supports-color@>=2.0.0 <3.0.0',
+411 silly install resolved     _npmVersion: '2.11.2',
+411 silly install resolved     _nodeVersion: '0.12.5',
+411 silly install resolved     _npmUser: { name: 'sindresorhus', email: 'sindresorhus@gmail.com' },
+411 silly install resolved     dist:
+411 silly install resolved      { shasum: '535d045ce6b6363fa40117084629995e9df324c7',
+411 silly install resolved        tarball: 'https://registry.npmjs.org/supports-color/-/supports-color-2.0.0.tgz' },
+411 silly install resolved     directories: {},
+411 silly install resolved     _resolved: 'https://registry.npmjs.org/supports-color/-/supports-color-2.0.0.tgz',
+411 silly install resolved     readme: 'ERROR: No README data found!' } ]
+412 info install escape-string-regexp@1.0.5 into C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk
+413 info install strip-ansi@3.0.1 into C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk
+414 info install ansi-styles@2.2.1 into C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk
+415 info install has-ansi@2.0.0 into C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk
+416 info install supports-color@2.0.0 into C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk
+417 info installOne escape-string-regexp@1.0.5
+418 verbose installOne of escape-string-regexp to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk not in flight; installing
+419 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache\_locks correctMkdir not in flight; initializing
+420 info installOne strip-ansi@3.0.1
+421 verbose installOne of strip-ansi to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk not in flight; installing
+422 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache\_locks correctMkdir not in flight; initializing
+423 info installOne ansi-styles@2.2.1
+424 verbose installOne of ansi-styles to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk not in flight; installing
+425 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache\_locks correctMkdir not in flight; initializing
+426 info installOne has-ansi@2.0.0
+427 verbose installOne of has-ansi to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk not in flight; installing
+428 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache\_locks correctMkdir not in flight; initializing
+429 info installOne supports-color@2.0.0
+430 verbose installOne of supports-color to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk not in flight; installing
+431 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache\_locks correctMkdir not in flight; initializing
+432 verbose lock using C:\Users\Edu\AppData\Roaming\npm-cache\_locks\escape-string-regexp-70af877dd306c725.lock for C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\escape-string-regexp
+433 verbose lock using C:\Users\Edu\AppData\Roaming\npm-cache\_locks\strip-ansi-ae2f1cef102dcec8.lock for C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi
+434 silly install write writing escape-string-regexp 1.0.5 to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\escape-string-regexp
+435 silly install write writing strip-ansi 3.0.1 to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi
+436 verbose lock using C:\Users\Edu\AppData\Roaming\npm-cache\_locks\ansi-styles-b06504667062451d.lock for C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\ansi-styles
+437 verbose lock using C:\Users\Edu\AppData\Roaming\npm-cache\_locks\has-ansi-2341442d53775272.lock for C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi
+438 verbose lock using C:\Users\Edu\AppData\Roaming\npm-cache\_locks\supports-color-2500b21814116049.lock for C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\supports-color
+439 silly install write writing ansi-styles 2.2.1 to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\ansi-styles
+440 silly install write writing has-ansi 2.0.0 to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi
+441 silly install write writing supports-color 2.0.0 to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\supports-color
+442 verbose unbuild node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\escape-string-regexp
+443 verbose unbuild node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi
+444 verbose unbuild node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi
+445 verbose unbuild node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\ansi-styles
+446 verbose unbuild node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\supports-color
+447 silly gentlyRm C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\escape-string-regexp is being purged from base C:\Users\Edu\git\fenix\Fenix\src\main\webapp
+448 verbose gentlyRm don't care about contents; nuking C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\escape-string-regexp
+449 silly gentlyRm C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi is being purged from base C:\Users\Edu\git\fenix\Fenix\src\main\webapp
+450 verbose gentlyRm don't care about contents; nuking C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi
+451 verbose tar unpack C:\Users\Edu\AppData\Roaming\npm-cache\escape-string-regexp\1.0.5\package.tgz
+452 verbose tar unpacking to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\escape-string-regexp
+453 silly gentlyRm C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\escape-string-regexp is being purged
+454 verbose gentlyRm don't care about contents; nuking C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\escape-string-regexp
+455 verbose tar unpack C:\Users\Edu\AppData\Roaming\npm-cache\strip-ansi\3.0.1\package.tgz
+456 verbose tar unpacking to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi
+457 silly gentlyRm C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi is being purged
+458 verbose gentlyRm don't care about contents; nuking C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi
+459 silly gentlyRm C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi is being purged from base C:\Users\Edu\git\fenix\Fenix\src\main\webapp
+460 verbose gentlyRm don't care about contents; nuking C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi
+461 silly gentlyRm C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\ansi-styles is being purged from base C:\Users\Edu\git\fenix\Fenix\src\main\webapp
+462 verbose gentlyRm don't care about contents; nuking C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\ansi-styles
+463 silly gentlyRm C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\supports-color is being purged from base C:\Users\Edu\git\fenix\Fenix\src\main\webapp
+464 verbose gentlyRm don't care about contents; nuking C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\supports-color
+465 silly gunzTarPerm modes [ '777', '666' ]
+466 silly gunzTarPerm modes [ '777', '666' ]
+467 verbose tar unpack C:\Users\Edu\AppData\Roaming\npm-cache\has-ansi\2.0.0\package.tgz
+468 verbose tar unpacking to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi
+469 silly gentlyRm C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi is being purged
+470 verbose gentlyRm don't care about contents; nuking C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi
+471 verbose tar unpack C:\Users\Edu\AppData\Roaming\npm-cache\ansi-styles\2.2.1\package.tgz
+472 verbose tar unpacking to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\ansi-styles
+473 silly gentlyRm C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\ansi-styles is being purged
+474 verbose gentlyRm don't care about contents; nuking C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\ansi-styles
+475 verbose tar unpack C:\Users\Edu\AppData\Roaming\npm-cache\supports-color\2.0.0\package.tgz
+476 verbose tar unpacking to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\supports-color
+477 silly gentlyRm C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\supports-color is being purged
+478 verbose gentlyRm don't care about contents; nuking C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\supports-color
+479 silly gunzTarPerm modes [ '777', '666' ]
+480 silly gunzTarPerm modes [ '777', '666' ]
+481 silly gunzTarPerm modes [ '777', '666' ]
+482 silly gunzTarPerm extractEntry package.json
+483 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+484 silly gunzTarPerm extractEntry package.json
+485 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+486 silly gunzTarPerm extractEntry package.json
+487 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+488 silly gunzTarPerm extractEntry package.json
+489 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+490 silly gunzTarPerm extractEntry package.json
+491 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+492 silly gunzTarPerm extractEntry index.js
+493 silly gunzTarPerm modified mode [ 'index.js', 420, 438 ]
+494 silly gunzTarPerm extractEntry license
+495 silly gunzTarPerm modified mode [ 'license', 420, 438 ]
+496 silly gunzTarPerm extractEntry index.js
+497 silly gunzTarPerm modified mode [ 'index.js', 420, 438 ]
+498 silly gunzTarPerm extractEntry license
+499 silly gunzTarPerm modified mode [ 'license', 420, 438 ]
+500 silly gunzTarPerm extractEntry index.js
+501 silly gunzTarPerm modified mode [ 'index.js', 420, 438 ]
+502 silly gunzTarPerm extractEntry license
+503 silly gunzTarPerm modified mode [ 'license', 420, 438 ]
+504 silly gunzTarPerm extractEntry index.js
+505 silly gunzTarPerm modified mode [ 'index.js', 420, 438 ]
+506 silly gunzTarPerm extractEntry license
+507 silly gunzTarPerm modified mode [ 'license', 420, 438 ]
+508 silly gunzTarPerm extractEntry index.js
+509 silly gunzTarPerm modified mode [ 'index.js', 420, 438 ]
+510 silly gunzTarPerm extractEntry license
+511 silly gunzTarPerm modified mode [ 'license', 420, 438 ]
+512 silly gunzTarPerm extractEntry readme.md
+513 silly gunzTarPerm modified mode [ 'readme.md', 420, 438 ]
+514 silly gunzTarPerm extractEntry readme.md
+515 silly gunzTarPerm modified mode [ 'readme.md', 420, 438 ]
+516 silly gunzTarPerm extractEntry readme.md
+517 silly gunzTarPerm modified mode [ 'readme.md', 420, 438 ]
+518 silly gunzTarPerm extractEntry readme.md
+519 silly gunzTarPerm modified mode [ 'readme.md', 420, 438 ]
+520 silly gunzTarPerm extractEntry readme.md
+521 silly gunzTarPerm modified mode [ 'readme.md', 420, 438 ]
+522 verbose write writing to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi\package.json
+523 verbose write writing to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\escape-string-regexp\package.json
+524 info preinstall strip-ansi@3.0.1
+525 verbose readDependencies loading dependencies from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi\package.json
+526 verbose write writing to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi\package.json
+527 info preinstall escape-string-regexp@1.0.5
+528 silly prepareForInstallMany adding ansi-regex@^2.0.0 from strip-ansi dependencies
+529 verbose readDependencies loading dependencies from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi\package.json
+530 verbose readDependencies loading dependencies from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\escape-string-regexp\package.json
+531 info preinstall has-ansi@2.0.0
+532 verbose write writing to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\supports-color\package.json
+533 verbose readDependencies loading dependencies from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi\package.json
+534 silly cache add args [ 'ansi-regex@^2.0.0', null ]
+535 verbose cache add spec ansi-regex@^2.0.0
+536 silly cache add parsed spec Result {
+536 silly cache add   raw: 'ansi-regex@^2.0.0',
+536 silly cache add   scope: null,
+536 silly cache add   name: 'ansi-regex',
+536 silly cache add   rawSpec: '^2.0.0',
+536 silly cache add   spec: '>=2.0.0 <3.0.0',
+536 silly cache add   type: 'range' }
+537 silly addNamed ansi-regex@>=2.0.0 <3.0.0
+538 verbose addNamed ">=2.0.0 <3.0.0" is a valid semver range for ansi-regex
+539 silly addNameRange { name: 'ansi-regex', range: '>=2.0.0 <3.0.0', hasData: false }
+540 silly mapToRegistry name ansi-regex
+541 silly mapToRegistry using default registry
+542 silly mapToRegistry registry https://registry.npmjs.org/
+543 silly mapToRegistry data Result {
+543 silly mapToRegistry   raw: 'ansi-regex',
+543 silly mapToRegistry   scope: null,
+543 silly mapToRegistry   name: 'ansi-regex',
+543 silly mapToRegistry   rawSpec: '',
+543 silly mapToRegistry   spec: 'latest',
+543 silly mapToRegistry   type: 'tag' }
+544 silly mapToRegistry uri https://registry.npmjs.org/ansi-regex
+545 verbose addNameRange registry:https://registry.npmjs.org/ansi-regex not in flight; fetching
+546 verbose readDependencies loading dependencies from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\escape-string-regexp\package.json
+547 verbose write writing to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\ansi-styles\package.json
+548 silly prepareForInstallMany adding ansi-regex@^2.0.0 from has-ansi dependencies
+549 verbose readDependencies loading dependencies from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi\package.json
+550 verbose request uri https://registry.npmjs.org/ansi-regex
+551 verbose request no auth needed
+552 info attempt registry request try #1 at 20:52:20
+553 verbose etag "C5QBAL9R3FEA4BFQL7FHK77RZ"
+554 http request GET https://registry.npmjs.org/ansi-regex
+555 info preinstall supports-color@2.0.0
+556 silly install resolved []
+557 verbose about to build C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\escape-string-regexp
+558 info build C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\escape-string-regexp
+559 verbose readDependencies loading dependencies from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\supports-color\package.json
+560 info linkStuff escape-string-regexp@1.0.5
+561 silly linkStuff escape-string-regexp@1.0.5 has C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules as its parent node_modules
+562 silly cache add args [ 'ansi-regex@^2.0.0', null ]
+563 verbose cache add spec ansi-regex@^2.0.0
+564 silly cache add parsed spec Result {
+564 silly cache add   raw: 'ansi-regex@^2.0.0',
+564 silly cache add   scope: null,
+564 silly cache add   name: 'ansi-regex',
+564 silly cache add   rawSpec: '^2.0.0',
+564 silly cache add   spec: '>=2.0.0 <3.0.0',
+564 silly cache add   type: 'range' }
+565 silly addNamed ansi-regex@>=2.0.0 <3.0.0
+566 verbose addNamed ">=2.0.0 <3.0.0" is a valid semver range for ansi-regex
+567 silly addNameRange { name: 'ansi-regex', range: '>=2.0.0 <3.0.0', hasData: false }
+568 silly mapToRegistry name ansi-regex
+569 silly mapToRegistry using default registry
+570 silly mapToRegistry registry https://registry.npmjs.org/
+571 silly mapToRegistry data Result {
+571 silly mapToRegistry   raw: 'ansi-regex',
+571 silly mapToRegistry   scope: null,
+571 silly mapToRegistry   name: 'ansi-regex',
+571 silly mapToRegistry   rawSpec: '',
+571 silly mapToRegistry   spec: 'latest',
+571 silly mapToRegistry   type: 'tag' }
+572 silly mapToRegistry uri https://registry.npmjs.org/ansi-regex
+573 verbose addNameRange registry:https://registry.npmjs.org/ansi-regex already in flight; waiting
+574 info preinstall ansi-styles@2.2.1
+575 verbose readDependencies loading dependencies from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\supports-color\package.json
+576 verbose readDependencies loading dependencies from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\ansi-styles\package.json
+577 verbose linkBins escape-string-regexp@1.0.5
+578 verbose linkMans escape-string-regexp@1.0.5
+579 verbose rebuildBundles escape-string-regexp@1.0.5
+580 info install escape-string-regexp@1.0.5
+581 info postinstall escape-string-regexp@1.0.5
+582 silly install resolved []
+583 verbose about to build C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\supports-color
+584 info build C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\supports-color
+585 verbose readDependencies loading dependencies from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\ansi-styles\package.json
+586 verbose unlock done using C:\Users\Edu\AppData\Roaming\npm-cache\_locks\escape-string-regexp-70af877dd306c725.lock for C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\escape-string-regexp
+587 info linkStuff supports-color@2.0.0
+588 silly linkStuff supports-color@2.0.0 has C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules as its parent node_modules
+589 silly install resolved []
+590 verbose about to build C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\ansi-styles
+591 info build C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\ansi-styles
+592 verbose linkBins supports-color@2.0.0
+593 verbose linkMans supports-color@2.0.0
+594 verbose rebuildBundles supports-color@2.0.0
+595 info install supports-color@2.0.0
+596 info linkStuff ansi-styles@2.2.1
+597 silly linkStuff ansi-styles@2.2.1 has C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules as its parent node_modules
+598 info postinstall supports-color@2.0.0
+599 verbose linkBins ansi-styles@2.2.1
+600 verbose linkMans ansi-styles@2.2.1
+601 verbose rebuildBundles ansi-styles@2.2.1
+602 verbose unlock done using C:\Users\Edu\AppData\Roaming\npm-cache\_locks\supports-color-2500b21814116049.lock for C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\supports-color
+603 info install ansi-styles@2.2.1
+604 info postinstall ansi-styles@2.2.1
+605 verbose unlock done using C:\Users\Edu\AppData\Roaming\npm-cache\_locks\ansi-styles-b06504667062451d.lock for C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\ansi-styles
+606 http 304 https://registry.npmjs.org/ansi-regex
+607 verbose headers { date: 'Tue, 08 Nov 2016 19:52:23 GMT',
+607 verbose headers   via: '1.1 varnish',
+607 verbose headers   'cache-control': 'max-age=300',
+607 verbose headers   etag: '"C5QBAL9R3FEA4BFQL7FHK77RZ"',
+607 verbose headers   age: '105',
+607 verbose headers   connection: 'keep-alive',
+607 verbose headers   'x-served-by': 'cache-cdg8730-CDG',
+607 verbose headers   'x-cache': 'HIT',
+607 verbose headers   'x-cache-hits': '7',
+607 verbose headers   'x-timer': 'S1478634743.462048,VS0,VE0',
+607 verbose headers   vary: 'Accept-Encoding' }
+608 silly get cb [ 304,
+608 silly get   { date: 'Tue, 08 Nov 2016 19:52:23 GMT',
+608 silly get     via: '1.1 varnish',
+608 silly get     'cache-control': 'max-age=300',
+608 silly get     etag: '"C5QBAL9R3FEA4BFQL7FHK77RZ"',
+608 silly get     age: '105',
+608 silly get     connection: 'keep-alive',
+608 silly get     'x-served-by': 'cache-cdg8730-CDG',
+608 silly get     'x-cache': 'HIT',
+608 silly get     'x-cache-hits': '7',
+608 silly get     'x-timer': 'S1478634743.462048,VS0,VE0',
+608 silly get     vary: 'Accept-Encoding' } ]
+609 verbose etag https://registry.npmjs.org/ansi-regex from cache
+610 verbose get saving ansi-regex to C:\Users\Edu\AppData\Roaming\npm-cache\registry.npmjs.org\ansi-regex\.cache.json
+611 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+612 silly addNameRange number 2 { name: 'ansi-regex', range: '>=2.0.0 <3.0.0', hasData: true }
+613 silly addNameRange versions [ 'ansi-regex',
+613 silly addNameRange   [ '0.1.0', '0.2.0', '0.2.1', '1.0.0', '1.1.0', '1.1.1', '2.0.0' ] ]
+614 silly addNamed ansi-regex@2.0.0
+615 verbose addNamed "2.0.0" is a plain semver version for ansi-regex
+616 silly addNameRange number 2 { name: 'ansi-regex', range: '>=2.0.0 <3.0.0', hasData: true }
+617 silly addNameRange versions [ 'ansi-regex',
+617 silly addNameRange   [ '0.1.0', '0.2.0', '0.2.1', '1.0.0', '1.1.0', '1.1.1', '2.0.0' ] ]
+618 silly addNamed ansi-regex@2.0.0
+619 verbose addNamed "2.0.0" is a plain semver version for ansi-regex
+620 silly cache afterAdd ansi-regex@2.0.0
+621 verbose afterAdd C:\Users\Edu\AppData\Roaming\npm-cache\ansi-regex\2.0.0\package\package.json not in flight; writing
+622 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+623 silly cache afterAdd ansi-regex@2.0.0
+624 verbose afterAdd C:\Users\Edu\AppData\Roaming\npm-cache\ansi-regex\2.0.0\package\package.json already in flight; not writing
+625 verbose afterAdd C:\Users\Edu\AppData\Roaming\npm-cache\ansi-regex\2.0.0\package\package.json written
+626 silly install resolved [ { name: 'ansi-regex',
+626 silly install resolved     version: '2.0.0',
+626 silly install resolved     description: 'Regular expression for matching ANSI escape codes',
+626 silly install resolved     license: 'MIT',
+626 silly install resolved     repository:
+626 silly install resolved      { type: 'git',
+626 silly install resolved        url: 'git+https://github.com/sindresorhus/ansi-regex.git' },
+626 silly install resolved     author:
+626 silly install resolved      { name: 'Sindre Sorhus',
+626 silly install resolved        email: 'sindresorhus@gmail.com',
+626 silly install resolved        url: 'sindresorhus.com' },
+626 silly install resolved     maintainers: [ [Object], [Object] ],
+626 silly install resolved     engines: { node: '>=0.10.0' },
+626 silly install resolved     scripts:
+626 silly install resolved      { test: 'mocha test/test.js',
+626 silly install resolved        'view-supported': 'node test/viewCodes.js' },
+626 silly install resolved     files: [ 'index.js' ],
+626 silly install resolved     keywords:
+626 silly install resolved      [ 'ansi',
+626 silly install resolved        'styles',
+626 silly install resolved        'color',
+626 silly install resolved        'colour',
+626 silly install resolved        'colors',
+626 silly install resolved        'terminal',
+626 silly install resolved        'console',
+626 silly install resolved        'cli',
+626 silly install resolved        'string',
+626 silly install resolved        'tty',
+626 silly install resolved        'escape',
+626 silly install resolved        'formatting',
+626 silly install resolved        'rgb',
+626 silly install resolved        '256',
+626 silly install resolved        'shell',
+626 silly install resolved        'xterm',
+626 silly install resolved        'command-line',
+626 silly install resolved        'text',
+626 silly install resolved        'regex',
+626 silly install resolved        'regexp',
+626 silly install resolved        're',
+626 silly install resolved        'match',
+626 silly install resolved        'test',
+626 silly install resolved        'find',
+626 silly install resolved        'pattern' ],
+626 silly install resolved     devDependencies: { mocha: '*' },
+626 silly install resolved     gitHead: '57c3f2941a73079fa8b081e02a522e3d29913e2f',
+626 silly install resolved     bugs: { url: 'https://github.com/sindresorhus/ansi-regex/issues' },
+626 silly install resolved     homepage: 'https://github.com/sindresorhus/ansi-regex',
+626 silly install resolved     _id: 'ansi-regex@2.0.0',
+626 silly install resolved     _shasum: 'c5061b6e0ef8a81775e50f5d66151bf6bf371107',
+626 silly install resolved     _from: 'ansi-regex@>=2.0.0 <3.0.0',
+626 silly install resolved     _npmVersion: '2.11.2',
+626 silly install resolved     _nodeVersion: '0.12.5',
+626 silly install resolved     _npmUser: { name: 'sindresorhus', email: 'sindresorhus@gmail.com' },
+626 silly install resolved     dist:
+626 silly install resolved      { shasum: 'c5061b6e0ef8a81775e50f5d66151bf6bf371107',
+626 silly install resolved        tarball: 'https://registry.npmjs.org/ansi-regex/-/ansi-regex-2.0.0.tgz' },
+626 silly install resolved     directories: {},
+626 silly install resolved     _resolved: 'https://registry.npmjs.org/ansi-regex/-/ansi-regex-2.0.0.tgz',
+626 silly install resolved     readme: 'ERROR: No README data found!' } ]
+627 info install ansi-regex@2.0.0 into C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi
+628 info installOne ansi-regex@2.0.0
+629 verbose installOne of ansi-regex to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi not in flight; installing
+630 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache\_locks correctMkdir not in flight; initializing
+631 silly install resolved [ { name: 'ansi-regex',
+631 silly install resolved     version: '2.0.0',
+631 silly install resolved     description: 'Regular expression for matching ANSI escape codes',
+631 silly install resolved     license: 'MIT',
+631 silly install resolved     repository:
+631 silly install resolved      { type: 'git',
+631 silly install resolved        url: 'git+https://github.com/sindresorhus/ansi-regex.git' },
+631 silly install resolved     author:
+631 silly install resolved      { name: 'Sindre Sorhus',
+631 silly install resolved        email: 'sindresorhus@gmail.com',
+631 silly install resolved        url: 'sindresorhus.com' },
+631 silly install resolved     maintainers: [ [Object], [Object] ],
+631 silly install resolved     engines: { node: '>=0.10.0' },
+631 silly install resolved     scripts:
+631 silly install resolved      { test: 'mocha test/test.js',
+631 silly install resolved        'view-supported': 'node test/viewCodes.js' },
+631 silly install resolved     files: [ 'index.js' ],
+631 silly install resolved     keywords:
+631 silly install resolved      [ 'ansi',
+631 silly install resolved        'styles',
+631 silly install resolved        'color',
+631 silly install resolved        'colour',
+631 silly install resolved        'colors',
+631 silly install resolved        'terminal',
+631 silly install resolved        'console',
+631 silly install resolved        'cli',
+631 silly install resolved        'string',
+631 silly install resolved        'tty',
+631 silly install resolved        'escape',
+631 silly install resolved        'formatting',
+631 silly install resolved        'rgb',
+631 silly install resolved        '256',
+631 silly install resolved        'shell',
+631 silly install resolved        'xterm',
+631 silly install resolved        'command-line',
+631 silly install resolved        'text',
+631 silly install resolved        'regex',
+631 silly install resolved        'regexp',
+631 silly install resolved        're',
+631 silly install resolved        'match',
+631 silly install resolved        'test',
+631 silly install resolved        'find',
+631 silly install resolved        'pattern' ],
+631 silly install resolved     devDependencies: { mocha: '*' },
+631 silly install resolved     gitHead: '57c3f2941a73079fa8b081e02a522e3d29913e2f',
+631 silly install resolved     bugs: { url: 'https://github.com/sindresorhus/ansi-regex/issues' },
+631 silly install resolved     homepage: 'https://github.com/sindresorhus/ansi-regex',
+631 silly install resolved     _id: 'ansi-regex@2.0.0',
+631 silly install resolved     _shasum: 'c5061b6e0ef8a81775e50f5d66151bf6bf371107',
+631 silly install resolved     _from: 'ansi-regex@>=2.0.0 <3.0.0',
+631 silly install resolved     _npmVersion: '2.11.2',
+631 silly install resolved     _nodeVersion: '0.12.5',
+631 silly install resolved     _npmUser: { name: 'sindresorhus', email: 'sindresorhus@gmail.com' },
+631 silly install resolved     dist:
+631 silly install resolved      { shasum: 'c5061b6e0ef8a81775e50f5d66151bf6bf371107',
+631 silly install resolved        tarball: 'https://registry.npmjs.org/ansi-regex/-/ansi-regex-2.0.0.tgz' },
+631 silly install resolved     directories: {},
+631 silly install resolved     _resolved: 'https://registry.npmjs.org/ansi-regex/-/ansi-regex-2.0.0.tgz',
+631 silly install resolved     readme: 'ERROR: No README data found!' } ]
+632 info install ansi-regex@2.0.0 into C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi
+633 info installOne ansi-regex@2.0.0
+634 verbose installOne of ansi-regex to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi not in flight; installing
+635 verbose correctMkdir C:\Users\Edu\AppData\Roaming\npm-cache\_locks correctMkdir not in flight; initializing
+636 verbose lock using C:\Users\Edu\AppData\Roaming\npm-cache\_locks\ansi-regex-576aa93ba362136f.lock for C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi\node_modules\ansi-regex
+637 silly install write writing ansi-regex 2.0.0 to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi\node_modules\ansi-regex
+638 verbose lock using C:\Users\Edu\AppData\Roaming\npm-cache\_locks\ansi-regex-42e5a5b7ecc98347.lock for C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi\node_modules\ansi-regex
+639 silly install write writing ansi-regex 2.0.0 to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi\node_modules\ansi-regex
+640 verbose unbuild node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi\node_modules\ansi-regex
+641 verbose unbuild node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi\node_modules\ansi-regex
+642 silly gentlyRm C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi\node_modules\ansi-regex is being purged from base C:\Users\Edu\git\fenix\Fenix\src\main\webapp
+643 verbose gentlyRm don't care about contents; nuking C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi\node_modules\ansi-regex
+644 verbose tar unpack C:\Users\Edu\AppData\Roaming\npm-cache\ansi-regex\2.0.0\package.tgz
+645 verbose tar unpacking to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi\node_modules\ansi-regex
+646 silly gentlyRm C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi\node_modules\ansi-regex is being purged
+647 verbose gentlyRm don't care about contents; nuking C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi\node_modules\ansi-regex
+648 silly gunzTarPerm modes [ '777', '666' ]
+649 silly gentlyRm C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi\node_modules\ansi-regex is being purged from base C:\Users\Edu\git\fenix\Fenix\src\main\webapp
+650 verbose gentlyRm don't care about contents; nuking C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi\node_modules\ansi-regex
+651 verbose tar unpack C:\Users\Edu\AppData\Roaming\npm-cache\ansi-regex\2.0.0\package.tgz
+652 verbose tar unpacking to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi\node_modules\ansi-regex
+653 silly gentlyRm C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi\node_modules\ansi-regex is being purged
+654 verbose gentlyRm don't care about contents; nuking C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi\node_modules\ansi-regex
+655 silly gunzTarPerm modes [ '777', '666' ]
+656 silly gunzTarPerm extractEntry package.json
+657 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+658 silly gunzTarPerm extractEntry package.json
+659 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+660 silly gunzTarPerm extractEntry index.js
+661 silly gunzTarPerm modified mode [ 'index.js', 420, 438 ]
+662 silly gunzTarPerm extractEntry license
+663 silly gunzTarPerm modified mode [ 'license', 420, 438 ]
+664 silly gunzTarPerm extractEntry index.js
+665 silly gunzTarPerm modified mode [ 'index.js', 420, 438 ]
+666 silly gunzTarPerm extractEntry license
+667 silly gunzTarPerm modified mode [ 'license', 420, 438 ]
+668 silly gunzTarPerm extractEntry readme.md
+669 silly gunzTarPerm modified mode [ 'readme.md', 420, 438 ]
+670 silly gunzTarPerm extractEntry readme.md
+671 silly gunzTarPerm modified mode [ 'readme.md', 420, 438 ]
+672 verbose write writing to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi\node_modules\ansi-regex\package.json
+673 verbose write writing to C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi\node_modules\ansi-regex\package.json
+674 info preinstall ansi-regex@2.0.0
+675 info preinstall ansi-regex@2.0.0
+676 verbose readDependencies loading dependencies from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi\node_modules\ansi-regex\package.json
+677 verbose readDependencies loading dependencies from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi\node_modules\ansi-regex\package.json
+678 verbose readDependencies loading dependencies from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi\node_modules\ansi-regex\package.json
+679 verbose readDependencies loading dependencies from C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi\node_modules\ansi-regex\package.json
+680 silly install resolved []
+681 verbose about to build C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi\node_modules\ansi-regex
+682 info build C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi\node_modules\ansi-regex
+683 silly install resolved []
+684 verbose about to build C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi\node_modules\ansi-regex
+685 info build C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi\node_modules\ansi-regex
+686 info linkStuff ansi-regex@2.0.0
+687 silly linkStuff ansi-regex@2.0.0 has C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi\node_modules as its parent node_modules
+688 info linkStuff ansi-regex@2.0.0
+689 silly linkStuff ansi-regex@2.0.0 has C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi\node_modules as its parent node_modules
+690 verbose linkBins ansi-regex@2.0.0
+691 verbose linkMans ansi-regex@2.0.0
+692 verbose rebuildBundles ansi-regex@2.0.0
+693 info install ansi-regex@2.0.0
+694 verbose linkBins ansi-regex@2.0.0
+695 verbose linkMans ansi-regex@2.0.0
+696 verbose rebuildBundles ansi-regex@2.0.0
+697 info postinstall ansi-regex@2.0.0
+698 info install ansi-regex@2.0.0
+699 info postinstall ansi-regex@2.0.0
+700 verbose unlock done using C:\Users\Edu\AppData\Roaming\npm-cache\_locks\ansi-regex-576aa93ba362136f.lock for C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi\node_modules\ansi-regex
+701 verbose about to build C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi
+702 info build C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi
+703 verbose unlock done using C:\Users\Edu\AppData\Roaming\npm-cache\_locks\ansi-regex-42e5a5b7ecc98347.lock for C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi\node_modules\ansi-regex
+704 verbose about to build C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi
+705 info build C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi
+706 info linkStuff strip-ansi@3.0.1
+707 silly linkStuff strip-ansi@3.0.1 has C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules as its parent node_modules
+708 info linkStuff has-ansi@2.0.0
+709 silly linkStuff has-ansi@2.0.0 has C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules as its parent node_modules
+710 verbose linkBins strip-ansi@3.0.1
+711 verbose linkMans strip-ansi@3.0.1
+712 verbose rebuildBundles strip-ansi@3.0.1
+713 verbose rebuildBundles [ 'ansi-regex' ]
+714 info install strip-ansi@3.0.1
+715 verbose linkBins has-ansi@2.0.0
+716 verbose linkMans has-ansi@2.0.0
+717 verbose rebuildBundles has-ansi@2.0.0
+718 verbose rebuildBundles [ 'ansi-regex' ]
+719 info install has-ansi@2.0.0
+720 info postinstall strip-ansi@3.0.1
+721 info postinstall has-ansi@2.0.0
+722 verbose unlock done using C:\Users\Edu\AppData\Roaming\npm-cache\_locks\strip-ansi-ae2f1cef102dcec8.lock for C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\strip-ansi
+723 verbose unlock done using C:\Users\Edu\AppData\Roaming\npm-cache\_locks\has-ansi-2341442d53775272.lock for C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk\node_modules\has-ansi
+724 verbose about to build C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk
+725 info build C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk
+726 info linkStuff chalk@1.1.3
+727 silly linkStuff chalk@1.1.3 has C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules as its parent node_modules
+728 verbose linkBins chalk@1.1.3
+729 verbose linkMans chalk@1.1.3
+730 verbose rebuildBundles chalk@1.1.3
+731 verbose rebuildBundles [ 'ansi-styles',
+731 verbose rebuildBundles   'escape-string-regexp',
+731 verbose rebuildBundles   'has-ansi',
+731 verbose rebuildBundles   'strip-ansi',
+731 verbose rebuildBundles   'supports-color' ]
+732 info install chalk@1.1.3
+733 info postinstall chalk@1.1.3
+734 verbose unlock done using C:\Users\Edu\AppData\Roaming\npm-cache\_locks\chalk-cdc595b116cfdbe0.lock for C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat\node_modules\chalk
+735 verbose about to build C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat
+736 info build C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat
+737 info linkStuff grunt-contrib-concat@1.0.1
+738 silly linkStuff grunt-contrib-concat@1.0.1 has C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules as its parent node_modules
+739 verbose linkBins grunt-contrib-concat@1.0.1
+740 verbose linkMans grunt-contrib-concat@1.0.1
+741 verbose rebuildBundles grunt-contrib-concat@1.0.1
+742 verbose rebuildBundles [ 'chalk', 'source-map' ]
+743 info install grunt-contrib-concat@1.0.1
+744 info postinstall grunt-contrib-concat@1.0.1
+745 verbose unlock done using C:\Users\Edu\AppData\Roaming\npm-cache\_locks\grunt-contrib-concat-7550e5d0da8bc565.lock for C:\Users\Edu\git\fenix\Fenix\src\main\webapp\node_modules\grunt-contrib-concat
+746 verbose validateInstall loading C:\Users\Edu\git\fenix\Fenix\src\main\webapp\package.json for validation
+747 verbose stack Error: The package grunt@1.0.1 does not satisfy its siblings' peerDependencies requirements!
+747 verbose stack     at C:\Program Files\nodejs\node_modules\npm\lib\install.js:125:32
+747 verbose stack     at C:\Program Files\nodejs\node_modules\npm\lib\install.js:268:7
+747 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\read-installed\read-installed.js:142:5
+747 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\read-installed\read-installed.js:263:14
+747 verbose stack     at cb (C:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\async-map.js:47:24)
+747 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\read-installed\read-installed.js:263:14
+747 verbose stack     at cb (C:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\async-map.js:47:24)
+747 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\read-installed\read-installed.js:263:14
+747 verbose stack     at cb (C:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\async-map.js:47:24)
+747 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\read-installed\read-installed.js:263:14
+748 verbose cwd C:\Users\Edu\git\fenix\Fenix\src\main\webapp
+749 error Windows_NT 10.0.14393
+750 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "grunt-contrib-concat" "--save-dev"
+751 error node v4.6.0
+752 error npm  v2.15.9
+753 error code EPEERINVALID
+754 error peerinvalid The package grunt@1.0.1 does not satisfy its siblings' peerDependencies requirements!
+754 error peerinvalid Peer grunt-contrib-concat@1.0.1 wants grunt@>=0.4.0
+754 error peerinvalid Peer grunt-csssplit@0.4.1 wants grunt@~0.4.0
+755 verbose exit [ 1, true ]
