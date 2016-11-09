@@ -12,14 +12,16 @@ materialAdmin
     		/*alert(condiciones.vacaciones);
     		alert(condiciones.laborables);*/
     		var horario= {    	
-    			nombre: 'horarioTest',   
+    			nombre: 'horarioTest',
+    			festivos: condiciones[2],
     			vacaciones: condiciones[1],
     			laborables: condiciones[0],
     			aplicar:function(moment){
 					if(!this.funcion){
 						console.log("Compilando "+this.nombre);
 
-						codigo=String(self.template).replace("//##STATEMENTS_VACACIONES", this.vacaciones)
+						codigo=String(self.template).replace("//##STATEMENTS_FESTIVOS", this.festivos)
+													.replace("//##STATEMENTS_VACACIONES", this.vacaciones)
 								 					.replace("//##STATEMENTS_LABORABLES", this.laborables);
 						console.log(codigo);
 						this.funcion=eval("("+codigo+")");
@@ -36,10 +38,11 @@ materialAdmin
     	this.template=function(moment){
     		  var huecos=[];
     		  
-    		  var isProcesado=function(moment){
+    		  var isProcesado=function(hueco){
     			  var procesado=false;
     			  huecos.forEach(function(value, key){
-    				  if(moment.format('YYYY-MM-DD')==value.moment.format('YYYY-MM-DD')){
+    				  var fecha=value.start.split(" ")[0];//Obtengo la fecha sin la hora
+    				  if(hueco.m.format('YYYY-MM-DD')==fecha && hueco.g!=value.grupo){
     					  procesado=true;			  
     				  }
     			  });
@@ -47,17 +50,23 @@ materialAdmin
     		  };
     		  
     		  var dia=moment.format('YYYY-MM-DD');
+    		  var g=0;
     		  
     		  var addHueco=function(hueco){
-    			  if(!isProcesado(hueco.moment)){
-    				  huecos.push({start:dia+' '+hueco.s, end: dia+' '+hueco.e, id: hueco.id, color: hueco.color, title:hueco.id});
+    			  if(!isProcesado(hueco)){
+    				  huecos.push({start:dia+' '+hueco.s, end: dia+' '+hueco.e, id: hueco.id, color: hueco.color, title:hueco.id, grupo: hueco.g});
     			  }
     			  
     		  };
     		  
-    		  var color="#257e4a";
-    		  var id="vacaciones";
+    		  var color="#000000";
+    		  var id="festivo";
+    		  //##STATEMENTS_FESTIVOS
+    		  g++;
+    		  color="#257e4a";
+    		  id="vacaciones";
     		  //##STATEMENTS_VACACIONES
+    		  g++;
     		  color="#FF0000";
     		  id="laborable";
     		  //##STATEMENTS_LABORABLES

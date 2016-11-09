@@ -10,7 +10,7 @@ Blockly.Blocks['horario'] = {
         .appendField("Vacaciones");
     this.appendStatementInput("esp")
         .setCheck(null)
-        .appendField("Especiales");
+        .appendField("Festivos");
     this.setColour(210);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
