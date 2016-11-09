@@ -4,39 +4,11 @@ Blockly.JavaScript['horario'] = function(block) {
   var statements_esp = Blockly.JavaScript.statementToCode(block, 'esp');
   // TODO: Assemble JavaScript into code variable.
   
-  var funcion=function(moment){
-	  var huecos=[];
-	  
-	  var isProcesado=function(moment){
-		  var procesado=false;
-		  huecos.forEach(function(value, key){
-			  if(moment.format('YYYY-MM-DD')==value.moment.format('YYYY-MM-DD')){
-				  procesado=true;			  
-			  }
-		  });
-		  return procesado;
-	  };
-	  
-	  var addHueco=function(hueco){
-		  if(!isProcesado(hueco.moment)){
-			  huecos.push({start:hueco.start, end: hueco.end, id: hueco.id, color: hueco.color});
-		  }
-		  
-	  };
-	  var color="#257e4a";
-	  //##STATEMENTS_VACACIONES
-	  color="FF0000";
-	  //##STATEMENTS_LABORABLES
-	  return huecos;
-  };
-  console.log(statements_laborables);
-  /*var code=String(funcion).replace("//##STATEMENTS_VACACIONES", statements_vacas)
-  						  .replace("//##STATEMENTS_LABORABLES", statements_laborables);*/
-  
-    return {
+    /*return {
     	vacaciones:statements_vacas, 
     	laborables:statements_laborables    	
-    }
+    }*/
+  return statements_laborables+"$"+statements_vacas;
 };
 
 Blockly.JavaScript['mes'] = function(block) {
@@ -48,8 +20,7 @@ Blockly.JavaScript['mes'] = function(block) {
   if(statements_name!=""){
 	  code+="   "+statements_name;
   }else{
-	  code+="   var dia=moment.format('YYYY-MM-DD');"
-	  code+="	addHueco({start:dia+' 00:00',end:dia+' 23:59', id: 'disponible', color: color, moment: moment});";
+	  code+="	addHueco({s:'00:00',e:'23:59', id: id, color: color, moment: moment});";
   }
   return code+="}";
 };
@@ -63,8 +34,7 @@ Blockly.JavaScript['dia'] = function(block) {
   if(statements_name!=""){
 	  code+="   "+statements_name;
   }else{
-	  code+="   var dia=moment.format('YYYY-MM-DD');"
-	  code+="	addHueco({start:dia+' 00:00',end:dia+' 23:59', id: 'disponible', color: color, moment: moment});";
+	  code+="	addHueco({s:'00:00',e:'23:59', id: id, color: color, moment: moment});";
   }
   return code+="}";
 };
@@ -83,10 +53,7 @@ Blockly.JavaScript['hora'] = function(block) {
   var hIni=number_h+":"+number_m;
   var hFin=number_hf+":"+number_mf;
   // TODO: Assemble JavaScript into code variable.
-  var code="   var dia=moment.format('YYYY-MM-DD');"
-  code+="	addHueco({start:dia+' "+hIni+"',end:dia+' "+hFin+"', id: 'disponible', color: color, moment: moment});";
-  code+=" console.log('horas...."+hIni+"');"
-  code+=" console.log('horas...."+hFin+"');"
+  code="	addHueco({s:'"+hIni+"',e:'"+hFin+"', id: id, color: color, moment: moment});";
   return code;
 };
 
@@ -100,8 +67,7 @@ Blockly.JavaScript['mes_intervalo'] = function(block) {
   if(statements_meses!=""){
 	  code+="   "+statements_meses;
   }else{
-	  code+="   var dia=moment.format('YYYY-MM-DD');"
-	  code+="	addHueco({start:dia+' 00:00',end:dia+' 23:59', id: 'disponible', color: color, moment: moment});";
+	  code+="	addHueco({s:'00:00',e:'23:59', id: id, color: color, moment: moment});";
   }
   return code+="}";
 };
@@ -148,8 +114,7 @@ Blockly.JavaScript['festivo'] = function(block) {
   var code = 'if(moment.date()=='+number_dia+' && moment.month()=='+dropdown_mes+'){';
   
 
-  code+="   var dia=moment.format('YYYY-MM-DD');"
-  code+="	addHueco({start:dia+' 00:00',end:dia+' 23:59', id: 'disponible', color: color, moment: moment});";
+  code+="	addHueco({s:'00:00',e:'23:59', id: id, color: color, moment: moment});";
   
   return code+"}";
 };

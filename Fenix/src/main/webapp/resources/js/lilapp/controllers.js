@@ -182,7 +182,7 @@ materialAdmin
     		$scope.editor=!$scope.editor;
     		
     		if(vistaPrevia){
-    			$scope.horario={};
+    			$scope.horario=horariosService.newFromBlocky($scope.blockly);
     			$scope.calendario.actualizar();
     			
     		}
@@ -197,10 +197,9 @@ materialAdmin
     			var funcion=eval("("+$scope.blockly.getCode()+")");
     			return funcion(dia);
     		}    		*/
-    		
+
     		if($scope.horario){
-    			horario=horariosService.newFromBlocky($scope.blockly);
-    			return horario.aplicar(dia);    		
+    			return $scope.horario.aplicar(dia);    		
     		}
     	}
     	
