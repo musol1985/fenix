@@ -42,15 +42,15 @@ module.exports = function(grunt) {
                 }
             },
             controllers: {
-            	files: ['resources/js/controllers/mantenimientos/**/*.js'], // which files to watch
+            	files: ['resources/js/lilapp/controllers/**/*.js'], // which files to watch
                 tasks: ['concat:controllers']
             },
             services: {
-            	files: ['resources/js/services/rest/*.js'], // which files to watch
+            	files: ['resources/js/lilapp/services/**/*.js'], // which files to watch
                 tasks: ['concat:services']
             },
             directives: {
-            	files: ['resources/js/directives/**/*.js'], // which files to watch
+            	files: ['resources/js/lilapp/directives/**/*.js'], // which files to watch
                 tasks: ['concat:directives']
             }
         },
@@ -82,7 +82,7 @@ module.exports = function(grunt) {
 	              separator: ';\n',
 	            },
 	            files: {        	        
-	    	        'resources/js/controllers/dist/lilapp.js': ['resources/js/controllers/mantenimientos/**/*.js']
+	    	        'resources/js/lilapp/controllers.js': ['resources/js/lilapp/controllers/**/*.js']
 	    	    }
         	},
         	services:{
@@ -90,7 +90,7 @@ module.exports = function(grunt) {
 	              separator: ';\n',
 	            },
 	            files: {        	        
-	    	        'resources/js/services/dist/lilapp.js': ['resources/js/services/rest/**/*.js']
+	    	        'resources/js/lilapp/services.js': ['resources/js/lilapp/services/**/*.js']
 	    	    }
         	},
         	directives:{
@@ -98,7 +98,7 @@ module.exports = function(grunt) {
 	              separator: ';\n',
 	            },
 	            files: {        	        
-	    	        'resources/js/directives/dist/ui.js': ['resources/js/directives/ui/**/*.js']
+	    	        'resources/js/lilapp/directives.js': ['resources/js/lilapp/directives/**/*.js']
 	    	    }
         	}
         }

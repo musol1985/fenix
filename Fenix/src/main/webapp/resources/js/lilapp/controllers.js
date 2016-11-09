@@ -198,7 +198,7 @@ materialAdmin
     		}    		
     	}
     	
-    	$scope.comprobarHorario=function(moment){	
+    	/*$scope.comprobarHorario=function(moment){	
     		var huecos=[];	 
     		if(moment.month()==1){   
     			var dia=moment.format('YYYY-MM-DD');	
@@ -208,7 +208,7 @@ materialAdmin
     				color: '#257e4a'});
     			}	
     		return huecos;
-    		}
+    		}*/
     			
     	
     	$scope.editor=true;

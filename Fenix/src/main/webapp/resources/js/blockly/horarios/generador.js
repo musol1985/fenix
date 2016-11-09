@@ -3,17 +3,6 @@ Blockly.JavaScript['horario'] = function(block) {
   var statements_vacas = Blockly.JavaScript.statementToCode(block, 'vacas');
   var statements_esp = Blockly.JavaScript.statementToCode(block, 'esp');
   // TODO: Assemble JavaScript into code variable.
-  var code = "function comprobarHorario(moment){";
-  code+="	var huecos=[];"
-  code+="	var procesado=function(dia){";
-  code+="		huecos.forEach(function(value, key) {";
-  code+="			return true;";
-  code+="		});";
-  code+="		return false;";
-  code+="	}";	
-  code+="	"+statements_laborables;
-  code+="	return huecos;"
-  code+="}";
   
   var funcion=function(moment){
 	  var huecos=[];
