@@ -30,10 +30,13 @@ Blockly.JavaScript['horario'] = function(block) {
 	  return huecos;
   };
   console.log(statements_laborables);
-  var code=String(funcion).replace("//##STATEMENTS_VACACIONES", statements_vacas)
-  						  .replace("//##STATEMENTS_LABORABLES", statements_laborables);
+  /*var code=String(funcion).replace("//##STATEMENTS_VACACIONES", statements_vacas)
+  						  .replace("//##STATEMENTS_LABORABLES", statements_laborables);*/
   
-  return code;
+    return {
+    	vacaciones:statements_vacas, 
+    	laborables:statements_laborables    	
+    }
 };
 
 Blockly.JavaScript['mes'] = function(block) {

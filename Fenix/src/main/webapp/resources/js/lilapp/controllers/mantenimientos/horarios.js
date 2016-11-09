@@ -49,7 +49,7 @@ materialAdmin
 // =========================================================================
 // Editor Horarios v0.1
 // ========================================================================= 
-    .controller('editorHorario', function($scope, $uibModal, modalService) {
+    .controller('editorHorario', function($scope, $uibModal, modalService, horariosService) {
     	$scope.modal={
 			mostrar:function(){
 				$scope.modalInstance=modalService.mostrar($uibModal, $scope.modal, "resources/template/editores/horario.html");
@@ -76,13 +76,19 @@ materialAdmin
     	}
     	
     	$scope.aplicarHorario=function(dia){
-    		if($scope.horario){
-    			var res=[];
+    		/*if($scope.horario){
+
     			console.log($scope.blockly.getCode());
+    			
 
     			var funcion=eval("("+$scope.blockly.getCode()+")");
     			return funcion(dia);
-    		}    		
+    		}    		*/
+    		
+    		if($scope.horario){
+    			horario=horariosService.newFromBlocky($scope.blockly);
+    			return horario.aplicar(dia);    		
+    		}
     	}
     	
     	/*$scope.comprobarHorario=function(moment){	
