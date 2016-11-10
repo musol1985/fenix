@@ -55,7 +55,7 @@ public class ABasicREST<S extends ABasicService<D, I>, I extends AModelBasic, D 
 	
 	
 	@RequestMapping(method=RequestMethod.PUT)
-    public ResponseJSON<I> nueva(@RequestBody I item) {
+    public ResponseJSON<I> nuevo(@RequestBody I item) {
 		if(service.getDAO().findByCentroAndNombre(item.getCentro(), item.getNombre())!=null){
 			return new ResponseJSON<I>(ResponseJSON.YA_EXISTE);
 		}else{

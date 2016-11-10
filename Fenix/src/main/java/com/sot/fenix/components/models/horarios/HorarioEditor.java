@@ -6,18 +6,7 @@ import com.sot.fenix.components.models.AModelId;
 
 public class HorarioEditor extends AModelId{
 
-	@DBRef
-	private Horario horario;
-	
 	private String codigo;
-
-	public Horario getHorario() {
-		return horario;
-	}
-
-	public void setHorario(Horario horario) {
-		this.horario = horario;
-	}
 
 	public String getCodigo() {
 		return codigo;

@@ -6,7 +6,7 @@ materialAdmin
     .controller('prestaciones', function($scope, $http, userService, centroService, prestacionService, errorService, modalService, $uibModal) {
     
     	$scope.getDatos=function(params, onComplete){
-    		prestacionService.getByCentro(userService.getCentro().id, params.page(), params.count()).then(function(res){
+    		prestacionService.REST.getByCentro(userService.getCentro().id, params.page(), params.count()).then(function(res){
     			onComplete(res.data, res.total);
             }, function(error){
             	errorService.alertaGrowl("Error al obtener prestaciones", 'danger');
@@ -31,9 +31,9 @@ materialAdmin
     				var accion;
     				
     				if(data.id==''){
-    					accion=prestacionService.nueva(data);
+    					accion=prestacionService.REST.nueva(data);
     				}else{
-    					accion=prestacionService.modificar(data);
+    					accion=prestacionService.REST.modificar(data);
     				}
     				
     				errorService.procesar(accion,{
@@ -97,7 +97,7 @@ materialAdmin
         $scope.eliminar = function(item){
         	console.log(item);
         	errorService.alertaSiNo("Eliminar", "¿Seguro que quieres eliminar la prestación?", function(){
-        		errorService.procesar(prestacionService.eliminar(item.id),{
+        		errorService.procesar(prestacionService.REST.eliminar(item.id),{
 	   				 0:{
 	   					 growl: true,   				 
 	   					 texto: "Prestación eliminada correctamente",

@@ -3,19 +3,40 @@ materialAdmin
     // HoirariosService
     // =========================================================================
     
-    .service('horariosService', function($http, $q){
+    .service('horarioService', function($q, $http, BasicRESTService, userService){
     	var self=this;
+    	
+    	this.REST=new BasicRESTService("Horario", "horario");
+    	
+    	
+    	this.REST.getEditorById=function (id) {
+            var deferred = $q.defer();
+            
+            $http.get("horario/editor/"+id)
+                .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error horarioService.getEditorById');
+                    deferred.reject(errResponse);
+                }
+            );
+            return deferred.promise;
+        }
     	
     	this.newFromBlocky=function(blockly) {
     		var condiciones=blockly.getCode().split("$");
     		console.log(condiciones);
-    		/*alert(condiciones.vacaciones);
-    		alert(condiciones.laborables);*/
-    		var horario= {    	
+    		
+    	
+
+    		var h= {    	
     			nombre: 'horarioTest',
     			festivos: condiciones[2],
     			vacaciones: condiciones[1],
-    			laborables: condiciones[0],
+    			laborables: condiciones[0],  
+    			centro:userService.getCentro().id,
     			aplicar:function(moment){
 					if(!this.funcion){
 						console.log("Compilando "+this.nombre);
@@ -30,7 +51,12 @@ materialAdmin
 					return this.funcion(moment);   				    				
     			}    		
     		}
-    		
+    		console.log(blockly.getXML());
+    		var horario={
+    				horario:h,
+    				codigo: LZString.compressToBase64(blockly.getXML())
+    		}
+    		alert(horario.codigo);
     		return horario;
     	}
     	
@@ -72,6 +98,120 @@ materialAdmin
     		  //##STATEMENTS_LABORABLES
     		  return huecos;
     	  };
+    });
+materialAdmin
+    // =========================================================================
+    // PrestacionService
+    // =========================================================================
+    
+    .factory('BasicRESTService',  function($http, $q){
+    	var self = function (id, url){
+    		this.getByCentro=function (centro, page, size) {
+                var deferred = $q.defer();
+                
+                $http.get(url+"/"+centro+"/"+page+"/"+size)
+                    .then(
+                    function (response) {
+                        deferred.resolve(response.data);
+                    },
+                    function(errResponse){
+                        console.error('Error '+id+'.getByCentro');
+                        deferred.reject(errResponse);
+                    }
+                );
+                return deferred.promise;
+            }
+            
+            this.getAllByCentro=function (centro) {
+                var deferred = $q.defer();
+                
+                $http.get(url+"/all/"+centro)
+                    .then(
+                    function (response) {
+                        deferred.resolve(response.data);
+                    },
+                    function(errResponse){
+                        console.error('Error '+id+'.getByCentro');
+                        deferred.reject(errResponse);
+                    }
+                );
+                return deferred.promise;
+            }
+        	
+        	this.get=function(id) {
+                var deferred = $q.defer();
+
+                $http.get(url+"/"+id)
+                    .then(
+                    function (response) {
+                        deferred.resolve(response.data);
+                    },
+                    function(errResponse){
+                        console.error('Error '+id+'.get');
+                        deferred.reject(errResponse);
+                    }
+                );
+                return deferred.promise;
+            }
+        	
+        	this.nuevo=function(item, customURL) {
+                var deferred = $q.defer();
+                
+                var u=url;
+                
+                if(customURL)
+                	u=customURL;
+
+                $http.put(u, item)
+                    .then(
+                    function (response) {
+                        deferred.resolve(response.data);
+                    },
+                    function(errResponse){
+                        console.error('Error '+id+'.nueva');
+                        deferred.reject(errResponse);
+                    }
+                );
+                return deferred.promise;
+            }
+        	
+        	this.modificar=function(item) {
+                var deferred = $q.defer();
+
+                $http.post(url, item)
+                    .then(
+                    function (response) {
+                        deferred.resolve(response.data);
+                    },
+                    function(errResponse){
+                        console.error('Error '+id+'.modificar');
+                        deferred.reject(errResponse);
+                    }
+                );
+                return deferred.promise;
+            }
+        	
+        	this.eliminar=function(id) {
+                var deferred = $q.defer();
+
+                $http.delete(url+"/"+id)
+                    .then(
+                    function (response) {
+                        deferred.resolve(response.data);
+                    },
+                    function(errResponse){
+                        console.error('Error '+id+'.eliminar');
+                        deferred.reject(errResponse);
+                    }
+                );
+                return deferred.promise;
+            }
+    		
+    		
+            return this;
+        }
+
+        return self;
     });
 materialAdmin
     // =========================================================================
@@ -208,103 +348,9 @@ materialAdmin
     // PrestacionService
     // =========================================================================
     
-    .service('prestacionService', ['$http', '$q', function($http, $q){
-        this.getByCentro=function (centro, page, size) {
-            var deferred = $q.defer();
-            
-            $http.get("prestacion/"+centro+"/"+page+"/"+size)
-                .then(
-                function (response) {
-                    deferred.resolve(response.data);
-                },
-                function(errResponse){
-                    console.error('Error prestacion.getByCentro');
-                    deferred.reject(errResponse);
-                }
-            );
-            return deferred.promise;
-        }
-        
-        this.getAllByCentro=function (centro) {
-            var deferred = $q.defer();
-            
-            $http.get("prestacion/all/"+centro)
-                .then(
-                function (response) {
-                    deferred.resolve(response.data);
-                },
-                function(errResponse){
-                    console.error('Error prestacion.getByCentro');
-                    deferred.reject(errResponse);
-                }
-            );
-            return deferred.promise;
-        }
-    	
-    	this.get=function(id) {
-            var deferred = $q.defer();
-
-            $http.get("prestacion/"+id)
-                .then(
-                function (response) {
-                    deferred.resolve(response.data);
-                },
-                function(errResponse){
-                    console.error('Error prsestacion.get');
-                    deferred.reject(errResponse);
-                }
-            );
-            return deferred.promise;
-        }
-    	
-    	this.nueva=function(prestacion) {
-            var deferred = $q.defer();
-
-            $http.put("prestacion", prestacion)
-                .then(
-                function (response) {
-                    deferred.resolve(response.data);
-                },
-                function(errResponse){
-                    console.error('Error creando una prestacion');
-                    deferred.reject(errResponse);
-                }
-            );
-            return deferred.promise;
-        }
-    	
-    	this.modificar=function(prestacion) {
-            var deferred = $q.defer();
-
-            $http.post("prestacion", prestacion)
-                .then(
-                function (response) {
-                    deferred.resolve(response.data);
-                },
-                function(errResponse){
-                    console.error('Error modificando una prestacion');
-                    deferred.reject(errResponse);
-                }
-            );
-            return deferred.promise;
-        }
-    	
-    	this.eliminar=function(id) {
-            var deferred = $q.defer();
-
-            $http.delete("prestacion/"+id)
-                .then(
-                function (response) {
-                    deferred.resolve(response.data);
-                },
-                function(errResponse){
-                    console.error('Error eliminando una prestacion');
-                    deferred.reject(errResponse);
-                }
-            );
-            return deferred.promise;
-        }
-    }]);
+    .service('prestacionService', function(BasicRESTService){
+    	this.REST=new BasicRESTService("Prestacion", "prestacion");
+    });
 materialAdmin
     // =========================================================================
     // UbicacionService

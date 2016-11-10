@@ -3,19 +3,40 @@ materialAdmin
     // HoirariosService
     // =========================================================================
     
-    .service('horariosService', function($http, $q){
+    .service('horarioService', function($q, $http, BasicRESTService, userService){
     	var self=this;
+    	
+    	this.REST=new BasicRESTService("Horario", "horario");
+    	
+    	
+    	this.REST.getEditorById=function (id) {
+            var deferred = $q.defer();
+            
+            $http.get("horario/editor/"+id)
+                .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error horarioService.getEditorById');
+                    deferred.reject(errResponse);
+                }
+            );
+            return deferred.promise;
+        }
     	
     	this.newFromBlocky=function(blockly) {
     		var condiciones=blockly.getCode().split("$");
     		console.log(condiciones);
-    		/*alert(condiciones.vacaciones);
-    		alert(condiciones.laborables);*/
-    		var horario= {    	
+    		
+    	
+
+    		var h= {    	
     			nombre: 'horarioTest',
     			festivos: condiciones[2],
     			vacaciones: condiciones[1],
-    			laborables: condiciones[0],
+    			laborables: condiciones[0],  
+    			centro:userService.getCentro().id,
     			aplicar:function(moment){
 					if(!this.funcion){
 						console.log("Compilando "+this.nombre);
@@ -30,7 +51,12 @@ materialAdmin
 					return this.funcion(moment);   				    				
     			}    		
     		}
-    		
+    		console.log(blockly.getXML());
+    		var horario={
+    				horario:h,
+    				codigo: LZString.compressToBase64(blockly.getXML())
+    		}
+    		alert(horario.codigo);
     		return horario;
     	}
     	

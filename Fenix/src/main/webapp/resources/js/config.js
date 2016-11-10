@@ -73,7 +73,8 @@ materialAdmin
             })
             
             .state('configuracion.horario', {
-                url: '/horario',
+                url: '/horario/:id',
+                controller: 'editorHorario',
                 templateUrl: 'resources/views/horario.html',
                 resolve: {
                     loadPlugin: function($ocLazyLoad) {
@@ -89,6 +90,7 @@ materialAdmin
                             	serie:true,
                                 name: 'vendors',
                                 files: [ 
+                                	'resources/vendors/bower_components/lz-string/libs/lz-string.min.js',
                                 	'resources/vendors/blocky/blockly_compressed.js',
                                 	'resources/vendors/blocky/blocks_compressed.js',
                                 	'resources/vendors/blocky/javascript_compressed.js',
@@ -98,8 +100,7 @@ materialAdmin
                                     'resources/vendors/bower_components/moment/min/moment.min.js',
                                     'resources/vendors/bower_components/fullcalendar/dist/fullcalendar.js',
                                     'resources/vendors/bower_components/fullcalendar/dist/locale/es.js',
-                                    'resources/vendors/bower_components/angular-smart-table/dist/smart-table.js'
-                                    
+                                    'resources/vendors/bower_components/angular-smart-table/dist/smart-table.js'                                    
                                 ]
                             }
                         ])

@@ -8,6 +8,7 @@ materialAdmin
 	            method: 'GET',
 	            url: $scope.toolbox
 	        }).success(function(toolboxData){
+	        	$scope.onLoaded();
 	        	$scope.workspace = Blockly.inject('blocklyDiv', {toolbox: toolboxData});
 	        	
 	        	$scope.cargarWorkSpace();
@@ -22,13 +23,20 @@ materialAdmin
 		            method: 'GET',
 		            url: $scope.startWorkspace
 		        }).success(function(workspaceData){
-		        	var xml = Blockly.Xml.textToDom(workspaceData);
-		        	Blockly.Xml.domToWorkspace(xml, $scope.workspace);
+		        	console.log("Cargando WS");
+		        	$scope.cargar(workspaceData);
 		        }).error(function(){
 		        	console.log("Error al obtener el workspace inicial "+$scope.startWorkspace);
 		        });	
 			}
         	
+		}
+		
+		$scope.cargar=function(txt){
+			console.log(txt);
+			var xml = Blockly.Xml.textToDom(txt);
+			console.log(xml);
+        	Blockly.Xml.domToWorkspace(xml, $scope.workspace);
 		}
 		
 		$scope.load();
@@ -38,6 +46,15 @@ materialAdmin
 			$scope.model.getCode=function(){
 				Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
 			    return Blockly.JavaScript.workspaceToCode($scope.workspace);
+			}
+			
+			$scope.model.getXML=function(){
+				var xml = Blockly.Xml.workspaceToDom($scope.workspace);
+	    		return Blockly.Xml.domToText(xml);
+			}
+			
+			$scope.model.cargarXML=function(txt){
+				$scope.cargar(txt);
 			}
 		}
 	})
@@ -50,7 +67,8 @@ materialAdmin
 			    	width: '@',
 			    	height: '@',
 			    	startWorkspace: '@',
-			    	model: '='
+			    	model: '=',
+			    	onLoaded: '&'
 			},		  
 		    controller: 'uiBlocklyController',
 		    controllerAs: 'blockly',		    
