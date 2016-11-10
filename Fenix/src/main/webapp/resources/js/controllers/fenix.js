@@ -186,7 +186,7 @@ materialAdmin
     	}
     	
     	$scope.cargarPrestaciones=function(){
-    		prestacionService.getAllByCentro(userService.getCentro().id).then(function(res){
+    		prestacionService.REST.getAllByCentro(userService.getCentro().id).then(function(res){
         		console.log("Cargando prestaciones...");
         		$scope.prestaciones=res.data;        
             }, function(error){

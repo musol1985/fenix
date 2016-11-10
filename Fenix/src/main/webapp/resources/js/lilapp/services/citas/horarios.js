@@ -25,11 +25,23 @@ materialAdmin
             return deferred.promise;
         }
     	
-    	this.newFromBlocky=function(blockly) {
+    	this.aplicar=function(moment){
+			if(!this.funcion){
+				console.log("Compilando "+this.nombre);
+
+				codigo=String(self.template).replace("//##STATEMENTS_FESTIVOS", this.festivos)
+											.replace("//##STATEMENTS_VACACIONES", this.vacaciones)
+						 					.replace("//##STATEMENTS_LABORABLES", this.laborables);
+				console.log(codigo);
+				this.funcion=eval("("+codigo+")");
+	    	}
+			console.log("Aplicando el horario "+this.nombre+" al moment "+moment.format('YYYY-MM-DD'));
+			return this.funcion(moment);   				    				
+		}
+    	
+    	this.newFromBlocky=function(blockly, nombre,  id) {
     		var condiciones=blockly.getCode().split("$");
     		console.log(condiciones);
-    		
-    	
 
     		var h= {    	
     			nombre: 'horarioTest',
@@ -37,26 +49,21 @@ materialAdmin
     			vacaciones: condiciones[1],
     			laborables: condiciones[0],  
     			centro:userService.getCentro().id,
-    			aplicar:function(moment){
-					if(!this.funcion){
-						console.log("Compilando "+this.nombre);
-
-						codigo=String(self.template).replace("//##STATEMENTS_FESTIVOS", this.festivos)
-													.replace("//##STATEMENTS_VACACIONES", this.vacaciones)
-								 					.replace("//##STATEMENTS_LABORABLES", this.laborables);
-						console.log(codigo);
-						this.funcion=eval("("+codigo+")");
-			    	}
-					console.log("Aplicando el horario "+this.nombre+" al moment "+moment.format('YYYY-MM-DD'));
-					return this.funcion(moment);   				    				
-    			}    		
+    			aplicar:aplicar    		
     		}
-    		console.log(blockly.getXML());
+    		
+    		if(id){
+    			h.id=id;
+    		}
+    		if(nombre){
+    			h.nombre=nombre;
+    		}
+
     		var horario={
     				horario:h,
     				codigo: LZString.compressToBase64(blockly.getXML())
     		}
-    		alert(horario.codigo);
+
     		return horario;
     	}
     	

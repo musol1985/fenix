@@ -35,12 +35,16 @@ public class HorarioREST extends ABasicREST<HorarioService, Horario, HorarioDAO>
     }
 	
 	@RequestMapping(method=RequestMethod.GET, path="editor/{id}")
-    public ResponseJSON<HorarioEditor> getEditor(@PathVariable String id) {
+    public ResponseJSON<HorarioJSON> getEditor(@PathVariable String id) {
 		HorarioEditor item=service.getEditorDAO().findOne(new ObjectId(id));
-		if(item!=null){
-			return new ResponseJSON<HorarioEditor>(ResponseJSON.OK, item);
+		Horario h=service.getDAO().findOne(new ObjectId(id));
+		if(item!=null && h!=null){
+			HorarioJSON json=new HorarioJSON();
+			json.codigo=item.getCodigo();
+			json.horario=h;
+			return new ResponseJSON<HorarioJSON>(ResponseJSON.OK, json);
 		}else{
-			return new ResponseJSON<HorarioEditor>(ResponseJSON.NO_EXISTE);
+			return new ResponseJSON<HorarioJSON>(ResponseJSON.NO_EXISTE);
 		}
     }
 }

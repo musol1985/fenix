@@ -66,7 +66,10 @@ materialAdmin
 		   				 }
 					}, function(res){
 						console.log("Cargando editor del horario");
+						$scope.nombre=res.data.horario.nombre;
 						$scope.blockly.cargarXML(LZString.decompressFromBase64(res.data.codigo));
+						
+						$scope.horario=horarioService.newFromBlocky($scope.blockly,$scope.nombre, res.data.horario.id); 
 				});
 				
 				return true;
@@ -94,7 +97,7 @@ materialAdmin
     		$scope.editor=!$scope.editor;
     		
     		if(vistaPrevia){
-    			$scope.horario=horarioService.newFromBlocky($scope.blockly);
+    			$scope.horario=horarioService.newFromBlocky($scope.blockly, $scope.horario.nombre, $scope.horario.id);
     			$scope.calendario.actualizar();
     			
     		}
@@ -123,13 +126,15 @@ materialAdmin
     	}
     	
     	$scope.guardar=function(){    		
-    		var h=horarioService.newFromBlocky($scope.blockly);    		
-    		h.horario.nombre=$scope.nombre;
+    		 		
+    		$scope.horario.nombre=$scope.nombre;
     		if($state.params.id){
-    			h.horario.id=$state.params.id;
+    			$scope.horario=horarioService.newFromBlocky($scope.blockly,$scope.nombre, $state.params.id);   
+    		}else{
+    			$scope.horario=horarioService.newFromBlocky($scope.blockly,$scope.nombre);   
     		}
     		
-			accion=horarioService.REST.nuevo(h,"horario/guardar");			
+			accion=horarioService.REST.nuevo($scope.horario,"horario/guardar");			
 			
 			errorService.procesar(accion,{
 				 0:{
@@ -152,7 +157,7 @@ materialAdmin
     	
     	$scope.aplicarHorario=function(dia){
     		if($scope.horario){
-    			return $scope.horario.aplicar(dia);    		
+    			return $scope.horario.horario.aplicar(dia);    		
     		}
     	} 	    	
     	

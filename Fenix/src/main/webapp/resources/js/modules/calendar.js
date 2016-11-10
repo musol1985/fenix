@@ -223,7 +223,8 @@ materialAdmin
             scope: {
                 procesarDia: '&',
                 model: '=',
-                height: '@'
+                height: '@',
+                sources: '&'
             },
             transclude: true,
             link: function(scope, element, attrs) {
@@ -236,6 +237,29 @@ materialAdmin
                 var d = date.getDate();
                 var m = date.getMonth();
                 var y = date.getFullYear();
+                
+                var sources=[];
+                
+                if($scope.sources){
+                	sources=$scope.sources();
+                }
+                
+                sources.push(
+                	function(start, end, timezone, callback){     
+    					var eventos=[];        					
+    					
+    					for(var i=0;i<end.diff(start, 'days');i++){
+    		    			var dia=start.clone().add(i,'days');
+    		    			var events=scope.procesarDia({dia:dia});
+    		    			if(events)
+    		    				eventos=eventos.concat(events);
+    		    			
+    		    		}
+    					console.log(eventos);
+    					callback(eventos);        					
+    				});
+                
+                
 
                 //Generate the Calendar
                 element.fullCalendar({
@@ -265,22 +289,7 @@ materialAdmin
                     height: parseInt(scope.height),
                     navLinks: true,
                     navLinkDayClick: 'agendaWeek',
-                    eventSources: [
-        				function(start, end, timezone, callback){     
-        					var eventos=[];        					
-        					
-        					for(var i=0;i<end.diff(start, 'days');i++){
-        		    			var dia=start.clone().add(i,'days');
-        		    			var events=scope.procesarDia({dia:dia});
-        		    			if(events)
-        		    				eventos=eventos.concat(events);
-        		    			
-        		    		}
-        					console.log(eventos);
-        					callback(eventos);        					
-        				}        		                		
-        				]
-        			,
+                    eventSources: sources
                 });  
 
             }
@@ -292,7 +301,7 @@ materialAdmin
     // =========================================================================
     // CALENDARIO
     // =========================================================================
-    .directive('calendario', function($compile, $rootScope, userService, $templateCache){
+    .directive('calendarioOld', function($compile, $rootScope, userService, $templateCache){
         return {
             restrict: 'A',
             scope: {
