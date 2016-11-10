@@ -18,7 +18,6 @@ import com.sot.fenix.components.json.PageJSON;
 import com.sot.fenix.components.json.ResponseJSON;
 import com.sot.fenix.components.json.ResponseListJSON;
 import com.sot.fenix.components.models.Centro;
-import com.sot.fenix.components.models.HorarioOld;
 import com.sot.fenix.components.models.UsuarioPendiente;
 import com.sot.fenix.components.services.CentroService;
 import com.sot.fenix.components.services.UsuarioService;

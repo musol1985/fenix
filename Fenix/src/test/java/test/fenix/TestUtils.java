@@ -5,8 +5,9 @@ import java.nio.charset.Charset;
 
 import org.springframework.http.MediaType;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 public class TestUtils {
 
@@ -14,6 +15,8 @@ public class TestUtils {
 	 
 	    public static byte[] convertObjectToJsonBytes(Object object) throws IOException {
 	        ObjectMapper mapper = new ObjectMapper();
+	        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+	        //mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
 	        return mapper.writeValueAsBytes(object);
 	    }

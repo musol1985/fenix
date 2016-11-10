@@ -1,7 +1,5 @@
 package com.sot.fenix.config;
 
-import java.util.ArrayList;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.MongoDbFactory;
@@ -12,7 +10,6 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import com.mongodb.MongoClient;
 import com.sot.fenix.components.models.Centro;
 import com.sot.fenix.components.models.Cliente;
-import com.sot.fenix.components.models.HorarioOld;
 import com.sot.fenix.components.models.Perfil.PERFILES;
 import com.sot.fenix.components.models.Usuario;
 

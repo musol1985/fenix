@@ -1,7 +1,37 @@
 <div class="container">
     	<div class="card"  data-ng-controller="editorHorario as horarioCtr">
-               <div class="card-header ch-alt m-b-20">
-                   <h2>Horario<small>Editar el horario</small></h2>
+               <div class="card-header ch-alt">
+                   <h2>
+			
+						<div class="row">
+			                <div class="col-xs-4">
+			                	<div class="form-group">
+			                		<div class="fg-line">
+			                            <input type="text" ng-model="nombre" class="form-control" placeholder="Nombre">
+			                        </div>
+			                        <p ng-show="nombre.$invalid" class="help-block">
+									Este campo es obligatorio
+							      	</p>
+			                    </div>
+			                </div>
+		                    <div class="col-xs-1" ></div>    	                    
+			                <div class="col-xs-3" >
+			                	<div class="form-group">
+			                        <div class="fg-line">
+			                            <div class="select">
+			                                <select class="form-control">
+			                                    <option>Centro</option>
+			                                    <option>Profesional</option>
+			                                    <option>Prestacion</option>			                                    
+			                                </select>
+			                                
+			                            </div>
+			                        </div>
+			                    </div>
+		                    </div>
+						</div>
+	
+					</h2>
                    <ul class="actions">
                    	<li ng-show="!editor">
                            <a href="" ng-click="toggleEditor()">

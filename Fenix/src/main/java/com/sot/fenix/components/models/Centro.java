@@ -3,6 +3,8 @@ package com.sot.fenix.components.models;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.sot.fenix.components.models.horarios.Horario;
+
 @Document
 public class Centro extends AModelId{
 	
