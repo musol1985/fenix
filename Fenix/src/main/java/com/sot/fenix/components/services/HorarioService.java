@@ -20,17 +20,17 @@ public class HorarioService extends ABasicService<HorarioDAO, Horario>{
 	}
 	
 	public void crear(HorarioJSON nuevoHorario){
-		dao.save(nuevoHorario.horario);
+		dao.save(nuevoHorario.model);
 		
 		HorarioEditor editor=new HorarioEditor();
-		editor.setId(nuevoHorario.horario.getId());
+		editor.setId(nuevoHorario.model.getId());
 		editor.setCodigo(nuevoHorario.codigo);
 		editorDAO.save(editor);
 	}
 	
 	public void modificar(HorarioJSON horario){
-		dao.save(horario.horario);
-		HorarioEditor editor=editorDAO.findOne(horario.horario.getId());
+		dao.save(horario.model);
+		HorarioEditor editor=editorDAO.findOne(horario.model.getId());
 		editor.setCodigo(horario.codigo);
 		editorDAO.save(editor);
 	}

@@ -65,14 +65,17 @@ materialAdmin
 		   					 tipo: "warning"
 		   				 }
 					}, function(res){
-						console.log("Cargando editor del horario");
-						$scope.nombre=res.data.horario.nombre;
+						console.log("Cargando editor del horario");						
+						$scope.nombre=res.data.model.nombre;
 						$scope.blockly.cargarXML(LZString.decompressFromBase64(res.data.codigo));
-						
-						$scope.horario=horarioService.newFromBlocky($scope.blockly,$scope.nombre, res.data.horario.id); 
+						$scope.horario=res.data;
+						horarioService.iniciarHorario($scope.horario); 
 				});
 				
 				return true;
+    		}else{    			
+    			$scope.horario={model:{id:id,nombre:'NuevoHorario', centro:userService.getCentro().id}};   
+    			horarioService.iniciarHorario($scope.horario); 
     		}
     		console.log("Cargando editor por defecto");
     		return false;
@@ -97,22 +100,23 @@ materialAdmin
     		$scope.editor=!$scope.editor;
     		
     		if(vistaPrevia){
-    			$scope.horario=horarioService.newFromBlocky($scope.blockly, $scope.horario.nombre, $scope.horario.id);
-    			$scope.calendario.actualizar();
-    			
+    			horarioService.updateFromBlocky($scope.horario, $scope.blockly);
+    			$scope.horario.model.nombre=$scope.nombre;
+    			$scope.horario.compilar();
+    			$scope.calendario.actualizar();    			
     		}
     	}
     	
     	$scope.eliminar=function(){   
-    		if($state.params.id){
+    		if($scope.horario.model.id){
     			errorService.alertaSiNo("Eliminar", "¿Seguro que quieres eliminar el horario?", function(){
-            		errorService.procesar(horarioService.REST.eliminar($state.params.id),{
+            		errorService.procesar(horarioService.REST.eliminar($scope.horario.model.id),{
     	   				 0:{
     	   					 growl: true,   				 
     	   					 texto: "Horario eliminado correctamente",
     	   					 tipo: "success",
     	   					 onProcesar: function(){
-    	   						 $scope.refrescar();
+    	   						$state.go('configuracion.horarios');  
     	   					 }
     	   				 },
     	   				 1:{
@@ -127,12 +131,8 @@ materialAdmin
     	
     	$scope.guardar=function(){    		
     		 		
-    		$scope.horario.nombre=$scope.nombre;
-    		if($state.params.id){
-    			$scope.horario=horarioService.newFromBlocky($scope.blockly,$scope.nombre, $state.params.id);   
-    		}else{
-    			$scope.horario=horarioService.newFromBlocky($scope.blockly,$scope.nombre);   
-    		}
+    		$scope.horario.model.nombre=$scope.nombre;
+    		horarioService.updateFromBlocky($scope.horario, $scope.blockly);
     		
 			accion=horarioService.REST.nuevo($scope.horario,"horario/guardar");			
 			
@@ -140,7 +140,11 @@ materialAdmin
 				 0:{
 					 growl: true,   				 
 					 texto: "Horario guardado",
-					 tipo: "success"
+					 tipo: "success",
+   					 onProcesar: function(res){
+   						 $scope.horario=res.data;
+   						horarioService.iniciarHorario($scope.horario); 
+   					 }
 				 },
 				 1:{
    					 titulo: "Atención",    				 
@@ -157,7 +161,7 @@ materialAdmin
     	
     	$scope.aplicarHorario=function(dia){
     		if($scope.horario){
-    			return $scope.horario.horario.aplicar(dia);    		
+    			return $scope.horario.aplicar(dia);    		
     		}
     	} 	    	
     	

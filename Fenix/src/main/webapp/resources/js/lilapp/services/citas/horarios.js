@@ -25,50 +25,58 @@ materialAdmin
             return deferred.promise;
         }
     	
-    	this.aplicar=function(moment){
-			if(!this.funcion){
-				console.log("Compilando "+this.nombre);
-
-				codigo=String(self.template).replace("//##STATEMENTS_FESTIVOS", this.festivos)
-											.replace("//##STATEMENTS_VACACIONES", this.vacaciones)
-						 					.replace("//##STATEMENTS_LABORABLES", this.laborables);
-				console.log(codigo);
-				this.funcion=eval("("+codigo+")");
-	    	}
-			console.log("Aplicando el horario "+this.nombre+" al moment "+moment.format('YYYY-MM-DD'));
-			return this.funcion(moment);   				    				
-		}
-    	
-    	this.newFromBlocky=function(blockly, nombre,  id) {
+    	this.updateFromBlocky=function(horario, blockly) {
     		var condiciones=blockly.getCode().split("$");
-    		console.log(condiciones);
 
-    		var h= {    	
-    			nombre: 'horarioTest',
-    			festivos: condiciones[2],
-    			vacaciones: condiciones[1],
-    			laborables: condiciones[0],  
-    			centro:userService.getCentro().id,
-    			aplicar:aplicar    		
-    		}
+ 	
+    	    horario.model.festivos=condiciones[2];
+    	    horario.model.vacaciones=condiciones[1];
+    	    horario.model.laborables=condiciones[0];
+    	    
+    	    			 		
+    	    		
+    	    horario.codigo=LZString.compressToBase64(blockly.getXML());
     		
-    		if(id){
-    			h.id=id;
-    		}
-    		if(nombre){
-    			h.nombre=nombre;
-    		}
-
-    		var horario={
-    				horario:h,
-    				codigo: LZString.compressToBase64(blockly.getXML())
-    		}
+    		
+    	    self.iniciarHorario(horario);
 
     		return horario;
     	}
     	
+    	this.iniciarHorario=function(h){
+    		var model=h;
+    		
+    		if(h.model)
+    			model=h.model;
+    		
+    		h.isCompilado=function(){
+    			if(h.run)
+    				return true;
+    			
+    			return false;
+    		}
+    		
+    		h.compilar=function(){
+    			console.log("Compilando "+model.nombre);
+
+				codigo=String(self.template).replace("//##STATEMENTS_FESTIVOS", model.festivos)
+											.replace("//##STATEMENTS_VACACIONES", model.vacaciones)
+						 					.replace("//##STATEMENTS_LABORABLES", model.laborables);
+				console.log(codigo);
+				h.run=eval("("+codigo+")");
+    		}
+
+    		h.aplicar=function(moment, renderBack){
+    			if(!h.isCompilado()){
+    				h.compilar();
+    			}
+    			console.log("Aplicando el horario "+model.nombre+" al moment "+moment.format('YYYY-MM-DD'));
+    			return h.run(moment, renderBack);
+    		}
+    	}
     	
-    	this.template=function(moment){
+    	
+    	this.template=function(moment, renderBack){
     		  var huecos=[];
     		  
     		  var isProcesado=function(hueco){
@@ -83,24 +91,32 @@ materialAdmin
     		  };
     		  
     		  var dia=moment.format('YYYY-MM-DD');
-    		  var g=0;
+    		  var g=0;    		  
     		  
     		  var addHueco=function(hueco){
+    			  console.log("Adding hueco "+hueco);
     			  if(!isProcesado(hueco)){
-    				  huecos.push({start:dia+' '+hueco.s, end: dia+' '+hueco.e, id: hueco.id, color: hueco.color, title:hueco.id, grupo: hueco.g});
+    				  console.log("OK");
+    				  var h={start:dia+' '+hueco.s, end: dia+' '+hueco.e, id: hueco.id, color: hueco.color, title:hueco.id, grupo: hueco.g};
+    				  if(renderBack && hueco.id=='laborable'){
+    					  h.rendering='background';
+    				  }
+    				  huecos.push(h);
+    			  }else{
+    				  console.log("Ya procesado");
     			  }
     			  
     		  };
-    		  
+
     		  var color="#000000";
     		  var id="festivo";
     		  //##STATEMENTS_FESTIVOS
     		  g++;
-    		  color="#257e4a";
+    		  color="#FF0000";
     		  id="vacaciones";
     		  //##STATEMENTS_VACACIONES
     		  g++;
-    		  color="#FF0000";
+    		  color="#257e4a";
     		  id="laborable";
     		  //##STATEMENTS_LABORABLES
     		  return huecos;

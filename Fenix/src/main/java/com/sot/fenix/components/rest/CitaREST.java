@@ -6,6 +6,7 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sot.fenix.components.json.CitasRequest;
+import com.sot.fenix.components.json.MaestrosCitaJSON;
 import com.sot.fenix.components.json.ResponseJSON;
-import com.sot.fenix.components.json.ResponseListJSON;
 import com.sot.fenix.components.models.Cita;
 import com.sot.fenix.components.services.CitaService;
+import com.sot.fenix.components.services.HorarioService;
+import com.sot.fenix.components.services.PrestacionService;
+import com.sot.fenix.components.services.UsuarioService;
 
 @RestController
 @RequestMapping("/cita")
@@ -24,7 +28,12 @@ public class CitaREST{
 	
 	@Autowired
 	private CitaService citas;
-
+	@Autowired
+	private HorarioService horarios;
+	@Autowired
+	private UsuarioService profesionales;
+	@Autowired
+	private PrestacionService prestaciones;
 	
 	@RequestMapping(method=RequestMethod.PUT)
     public ResponseJSON<Cita> nueva(@RequestBody Cita cita) {
@@ -45,6 +54,19 @@ public class CitaREST{
 		List<Cita> res=citas.buscar(req);
 		return res;	
 	}
+	
+	@RequestMapping(method=RequestMethod.GET, path="/maestros/{centro}")
+    public MaestrosCitaJSON modificar(@PathVariable("centro") String centro) {
+		MaestrosCitaJSON maestros=new MaestrosCitaJSON();
+		
+		ObjectId centroId=new ObjectId(centro);
+		
+		maestros.prestaciones=prestaciones.getDAO().findByCentro_id(centroId);
+		maestros.horarios=horarios.getDAO().findByCentro_id(centroId);
+		maestros.profesionales=profesionales.getUsuarioByCentro(centro);
+		
+		return maestros;
+    }
 	
 }
 

@@ -20,9 +20,9 @@ import com.sot.fenix.templates.basic.ABasicREST;
 public class HorarioREST extends ABasicREST<HorarioService, Horario, HorarioDAO>{
 
 	@RequestMapping(method=RequestMethod.PUT, path="guardar")
-    public ResponseJSON<Horario> guardar(@RequestBody HorarioJSON json) {
-		if(json.isNuevo() && service.getDAO().findByCentroAndNombre(json.horario.getCentro(), json.horario.getNombre())!=null){
-			return new ResponseJSON<Horario>(ResponseJSON.YA_EXISTE);
+    public ResponseJSON<HorarioJSON> guardar(@RequestBody HorarioJSON json) {
+		if(json.isNuevo() && service.getDAO().findByCentroAndNombre(json.model.getCentro(), json.model.getNombre())!=null){
+			return new ResponseJSON<HorarioJSON>(ResponseJSON.YA_EXISTE);
 		}else{
 			if(json.isNuevo()){
 				service.crear(json);
@@ -30,7 +30,7 @@ public class HorarioREST extends ABasicREST<HorarioService, Horario, HorarioDAO>
 				service.modificar(json);
 			}
 
-			return new ResponseJSON<Horario>(ResponseJSON.OK, json.horario);
+			return new ResponseJSON<HorarioJSON>(ResponseJSON.OK, json);
 		}
     }
 	
@@ -41,7 +41,7 @@ public class HorarioREST extends ABasicREST<HorarioService, Horario, HorarioDAO>
 		if(item!=null && h!=null){
 			HorarioJSON json=new HorarioJSON();
 			json.codigo=item.getCodigo();
-			json.horario=h;
+			json.model=h;
 			return new ResponseJSON<HorarioJSON>(ResponseJSON.OK, json);
 		}else{
 			return new ResponseJSON<HorarioJSON>(ResponseJSON.NO_EXISTE);

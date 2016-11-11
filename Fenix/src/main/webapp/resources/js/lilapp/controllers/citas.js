@@ -3,22 +3,19 @@
 // =========================================================================
 materialAdmin
     .controller('citasController', function($scope, prestacionService, userService, horarioService, citaService, modalService, $uibModal) {
-    	$scope.prestaciones=[];
-    	$scope.profesionales=[];
-    	$scope.horarios=[];
-    	$scope.cliente;
+    	$scope.maestros={
+    			profesionales:[],
+    			horarios:[],
+    			prestaciones:[]
+    	};
     	
-    	$scope.onPreAjax=function(){
-    		return {
-	        	centro:userService.getCentro().id
-	        };
-    	}
+    	$scope.cliente;    	    	
     	
     	$scope.getSource=function(){
     		return [{
 		        url: 'cita/in',
 		        type: 'GET',
-		        data: $scope.onPreAjax,
+		        data: {centro:userService.getCentro().id},
 		        error: function() {
 		            	alert('there was an error while fetching events!');
 		        	}
@@ -26,78 +23,27 @@ materialAdmin
     	}
     	
     	$scope.aplicarHorario=function(moment){
-    		
-    	}
-    	
-    	$scope.onGetEvents=function(start, end){
-    		var centro=userService.getCentro();
-    		
-    		var patron=centro.horario.patrones[start.day()];
-    		
-    		var res=[];
-    		
-    		for(var i=0;i<end.diff(start, 'days');i++){
-    			var dia=start.clone().add(i,'days').format("YYYY-MM-DD");
-	    		patron.horas.forEach(function(value, key) {	    			
-	    			res.push({
-						id: 'disponible',
-						start: dia+" "+value.ini,
-						end: dia+" "+value.fin,
-						rendering: 'background'
-					});
-	
-	    		});
+    		if($scope.horario){
+    			return $scope.horario.aplicar(moment, true);
     		}
-    		
-    		console.log(res);
-
-    		return res;
     	}
     	
-    	$scope.cargarPrestaciones=function(){
-    		prestacionService.REST.getAllByCentro(userService.getCentro().id).then(function(res){
-        		console.log("Cargando prestaciones...");
-        		$scope.prestaciones=res.data;        
-            }, function(error){
-            	errorService.alertaGrowl("Error al obtener las prestaciones", 'danger');
-            });
+    	
+    	$scope.cargarMaestros=function(){
+    		console.log("obteniendo maestros...");
+    		citaService.REST.getMaestros(userService.getCentro().id).then(function(res){
+    			console.log("Maestros obtenidos");
+    			$scope.maestros=res;
+    			
+    			$scope.profesional=citaService.agruparProfesionales($scope.maestros);
+    			$scope.horario=citaService.prepararHorarios($scope.maestros);
+    			
+    		}, function(error){
+    			errorService.alertaGrowl("Error al obtener los maestros", 'danger');
+    		});
     	}
     	
-    	$scope.cargarHorarios=function(){
-    		horarioService.REST.getAllByCentro(userService.getCentro().id).then(function(res){
-        		console.log("Cargando horarios...");
-        		$scope.horarios=res.data;        
-            }, function(error){
-            	errorService.alertaGrowl("Error al obtener los horarios", 'danger');
-            });
-    	}
-    	
-    	$scope.cargarProfesionales=function(){
-    		userService.getListaByCentro(userService.getCentro().id).then(function(res){
-        		console.log("Cargando profesionales...");        		
-        		
-        		angular.forEach(res.data, function(value, key) {
-        			if(value.id==userService.current.id){
-        				value.nombre+=" (YO)";  
-        				value.grupo="";
-        				$scope.profesional=value;
-        			}else{
-        				value.grupo="Otros profesionales";
-        			}
-    			});
-        		
-        		
-        		res.data.splice(0, 0, {'id':'-1', 'nombre':'CUALQUIERA', grupo:''});
-        		$scope.profesionales=res.data;  
-            }, function(error){
-            	errorService.alertaGrowl("Error al obtener las prestaciones", 'danger');
-            });
-    		
-    	}
-    	
-    	$scope.cargarPrestaciones();
-    	$scope.cargarProfesionales();
-    	$scope.cargarHorarios();
+    	$scope.cargarMaestros();
     	
     	$scope.onDragPrestacion=function(item, scope, prestacion){    		
     		$scope.prestacion=prestacion;
@@ -116,6 +62,7 @@ materialAdmin
     			
     			citaService.nueva(request);
     			
+    			cita.constraint="laborable";
     			cita.color=$scope.prestacion.color;
     			cita.title=$scope.cliente.nombre+" "+$scope.cliente.apellidos;
     			$('#calendar-widget').fullCalendar('renderEvent', cita, true);

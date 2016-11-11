@@ -3,22 +3,19 @@
 // =========================================================================
 materialAdmin
     .controller('citasController', function($scope, prestacionService, userService, horarioService, citaService, modalService, $uibModal) {
-    	$scope.prestaciones=[];
-    	$scope.profesionales=[];
-    	$scope.horarios=[];
-    	$scope.cliente;
+    	$scope.maestros={
+    			profesionales:[],
+    			horarios:[],
+    			prestaciones:[]
+    	};
     	
-    	$scope.onPreAjax=function(){
-    		return {
-	        	centro:userService.getCentro().id
-	        };
-    	}
+    	$scope.cliente;    	    	
     	
     	$scope.getSource=function(){
     		return [{
 		        url: 'cita/in',
 		        type: 'GET',
-		        data: $scope.onPreAjax,
+		        data: {centro:userService.getCentro().id},
 		        error: function() {
 		            	alert('there was an error while fetching events!');
 		        	}
@@ -26,78 +23,27 @@ materialAdmin
     	}
     	
     	$scope.aplicarHorario=function(moment){
-    		
-    	}
-    	
-    	$scope.onGetEvents=function(start, end){
-    		var centro=userService.getCentro();
-    		
-    		var patron=centro.horario.patrones[start.day()];
-    		
-    		var res=[];
-    		
-    		for(var i=0;i<end.diff(start, 'days');i++){
-    			var dia=start.clone().add(i,'days').format("YYYY-MM-DD");
-	    		patron.horas.forEach(function(value, key) {	    			
-	    			res.push({
-						id: 'disponible',
-						start: dia+" "+value.ini,
-						end: dia+" "+value.fin,
-						rendering: 'background'
-					});
-	
-	    		});
+    		if($scope.horario){
+    			return $scope.horario.aplicar(moment, true);
     		}
-    		
-    		console.log(res);
-
-    		return res;
     	}
     	
-    	$scope.cargarPrestaciones=function(){
-    		prestacionService.REST.getAllByCentro(userService.getCentro().id).then(function(res){
-        		console.log("Cargando prestaciones...");
-        		$scope.prestaciones=res.data;        
-            }, function(error){
-            	errorService.alertaGrowl("Error al obtener las prestaciones", 'danger');
-            });
+    	
+    	$scope.cargarMaestros=function(){
+    		console.log("obteniendo maestros...");
+    		citaService.REST.getMaestros(userService.getCentro().id).then(function(res){
+    			console.log("Maestros obtenidos");
+    			$scope.maestros=res;
+    			
+    			$scope.profesional=citaService.agruparProfesionales($scope.maestros);
+    			$scope.horario=citaService.prepararHorarios($scope.maestros);
+    			
+    		}, function(error){
+    			errorService.alertaGrowl("Error al obtener los maestros", 'danger');
+    		});
     	}
     	
-    	$scope.cargarHorarios=function(){
-    		horarioService.REST.getAllByCentro(userService.getCentro().id).then(function(res){
-        		console.log("Cargando horarios...");
-        		$scope.horarios=res.data;        
-            }, function(error){
-            	errorService.alertaGrowl("Error al obtener los horarios", 'danger');
-            });
-    	}
-    	
-    	$scope.cargarProfesionales=function(){
-    		userService.getListaByCentro(userService.getCentro().id).then(function(res){
-        		console.log("Cargando profesionales...");        		
-        		
-        		angular.forEach(res.data, function(value, key) {
-        			if(value.id==userService.current.id){
-        				value.nombre+=" (YO)";  
-        				value.grupo="";
-        				$scope.profesional=value;
-        			}else{
-        				value.grupo="Otros profesionales";
-        			}
-    			});
-        		
-        		
-        		res.data.splice(0, 0, {'id':'-1', 'nombre':'CUALQUIERA', grupo:''});
-        		$scope.profesionales=res.data;  
-            }, function(error){
-            	errorService.alertaGrowl("Error al obtener las prestaciones", 'danger');
-            });
-    		
-    	}
-    	
-    	$scope.cargarPrestaciones();
-    	$scope.cargarProfesionales();
-    	$scope.cargarHorarios();
+    	$scope.cargarMaestros();
     	
     	$scope.onDragPrestacion=function(item, scope, prestacion){    		
     		$scope.prestacion=prestacion;
@@ -116,6 +62,7 @@ materialAdmin
     			
     			citaService.nueva(request);
     			
+    			cita.constraint="laborable";
     			cita.color=$scope.prestacion.color;
     			cita.title=$scope.cliente.nombre+" "+$scope.cliente.apellidos;
     			$('#calendar-widget').fullCalendar('renderEvent', cita, true);
@@ -339,14 +286,17 @@ materialAdmin
 		   					 tipo: "warning"
 		   				 }
 					}, function(res){
-						console.log("Cargando editor del horario");
-						$scope.nombre=res.data.horario.nombre;
+						console.log("Cargando editor del horario");						
+						$scope.nombre=res.data.model.nombre;
 						$scope.blockly.cargarXML(LZString.decompressFromBase64(res.data.codigo));
-						
-						$scope.horario=horarioService.newFromBlocky($scope.blockly,$scope.nombre, res.data.horario.id); 
+						$scope.horario=res.data;
+						horarioService.iniciarHorario($scope.horario); 
 				});
 				
 				return true;
+    		}else{    			
+    			$scope.horario={model:{id:id,nombre:'NuevoHorario', centro:userService.getCentro().id}};   
+    			horarioService.iniciarHorario($scope.horario); 
     		}
     		console.log("Cargando editor por defecto");
     		return false;
@@ -371,22 +321,23 @@ materialAdmin
     		$scope.editor=!$scope.editor;
     		
     		if(vistaPrevia){
-    			$scope.horario=horarioService.newFromBlocky($scope.blockly, $scope.horario.nombre, $scope.horario.id);
-    			$scope.calendario.actualizar();
-    			
+    			horarioService.updateFromBlocky($scope.horario, $scope.blockly);
+    			$scope.horario.model.nombre=$scope.nombre;
+    			$scope.horario.compilar();
+    			$scope.calendario.actualizar();    			
     		}
     	}
     	
     	$scope.eliminar=function(){   
-    		if($state.params.id){
+    		if($scope.horario.model.id){
     			errorService.alertaSiNo("Eliminar", "¿Seguro que quieres eliminar el horario?", function(){
-            		errorService.procesar(horarioService.REST.eliminar($state.params.id),{
+            		errorService.procesar(horarioService.REST.eliminar($scope.horario.model.id),{
     	   				 0:{
     	   					 growl: true,   				 
     	   					 texto: "Horario eliminado correctamente",
     	   					 tipo: "success",
     	   					 onProcesar: function(){
-    	   						 $scope.refrescar();
+    	   						$state.go('configuracion.horarios');  
     	   					 }
     	   				 },
     	   				 1:{
@@ -401,12 +352,8 @@ materialAdmin
     	
     	$scope.guardar=function(){    		
     		 		
-    		$scope.horario.nombre=$scope.nombre;
-    		if($state.params.id){
-    			$scope.horario=horarioService.newFromBlocky($scope.blockly,$scope.nombre, $state.params.id);   
-    		}else{
-    			$scope.horario=horarioService.newFromBlocky($scope.blockly,$scope.nombre);   
-    		}
+    		$scope.horario.model.nombre=$scope.nombre;
+    		horarioService.updateFromBlocky($scope.horario, $scope.blockly);
     		
 			accion=horarioService.REST.nuevo($scope.horario,"horario/guardar");			
 			
@@ -414,7 +361,11 @@ materialAdmin
 				 0:{
 					 growl: true,   				 
 					 texto: "Horario guardado",
-					 tipo: "success"
+					 tipo: "success",
+   					 onProcesar: function(res){
+   						 $scope.horario=res.data;
+   						horarioService.iniciarHorario($scope.horario); 
+   					 }
 				 },
 				 1:{
    					 titulo: "Atención",    				 
@@ -431,7 +382,7 @@ materialAdmin
     	
     	$scope.aplicarHorario=function(dia){
     		if($scope.horario){
-    			return $scope.horario.horario.aplicar(dia);    		
+    			return $scope.horario.aplicar(dia);    		
     		}
     	} 	    	
     	

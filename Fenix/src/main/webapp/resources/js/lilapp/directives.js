@@ -80,7 +80,7 @@ materialAdmin
 	});
 materialAdmin 
     // =========================================================================
-    // BLOCKLY
+    // CALENDARIO
     // =========================================================================
 .directive('calendario', function($compile, $rootScope, userService, $templateCache){
     return {
@@ -103,11 +103,11 @@ materialAdmin
             var m = date.getMonth();
             var y = date.getFullYear();
             
-            var sources=[];
+        	var sources=scope.sources();
+        	if(!sources){
+        		sources=[];
+        	}
             
-            if(scope.sources){
-            	sources=scope.sources();
-            }
             
             sources.push(
             	function(start, end, timezone, callback){     
