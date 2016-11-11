@@ -21,12 +21,7 @@ public abstract class AModelBasic extends AModelId{
 		this.nombre = nombre;
 	}
 	
-	@JsonGetter("centro")
-	public String getJsonCentro(){
-		if(centro==null)
-			return "";
-		return centro.getId().toHexString();
-	}
+	
 
 	public Centro getCentro() {
 		return centro;
@@ -35,7 +30,12 @@ public abstract class AModelBasic extends AModelId{
 	public void setCentro(Centro centro) {
 		this.centro = centro;
 	}
-
+	@JsonGetter("centro")
+	public String getJsonCentro(){
+		if(centro==null)
+			return "";
+		return centro.getId().toHexString();
+	}
 	@JsonSetter("centro")
 	public void setJsonCentro(String id) {
 		if(id!=null && !id.isEmpty()){

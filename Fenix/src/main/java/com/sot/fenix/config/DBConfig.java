@@ -12,6 +12,8 @@ import com.sot.fenix.components.models.Centro;
 import com.sot.fenix.components.models.Cliente;
 import com.sot.fenix.components.models.Perfil.PERFILES;
 import com.sot.fenix.components.models.Usuario;
+import com.sot.fenix.components.models.horarios.Horario;
+import com.sot.fenix.components.models.horarios.HorarioEditor;
 
 @Configuration
 @EnableMongoRepositories("com.sot.fenix.dao")
@@ -44,9 +46,14 @@ public class DBConfig {
 		c.setNombre("Centro ADMIN");
 		c.setCorreoAdmin("root");
 		c.setColor("teal");
-		//c.setHorario(HorarioOld.getGenerico());
 		
 		db.insert(c);
+		
+		Horario h=Horario.getGenerico(c);
+		h.setCentro(c);
+		db.insert(h);
+		HorarioEditor e=HorarioEditor.getGenerico(h);
+		db.insert(e);
 		
 		Usuario u=new Usuario();
 		u.setCorreo("root");

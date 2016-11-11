@@ -19,6 +19,14 @@
 		                 <td data-title="'Duracion'">
 		                  	{{w.duracion}}
 		                 </td>
+		                 <td data-title="'Horario'">
+		                      <div class="checkbox pull-left">
+		                       <label>
+		                           <input type="checkbox" data-ng-checked="w.horario!=undefined" value=""  ng-disabled="true">
+		                           <i class="input-helper"></i>
+		                       </label>
+		                   </div>	             
+		                </td>
 		                 <td data-title="'Acciones'">
 		                     <button type="button" class="btn btn-warning" ng-click="modificar(w)"><i class="zmdi zmdi-edit"></i></button>
 		                     <button type="button" class="btn btn-danger" ng-click="eliminar(w)"><i class="zmdi zmdi-delete"></i></button>

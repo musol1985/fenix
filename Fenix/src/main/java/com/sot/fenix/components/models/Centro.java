@@ -1,6 +1,7 @@
 package com.sot.fenix.components.models;
 
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.sot.fenix.components.models.horarios.Horario;
@@ -20,8 +21,6 @@ public class Centro extends AModelId{
 	private String correoAdmin;
 	
 	private TIPO tipo;
-	
-	private Horario horario;
 
 
 	public String getNombre() {
@@ -66,14 +65,5 @@ public class Centro extends AModelId{
 		this.color = color;
 	}
 
-	public Horario getHorario() {
-		return horario;
-	}
 
-	public void setHorario(Horario horario) {
-		this.horario = horario;
-	}
-	
-	
-	
 }

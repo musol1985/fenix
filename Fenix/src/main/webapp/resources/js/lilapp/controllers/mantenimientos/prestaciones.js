@@ -3,21 +3,27 @@
 // Prestaciones v12
 // =========================================================================
 materialAdmin
-    .controller('prestaciones', function($scope, $http, userService, centroService, prestacionService, errorService, modalService, $uibModal) {
-    
+    .controller('prestaciones', function($scope, $http, userService, centroService, prestacionService, errorService, modalService, horarioService, $uibModal) {    
+
     	$scope.getDatos=function(params, onComplete){
     		prestacionService.REST.getByCentro(userService.getCentro().id, params.page(), params.count()).then(function(res){
     			onComplete(res.data, res.total);
             }, function(error){
             	errorService.alertaGrowl("Error al obtener prestaciones", 'danger');
             });
+    		horarioService.REST.getAllByCentro(userService.getCentro().id).then(function(res){    			
+    			$scope.modal.horariosModal=res.data;
+            }, function(error){
+            	errorService.alertaGrowl("Error al obtener horarios", 'danger');
+            });
     	}
 
     	$scope.modal={
-    			data:{},
+    			data:{horario:{}},    			 	
+    			horariosModal:[],
     	
     			getNew:function(){
-    				return {id:'', nombre:'', color:'', centro:userService.getCentro().id};
+    				return {id:'', nombre:'', color:'', centro:userService.getCentro().id, horario:{}};
     			},    			    		
     			
     			mostrar:function(reset){
@@ -26,12 +32,14 @@ materialAdmin
     				$scope.modalInstance=modalService.mostrar($uibModal, $scope.modal, "resources/template/modals/prestacion.html");
     			},
     			
-    			guardar:function(){    				
+    			guardar:function(){    	
     				var data=$scope.modal.data;
     				var accion;
     				
+    				data.horario=data.horario.id;
+    				
     				if(data.id==''){
-    					accion=prestacionService.REST.nueva(data);
+    					accion=prestacionService.REST.nuevo(data);
     				}else{
     					accion=prestacionService.REST.modificar(data);
     				}

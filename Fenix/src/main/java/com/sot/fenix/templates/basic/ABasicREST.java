@@ -19,8 +19,7 @@ import com.sot.fenix.components.models.AModelBasic;
 import com.sot.fenix.components.models.Prestacion;
 import com.sot.fenix.components.services.PrestacionService;
 
-//@RestController
-//@RequestMapping("/prestacion")
+
 public class ABasicREST<S extends ABasicService<D, I>, I extends AModelBasic, D extends IBasicDAO<I>>{
 	
 	@Autowired
