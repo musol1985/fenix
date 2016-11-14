@@ -13,22 +13,32 @@ materialAdmin
             });
     		horarioService.REST.getAllByCentro(userService.getCentro().id).then(function(res){    			
     			$scope.modal.horariosModal=res.data;
+    			angular.forEach(res.data, function(horario) {
+    				if(horario.generico){
+    					$scope.horarioGen=horario;
+    					console.log("Horario generic: "+horario.id+" "+horario.nombre);
+    				}    				
+    			});
             }, function(error){
             	errorService.alertaGrowl("Error al obtener horarios", 'danger');
             });
     	}
 
     	$scope.modal={
-    			data:{horario:{}},    			 	
+    			data:{horario:''},    			 	
     			horariosModal:[],
     	
     			getNew:function(){
-    				return {id:'', nombre:'', color:'', centro:userService.getCentro().id, horario:{}};
+    				return {id:'', nombre:'', color:'', centro:userService.getCentro().id, horario:$scope.horarioGen};
     			},    			    		
     			
     			mostrar:function(reset){
-    				if(reset)
+    				if(reset){
     					$scope.modal.data=this.getNew();
+    				}else{
+    					$scope.modal.data.horario={id:$scope.modal.data.horario};
+    				}
+    				console.log($scope.modal.data);
     				$scope.modalInstance=modalService.mostrar($uibModal, $scope.modal, "resources/template/modals/prestacion.html");
     			},
     			
@@ -37,6 +47,7 @@ materialAdmin
     				var accion;
     				
     				data.horario=data.horario.id;
+    				console.log($scope.modal.data);
     				
     				if(data.id==''){
     					accion=prestacionService.REST.nuevo(data);

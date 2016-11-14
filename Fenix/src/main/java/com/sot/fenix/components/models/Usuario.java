@@ -4,15 +4,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.sot.fenix.components.models.Perfil.PERFILES;
+import com.sot.fenix.components.models.horarios.Horario;
 
 @Document
 @JsonIgnoreProperties({ "authorities" })
@@ -31,6 +35,9 @@ public class Usuario extends AModelId implements UserDetails, IUsuario, ICodDesc
 	@Indexed
 	@DBRef
 	private Centro centro;
+	
+	@DBRef
+	private Horario horario;
 	
 	private boolean accountNonExpired = true;
 	private boolean accountNonLocked = true;
@@ -169,6 +176,27 @@ public class Usuario extends AModelId implements UserDetails, IUsuario, ICodDesc
 	public String getDescripcion() {
 		return nombre;
 	}
+
+	public Horario getHorario() {
+		return horario;
+	}
+
+	public void setHorario(Horario horario) {
+		this.horario = horario;
+	}
 	
+	@JsonGetter("horario")
+	public String getJsonHorario(){
+		if(horario==null || horario.getId()==null)
+			return "";
+		return horario.getId().toHexString();
+	}
+	@JsonSetter("horario")
+	public void setJsonHorario(String id) {
+		if(id!=null && !id.isEmpty()){
+			horario=new Horario();
+			horario.id=new ObjectId(id);
+		}
+	}
 	
 }

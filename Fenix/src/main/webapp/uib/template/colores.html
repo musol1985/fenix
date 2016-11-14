@@ -1,0 +1,6 @@
+<div class="event-tag" data-ng-class="{ 'active': activeState }">
+	<span data-ng-repeat="w in colores" data-tag="{{ w }}"
+		class="bgm-{{ w }}"
+		data-ng-class="{ 'selected': activeState === $index }"
+		data-ng-click="onClickColor(w, $index)"></span>
+</div>

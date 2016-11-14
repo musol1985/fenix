@@ -100,8 +100,109 @@ angular.module('materialAdmin').run(['$templateCache', function($templateCache) 
   );
 
 
+  $templateCache.put('resources/template/modals/nuevoProfesional.html',
+    "<div class=\"modal-header\"><h4 class=\"modal-title\">Nuevo usuario</h4></div><div class=\"modal-body\"><form name=\"myForm\" class=\"form-horizontal\" novalidate><div class=\"row\"><div class=\"form-group col-md-12\" ng-class=\"{ 'has-error' : myForm.nombre.$invalid  && !myForm.nombre.$pristine, 'has-success': myForm.nombre.$invalid && !myForm.nombre.$pristine}\"><label class=\"col-md-2 control-lable\" for=\"nombre\">Nombre *</label><div class=\"col-md-7\"><input type=\"text\" ng-model=\"modalContent.usuario.nombre\" id=\"nombre\" name=\"nombre\" class=\"username form-control input-sm\" placeholder=\"Introduce el nombre\" required ng-minlength=\"3\"><p ng-show=\"myForm.nombre.$invalid\" class=\"help-block\">Este campo es obligatorio</p></div></div></div><div class=\"row\"><div class=\"form-group col-md-12\" ng-class=\"{ 'has-error' : myForm.correo.$invalid && !myForm.correo.$pristine, 'has-success': myForm.correo.$invalid && !myForm.correo.$pristine}\"><label class=\"col-md-2 control-lable\" for=\"correo\">Correo *</label><div class=\"col-md-7\"><input type=\"email\" ng-model=\"modalContent.usuario.correo\" id=\"correo\" name=\"correo\" class=\"email form-control input-sm\" placeholder=\"Introduce el e-mail\" required><p ng-show=\"myForm.correo.$invalid && !myForm.correo.$pristine\" class=\"help-block\"><span ng-show=\"myForm.correo.$error.required\">Este campo es obligatorio</span> <span ng-show=\"myForm.correo.$error.email\">Debes escribir un correo valido</span></p></div></div></div><div class=\"form-group col-md-12\" data-ng-controller=\"coloresController as colores\"><label for=\"eventName\">Color</label><div class=\"event-tag\" data-ng-class=\"{ 'active': activeState }\"><span data-ng-repeat=\"w in colores\" data-tag=\"{{ w }}\" class=\"bgm-{{ w }}\" data-ng-class=\"{ 'selected': activeState === $index }\" data-ng-click=\"onClickColor(w, $index)\"></span></div></div><div class=\"modal-footer\"><button class=\"btn bgm-blue btn-lg\" ng-click=\"modalContent.guardar()\" ng-disabled=\"myForm.$invalid\">Guardar</button> <button class=\"btn bgm-red btn-lg\" ng-click=\"cancel()\">Cancelar</button></div></form></div>"
+  );
+
+
   $templateCache.put('resources/template/modals/prestacion.html',
     "<div class=\"modal-header\"><h4 class=\"modal-title\">Nueva prestaci�n</h4></div><div class=\"modal-body\"><form name=\"myForm\" class=\"form-horizontal\" novalidate><div class=\"row\"><div class=\"form-group col-md-12\" ng-class=\"{ 'has-error' : myForm.nombre.$invalid  && !myForm.nombre.$pristine, 'has-success': myForm.nombre.$invalid && !myForm.nombre.$pristine}\"><label class=\"col-md-2 control-lable\" for=\"nombre\">Nombre *</label><div class=\"col-md-7\"><input type=\"text\" ng-model=\"modalContent.data.nombre\" id=\"nombre\" name=\"nombre\" class=\"username form-control input-sm\" placeholder=\"Introduce el nombre\" required ng-minlength=\"3\"><p ng-show=\"myForm.nombre.$invalid\" class=\"help-block\">Este campo es obligatorio</p></div></div></div><div class=\"row\"><div class=\"form-group col-md-12\"><label class=\"col-md-2 control-lable\" for=\"nombre\">Importe</label><div class=\"col-md-7\"><input type=\"text\" ng-model=\"modalContent.data.importe\" id=\"importe\" name=\"importe\" class=\"username form-control input-sm\" placeholder=\"Introduce el importe en �\"></div></div></div><div class=\"row\"><div class=\"form-group col-md-12\"><label class=\"col-md-2 control-lable\" for=\"nombre\">Duracion</label><div class=\"col-md-7\"><input type=\"text\" ng-model=\"modalContent.data.duracion\" id=\"duracion\" name=\"duracion\" class=\"username form-control input-sm\" placeholder=\"Introduce la duraci�n en minutos\"></div></div></div><div class=\"row\"><div class=\"col-md-7\"><select class=\"w-100\" chosen data-placeholder=\"Horario\" ng-options=\"item as item.nombre for item in modalContent.horariosModal track by item.id\" ng-model=\"modalContent.data.horario\"></select></div></div><div class=\"row\"><div class=\"form-group col-md-12\" ng-class=\"{ 'has-error' : myForm.color.$invalid && !myForm.color.$pristine, 'has-success': myForm.color.$invalid && !myForm.color.$pristine}\"><label class=\"col-md-3 control-lable\" for=\"color\">Color</label><div class=\"col-md-7\"><input type=\"hidden\" name=\"color\" ng-model=\"modalContent.data.color\" class=\"form-control\"><ul class=\"skin-switch lista-colores\"><li ng-repeat=\"r in modalContent.getColores()\" class=\"lista-colores ss-skin bgm-{{ r }}\" ng-class=\"{ 'color-seleccionado' :modalContent.data.color==r }\" data-ng-click=\"modalContent.setColor(r)\"></ul></div></div></div><div class=\"modal-footer\"><button class=\"btn bgm-blue btn-lg\" ng-click=\"modalContent.guardar()\" ng-disabled=\"myForm.$invalid\">Guardar</button> <button class=\"btn bgm-red btn-lg\" ng-click=\"cancel()\">Cancelar</button></div></form></div>"
+  );
+
+
+  $templateCache.put('resources/template/modals/profesional.html',
+    "\r" +
+    "\n" +
+    "<div class=\"modal-header\">\r" +
+    "\n" +
+    "	<h4 class=\"modal-title\">Modificar profesional</h4>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<div class=\"modal-body\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "	<form name=\"myForm\" class=\"form-horizontal\" novalidate>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "		<div class=\"row\">\r" +
+    "\n" +
+    "			<div class=\"form-group col-md-12\">\r" +
+    "\n" +
+    "				<label class=\"col-md-2 control-lable\" for=\"nombre\">Nombre</label>\r" +
+    "\n" +
+    "				<div class=\"col-md-7\">\r" +
+    "\n" +
+    "					<input type=\"text\" ng-model=\"modalContent.data.nombre\" id=\"nombre\"\r" +
+    "\n" +
+    "						name=\"\" nombre\"\" class=\"username form-control input-sm\"\r" +
+    "\n" +
+    "						placeholder=\"Nombre\" />\r" +
+    "\n" +
+    "				</div>\r" +
+    "\n" +
+    "			</div>\r" +
+    "\n" +
+    "		</div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "		<div class=\"row\">\r" +
+    "\n" +
+    "			<div class=\"col-md-7\">\r" +
+    "\n" +
+    "				<select class=\"w-100\" chosen data-placeholder=\"Horario\"\r" +
+    "\n" +
+    "					ng-options=\"item as item.nombre for item in modalContent.horariosModal track by item.id\"\r" +
+    "\n" +
+    "					ng-model=\"modalContent.data.horario\"></select>\r" +
+    "\n" +
+    "			</div>\r" +
+    "\n" +
+    "		</div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "		<div class=\"row\">\r" +
+    "\n" +
+    "			<div class=\"form-group col-md-12\">\r" +
+    "\n" +
+    "				<label class=\"col-md-3 control-lable\" for=\"color\">Color</label>\r" +
+    "\n" +
+    "				<div class=\"col-md-7\">\r" +
+    "\n" +
+    "					<uicolores model=\"modalContent.data.color\" on-seleccionar=\"modalContent.onSeleccionarColor(color)\"/>\r" +
+    "\n" +
+    "				</div>\r" +
+    "\n" +
+    "			</div>\r" +
+    "\n" +
+    "		</div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "		<div class=\"modal-footer\">\r" +
+    "\n" +
+    "			<button class=\"btn bgm-blue btn-lg\" ng-click=\"modalContent.guardar()\"\r" +
+    "\n" +
+    "				ng-disabled=\"myForm.$invalid\">Guardar</button>\r" +
+    "\n" +
+    "			<button class=\"btn bgm-red btn-lg\" ng-click=\"cancel()\">Cancelar</button>\r" +
+    "\n" +
+    "		</div>\r" +
+    "\n" +
+    "	</form>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "\r" +
+    "\n"
   );
 
 
@@ -126,7 +227,12 @@ angular.module('materialAdmin').run(['$templateCache', function($templateCache) 
 
 
   $templateCache.put('uib/template/card.html',
-    "<div class=\"card\"><div class=\"card-header ch-alt m-b-20\"><h2>{{titulo}}<small>{{descripcion}}</small></h2><ng-transclude ng-transclude-slot=\"ul\"></ng-transclude><button class=\"btn bgm-red btn-float waves-effect\" ng-click=\"onAction()\"><i class=\"zmdi zmdi-plus\"></i></button></div><div class=\"card-body card-padding\" ng-transclude=\"cuerpo\"></div></div>"
+    "<div class=\"card\"><div class=\"card-header ch-alt m-b-20\"><h2>{{titulo}}<small>{{descripcion}}</small></h2><ng-transclude ng-transclude-slot=\"ul\"></ng-transclude><button class=\"btn bgm-red btn-float waves-effect\" ng-click=\"onAction()\" ng-show=\"!ocultarAction\"><i class=\"zmdi zmdi-plus\"></i></button></div><div class=\"card-body card-padding\" ng-transclude=\"cuerpo\"></div></div>"
+  );
+
+
+  $templateCache.put('uib/template/colores.html',
+    "<div class=\"event-tag\" data-ng-class=\"{ 'active': activeState }\"><span data-ng-repeat=\"w in colores\" data-tag=\"{{ w }}\" class=\"bgm-{{ w }}\" data-ng-class=\"{ 'selected': activeState === $index }\" data-ng-click=\"onClickColor(w, $index)\"></span></div>"
   );
 
 

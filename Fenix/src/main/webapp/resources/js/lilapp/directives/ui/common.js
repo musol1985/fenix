@@ -2,7 +2,9 @@ materialAdmin
 	// =========================================================================
     // CARD
     // =========================================================================
-    .controller('uicardController', function($q, $filter, $timeout,$scope, $http, ngTableParams, userService, centroService, prestacionService, errorService) {
+    .controller('uicardController', function($scope) {
+	    if (angular.isUndefined($scope.ocultarAction))
+	        $scope.ocultarAction = false;
     	
 	})
 	
@@ -13,7 +15,8 @@ materialAdmin
 			    	model: '=',
 			    	titulo: '@',
 			    	descripcion: '@',
-			    	onAction: '&'
+			    	onAction: '&?',
+			    	ocultarAction: '@?' 
 			},		  
 		    controller: 'uicardController',
 		    controllerAs: 'ctrl',		    

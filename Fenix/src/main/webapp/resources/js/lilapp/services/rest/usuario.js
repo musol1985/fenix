@@ -189,4 +189,20 @@ materialAdmin
             );
             return deferred.promise;
         }
+    	
+    	this.modificar=function(item) {
+            var deferred = $q.defer();
+
+            $http.post("usuario/modificar", item)
+                .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error '+id+'.modificar');
+                    deferred.reject(errResponse);
+                }
+            );
+            return deferred.promise;
+        }
     }])

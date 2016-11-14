@@ -14,8 +14,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.sot.fenix.components.models.Centro;
+import com.sot.fenix.components.models.Prestacion;
 import com.sot.fenix.components.models.Usuario;
 import com.sot.fenix.components.models.UsuarioPendiente;
+import com.sot.fenix.components.models.horarios.Horario;
 import com.sot.fenix.dao.UsuarioDAO;
 import com.sot.fenix.dao.UsuarioPendienteDAO;
 
@@ -25,6 +27,9 @@ public class UsuarioService {
 	private UsuarioDAO usuarios;
 	@Autowired
 	private UsuarioPendienteDAO usuariosPendientes;
+	@Autowired
+	private HorarioService horarios;
+	
 	
 	@Autowired
 	MongoTemplate template;
@@ -32,13 +37,7 @@ public class UsuarioService {
 	public Usuario getUsuarioByCorreo(String login){
 		return usuarios.findByCorreo(login);
 	}
-	
-	/*public List<Usuario> getUsuarioByCentro(String centro){
-		
-		Query q = new Query(new Criteria("centro.$id").in(new ObjectId(centro)));
 
-		return template.find(q, Usuario.class);
-	}*/
 	
 	public List<Usuario> getUsuarioByCentro(String centro){
 		Centro c=new Centro();
@@ -92,6 +91,9 @@ public class UsuarioService {
 	public void enviarEmail(UsuarioPendiente usuario){
 		System.out.println("Enviando mail con codigo: "+usuario.getId());
 	}
-	
 
+	public List<Prestacion> getConHorarioAplicado(String centro){
+		Horario h=horarios.getDAO().getGenerico(new ObjectId(centro));
+		return usuarios.getSinHorarioGenerico(h.getId());
+	}
 }

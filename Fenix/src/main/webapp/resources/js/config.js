@@ -71,7 +71,7 @@ materialAdmin
                 url: '/horarios',
                 templateUrl: 'resources/views/horarios.html'
             })
-            
+
             .state('configuracion.horario', {
                 url: '/horario/:id',
                 controller: 'editorHorario',

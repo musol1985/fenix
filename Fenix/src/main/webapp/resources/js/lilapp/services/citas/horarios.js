@@ -8,6 +8,21 @@ materialAdmin
     	
     	this.REST=new BasicRESTService("Horario", "horario");
     	
+    	this.REST.getAplicados=function (id, page, size) {
+            var deferred = $q.defer();
+            
+            $http.get("horario/aplicados/"+id+"/"+page+"/"+size)
+                .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error horarioService.getAplicados');
+                    deferred.reject(errResponse);
+                }
+            );
+            return deferred.promise;
+        }
     	
     	this.REST.getEditorById=function (id) {
             var deferred = $q.defer();

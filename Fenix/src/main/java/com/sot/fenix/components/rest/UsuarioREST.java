@@ -52,6 +52,20 @@ public class UsuarioREST{
 		return usuarios.getDAO().findOne(new ObjectId(id));     
     }
 	
+	@RequestMapping(method=RequestMethod.POST, path="/modificar")
+    public ResponseJSON<Usuario> modificar(@RequestBody Usuario usuario) {
+		Usuario usuarioBD=usuarios.getDAO().findOne(usuario.getId());
+		if(usuarioBD==null)
+			return new ResponseJSON<Usuario>(ResponseJSON.NO_EXISTE);
+		
+		usuarioBD.setNombre(usuario.getNombre());
+		usuarioBD.setColor(usuario.getColor());
+		usuarioBD.setHorario(usuario.getHorario());
+		
+		usuarios.getDAO().save(usuario);
+		return new ResponseJSON<Usuario>(ResponseJSON.OK, usuario);
+    }
+	
 	
 	@RequestMapping(method=RequestMethod.POST, path="/registrar")
     public ResponseJSON<Usuario> registrar(@RequestBody RegistrarJSON registrar) {

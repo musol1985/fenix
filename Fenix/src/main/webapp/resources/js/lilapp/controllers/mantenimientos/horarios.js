@@ -46,10 +46,12 @@ materialAdmin
         	});
         }
     })
+    
+ 
 // =========================================================================
 // Editor Horarios v0.1
 // ========================================================================= 
-    .controller('editorHorario', function($state, $scope, $uibModal, modalService, horarioService, errorService) {
+    .controller('editorHorario', function($state, $scope, $uibModal, modalService, horarioService, errorService, userService) {
     	$scope.onLoaded=function(){//callback del blocky
     		return $scope.cargar($state.params.id);
     	}

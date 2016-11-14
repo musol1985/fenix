@@ -3,15 +3,18 @@
 // Usuarios
 // =========================================================================
 materialAdmin
-    .controller('usuarios', function($scope, $filter, $sce, ngTableParams, userService, errorService, modalService, $uibModal) {
+    .controller('usuarios', function($scope, $filter, $sce, ngTableParams, userService, horarioService, errorService, modalService, $uibModal) {
     	
     	$scope.getDatosByCentro=function(params, onComplete){
-    		if($scope.centro!="-1")
+    		if($scope.centro!="-1"){
 	    		userService.getAllByCentro(params.page(), params.count(), $scope.centro).then(function(res){
 	    			onComplete(res.data, res.total);         		
 	            }, function(error){
 	            	errorService.alertaGrowl("Error al obtener usuarios", 'danger');
 	            });
+	    		
+	    		
+    		}
     	}  
     	
     	$scope.getDatos=function(params, onComplete){
@@ -20,21 +23,24 @@ materialAdmin
             }, function(error){
             	errorService.alertaGrowl("Error al obtener usuarios", 'danger');
             });
+    		
+    		horarioService.REST.getAllByCentro(userService.getCentro().id).then(function(res){    			
+    			$scope.modal.horariosModal=res.data;
+    			angular.forEach(res.data, function(horario) {
+    				if(horario.generico){
+    					$scope.horarioGen=horario;
+    					console.log("Horario generic: "+horario.id+" "+horario.nombre);
+    				}    				
+    			});
+            }, function(error){
+            	errorService.alertaGrowl("Error al obtener horarios", 'danger');
+            });
     	}
     	
-    	$scope.centro="-1";
-    	
-
-    	$scope.setTodos=function(valor){
-    		$scope.todos=valor;
-    	}
+    	$scope.centro=userService.current.centro.id;
     	
     	$scope.setCentro=function(valor){
     		$scope.centro=valor;
-    	}
-    	
-    	$scope.setCentroSesion=function(){    		
-    		$scope.centro=userService.current.centro.id;
     	}
 
     	$scope.refrescar=function(tabla){
@@ -43,6 +49,87 @@ materialAdmin
     		}else{
     			this.usuariosCtr.tabla.reload();
     		}
+    	}
+    	
+    	$scope.modificar=function(tabla){
+    		if(tabla){
+    			tabla.reload();
+    		}else{
+    			this.usuariosCtr.tabla.reload();
+    		}
+    	}
+    	
+    	$scope.modificarHorario=function(usuario){
+    		$scope.modal.mostrar(usuario);
+    	}
+    	
+    	$scope.modal={
+    			data:{horario:''},    			 	
+    			horariosModal:[],			    		
+    			
+    			mostrar:function(usuario){
+    				$scope.modal.data=angular.copy(usuario);;
+    				$scope.modal.data.horario={id:$scope.modal.data.horario};
+    				
+    				console.log($scope.modal.data);
+    				$scope.modalInstance=modalService.mostrar($uibModal, $scope.modal, "resources/template/modals/profesional.html");
+    			},
+    			
+    			guardar:function(){    	
+    				var data=$scope.modal.data;
+
+    				data.horario=data.horario.id;
+    				console.log($scope.modal.data);
+    				
+    				var accion=userService.modificar(data);
+    				
+    				errorService.procesar(accion,{
+	    				 0:{
+	    					 growl: true,   				 
+	    					 texto: "Prestación creada",
+	    					 tipo: "success",
+	    					 onProcesar: function(){
+	    						 $scope.refrescar();
+	    					 }
+	    				 },
+	    				 1:{
+		   					 titulo: "Atención",    				 
+		   					 texto: "La prestación no existe",
+		   					 tipo: "warning"
+		   				 },
+	    				 2:{
+		   					 titulo: "Atención",    				 
+		   					 texto: "Ya existe una prestación con ese nombre",
+		   					 tipo: "warning"
+		   				 },
+		   				onError:function(){
+		   					$scope.modal.mostrar(false);
+	    				 }
+    				});
+    				
+    				$scope.modalInstance.close();
+    			},
+    			
+    			onSeleccionarColor:function(color){
+    				alert(color);
+    			},
+    			
+    			setColor : function(color){
+    	        	$scope.modal.data.color=color;
+    	        },
+    	        
+    	        getColores :function(){
+    	        	return   [
+    	                         'lightblue',
+    	                         'bluegray',
+    	                         'cyan',
+    	                         'teal',
+    	                         'green',
+    	                         'orange',
+    	                         'blue',
+    	                         'purples'
+    	                     ]
+    	        }
     	}
         
         $scope.eliminar = function(item){
@@ -71,26 +158,21 @@ materialAdmin
         	$scope.refrescar();
         });
     })
-    
+ // =========================================================================
+// Usuarios Pendientes
+// =========================================================================   
     .controller('tablaUsuarioPendiente', function($scope, $rootScope, $filter, $sce, ngTableParams, userService, errorService, modalService, $uibModal) {
     	var self=this;
     	
-    	this.datos=[];
+
+    	$scope.getDatos=function(params, onComplete){
+    		userService.getPendientes(params.page(), params.count(), userService.current.centro.id).then(function(res){
+    			onComplete(res.data, res.total);               		
+            }, function(error){
+            	errorService.alertaGrowl("Error al obtener usuarios", 'danger');
+            });
+    	}
     	
-    	this.tabla=new ngTableParams({
-            page: 1,            // show first page
-            count: 10          // count per page
-        }, {
-            getData: function($defer, params) {
-            	userService.getPendientes(params.page(), params.count(), userService.current.centro.id).then(function(res){
-            		self.datos=res.data;
-            		params.total(res.total);
-            		$defer.resolve(self.datos);            		
-                }, function(error){
-                	errorService.alertaGrowl("Error al obtener usuarios pendientes", 'danger');
-                });
-            }
-        });
 
     	$scope.modal={
     			usuario:{'correo':'','nombre':'','color':''},
@@ -127,7 +209,7 @@ materialAdmin
     	}
     	
     	$scope.nuevo = function () {
-    		$scope.modalInstance=modalService.mostrar($uibModal, $scope.modal);
+    		$scope.modalInstance=modalService.mostrar($uibModal, $scope.modal, "resources/template/modals/nuevoProfesional.html");    		
         };
         
         $scope.eliminar = function(item){
