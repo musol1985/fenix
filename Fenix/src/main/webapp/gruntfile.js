@@ -57,7 +57,8 @@ module.exports = function(grunt) {
         uglify:{
         	libs: {
         	      files: {
-        	        'resources/vendors/bower_components/ng-table/dist/ng-table.min.js': ['resources/vendors/bower_components/ng-table/dist/ng-table.js']
+        	        'resources/vendors/bower_components/ng-table/dist/ng-table.min.js': ['resources/vendors/bower_components/ng-table/dist/ng-table.js'],
+        	        'resources/vendors/bower_components/angular-dragdrop/src/angular-dragdrop.min.js': ['resources/vendors/bower_components/angular-dragdrop/src/angular-dragdrop.js']
         	      }
         	},
         	controllers:{

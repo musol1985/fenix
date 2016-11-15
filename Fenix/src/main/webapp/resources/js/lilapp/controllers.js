@@ -2,14 +2,16 @@
 // Citas
 // =========================================================================
 materialAdmin
-    .controller('citasController', function($scope, prestacionService, userService,clienteService, horarioService, citaService, modalService, $uibModal) {
+    .controller('citasController', function($scope, $document, prestacionService, userService,clienteService, horarioService, citaService, modalService, $uibModal) {
     	$scope.maestros={
     			profesionales:[],
     			horarios:[],
     			prestaciones:[]
     	};
     	
-    	$scope.cliente;    	    	
+    	$scope.cliente;    	
+    	
+    	$scope.prestacion={};
     	
     	$scope.getSource=function(){
     		return [{
@@ -36,7 +38,8 @@ materialAdmin
     			$scope.maestros=res;
     			
     			$scope.profesional=citaService.agruparProfesionales($scope.maestros);
-    			$scope.horario=citaService.prepararHorarios($scope.maestros);
+    			$scope.horarioGen=citaService.prepararHorarios($scope.maestros);
+    			$scope.horario=$scope.horarioGen;
     			
     			$scope.calendario.iniciar();
     			
@@ -47,10 +50,34 @@ materialAdmin
     	
     	$scope.cargarMaestros();
     	
-    	$scope.onDragPrestacion=function(item, scope, prestacion){    		
-    		$scope.prestacion=prestacion;
+    	$scope.onPreDragPrestacion=function(event, element, prestacion){
+    		
+    		if($scope.prestacion==undefined || $scope.prestacion.id!=prestacion.id){
+	    		$scope.prestacion=prestacion;
+	    		
+	    		element.data('event', {
+	    			constraint:'laborable', 
+	    			duration:"00:"+prestacion.duracion,
+					title: prestacion.nombre, 
+					stick: true 
+				});
+	    		
+	    		$scope.horario=citaService.getHorarioForPrestacion(prestacion, $scope.maestros.horarios);
+	    		
+	    		$scope.calendario.onCambiarHorario();
+    		}
     	}
     	
+    	$scope.onDragPrestacionEnd=function(){
+    		//$scope.horario=$scope.horarioGen;
+    		//$scope.calendario.onCambiarHorario();
+    		$scope.prestacion={};
+    	}
+    	
+    	$scope.onDropPrestacion=function(p,d){
+    		console.log(p);
+    		console.log(d);
+    	}
     	
     	$scope.$on('onDragCita', function (event, cita) { 
     		if($scope.cliente && $scope.prestacion && $scope.profesional){

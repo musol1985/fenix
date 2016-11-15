@@ -64,6 +64,8 @@ materialAdmin
     		if(h.model)
     			model=h.model;
     		
+    		console.log(">>>>iniciando horario "+model.nombre);
+    		
     		h.isCompilado=function(){
     			if(h.run)
     				return true;
@@ -77,15 +79,15 @@ materialAdmin
 				codigo=String(self.template).replace("//##STATEMENTS_FESTIVOS", model.festivos)
 											.replace("//##STATEMENTS_VACACIONES", model.vacaciones)
 						 					.replace("//##STATEMENTS_LABORABLES", model.laborables);
-				console.log(codigo);
+
 				h.run=eval("("+codigo+")");
     		}
 
     		h.aplicar=function(moment, renderBack){
     			if(!h.isCompilado()){
     				h.compilar();
-    			}
-    			console.log("Aplicando el horario "+model.nombre+" al moment "+moment.format('YYYY-MM-DD'));
+    			} 
+    			//console.log("Aplicando el horario "+model.nombre+" al moment "+moment.format('YYYY-MM-DD'));
     			return h.run(moment, renderBack);
     		}
     	}
@@ -109,9 +111,9 @@ materialAdmin
     		  var g=0;    		  
     		  
     		  var addHueco=function(hueco){
-    			  console.log("Adding hueco "+hueco);
+    			  //console.log("Adding hueco "+hueco);
     			  if(!isProcesado(hueco)){
-    				  console.log("OK");
+    				  //console.log("OK");
     				  var h={start:dia+' '+hueco.s, end: dia+' '+hueco.e, id: hueco.id, color: hueco.color, title:hueco.id, grupo: hueco.g};
     				  if(renderBack && hueco.id=='laborable'){
     					  h.rendering='background';
@@ -131,7 +133,7 @@ materialAdmin
     		  id="vacaciones";
     		  //##STATEMENTS_VACACIONES
     		  g++;
-    		  color="#257e4a";
+    		  color="#0000FF";
     		  id="laborable";
     		  //##STATEMENTS_LABORABLES
     		  return huecos;
@@ -355,13 +357,17 @@ materialAdmin
     	 * Prepara los horario del list que viene del servidor a un hasmap para buscarlo rapido
     	 * Aparte le parara los metodos de compilar, run y aplicar
     	 */
-    	this.prepararHorarios=function(maestros){    		
+    	this.prepararHorarios=function(maestros){    	
+    		var generico;
+    		var horarios={};
     		angular.forEach(maestros.horarios, function(value, key) {
     			horarioService.iniciarHorario(value);
-			});
+    			if(value.generico==true)
+    				generico=value;
+    			horarios[value.id]=value;
+			});    		    		
     		
-    		var generico=maestros.horarios[0];
-    		
+    		maestros.horarios=horarios;
     		return generico;
     	}
     	
@@ -371,8 +377,8 @@ materialAdmin
     	}
     	
     	//TODO implementar la gestion de horarios
-    	this.getHorarioForPrestacion=function(prestaciones, horarios){
-    		return horarios[0];
+    	this.getHorarioForPrestacion=function(prestacion, horarios){
+    		return horarios[prestacion.horario];
     	}
     });
 materialAdmin

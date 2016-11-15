@@ -43,7 +43,7 @@ var jqyoui = angular.module('ngDragDrop', []).service('ngDragDropService', ['$ti
           callback = objExtract.callback,
           constructor = objExtract.constructor,
           args = [event, ui].concat(objExtract.args);
-      
+
       // call either $scoped method i.e. $scope.dropCallback or constructor's method i.e. this.dropCallback.
       // Removing scope.$apply call that was performance intensive (especially onDrag) and does not require it
       // always. So call it within the callback if needed.
@@ -309,6 +309,12 @@ var jqyoui = angular.module('ngDragDrop', []).service('ngDragDropService', ['$ti
             dragSettings = scope.$eval(element.attr('jqyoui-draggable') || element.attr('data-jqyoui-draggable')) || {};
             jqyouiOptions = scope.$eval(attrs.jqyouiOptions) || {};
             element
+              .mousedown(function(event){
+            	  if(dragSettings.onPreStart){
+            		  ngDragDropService.draggableScope = scope;
+                      ngDragDropService.callEventCallback(scope, dragSettings.onPreStart, event, element);
+            	  }
+              })
               .draggable({disabled: false})
               .draggable(jqyouiOptions)
               .draggable({

@@ -89,7 +89,8 @@ materialAdmin
             model: '=',
             height: '@',
             sources: '&',
-            onLoaded: '&?'            	
+            onLoaded: '&?', 
+            onDrop: '&'
         },
         transclude: true,
         link: function(scope, element, attrs) {
@@ -109,8 +110,8 @@ materialAdmin
         	}
             
             
-            sources.push(
-            	function(start, end, timezone, callback){     
+            
+            scope.sourceHorario=function(start, end, timezone, callback){     
 					var eventos=[];        					
 					
 					for(var i=0;i<end.diff(start, 'days');i++){
@@ -122,8 +123,8 @@ materialAdmin
 		    		}
 					console.log(eventos);
 					callback(eventos);        					
-				});
-            
+				};
+			sources.push(scope.sourceHorario);
             
 
             //Generate the Calendar
@@ -153,10 +154,18 @@ materialAdmin
                 slotDuration:'00:15:00',
                 height: parseInt(scope.height),
                 navLinks: true,
-                navLinkDayClick: 'agendaWeek'
+                navLinkDayClick: 'agendaWeek',
+                drop: function(date){            		
+    				var originalEventObject = $(this).data('event');
+
+        			var copiedEventObject = $.extend({}, originalEventObject);
+        			
+        			scope.onDrop({evento:copiedEventObject,fecha:date});
+                }
                 
             });  
 
+            
             scope.model.iniciar=function(){
             	angular.forEach(sources, function(source) {
             		element.fullCalendar('addEventSource',source);   				
@@ -165,6 +174,11 @@ materialAdmin
             	if(scope.onLoaded){
             		scope.onLoaded();
             	}
+            }
+            
+            scope.model.onCambiarHorario=function(){
+            	console.log("cambiando horario...");
+            	element.fullCalendar( 'refetchEventSources', scope.sourceHorario )
             }
         }
         

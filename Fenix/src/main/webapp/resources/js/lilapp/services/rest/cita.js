@@ -61,13 +61,17 @@ materialAdmin
     	 * Prepara los horario del list que viene del servidor a un hasmap para buscarlo rapido
     	 * Aparte le parara los metodos de compilar, run y aplicar
     	 */
-    	this.prepararHorarios=function(maestros){    		
+    	this.prepararHorarios=function(maestros){    	
+    		var generico;
+    		var horarios={};
     		angular.forEach(maestros.horarios, function(value, key) {
     			horarioService.iniciarHorario(value);
-			});
+    			if(value.generico==true)
+    				generico=value;
+    			horarios[value.id]=value;
+			});    		    		
     		
-    		var generico=maestros.horarios[0];
-    		
+    		maestros.horarios=horarios;
     		return generico;
     	}
     	
@@ -77,7 +81,7 @@ materialAdmin
     	}
     	
     	//TODO implementar la gestion de horarios
-    	this.getHorarioForPrestacion=function(prestaciones, horarios){
-    		return horarios[0];
+    	this.getHorarioForPrestacion=function(prestacion, horarios){
+    		return horarios[prestacion.horario];
     	}
     })

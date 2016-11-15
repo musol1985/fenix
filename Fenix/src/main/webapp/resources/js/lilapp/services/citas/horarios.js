@@ -64,6 +64,8 @@ materialAdmin
     		if(h.model)
     			model=h.model;
     		
+    		console.log(">>>>iniciando horario "+model.nombre);
+    		
     		h.isCompilado=function(){
     			if(h.run)
     				return true;
@@ -77,15 +79,15 @@ materialAdmin
 				codigo=String(self.template).replace("//##STATEMENTS_FESTIVOS", model.festivos)
 											.replace("//##STATEMENTS_VACACIONES", model.vacaciones)
 						 					.replace("//##STATEMENTS_LABORABLES", model.laborables);
-				console.log(codigo);
+
 				h.run=eval("("+codigo+")");
     		}
 
     		h.aplicar=function(moment, renderBack){
     			if(!h.isCompilado()){
     				h.compilar();
-    			}
-    			console.log("Aplicando el horario "+model.nombre+" al moment "+moment.format('YYYY-MM-DD'));
+    			} 
+    			//console.log("Aplicando el horario "+model.nombre+" al moment "+moment.format('YYYY-MM-DD'));
     			return h.run(moment, renderBack);
     		}
     	}
@@ -109,9 +111,9 @@ materialAdmin
     		  var g=0;    		  
     		  
     		  var addHueco=function(hueco){
-    			  console.log("Adding hueco "+hueco);
+    			  //console.log("Adding hueco "+hueco);
     			  if(!isProcesado(hueco)){
-    				  console.log("OK");
+    				  //console.log("OK");
     				  var h={start:dia+' '+hueco.s, end: dia+' '+hueco.e, id: hueco.id, color: hueco.color, title:hueco.id, grupo: hueco.g};
     				  if(renderBack && hueco.id=='laborable'){
     					  h.rendering='background';
@@ -131,7 +133,7 @@ materialAdmin
     		  id="vacaciones";
     		  //##STATEMENTS_VACACIONES
     		  g++;
-    		  color="#257e4a";
+    		  color="#0000FF";
     		  id="laborable";
     		  //##STATEMENTS_LABORABLES
     		  return huecos;

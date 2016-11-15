@@ -18,7 +18,7 @@
             </div>
 
             <div class="listview lv-user m-t-5 citas">
-                <div class="lv-item media" data-drag="true" data-jqyoui-options="{revert: 'invalid', helper:'clone',appendTo: 'body',containment: 'window',scroll: false}" data-jqyoui-draggable="{placeholder:true, animate:false, deepCopy:true, onStart: 'onDragPrestacion(p)'}" ng-repeat="p in maestros.prestaciones" ng-click="seleccionarPrestacion(p)" ng-class="{ 'active' : p.seleccionado==true  }">
+                <div class="lv-item media" data-drag="true" data-jqyoui-options="{revert: 'invalid', helper:'clone',appendTo: 'body',containment: 'window',scroll: false, distance:20, cursor:'pointer'}" data-jqyoui-draggable="{placeholder:true, animate:false, deepCopy:true, onStop: 'onDragPrestacionEnd()', onPreStart: 'onPreDragPrestacion(p, ui)'}" ng-repeat="p in maestros.prestaciones" ng-class="{ 'active' : p.seleccionado==true  }">
                     <div class="lv-avatar bgm-{{p.color}} pull-left">{{p.nombre.substr(0,1)}}</div>
                     <div class="media-body">
                         <div class="lv-title">{{p.nombre}}</div>
@@ -105,7 +105,7 @@
                 </div>
 
 
-            	<div id="calendar-widget" calendario procesar-dia="aplicarHorario(dia)" sources="getSource()" model="calendario" height="500" class="citas"></div>
+            	<div id="calendar-widget" calendario procesar-dia="aplicarHorario(dia)" on-drop="onDropPrestacion(evento, fecha)" sources="getSource()" model="calendario" height="500" class="citas"></div>
                 
                 <div class="clearfix"></div>
             </div>
