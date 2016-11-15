@@ -36,7 +36,7 @@ materialAdmin
     		$rootScope.$broadcast('onSeleccionarCentro', row);
     	}
 
-    	$scope.modal={
+    	/*$scope.modal={
     			nuevoCentro:{
     				centro:{'correoAdmin':'','nombre':'','ubicacion':'', 'tipo':'0', 'color':'teal'},
     				posicion:"",
@@ -93,7 +93,7 @@ materialAdmin
     	        }
     	        
     	       
-    	}
+    	}*/
     	
     	$scope.refrescar=function(){
     		$scope.cargarDatos();    		    		    		    		
@@ -104,10 +104,53 @@ materialAdmin
     			$scope.seleccionarCentro($scope.centro);    		    		    		    		
     	}
     	
-    	$scope.nuevo = function () {
+    	/*$scope.nuevo = function () {
     		$scope.modalInstance=modalService.mostrar($uibModal, $scope.modal);
-        };
+        };*/
          
+        
+        
+        
+        $scope.popup={
+    		getUbicacion : function(val) {
+ 	        	return ubicacionService.getUbicacion(val);
+ 	        },
+ 	        
+ 	        setUbicacion : function(item, model) {    	
+ 	        	var ubicacion=ubicacionService.setUbicacion(item, model);
+ 	        	
+ 	        	this.data.centro.ubicacion=ubicacion.direccion;
+ 	        	this.data.posicion=ubicacion.posicion;  
+ 	        },        		        		
+        };
+        
+        
+    	
+    	$scope.nuevo = function () {
+    		var data={centro:{'correoAdmin':'','nombre':'','ubicacion':'', 'tipo':'0', 'color':'teal'},posicion:"",nombreAdmin:""}
+    		$scope.popup.mostrar(data);
+        };
+        
+		$scope.onNuevo=function(data){
+			return centroService.nuevoCentro(data);
+		}
+		
+		$scope.onPostGuardar=function(data, accion, modificando){
+
+			errorService.procesar(accion,{
+				 0:{
+					 growl: true, texto: "Centro creado. Se le ha enviado un email al usuario admin", tipo: "success",
+					 onProcesar: function(){
+						 $scope.refrescar();
+					 }
+				 },
+				 2:{
+   					 titulo: "Atención",    				 
+   					 texto: "Ya existe un usuario registrado con ese correo",
+   					 tipo: "warning"
+   				 }
+			});
+		}
 
     })
     

@@ -88,7 +88,8 @@ materialAdmin
             procesarDia: '&',
             model: '=',
             height: '@',
-            sources: '&'
+            sources: '&',
+            onLoaded: '&?'            	
         },
         transclude: true,
         link: function(scope, element, attrs) {
@@ -152,66 +153,23 @@ materialAdmin
                 slotDuration:'00:15:00',
                 height: parseInt(scope.height),
                 navLinks: true,
-                navLinkDayClick: 'agendaWeek',
-                eventSources: sources
+                navLinkDayClick: 'agendaWeek'
+                
             });  
 
+            scope.model.iniciar=function(){
+            	angular.forEach(sources, function(source) {
+            		element.fullCalendar('addEventSource',source);   				
+    			});
+            	
+            	if(scope.onLoaded){
+            		scope.onLoaded();
+            	}
+            }
         }
         
     }
 });
-materialAdmin 
-	// =========================================================================
-    // CARD
-    // =========================================================================
-    .controller('uiColoresController', function($scope) {
-	    if (angular.isUndefined($scope.colores)){
-	    	 $scope.colores = [
-	             'teal',
-	             'red',
-	             'pink',
-	             'blue',
-	             'lime',
-	             'green',
-	             'cyan',
-	             'orange',
-	             'purple',
-	             'gray',
-	             'black',
-	         ]
-	    }	
-	    
-	    $scope.onClickColor=function(tag, $index){
-	    	$scope.model=tag;
-	    	$scope.activeState = $index;
-	    	$scope.onSeleccionar({color:tag, index:$index});	    	
-	    }
-	    
-	    function iniciar(){
-	    	$scope.activeState=$scope.colores.indexOf($scope.model);
-	    }
-	    
-	    iniciar();	    
-	})
-	
-	.directive('uicolores', function($compile, $rootScope) {
-		  return {
-			restrict: 'EA',
-			scope: {
-			    	model: '=',
-			    	colores: '@?',
-			    	onSeleccionar: '&?'
-			},		  
-		    controller: 'uiColoresController',
-		    controllerAs: 'ctrl',		    
-		    templateUrl: function(element, attrs) {
-		      return attrs.templateUrl || 'uib/template/colores.html';
-		    }
-		  };
-	})
-	
-	
-	;
 materialAdmin 
 	// =========================================================================
     // CARD
@@ -242,58 +200,59 @@ materialAdmin
 		    	'cuerpo':'cuerpo'
 		    }
 		  };
-	})
+	});
+materialAdmin 
 	// =========================================================================
-    // POPUP
-    // =========================================================================	
-	.controller('uipopupController', function($scope,$uibModal, modalService) {
-		 alert($scope.isUpdating);
-		 console.log($scope.isUpdating);
-		 if (angular.isUndefined($scope.isUpdating)){
-			
-		 }
-
-		$scope.popup.mostrar=function(data){
-			if(data && $scope.isUpdating({data:data})){
-				data=angular.copy(data);
-			}else{
-				data=$scope.getNew();
-			}
-			$scope.popup.data=data;
-			console.log(data);
-			$scope.modalInstance=modalService.mostrar($uibModal, $scope.popup, $scope.template);
-		}
-
-		$scope.popup.guardar=function(){
-			$scope.onSave({data:$scope.popup.data, modificando:$scope.isUpdating({data:$scope.popup.data})});
-			$scope.modalInstance.close();
-		}
-		
-		$scope.popup.showPostError=function(){
-			$scope.modalInstance=modalService.mostrar($uibModal, $scope.popup, $scope.template);
-		}
-		
-		$scope.popup.refrescar=function(){
-			$scope.refrescarTabla.tabla.reload();
-		}
-    	
+    // COLORES
+    // =========================================================================
+    .controller('uiColoresController', function($scope) {
+	    if (angular.isUndefined($scope.colores)){
+	    	 $scope.colores = [
+	             'teal',
+	             'red',
+	             'pink',
+	             'blue',
+	             'lime',
+	             'green',
+	             'cyan',
+	             'orange',
+	             'purple',
+	             'gray',
+	             'black',
+	         ]
+	    }	
+	    
+	    $scope.onClickColor=function(tag, $index){
+	    	$scope.model=tag;
+	    	$scope.activeState = $index;
+	    	if($scope.onSeleccionar)
+	    		$scope.onSeleccionar({color:tag, index:$index});	    	
+	    }
+	    
+	    function iniciar(){
+	    	$scope.activeState=$scope.colores.indexOf($scope.model);
+	    }
+	    
+	    iniciar();	    
 	})
 	
-	.directive('uipopup', function($compile, $rootScope) {
+	.directive('uicolores', function($compile, $rootScope) {
 		  return {
 			restrict: 'EA',
 			scope: {
-			    	popup: '=',
-			    	template: '@',
-			    	getNew: '&',
-			    	isUpdating: '&',
-			    	onSave: '&',
-			    	refrescarTabla: '='
+			    	model: '=',
+			    	colores: '@?',
+			    	onSeleccionar: '&?'
 			},		  
-		    controller: 'uipopupController',
-		    controllerAs: 'ctrl'
+		    controller: 'uiColoresController',
+		    controllerAs: 'ctrl',		    
+		    templateUrl: function(element, attrs) {
+		      return attrs.templateUrl || 'uib/template/colores.html';
+		    }
 		  };
 	})
+	
+	
 	;
 materialAdmin 
 	// =========================================================================
@@ -350,4 +309,79 @@ materialAdmin
 	})
 	
 	
+	;
+	// =========================================================================
+    // POPUP
+    // =========================================================================	
+	materialAdmin .controller('uipopupController', function($scope,$uibModal, modalService) {
+		$scope.modificando=function(data){
+			if(!data)
+				return false;
+			
+			if($scope.isUpdating){
+				return $scope.isUpdating({data:data});
+			}else if(data.id && data.id!=''){
+				return true;
+			}
+			return false;
+		}
+
+		$scope.popup.mostrar=function(data){ 
+			if($scope.modificando(data)){
+				data=angular.copy(data);
+			}
+			
+			$scope.popup.data=data;
+
+			$scope.modalInstance=modalService.mostrar($uibModal, $scope.popup, $scope.template);
+		}
+
+		$scope.popup.guardar=function(){
+			var params={data:$scope.popup.data};
+			if($scope.onPreSave)
+				$scope.onPreSave(params);
+			
+			var accion;
+			var modificando=false;
+			
+			if(!$scope.modificando(params.data)){
+				accion=$scope.onNew(params);
+			}else{
+				accion=$scope.onUpdate(params);
+				modificando=true;
+			}
+			
+			if($scope.onPostSave && accion)
+				$scope.onPostSave({data: params.data, accion:accion, modificando:modificando})
+
+			$scope.modalInstance.close();
+		}
+		
+		$scope.popup.showPostError=function(){
+			$scope.modalInstance=modalService.mostrar($uibModal, $scope.popup, $scope.template);
+		}
+		
+		$scope.popup.refrescar=function(){
+			$scope.refrescarTabla.tabla.reload();
+		}
+    	
+	})
+	
+	.directive('uiPopup', function($compile, $rootScope) {
+		  return {
+			restrict: 'EA',
+			scope: {
+			    	popup: '=',
+			    	template: '@',
+			    	isUpdating: '&?',
+			    	onNew: '&',
+			    	onUpdate: '&',
+			    	onPreSave: '&?',
+			    	onPostSave: '&?',
+			    	refrescarTabla: '='
+			},		  
+		    controller: 'uipopupController',
+		    controllerAs: 'ctrl'
+		  };
+	})
 	

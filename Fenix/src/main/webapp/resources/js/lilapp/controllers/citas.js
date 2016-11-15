@@ -2,7 +2,7 @@
 // Citas
 // =========================================================================
 materialAdmin
-    .controller('citasController', function($scope, prestacionService, userService, horarioService, citaService, modalService, $uibModal) {
+    .controller('citasController', function($scope, prestacionService, userService,clienteService, horarioService, citaService, modalService, $uibModal) {
     	$scope.maestros={
     			profesionales:[],
     			horarios:[],
@@ -37,6 +37,8 @@ materialAdmin
     			
     			$scope.profesional=citaService.agruparProfesionales($scope.maestros);
     			$scope.horario=citaService.prepararHorarios($scope.maestros);
+    			
+    			$scope.calendario.iniciar();
     			
     		}, function(error){
     			errorService.alertaGrowl("Error al obtener los maestros", 'danger');
@@ -81,9 +83,8 @@ materialAdmin
     	}
     	
     	
-    	$scope.modal={
-    			
-    			data:{profesional:{}}, 		
+    	$scope.modal={    			
+    			data:{profesional:{},cliente:$scope.cliente}, 		
     			profesionalesModal:[],
     			
     			mostrar:function(datos){
@@ -103,6 +104,25 @@ materialAdmin
     				var accion;
     				
     				$scope.modalInstance.close();
-    			}   
+    			}   ,
+    			
+    			buscarCliente:function(valor){
+    	        	return clienteService.buscar(valor, userService.getCentro().id);        	
+    	        	
+    	        },
+    	        
+    	        seleccionarCliente:function($item, $model){
+    	        	if($item.id==-1){
+    	        		this.crearCliente($item.busqueda);
+    	        	}else{
+    	        		console.log("Cliente seleccionado");
+    	        		console.log($item);
+    	        		$scope.cliente=$item;
+    	        		
+    	        		$rootScope.$broadcast('onSeleccionarCliente', $item);
+    	        	}   
+    	        	
+    	        	angular.element('#header').removeClass('search-toggled');
+    	        }
     	}
     })

@@ -6,7 +6,7 @@
 			</ul>
 			<cuerpo>
 				<table  ng-table="tabla" ng-table-get-datos="getDatos(params, onComplete)" ng-table-model="rows" ng-Table-Ref="presCtr" pagsize="10" class="table table-striped table-vmiddle">
-					<uipopup template="resources/template/modals/prestacion.html" popup="popup" get-new="getNew()" on-save="onGuardar(data, modificando)" refrescar-tabla="presCtr"/>
+					<ui-popup template="resources/template/modals/prestacion.html" popup="popup" on-new="onNuevo(data)" on-update="onModificar(data)" on-pre-save="onPreGuardar(data)" on-post-save="onPostGuardar(data, accion, modificando)" refrescar-tabla="presCtr"/>
 		             <tr ng-repeat="w in rows"  > 
 		                 <td data-title="'Nombre'">
 		                     <b>{{w.nombre.substr(0,1)}}</b>{{w.nombre.substr(1)}}

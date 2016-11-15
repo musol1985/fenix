@@ -7,33 +7,19 @@
 				<form name="myForm" class="form-horizontal" novalidate>
 				
 					<div class="row">
-		                <div class="col-xs-3" ng-class="{ 'has-error' : myForm.dni.$invalid && !myForm.dni.$pristine, 'has-success': myForm.dni.$invalid && !myForm.dni.$pristine}">
+		                <div class="col-xs-10">
 		                	<div class="input-group">
 		                        <span class="input-group-addon has-error"><i class="zmdi zmdi-account-box"></i></span>
 		                        <div class="fg-line">
-		                               <input type="text" ng-model="modalContent.data.dni" id="dni" name="dni" class="username form-control input-sm" placeholder="DNI/NIE" required ng-minlength="9">
+		                               <input type="text" name="busqueda" id="busqueda" ng-model="modalContent.data.cliente" placeholder="Cliente" typeahead-wait-ms="150" typeahead-on-select="modalContent.seleccionarCliente($item, $model)" uib-typeahead="cliente.texto for cliente in modalContent.buscarCliente($viewValue)" typeahead-loading="Cargando" class="form-control">
 		                        </div>
 	                        </div>
-	                        <p ng-show="myForm.dni.$invalid && !myForm.dni.$pristine" class="help-block centro">
-								<span ng-show="myForm.dni.$error.required">Obligatorio</span>
-								<span ng-show="myForm.dni.$error.minlength">Minimo 9 digitos</span>
-					      	</p>
 	                    </div>
-	                    
-	                    <div class="col-xs-1"></div>
-	                        	                    
-		                <div class="col-xs-3" ng-class="{ 'has-error' : myForm.telefono.$invalid && !myForm.telefono.$pristine, 'has-success': myForm.telefono.$invalid && !myForm.telefono.$pristine}">
-		                	<div class="input-group">
-		                        <span class="input-group-addon has-error"><i class="zmdi zmdi-account-box-phone"></i></span>
-		                        <div class="fg-line">
-		                               <input type="text" ng-model="modalContent.data.telefono" id="telefono" name="telefono" class="username form-control input-sm" placeholder="Movil" required ng-minlength="9" maxlength="9">
-		                        </div>
-	                        </div>
-                       		<p ng-show="myForm.telefono.$invalid && !myForm.telefono.$pristine" class="help-block centro">
-								<span ng-show="myForm.telefono.$error.required">Obligatorio</span>
-								<span ng-show="myForm.telefono.$error.minlength">Minimo 9 digitos</span>
-					      	</p>
-	                    </div>
+	                    <div class="col-xs-1">
+                         	<ul class="actions">
+								<li><a href="" ng-click="refrescar(presCtr.tabla)"><i class="zmdi zmdi-close-circle-o"></i></a></li>
+							</ul>
+						</div>
 					</div>
 					
 					<div class="row m-t-20">

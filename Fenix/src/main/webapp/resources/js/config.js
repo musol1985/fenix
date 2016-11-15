@@ -64,7 +64,27 @@ materialAdmin
             
             .state('configuracion.prestaciones', {
                 url: '/prestaciones',
-                templateUrl: 'resources/views/prestaciones.html'
+                templateUrl: 'resources/views/prestaciones.html',
+                resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {
+                                name: 'css',
+                                insertBefore: '#app-level',
+                                files: [
+                                    'resources/vendors/bower_components/chosen/chosen.min.css'
+                                ]
+                            },
+                            {
+                                name: 'vendors',
+                                files: [
+                                    'resources/vendors/bower_components/chosen/chosen.jquery.js',
+                                    'resources/vendors/bower_components/angular-chosen-localytics/dist/angular-chosen.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
             })
             
             .state('configuracion.horarios', {

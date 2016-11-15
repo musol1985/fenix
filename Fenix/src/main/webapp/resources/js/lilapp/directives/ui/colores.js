@@ -1,6 +1,6 @@
 materialAdmin 
 	// =========================================================================
-    // CARD
+    // COLORES
     // =========================================================================
     .controller('uiColoresController', function($scope) {
 	    if (angular.isUndefined($scope.colores)){
@@ -22,7 +22,8 @@ materialAdmin
 	    $scope.onClickColor=function(tag, $index){
 	    	$scope.model=tag;
 	    	$scope.activeState = $index;
-	    	$scope.onSeleccionar({color:tag, index:$index});	    	
+	    	if($scope.onSeleccionar)
+	    		$scope.onSeleccionar({color:tag, index:$index});	    	
 	    }
 	    
 	    function iniciar(){

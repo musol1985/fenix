@@ -9,7 +9,8 @@ materialAdmin
             procesarDia: '&',
             model: '=',
             height: '@',
-            sources: '&'
+            sources: '&',
+            onLoaded: '&?'            	
         },
         transclude: true,
         link: function(scope, element, attrs) {
@@ -73,10 +74,19 @@ materialAdmin
                 slotDuration:'00:15:00',
                 height: parseInt(scope.height),
                 navLinks: true,
-                navLinkDayClick: 'agendaWeek',
-                eventSources: sources
+                navLinkDayClick: 'agendaWeek'
+                
             });  
 
+            scope.model.iniciar=function(){
+            	angular.forEach(sources, function(source) {
+            		element.fullCalendar('addEventSource',source);   				
+    			});
+            	
+            	if(scope.onLoaded){
+            		scope.onLoaded();
+            	}
+            }
         }
         
     }
