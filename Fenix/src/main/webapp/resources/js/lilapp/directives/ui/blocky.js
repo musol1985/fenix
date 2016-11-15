@@ -8,10 +8,9 @@ materialAdmin
 	            method: 'GET',
 	            url: $scope.toolbox
 	        }).success(function(toolboxData){
-	        	$scope.onLoaded();
 	        	$scope.workspace = Blockly.inject('blocklyDiv', {toolbox: toolboxData});
-	        	
-	        	$scope.cargarWorkSpace();
+	        	if(!$scope.onLoaded())	        	
+	        		$scope.cargarWorkSpace();
 	        }).error(function(){
 	        	console.log("Error al obtener el toolbox "+$scope.toolbox);
 	        });

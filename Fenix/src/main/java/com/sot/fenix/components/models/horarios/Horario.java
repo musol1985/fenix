@@ -61,6 +61,7 @@ public class Horario extends AModelBasic implements ICodDescr{
 	public static Horario getGenerico(Centro c){
 		Horario h=new Horario();
 		
+		h.setNombre("Generico");
 		h.setLaborables("if((moment.month()+1)>=parseInt(1) && (moment.month()+1)<=parseInt(12)){\n     g++;\n       if((moment.isoWeekday())>=parseInt(1) && (moment.isoWeekday())<=parseInt(5)){\n       g++;\n         \taddHueco({s:'08:00',e:'12:00', id: id, color: color, m: moment, g:g});\n      \taddHueco({s:'17:00',e:'20:00', id: id, color: color, m: moment, g:g});\n    }\n  }\n");
 		h.setFestivos("if(moment.date()==1 && moment.month()+1==1){\n  \taddHueco({s:'00:00',e:'23:59', id: id, color: color, m: moment, g:g});\n  }\n");
 		h.setVacaciones("if((moment.month()+1)==parseInt(8)){\n  \taddHueco({s:'00:00',e:'23:59', id: id, color: color, m: moment, g:g});\n  }\n");

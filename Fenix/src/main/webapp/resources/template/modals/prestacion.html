@@ -41,25 +41,19 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-7">
-				<select class="w-100" chosen data-placeholder="Horario"  ng-options="item as item.nombre for item in modalContent.horariosModal track by item.id" ng-model="modalContent.data.horario"></select>
+			<div class="form-group col-md-12">
+				<label class="col-md-3 control-lable" for="horario">Horario</label>
+				<div class="col-md-7">
+					<select class="w-100" chosen data-placeholder="Horario"  ng-options="item as item.nombre for item in modalContent.horariosModal track by item.id" ng-model="modalContent.data.horario"></select>
+				</div>
 			</div>
 		</div>
 
 		<div class="row">
-			<div class="form-group col-md-12"
-				ng-class="{ 'has-error' : myForm.color.$invalid && !myForm.color.$pristine, 'has-success': myForm.color.$invalid && !myForm.color.$pristine}">
+			<div class="form-group col-md-12">
 				<label class="col-md-3 control-lable" for="color">Color</label>
 				<div class="col-md-7">
-					<input type="hidden" name="color"
-						ng-model="modalContent.data.color" class="form-control">
-
-					<ul class="skin-switch lista-colores">
-						<li ng-repeat="r in modalContent.getColores()"
-							class="lista-colores ss-skin bgm-{{ r }}"
-							ng-class="{ 'color-seleccionado' :modalContent.data.color==r }"
-							data-ng-click="modalContent.setColor(r)" />
-					</ul>
+					<uicolores model="modalContent.data.color"/>
 				</div>
 			</div>
 		</div>

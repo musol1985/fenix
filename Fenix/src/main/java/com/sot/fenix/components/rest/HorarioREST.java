@@ -1,6 +1,8 @@
 package com.sot.fenix.components.rest;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sot.fenix.components.json.HorarioJSON;
 import com.sot.fenix.components.json.ResponseJSON;
 import com.sot.fenix.components.models.horarios.Horario;
+import com.sot.fenix.components.models.horarios.HorarioEditor;
 import com.sot.fenix.components.services.HorarioService;
 import com.sot.fenix.components.services.PrestacionService;
 import com.sot.fenix.dao.HorarioDAO;
@@ -36,6 +39,18 @@ public class HorarioREST extends ABasicREST<HorarioService, Horario, HorarioDAO>
 		}
     }
 	
-
+	@RequestMapping(method=RequestMethod.GET, path="editor/{id}")
+    public ResponseJSON<HorarioJSON> getEditor(@PathVariable String id) {
+		HorarioEditor item=service.getEditorDAO().findOne(new ObjectId(id));
+		Horario h=service.getDAO().findOne(new ObjectId(id));
+		if(item!=null && h!=null){
+			HorarioJSON json=new HorarioJSON();
+			json.codigo=item.getCodigo();
+			json.model=h;
+			return new ResponseJSON<HorarioJSON>(ResponseJSON.OK, json);
+		}else{
+			return new ResponseJSON<HorarioJSON>(ResponseJSON.NO_EXISTE);
+		}
+    }
 }
 

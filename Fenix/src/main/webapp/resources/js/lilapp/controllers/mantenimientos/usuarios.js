@@ -86,20 +86,15 @@ materialAdmin
     				errorService.procesar(accion,{
 	    				 0:{
 	    					 growl: true,   				 
-	    					 texto: "Prestación creada",
+	    					 texto: "Usuario modificado",
 	    					 tipo: "success",
-	    					 onProcesar: function(){
-	    						 $scope.refrescar();
+	    					 onProcesar: function(){	    						 
+	    						 $scope.refrescar($scope.ctr.tabla);
 	    					 }
 	    				 },
 	    				 1:{
 		   					 titulo: "Atención",    				 
-		   					 texto: "La prestación no existe",
-		   					 tipo: "warning"
-		   				 },
-	    				 2:{
-		   					 titulo: "Atención",    				 
-		   					 texto: "Ya existe una prestación con ese nombre",
+		   					 texto: "El usuario no existe",
 		   					 tipo: "warning"
 		   				 },
 		   				onError:function(){
@@ -111,25 +106,8 @@ materialAdmin
     			},
     			
     			onSeleccionarColor:function(color){
-    				alert(color);
-    			},
-    			
-    			setColor : function(color){
-    	        	$scope.modal.data.color=color;
-    	        },
-    	        
-    	        getColores :function(){
-    	        	return   [
-    	                         'lightblue',
-    	                         'bluegray',
-    	                         'cyan',
-    	                         'teal',
-    	                         'green',
-    	                         'orange',
-    	                         'blue',
-    	                         'purples'
-    	                     ]
-    	        }
+    				console.log($scope);
+    			}
     	}
         
         $scope.eliminar = function(item){
