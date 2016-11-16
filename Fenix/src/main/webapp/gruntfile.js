@@ -111,7 +111,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-angular-templates');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-text-replace');
     
     // Default task(s).
     grunt.registerTask('default', ['watch']);

@@ -6,8 +6,10 @@
 
 				<form name="myForm" class="form-horizontal" novalidate>
 				
+				
+				
 					<div class="row">
-		                <div class="col-xs-10">
+		                <div class="col-xs-8">
 		                	<div class="input-group">
 		                        <span class="input-group-addon has-error"><i class="zmdi zmdi-account-box"></i></span>
 		                        <div class="fg-line">
@@ -15,27 +17,33 @@
 		                        </div>
 	                        </div>
 	                    </div>
-	                    <div class="col-xs-1">
+	                   <!-- <div class="col-xs-2">
                          	<ul class="actions">
-								<li><a href="" ng-click="borrar(modalContent.data.cliente)"><i class="zmdi zmdi-close-circle-o"></i></a></li>
+								<li><a href="" ng-click="modalContent.borrar(modalContent.data.cliente)"><i class="zmdi zmdi-close-circle-o"></i></a></li>
 							</ul>
-						</div>
+						</div> --> 
 					</div>
-		                
-					<div class="row m-t-20">
+					
+					<div class="row">
 		                <div class="col-xs-8" >
-		                	<select class="w-100" chosen data-placeholder="Profesional"  ng-options="item as item.nombre group by item.grupo for item in modalContent.profesionales track by item.id" ng-model="modalContent.data.profesional"> 
-                			</select>
+							<label class="control-lable" for="prestacion">Prestacion</label>
+		                	<select class="w-100" name="prestacion"  data-placeholder="Prestacion"  ng-options="item as item.nombre group by item.grupo for item in modalContent.prestaciones track by item.id" ng-model="modalContent.data.prestacion"/>
 	                    </div>
 					</div>
+		                
+					<div class="row">
+		                <div class="col-xs-8" >
+							<label class="control-lable" for="profesional">Profesional</label>
+		                	<select class="w-100" name="profesional"  data-placeholder="Profesional"  ng-options="item as item.nombre group by item.grupo for item in modalContent.profesionales track by item.id" ng-model="modalContent.data.profesional"/>
+	                    </div>
+					</div>
+					
+					
 
 					<div class="modal-footer  m-t-30">
-						<button class="btn bgm-blue btn-lg" ng-click="modalContent.guardar(true)" ng-disabled="myForm.$invalid">
-							Crear y Seleccionar
+						<button class="btn bgm-blue btn-lg" ng-click="modalContent.guardar()" ng-disabled="myForm.$invalid">
+							Crear cita
 						</button>
-						<button class="btn bgm-blue btn-lg" ng-click="modalContent.guardar(false)" ng-disabled="myForm.$invalid">
-							Solo crear
-						</button>  
                     	<button class="btn bgm-red btn-lg" ng-click="cancel()">Cancelar</button>
                 	</div>
                   </form>
