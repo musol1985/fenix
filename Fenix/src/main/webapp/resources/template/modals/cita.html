@@ -17,46 +17,14 @@
 	                    </div>
 	                    <div class="col-xs-1">
                          	<ul class="actions">
-								<li><a href="" ng-click="refrescar(presCtr.tabla)"><i class="zmdi zmdi-close-circle-o"></i></a></li>
+								<li><a href="" ng-click="borrar(modalContent.data.cliente)"><i class="zmdi zmdi-close-circle-o"></i></a></li>
 							</ul>
 						</div>
 					</div>
-					
-					<div class="row m-t-20">
-		                <div class="col-xs-4" ng-class="{ 'has-error' : myForm.nombre.$invalid && !myForm.nombre.$pristine, 'has-success': myForm.nombre.$invalid && !myForm.nombre.$pristine}">
-		                	<div class="input-group">
-		                        <span class="input-group-addon"><i class="zmdi zmdi-spellcheck"></i></span>
-		                        <div class="fg-line">
-		                               <input type="text" ng-model="modalContent.data.nombre" id="nombre" name="nombre" class="username form-control input-sm" placeholder="Nombre" required ng-minlength="3">
-		                        </div>
-	                        </div>
-	                        <p ng-show="myForm.nombre.$invalid && !myForm.nombre.$pristine" class="help-block centro">
-								<span ng-show="myForm.telefono.$error.required">Obligatorio</span>
-								<span ng-show="myForm.telefono.$error.minlength">Minimo 9 digitos</span>
-					      	</p>
-	                    </div>
-						<div class="col-xs-6" ng-class="{ 'has-error' : myForm.apellidos.$invalid && !myForm.apellidos.$pristine, 'has-success': myForm.apellidos.$invalid && !myForm.apellidos.$pristine}">
-		                	<div class="input-group" >
-		                        <span class="input-group-addon"><i class="zmdi zmdi-spellcheck"></i></span>
-		                        <div class="fg-line">
-		                               <input type="text" ng-model="modalContent.data.apellidos" id="apellidos" name="apellidos" class="username form-control input-sm" placeholder="Apellidos" required ng-minlength="3">
-		                        </div>
-	                        </div>
-	                        <p ng-show="myForm.apellidos.$invalid && !myForm.apellidos.$pristine" class="help-block centro">
-								<span ng-show="myForm.telefono.$error.required">Obligatorio</span>
-								<span ng-show="myForm.telefono.$error.minlength">Minimo 9 digitos</span>
-					      	</p>
-	                    </div>	                    
-					</div>
-					
-		
-
 		                
 					<div class="row m-t-20">
 		                <div class="col-xs-8" >
-		      {{modalContent.data|json}}
-		                	<select class="w-100" chosen data-placeholder="Profesional"  ng-options="item as item.nombre group by item.grupo for item in modalContent.profesionalesModal track by item.id" ng-model="modalContent.data.profesional"> 
-             
+		                	<select class="w-100" chosen data-placeholder="Profesional"  ng-options="item as item.nombre group by item.grupo for item in modalContent.profesionales track by item.id" ng-model="modalContent.data.profesional"> 
                 			</select>
 	                    </div>
 					</div>

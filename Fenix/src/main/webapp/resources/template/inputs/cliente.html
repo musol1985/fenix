@@ -1,0 +1,21 @@
+
+<div class="col-xs-3"
+	ng-class="{ 'has-error' : getFormItem().$invalid  && !getFormItem().$pristine, 'has-success': getFormItem().$invalid && !getFormItem().$pristine}">
+	
+	<div class="input-group">
+		<span class="input-group-addon has-error"><i
+			class="zmdi" ng-class="extra.icono"></i></span>
+		<div class="fg-line">
+		<input type="{{tipo}}" ng-model="model"
+			id="{{nombre}}" name="{{nombre}}"
+			class="form-control input-sm"
+			placeholder="{{placeholder}}" ng-required="obligatorio" ng-minlength="min" ng-maxlength="max"/>
+		</div>
+		<p ng-show="getFormItem().$invalid && !getFormItem().$pristine" class="help-block">
+				<span ng-show="getFormItem().$error.required">Este campo es obligatorio</span>
+				<span ng-show="getFormItem().$error.minlength">El tamaño debe ser superior a {{min}}</span>
+				<span ng-show="getFormItem().$error.maxlength">El tamaño debe ser inferior a {{max}}</span>  
+				<span ng-show="getFormItem().$error.email">Debes escribir un correo valido</span>
+		</p>
+	</div>
+</div>

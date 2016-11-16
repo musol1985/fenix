@@ -101,6 +101,10 @@ materialAdmin
             	console.log("cambiando horario...");
             	element.fullCalendar( 'refetchEventSources', scope.sourceHorario )
             }
+            
+            scope.model.addCita=function(cita){
+            	element.fullCalendar('renderEvent', cita, true);
+            }
         }
         
     }

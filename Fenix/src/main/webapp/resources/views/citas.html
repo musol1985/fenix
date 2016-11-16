@@ -27,10 +27,10 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
- 
+        
+        <ui-popup template="resources/template/modals/cita.html" popup="popup" on-new="popup.onNuevo(data)" on-update="popup.onModificar(data)" on-pre-save="popup.onPreGuardar(data)" on-post-save="popup.onPostGuardar(data, accion, modificando)"/>		                   
+ 		
         <div class="ms-body">
             <div class="listview lv-message">
                 <div class="card-header ch-alt clearfix">
@@ -100,11 +100,10 @@
 			            </li>                 
                     </ul>
                     
-                    <button class="btn bgm-red btn-float waves-effect" ng-click="nueva()"><i class="zmdi zmdi-plus"></i></button>
+                    <button class="btn bgm-red btn-float waves-effect" ng-click="popup.nueva()"><i class="zmdi zmdi-plus"></i></button>
    
                 </div>
-
-
+                				
             	<div id="calendar-widget" calendario procesar-dia="aplicarHorario(dia)" on-drop="onDropPrestacion(evento, fecha)" sources="getSource()" model="calendario" height="500" class="citas"></div>
                 
                 <div class="clearfix"></div>

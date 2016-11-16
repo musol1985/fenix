@@ -110,46 +110,88 @@ materialAdmin
     	}
     	
     	
-    	$scope.modal={    			
-    			data:{profesional:{},cliente:$scope.cliente}, 		
-    			profesionalesModal:[],
+    	$scope.popup={   	
+    			profesionales:[],
+    			prestaciones:[],
     			
-    			mostrar:function(datos){
-    				angular.copy($scope.profesionales, $scope.modal.profesionalesModal);    			
-    				$scope.modal.profesionalesModal=$scope.modal.profesionalesModal.splice(1);
-    				
-    				//$scope.modal.data=datos;
-    				
-    				console.log($scope.profesional);
-    				$scope.modal.data.profesional=$scope.profesional;
-    				console.log($scope.modal.data.profesional);
-    				$scope.modalInstance=modalService.mostrar($uibModal, $scope.modal, "resources/template/modals/cita.html");
+    			//METODOS
+    			iniciar:function(){
+    				angular.copy($scope.maestros.profesionales, $scope.popup.profesionales);    			
+    	    		$scope.popup.profesionales=$scope.popup.profesionales.splice(1);
+    	    		$scope.popup.prestaciones=$scope.maestros.prestaciones;
     			},
-    			
-    			guardar:function(seleccionar){    				
-    				var data=$scope.modal.data;
-    				var accion;
-    				
-    				$scope.modalInstance.close();
-    			}   ,
-    			
+    			nuevo : function () {
+    	    		var data={id:'', nombre:'',profesional:{}};
+    	    		$scope.popup.iniciar();
+    	    		$scope.popup.mostrar(data);
+    	        },
+    	        modificar : function (data) {
+    	        	if(!data.profesional.id)data.profesional={id:data.profesional};
+    	        	$scope.popup.iniciar();
+    	        	$scope.popup.mostrar(data);
+    	        },
+    	        onPreGuardar:function(data){
+    				data.profesional=data.profesional.id;
+    				data.prestacion=data.prestacion.id;
+    			},
     			buscarCliente:function(valor){
     	        	return clienteService.buscar(valor, userService.getCentro().id);        	
-    	        	
+    	        },
+    	        borrar:function(item){
+    	        	if(item.texto){
+    	        		item.texto="";
+    	        	}else{
+    	        		item="";
+    	        	}
     	        },
     	        
-    	        seleccionarCliente:function($item, $model){
-    	        	if($item.id==-1){
-    	        		this.crearCliente($item.busqueda);
-    	        	}else{
-    	        		console.log("Cliente seleccionado");
-    	        		console.log($item);
-    	        		$scope.cliente=$item;
-    	        		
-    	        		$rootScope.$broadcast('onSeleccionarCliente', $item);
-    	        	}   
-    	        	
-    	        	angular.element('#header').removeClass('search-toggled');
-    	        }
-    	}
+    			//EVENTOS
+    			onNuevo:function(cita){
+    				cita.fechaIni=cita.start.format("DD/MM/YYYY HH:mm:ss");
+    				cita.fechaFin=cita.start.add(120, "m").format("DD/MM/YYYY HH:mm:ss");
+    				cita.centro=userService.getCentro().id;
+        			
+    				var color=cita.prestacion.color;
+    				var title=cita.cliente.nombre+" "+cita.cliente.apellidos;
+    				
+    				cita.prestacion=cita.prestacion.id;
+    				cita.cliente=cita.cliente.id;
+        			
+        			var res=citaService.nueva(cita);
+        			
+        			cita.constraint="laborable";
+        			cita.color=color;
+        			cita.title=title;
+        			
+        			$scope.calendario.addCita(cita);
+        			
+    				return res;
+    			},
+    			onModificar:function(cita){
+    				angular.copy(cita, cita.old);
+    				return prestacionService.REST.modificar(data);
+    			},
+    			onPostGuardar:function(cita, accion, modificando){
+    				var txtOK=modificando?"modificada":"creada";
+    				
+    				errorService.procesar(accion,{
+    					 0:{
+    						 growl: true, texto: "Cita "+txtOK, tipo: "success",
+    						 onProcesar: function(){
+    							//TODO actualizar el calendario?
+    						 }
+    					 },
+    					 1:{
+    	  					 titulo: "Atención", texto: "La prestación no existe", tipo: "warning"
+    	  				 },
+    					 2:{
+    	  					 titulo: "Atención", texto: "Ya existe una prestación con ese nombre", tipo: "warning"
+    	  				 },
+    	  				onError:function(){
+    	  					//TODO eliminar la cita del calendario en caso de creacion
+    	  					$scope.popup.showPostError();
+    					 }
+    				});
+    			}
+    	};
     })

@@ -11,7 +11,9 @@
     "grunt-contrib-nodeunit": "~0.4.1",
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
-    "grunt-csssplit": "^0.4.0"
+    "grunt-csssplit": "^0.4.0",
+    "grunt-text-replace": "^0.4.0",
+    "grunt-encoding":"~0.4.1"
   },
   "dependencies": {
     "angular-animate": "^1.4.3",
