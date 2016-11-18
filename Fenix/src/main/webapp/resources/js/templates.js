@@ -46,45 +46,6 @@ angular.module('materialAdmin').run(['$templateCache', function($templateCache) 
   );
 
 
-  $templateCache.put('resources/template/datepicker/calendar.html',
-    "<div class=\"block-header\"><h2>Selecciona un dia</h2><ul class=\"actions\"><li><a href=\"\"><i class=\"zmdi zmdi-trending-up\"></i></a></li><li><a href=\"\"><i class=\"zmdi zmdi-check-all\"></i></a></li><li class=\"dropdown\" uib-dropdown><a href=\"\" uib-dropdown-toggle><i class=\"zmdi zmdi-more-vert\"></i></a><ul class=\"dropdown-menu dropdown-menu-right\"><li><a href=\"\">Refresh</a></li><li><a href=\"\">Manage Widgets</a></li><li><a href=\"\">Widgets Settings</a></li></ul></li></ul></div><div class=\"row\"><div class=\"col-sm-4\"><div><uib-datepicker show-weeks=\"false\" ng-model=\"dt\" min-date=\"minDate\" class=\"dp\"></uib-datepicker></div></div></div>"
-  );
-
-
-  $templateCache.put('resources/template/datepicker/datepicker.html',
-    "<div ng-switch=\"datepickerMode\"><div uib-daypicker ng-switch-when=\"day\" tabindex=\"0\" class=\"uib-daypicker\"></div><div uib-monthpicker ng-switch-when=\"month\" tabindex=\"0\" class=\"uib-monthpicker\"></div><div uib-yearpicker ng-switch-when=\"year\" tabindex=\"0\" class=\"uib-yearpicker\"></div></div>"
-  );
-
-
-  $templateCache.put('resources/template/datepicker/day.html',
-    "<table role=\"grid\" aria-labelledby=\"{{::uniqueId}}-title\" aria-activedescendant=\"{{activeDateId}}\"><thead><tr><th><button type=\"button\" class=\"btn btn-default btn-sm pull-left uib-left\" ng-click=\"move(-1)\" tabindex=\"-1\"><i aria-hidden=\"true\" class=\"glyphicon glyphicon-chevron-left\"></i><span class=\"sr-only\">previous</span></button></th><th colspan=\"{{::5 + showWeeks}}\"><button id=\"{{::uniqueId}}-title\" role=\"heading\" aria-live=\"assertive\" aria-atomic=\"true\" type=\"button\" class=\"btn btn-default btn-sm uib-title\" ng-click=\"toggleMode()\" ng-disabled=\"datepickerMode === maxMode\" tabindex=\"-1\"><strong>{{title}}</strong></button></th><th><button type=\"button\" class=\"btn btn-default btn-sm pull-right uib-right\" ng-click=\"move(1)\" tabindex=\"-1\"><i aria-hidden=\"true\" class=\"glyphicon glyphicon-chevron-right\"></i><span class=\"sr-only\">next</span></button></th></tr><tr><th ng-if=\"showWeeks\" class=\"text-center\"></th><th ng-repeat=\"label in ::labels track by $index\" class=\"text-center\"><small aria-label=\"{{::label.full}}\">{{::label.abbr}}</small></th></tr></thead><tbody><tr class=\"uib-weeks\" ng-repeat=\"row in rows track by $index\" role=\"row\"><td ng-if=\"showWeeks\" class=\"text-center h6\"><em>{{ weekNumbers[$index] }}</em></td><td ng-repeat=\"dt in row\" class=\"uib-day text-center\" role=\"gridcell\" id=\"{{::dt.uid}}\" ng-class=\"::dt.customClass\"><button type=\"button\" class=\"btn btn-default btn-sm\" uib-is-class=\"\n" +
-    "            'btn-info' for selectedDt,\n" +
-    "            'active' for activeDt\n" +
-    "            on dt\" ng-click=\"select(dt.date)\" ng-disabled=\"::dt.disabled\" tabindex=\"-1\"><span ng-class=\"::{'text-muted': dt.secondary, 'text-info': dt.current}\">{{::dt.label}}</span></button></td></tr></tbody></table>"
-  );
-
-
-  $templateCache.put('resources/template/datepicker/month.html',
-    "<table role=\"grid\" aria-labelledby=\"{{::uniqueId}}-title\" aria-activedescendant=\"{{activeDateId}}\"><thead><tr><th><button type=\"button\" class=\"btn btn-default btn-sm pull-left uib-left\" ng-click=\"move(-1)\" tabindex=\"-1\"><i aria-hidden=\"true\" class=\"glyphicon glyphicon-chevron-left\"></i><span class=\"sr-only\">previous</span></button></th><th colspan=\"{{::yearHeaderColspan}}\"><button id=\"{{::uniqueId}}-title\" role=\"heading\" aria-live=\"assertive\" aria-atomic=\"true\" type=\"button\" class=\"btn btn-default btn-sm uib-title\" ng-click=\"toggleMode()\" ng-disabled=\"datepickerMode === maxMode\" tabindex=\"-1\"><strong>{{title}}</strong></button></th><th><button type=\"button\" class=\"btn btn-default btn-sm pull-right uib-right\" ng-click=\"move(1)\" tabindex=\"-1\"><i aria-hidden=\"true\" class=\"glyphicon glyphicon-chevron-right\"></i><span class=\"sr-only\">next</span></button></th></tr></thead><tbody><tr class=\"uib-months\" ng-repeat=\"row in rows track by $index\" role=\"row\"><td ng-repeat=\"dt in row\" class=\"uib-month text-center\" role=\"gridcell\" id=\"{{::dt.uid}}\" ng-class=\"::dt.customClass\"><button type=\"button\" class=\"btn btn-default\" uib-is-class=\"\n" +
-    "            'btn-info' for selectedDt,\n" +
-    "            'active' for activeDt\n" +
-    "            on dt\" ng-click=\"select(dt.date)\" ng-disabled=\"::dt.disabled\" tabindex=\"-1\"><span ng-class=\"::{'text-info': dt.current}\">{{::dt.label}}</span></button></td></tr></tbody></table>"
-  );
-
-
-  $templateCache.put('resources/template/datepicker/popup.html',
-    "<ul class=\"dropdown-menu\" ng-keydown=\"keydown($event)\"><li ng-transclude></li><li ng-if=\"showButtonBar\" class=\"dp-actions clearfix\"><button type=\"button\" class=\"btn btn-link\" ng-click=\"select('today')\">{{ getText('current') }}</button> <button type=\"button\" class=\"btn btn-link\" ng-click=\"close()\">{{ getText('close') }}</button></li></ul>"
-  );
-
-
-  $templateCache.put('resources/template/datepicker/year.html',
-    "<table role=\"grid\" aria-labelledby=\"{{::uniqueId}}-title\" aria-activedescendant=\"{{activeDateId}}\"><thead><tr><th><button type=\"button\" class=\"btn btn-default btn-sm pull-left uib-left\" ng-click=\"move(-1)\" tabindex=\"-1\"><i aria-hidden=\"true\" class=\"glyphicon glyphicon-chevron-left\"></i><span class=\"sr-only\">previous</span></button></th><th colspan=\"{{::columns - 2}}\"><button id=\"{{::uniqueId}}-title\" role=\"heading\" aria-live=\"assertive\" aria-atomic=\"true\" type=\"button\" class=\"btn btn-default btn-sm uib-title\" ng-click=\"toggleMode()\" ng-disabled=\"datepickerMode === maxMode\" tabindex=\"-1\"><strong>{{title}}</strong></button></th><th><button type=\"button\" class=\"btn btn-default btn-sm pull-right uib-right\" ng-click=\"move(1)\" tabindex=\"-1\"><i aria-hidden=\"true\" class=\"glyphicon glyphicon-chevron-right\"></i><span class=\"sr-only\">next</span></button></th></tr></thead><tbody><tr class=\"uib-years\" ng-repeat=\"row in rows track by $index\" role=\"row\"><td ng-repeat=\"dt in row\" class=\"uib-year text-center\" role=\"gridcell\" id=\"{{::dt.uid}}\" ng-class=\"::dt.customClass\"><button type=\"button\" class=\"btn btn-default\" uib-is-class=\"\n" +
-    "            'btn-info' for selectedDt,\n" +
-    "            'active' for activeDt\n" +
-    "            on dt\" ng-click=\"select(dt.date)\" ng-disabled=\"::dt.disabled\" tabindex=\"-1\"><span ng-class=\"::{'text-info': dt.current}\">{{::dt.label}}</span></button></td></tr></tbody></table>"
-  );
-
-
   $templateCache.put('resources/template/editores/horario.html',
     "<div class=\"modal-header\"><h4 class=\"modal-title\">Probar horario</h4></div><div class=\"modal-body\"><div class=\"row\"><div id=\"calendar-widget\" data-testcalendario class=\"citas\"></div></div><div class=\"modal-footer m-t-30\"><button class=\"btn bgm-red btn-lg\" ng-click=\"cancel()\">Cerrar</button></div></div>"
   );
@@ -101,15 +62,7 @@ angular.module('materialAdmin').run(['$templateCache', function($templateCache) 
 
 
   $templateCache.put('resources/template/modals/cita.html',
-    "<div class=\"modal-header\"><h4 class=\"modal-title\">Nueva Cita</h4></div><div class=\"modal-body\"><form name=\"myForm\" class=\"form-horizontal\" novalidate><div class=\"row\"><div class=\"col-xs-8\"><div class=\"input-group\"><span class=\"input-group-addon has-error\"><i class=\"zmdi zmdi-account-box\"></i></span><div class=\"fg-line\"><input type=\"text\" name=\"busqueda\" id=\"busqueda\" ng-model=\"modalContent.data.cliente\" placeholder=\"Cliente\" typeahead-wait-ms=\"150\" typeahead-on-select=\"modalContent.seleccionarCliente($item, $model)\" uib-typeahead=\"cliente.texto for cliente in modalContent.buscarCliente($viewValue)\" typeahead-loading=\"Cargando\" class=\"form-control\"></div></div></div><!-- <div class=\"col-xs-2\">\r" +
-    "\n" +
-    "                         	<ul class=\"actions\">\r" +
-    "\n" +
-    "								<li><a href=\"\" ng-click=\"modalContent.borrar(modalContent.data.cliente)\"><i class=\"zmdi zmdi-close-circle-o\"></i></a></li>\r" +
-    "\n" +
-    "							</ul>\r" +
-    "\n" +
-    "						</div> --></div><div class=\"row\"><div class=\"col-xs-8\"><label class=\"control-lable\" for=\"prestacion\">Prestacion</label><select class=\"w-100\" name=\"prestacion\" data-placeholder=\"Prestacion\" ng-options=\"item as item.nombre group by item.grupo for item in modalContent.prestaciones track by item.id\" ng-model=\"modalContent.data.prestacion\"></div></div><div class=\"row\"><div class=\"col-xs-8\"><label class=\"control-lable\" for=\"profesional\">Profesional</label><select class=\"w-100\" name=\"profesional\" data-placeholder=\"Profesional\" ng-options=\"item as item.nombre group by item.grupo for item in modalContent.profesionales track by item.id\" ng-model=\"modalContent.data.profesional\"></div></div><div class=\"modal-footer m-t-30\"><button class=\"btn bgm-blue btn-lg\" ng-click=\"modalContent.guardar()\" ng-disabled=\"myForm.$invalid\">Crear cita</button> <button class=\"btn bgm-red btn-lg\" ng-click=\"cancel()\">Cancelar</button></div></form></div>"
+    "<div class=\"modal-header\"><h4 class=\"modal-title\">Nueva Cita</h4></div><div class=\"modal-body\"><form name=\"myForm\" class=\"form-horizontal\" novalidate><div class=\"row\"><div class=\"form-group\"><div class=\"col-md-10\"><label for=\"cliente\">Cliente</label><input type=\"text\" name=\"cliente\" ng-model=\"modalContent.data.cliente\" placeholder=\"Busca un cliente por nombre, dni, telefono...\" typeahead-wait-ms=\"150\" typeahead-on-select=\"modalContent.seleccionarCliente($item, $model)\" uib-typeahead=\"cliente.texto for cliente in modalContent.buscarCliente($viewValue)\" typeahead-loading=\"Cargando\" class=\"form-control\"></div></div></div><div class=\"row\"><div class=\"col-sm-4\"><div class=\"date-picker input-group\" ng-class=\"{ 'is-opened': modalContent.opened == true }\"><span class=\"input-group-addon\"><i class=\"zmdi zmdi-calendar ma-icon\"></i></span><div class=\"fg-line\" ng-class=\"{ 'fg-toggled': modalContent.opened == true }\"><input ng-click=\"modalContent.open($event)\" type=\"text\" class=\"form-control\" uib-datepicker-popup=\"dd-MMMM-yyyy\" show-weeks=\"false\" ng-model=\"dtPopup\" is-open=\"modalContent.opened\" datepicker-options=\"modalContent.dateOptions\" ng-required=\"true\" close-text=\"Close\" placeholder=\"Select Date\"></div></div></div></div><div class=\"row\"><ui-input form=\"myForm\" label=\"Nombre*\" nombre=\"nombre\" placeholder=\"Introduce el nombre\" model=\"modalContent.data.nombre\" obligatorio min=\"3\"></div><div class=\"row\"><ui-input form=\"myForm\" label=\"Importe\" nombre=\"importe\" placeholder=\"Introduce el importe en €\" model=\"modalContent.data.importe\" label-size=\"2\" input-size=\"4\"><ui-input form=\"myForm\" label=\"Duración\" nombre=\"duracion\" placeholder=\"Introduce la duracción en formato 00:00\" model=\"modalContent.data.duracion\" label-size=\"2\" input-size=\"4\"></div><div class=\"row\"><div class=\"form-group\"><label class=\"col-md-3 control-lable\" for=\"horario\">Horario</label><div class=\"col-md-8\"><select class=\"w-100\" chosen data-placeholder=\"Horario\" ng-options=\"item as item.nombre for item in modalContent.prestaciones track by item.id\" ng-model=\"modalContent.data.horario\"></select></div></div></div><div class=\"row\"><div class=\"form-group\"><label class=\"col-md-3 control-lable\" for=\"profesionales\">Profesional</label><div class=\"col-md-8\"><select class=\"w-100\" chosen data-placeholder=\"profesionales\" ng-options=\"item as item.nombre for item in modalContent.profesionales track by item.id\" ng-model=\"modalContent.data.profesional\"></select></div></div></div><div class=\"modal-footer m-t-30\"><button class=\"btn bgm-blue btn-lg\" ng-click=\"modalContent.guardar()\" ng-disabled=\"myForm.$invalid\">Crear cita</button> <button class=\"btn bgm-red btn-lg\" ng-click=\"cancel()\">Cancelar</button></div></form></div>"
   );
 
 
@@ -124,7 +77,69 @@ angular.module('materialAdmin').run(['$templateCache', function($templateCache) 
 
 
   $templateCache.put('resources/template/modals/prestacion.html',
-    "<div class=\"modal-header\"><h4 class=\"modal-title\">Nueva prestación</h4></div><div class=\"modal-body\"><form name=\"myForm\" class=\"form-horizontal\" novalidate><div class=\"row\"><ui-input form=\"myForm\" label=\"Nombre*\" nombre=\"nombre\" placeholder=\"Introduce el nombre\" model=\"modalContent.data.nombre\" obligatorio min=\"3\"></div><div class=\"row\"><ui-input form=\"myForm\" label=\"Importe\" nombre=\"importe\" placeholder=\"Introduce el importe en €\" model=\"modalContent.data.importe\"></div><div class=\"row\"><ui-input form=\"myForm\" label=\"Duración\" nombre=\"duracion\" placeholder=\"Introduce la duracción en formato 00:00\" model=\"modalContent.data.duracion\"></div><div class=\"row\"><div class=\"form-group col-md-12\"><label class=\"col-md-3 control-lable\" for=\"horario\">Horario</label><div class=\"col-md-7\"><select class=\"w-100\" chosen data-placeholder=\"Horario\" ng-options=\"item as item.nombre for item in modalContent.horariosModal track by item.id\" ng-model=\"modalContent.data.horario\"></select></div></div></div><div class=\"row\"><div class=\"form-group col-md-12\"><label class=\"col-md-3 control-lable\" for=\"color\">Color</label><div class=\"col-md-7\"><uicolores model=\"modalContent.data.color\"></div></div></div><div class=\"modal-footer\"><button class=\"btn bgm-blue btn-lg\" ng-click=\"modalContent.guardar()\" ng-disabled=\"myForm.$invalid\">Guardar</button> <button class=\"btn bgm-red btn-lg\" ng-click=\"cancel()\">Cancelar</button></div></form></div>"
+    "<div class=\"modal-header\"><h4 class=\"modal-title\">Nueva prestación</h4></div><div class=\"modal-body\"><form name=\"myForm\" class=\"form-horizontal\" novalidate><div class=\"row\"><ui-input form=\"myForm\" label=\"Nombre*\" nombre=\"nombre\" placeholder=\"Introduce el nombre\" model=\"modalContent.data.nombre\" obligatorio min=\"3\" cols=\"col-sm-10\" label-cols=\"col-sm-2\"></div><!-- <div class=\"row\">			\r" +
+    "\n" +
+    "			<div class=\"col-sm-4\">\r" +
+    "\n" +
+    "				<ui-input form=\"myForm\" label=\"Importe\" nombre=\"importe\" placeholder=\"Introduce el importe en €\"\r" +
+    "\n" +
+    "					model=\"modalContent.data.importe\"/>\r" +
+    "\n" +
+    "			</div>\r" +
+    "\n" +
+    "			<div class=\"col-sm-2\"></div>\r" +
+    "\n" +
+    "			<div class=\"col-sm-4\">\r" +
+    "\n" +
+    "				<ui-input form=\"myForm\" label=\"Duración\" nombre=\"duracion\" placeholder=\"Introduce la duracción en formato 00:00\"\r" +
+    "\n" +
+    "					model=\"modalContent.data.duracion\"/>\r" +
+    "\n" +
+    "			</div>\r" +
+    "\n" +
+    "		</div>\r" +
+    "\n" +
+    "		<div class=\"row\">\r" +
+    "\n" +
+    "			\r" +
+    "\n" +
+    "		</div>\r" +
+    "\n" +
+    "		<div class=\"row\">\r" +
+    "\n" +
+    "			<div class=\"form-group col-sm-12\">\r" +
+    "\n" +
+    "				<label class=\"control-lable\" for=\"horario\">Horario</label>\r" +
+    "\n" +
+    "				<div>\r" +
+    "\n" +
+    "					<select class=\"w-100\" chosen data-placeholder=\"Horario\"  ng-options=\"item as item.nombre for item in modalContent.horariosModal track by item.id\" ng-model=\"modalContent.data.horario\"></select>\r" +
+    "\n" +
+    "				</div>\r" +
+    "\n" +
+    "			</div>\r" +
+    "\n" +
+    "		</div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "		<div class=\"row\">\r" +
+    "\n" +
+    "			<div class=\"form-group col-sm-12\">\r" +
+    "\n" +
+    "				<label class=\"control-lable\" for=\"color\">Color</label>\r" +
+    "\n" +
+    "				<div>\r" +
+    "\n" +
+    "					<uicolores model=\"modalContent.data.color\"/>\r" +
+    "\n" +
+    "				</div>\r" +
+    "\n" +
+    "			</div>\r" +
+    "\n" +
+    "		</div>\r" +
+    "\n" +
+    "--><div class=\"modal-footer\"><button class=\"btn bgm-blue btn-lg\" ng-click=\"modalContent.guardar()\" ng-disabled=\"myForm.$invalid\">Guardar</button> <button class=\"btn bgm-red btn-lg\" ng-click=\"cancel()\">Cancelar</button></div></form></div>"
   );
 
 
@@ -164,7 +179,7 @@ angular.module('materialAdmin').run(['$templateCache', function($templateCache) 
 
 
   $templateCache.put('uib/template/input.html',
-    "<div class=\"form-group col-md-12\" ng-class=\"{ 'has-error' : getFormItem().$invalid  && !getFormItem().$pristine, 'has-success': getFormItem().$invalid && !getFormItem().$pristine}\"><label class=\"col-md-3 control-lable\" for=\"{{nombre}}\">{{label}}</label><div class=\"col-md-7\"><input type=\"{{tipo}}\" ng-model=\"model\" id=\"{{nombre}}\" name=\"{{nombre}}\" class=\"form-control input-sm\" placeholder=\"{{placeholder}}\" ng-required=\"obligatorio\" ng-minlength=\"min\" ng-maxlength=\"max\"><p ng-show=\"getFormItem().$invalid && !getFormItem().$pristine\" class=\"help-block\"><span ng-show=\"getFormItem().$error.required\">Este campo es obligatorio</span> <span ng-show=\"getFormItem().$error.minlength\">El tamaño debe ser superior a {{min}}</span> <span ng-show=\"getFormItem().$error.maxlength\">El tamaño debe ser inferior a {{max}}</span> <span ng-show=\"getFormItem().$error.email\">Debes escribir un correo valido</span></p></div></div>"
+    "<div class=\"form-group\" ng-class=\"[getCols(),{ 'has-error' : getFormItem().$invalid  && !getFormItem().$pristine, 'has-success': getFormItem().$invalid && !getFormItem().$pristine}]\"><label for=\"{{nombre}}\" class=\"control-label\" ng-class=\"labelCols\">{{label}}</label><div ng-class=\"getInputCols()\"><div class=\"fg-line\"><input type=\"{{tipo}}\" ng-model=\"model\" id=\"{{nombre}}\" name=\"{{nombre}}\" class=\"form-control input-sm\" placeholder=\"{{placeholder}}\" ng-required=\"obligatorio\" ng-minlength=\"min\" ng-maxlength=\"max\"></div><p ng-show=\"getFormItem().$invalid && !getFormItem().$pristine\" class=\"help-block\"><span ng-show=\"getFormItem().$error.required\">Este campo es obligatorio</span> <span ng-show=\"getFormItem().$error.minlength\">El tamaño debe ser superior a {{min}}</span> <span ng-show=\"getFormItem().$error.maxlength\">El tamaño debe ser inferior a {{max}}</span> <span ng-show=\"getFormItem().$error.email\">Debes escribir un correo valido</span></p></div></div>"
   );
 
 
@@ -175,6 +190,42 @@ angular.module('materialAdmin').run(['$templateCache', function($templateCache) 
 
   $templateCache.put('uib/template/listaitem.html',
     "<div class=\"lv-avatar bgm-{{color}} pull-left\">{{titulo.substr(0,1)}}</div><div class=\"media-body\"><div class=\"lv-title\">{{titulo}}</div><div class=\"lv-small\">{{descripcion}}</div><div class=\"lv-small\">{{subDescripcion}}</div></div>"
+  );
+
+
+  $templateCache.put('uib/template/datepicker/calendar.html',
+    "<div class=\"block-header\"><h2>Selecciona un dia</h2><ul class=\"actions\"><li><a href=\"\"><i class=\"zmdi zmdi-trending-up\"></i></a></li><li><a href=\"\"><i class=\"zmdi zmdi-check-all\"></i></a></li><li class=\"dropdown\" uib-dropdown><a href=\"\" uib-dropdown-toggle><i class=\"zmdi zmdi-more-vert\"></i></a><ul class=\"dropdown-menu dropdown-menu-right\"><li><a href=\"\">Refresh</a></li><li><a href=\"\">Manage Widgets</a></li><li><a href=\"\">Widgets Settings</a></li></ul></li></ul></div><div class=\"row\"><div class=\"col-sm-4\"><div><uib-datepicker show-weeks=\"false\" ng-model=\"dt\" min-date=\"minDate\" class=\"dp\"></uib-datepicker></div></div></div>"
+  );
+
+
+  $templateCache.put('uib/template/datepicker/datepicker.html',
+    "<div ng-switch=\"datepickerMode\"><div uib-daypicker ng-switch-when=\"day\" tabindex=\"0\" class=\"uib-daypicker\"></div><div uib-monthpicker ng-switch-when=\"month\" tabindex=\"0\" class=\"uib-monthpicker\"></div><div uib-yearpicker ng-switch-when=\"year\" tabindex=\"0\" class=\"uib-yearpicker\"></div></div>"
+  );
+
+
+  $templateCache.put('uib/template/datepicker/day.html',
+    "<table role=\"grid\" aria-labelledby=\"{{::uniqueId}}-title\" aria-activedescendant=\"{{activeDateId}}\" class=\"dp-table dpt-day\"><thead><tr class=\"tr-dpnav\"><th><button type=\"button\" class=\"pull-left btn-dp\" ng-click=\"move(-1)\" tabindex=\"-1\"><i class=\"zmdi zmdi-long-arrow-left\"></i></button></th><th colspan=\"{{::5 + showWeeks}}\"><button id=\"{{::uniqueId}}-title\" role=\"heading\" aria-live=\"assertive\" aria-atomic=\"true\" type=\"button\" ng-click=\"toggleMode()\" ng-disabled=\"datepickerMode === maxMode\" tabindex=\"-1\" class=\"w-100 btn-dp\"><div class=\"dp-title\">{{title}}</div></button></th><th><button type=\"button\" class=\"pull-right btn-dp\" ng-click=\"move(1)\" tabindex=\"-1\"><i class=\"zmdi zmdi-long-arrow-right\"></i></button></th></tr><tr class=\"tr-dpday\"><th ng-if=\"showWeeks\" class=\"text-center\"></th><th ng-repeat=\"label in ::labels track by $index\" class=\"text-center\"><small aria-label=\"{{::label.full}}\">{{::label.abbr}}</small></th></tr></thead><tbody><tr ng-repeat=\"row in rows track by $index\"><td ng-if=\"showWeeks\" class=\"text-center h6\"><em>{{ weekNumbers[$index] }}</em></td><td ng-repeat=\"dt in row track by dt.date\" class=\"text-center\" role=\"gridcell\" id=\"{{::dt.uid}}\" ng-class=\"::dt.customClass\"><button type=\"button\" class=\"w-100 btn-dp btn-dpday btn-dpbody\" ng-class=\"{'dp-today': dt.current, 'dp-selected': dt.selected, 'dp-active': isActive(dt)}\" ng-click=\"select(dt.date)\" ng-disabled=\"dt.disabled\" tabindex=\"-1\"><span ng-class=\"::{'dp-day-muted': dt.secondary, 'dp-day-today': dt.current}\">{{::dt.label}}</span></button></td></tr></tbody></table>"
+  );
+
+
+  $templateCache.put('uib/template/datepicker/month.html',
+    "<table role=\"grid\" aria-labelledby=\"{{::uniqueId}}-title\" aria-activedescendant=\"{{activeDateId}}\"><thead><tr><th><button type=\"button\" class=\"btn btn-default btn-sm pull-left uib-left\" ng-click=\"move(-1)\" tabindex=\"-1\"><i aria-hidden=\"true\" class=\"glyphicon glyphicon-chevron-left\"></i><span class=\"sr-only\">previous</span></button></th><th colspan=\"{{::yearHeaderColspan}}\"><button id=\"{{::uniqueId}}-title\" role=\"heading\" aria-live=\"assertive\" aria-atomic=\"true\" type=\"button\" class=\"btn btn-default btn-sm uib-title\" ng-click=\"toggleMode()\" ng-disabled=\"datepickerMode === maxMode\" tabindex=\"-1\"><strong>{{title}}</strong></button></th><th><button type=\"button\" class=\"btn btn-default btn-sm pull-right uib-right\" ng-click=\"move(1)\" tabindex=\"-1\"><i aria-hidden=\"true\" class=\"glyphicon glyphicon-chevron-right\"></i><span class=\"sr-only\">next</span></button></th></tr></thead><tbody><tr class=\"uib-months\" ng-repeat=\"row in rows track by $index\" role=\"row\"><td ng-repeat=\"dt in row\" class=\"uib-month text-center\" role=\"gridcell\" id=\"{{::dt.uid}}\" ng-class=\"::dt.customClass\"><button type=\"button\" class=\"btn btn-default\" uib-is-class=\"\n" +
+    "            'btn-info' for selectedDt,\n" +
+    "            'active' for activeDt\n" +
+    "            on dt\" ng-click=\"select(dt.date)\" ng-disabled=\"::dt.disabled\" tabindex=\"-1\"><span ng-class=\"::{'text-info': dt.current}\">{{::dt.label}}</span></button></td></tr></tbody></table>"
+  );
+
+
+  $templateCache.put('uib/template/datepicker/popup.html',
+    "<ul class=\"dropdown-menu\" ng-keydown=\"keydown($event)\"><li ng-transclude></li><li ng-if=\"showButtonBar\" class=\"dp-actions clearfix\"><button type=\"button\" class=\"btn btn-link\" ng-click=\"select('today')\">{{ getText('current') }}</button> <button type=\"button\" class=\"btn btn-link\" ng-click=\"close()\">{{ getText('close') }}</button></li></ul>"
+  );
+
+
+  $templateCache.put('uib/template/datepicker/year.html',
+    "<table role=\"grid\" aria-labelledby=\"{{::uniqueId}}-title\" aria-activedescendant=\"{{activeDateId}}\"><thead><tr><th><button type=\"button\" class=\"btn btn-default btn-sm pull-left uib-left\" ng-click=\"move(-1)\" tabindex=\"-1\"><i aria-hidden=\"true\" class=\"glyphicon glyphicon-chevron-left\"></i><span class=\"sr-only\">previous</span></button></th><th colspan=\"{{::columns - 2}}\"><button id=\"{{::uniqueId}}-title\" role=\"heading\" aria-live=\"assertive\" aria-atomic=\"true\" type=\"button\" class=\"btn btn-default btn-sm uib-title\" ng-click=\"toggleMode()\" ng-disabled=\"datepickerMode === maxMode\" tabindex=\"-1\"><strong>{{title}}</strong></button></th><th><button type=\"button\" class=\"btn btn-default btn-sm pull-right uib-right\" ng-click=\"move(1)\" tabindex=\"-1\"><i aria-hidden=\"true\" class=\"glyphicon glyphicon-chevron-right\"></i><span class=\"sr-only\">next</span></button></th></tr></thead><tbody><tr class=\"uib-years\" ng-repeat=\"row in rows track by $index\" role=\"row\"><td ng-repeat=\"dt in row\" class=\"uib-year text-center\" role=\"gridcell\" id=\"{{::dt.uid}}\" ng-class=\"::dt.customClass\"><button type=\"button\" class=\"btn btn-default\" uib-is-class=\"\n" +
+    "            'btn-info' for selectedDt,\n" +
+    "            'active' for activeDt\n" +
+    "            on dt\" ng-click=\"select(dt.date)\" ng-disabled=\"::dt.disabled\" tabindex=\"-1\"><span ng-class=\"::{'text-info': dt.current}\">{{::dt.label}}</span></button></td></tr></tbody></table>"
   );
 
 }]);

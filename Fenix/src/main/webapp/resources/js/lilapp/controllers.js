@@ -113,6 +113,23 @@ materialAdmin
     	$scope.popup={   	
     			profesionales:[],
     			prestaciones:[],
+    			dt:new Date(),
+    			
+    			
+    			today : function() {
+    				$scope.popup.dt = new Date();            
+    	        },
+
+    	        open : function($event, opened) {
+    	            $event.preventDefault();
+    	            $event.stopPropagation();
+    	            $scope.popup.opened=true;
+    	        },
+
+    	        dateOptions : {
+    	            formatYear: 'yy',
+    	            startingDay: 1
+    	        },
     			
     			//METODOS
     			iniciar:function(){
@@ -136,6 +153,10 @@ materialAdmin
     			},
     			buscarCliente:function(valor){
     	        	return clienteService.buscar(valor, userService.getCentro().id);        	
+    	        },
+    	        seleccionarCliente:function(v,m){
+    	        	alert(v);
+    	        	alert(m);
     	        },
     	        borrar:function(item){
     	        	if(item.texto){

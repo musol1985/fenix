@@ -16,7 +16,7 @@ module.exports = function(grunt) {
         },
         ngtemplates: {
           materialAdmin: {
-            src: ['resources/template/**.html', 'resources/template/**/**.html', 'uib/template/**.html'],
+            src: ['resources/template/**.html', 'resources/template/**/**.html', 'uib/template/**.html','uib/template/**/**.html'],
             dest: 'resources/js/templates.js',
             options: {
               htmlmin: {

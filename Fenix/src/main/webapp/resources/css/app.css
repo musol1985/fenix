@@ -15785,7 +15785,7 @@ select.chosen {
   background: #fff;
 }
 .bootstrap-datetimepicker-widget .datepicker-days table {
-  margin-bottom: 2px;
+  margin-bottom: 20px;
 }
 .bootstrap-datetimepicker-widget .timepicker .md {
   font-size: 25px;

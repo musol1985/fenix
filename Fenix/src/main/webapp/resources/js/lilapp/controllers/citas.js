@@ -137,6 +137,10 @@ materialAdmin
     			buscarCliente:function(valor){
     	        	return clienteService.buscar(valor, userService.getCentro().id);        	
     	        },
+    	        seleccionarCliente:function(v,m){
+    	        	alert(v);
+    	        	alert(m);
+    	        },
     	        borrar:function(item){
     	        	if(item.texto){
     	        		item.texto="";

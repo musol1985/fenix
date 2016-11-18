@@ -4,8 +4,19 @@
 	materialAdmin .controller('uiInputController', function($sce, $scope,$uibModal, modalService) {
 		$scope.getFormItem=function(){
 			return $scope.form[$scope.nombre];			
+		}			
+		
+		$scope.getInputCols=function(){
+			if($scope.labelCols)
+				return $scope.cols;
+			return "";
 		}
 		
+		$scope.getCols=function(){
+			if(!$scope.labelCols)
+				return $scope.cols;
+			return "";
+		}
 	})
 	
 	.directive('uiInput', function($compile, $rootScope) {
@@ -20,7 +31,9 @@
 			    	tipo: '@?',
 			    	model: '=',
 			    	placeholder: '@?',
-			    	extra: '=?'
+			    	extra: '=?',
+			    	cols: '@?',
+			    	labelCols: '@?'
 			},	
 			templateUrl: function(element, attrs) {
 			      return attrs.templateUrl || 'uib/template/input.html';

@@ -1,14 +1,13 @@
-
-<div class="form-group col-md-12"
-	ng-class="{ 'has-error' : getFormItem().$invalid  && !getFormItem().$pristine, 'has-success': getFormItem().$invalid && !getFormItem().$pristine}">
-	<label class="col-md-3 control-lable" for="{{nombre}}">{{label}}</label>
-	<div class="col-md-7">
-		<input type="{{tipo}}" ng-model="model"
-			id="{{nombre}}" name="{{nombre}}"
-			class="form-control input-sm"
-			placeholder="{{placeholder}}" ng-required="obligatorio" ng-minlength="min" ng-maxlength="max"/>
-			
-			<p ng-show="getFormItem().$invalid && !getFormItem().$pristine" class="help-block">
+<div class="form-group" ng-class="[getCols(),{ 'has-error' : getFormItem().$invalid  && !getFormItem().$pristine, 'has-success': getFormItem().$invalid && !getFormItem().$pristine}]">
+	<label for="{{nombre}}" class="control-label" ng-class="labelCols" >{{label}}</label>
+	<div ng-class="getInputCols()">
+		<div class="fg-line">
+			<input type="{{tipo}}" ng-model="model"
+				id="{{nombre}}" name="{{nombre}}"
+				class="form-control input-sm"
+				placeholder="{{placeholder}}" ng-required="obligatorio" ng-minlength="min" ng-maxlength="max"/>
+		</div>
+		<p ng-show="getFormItem().$invalid && !getFormItem().$pristine" class="help-block">
 				<span ng-show="getFormItem().$error.required">Este campo es obligatorio</span>
 				<span ng-show="getFormItem().$error.minlength">El tamaño debe ser superior a {{min}}</span>
 				<span ng-show="getFormItem().$error.maxlength">El tamaño debe ser inferior a {{max}}</span>  

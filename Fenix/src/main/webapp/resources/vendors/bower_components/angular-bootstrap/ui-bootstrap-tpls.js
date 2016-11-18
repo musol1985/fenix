@@ -2013,12 +2013,11 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
       datepickerOptions: '=?'
     },
     require: ['uibDatepicker', '^ngModel'],
-    restrict: 'A',
+    restrict: 'AE',
     controller: 'UibDatepickerController',
     controllerAs: 'datepicker',
     link: function(scope, element, attrs, ctrls) {
       var datepickerCtrl = ctrls[0], ngModelCtrl = ctrls[1];
-
       datepickerCtrl.init(ngModelCtrl);
     }
   };

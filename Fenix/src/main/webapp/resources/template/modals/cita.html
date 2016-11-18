@@ -1,52 +1,86 @@
 
-                <div class="modal-header">
-                    <h4 class="modal-title">Nueva Cita</h4>
-                </div>
-                <div class="modal-body">
+<div class="modal-header">
+	<h4 class="modal-title">Nueva Cita</h4>
+</div>
+<div class="modal-body">
 
-				<form name="myForm" class="form-horizontal" novalidate>
-				
-				
-				
-					<div class="row">
-		                <div class="col-xs-8">
-		                	<div class="input-group">
-		                        <span class="input-group-addon has-error"><i class="zmdi zmdi-account-box"></i></span>
-		                        <div class="fg-line">
-		                               <input type="text" name="busqueda" id="busqueda" ng-model="modalContent.data.cliente" placeholder="Cliente" typeahead-wait-ms="150" typeahead-on-select="modalContent.seleccionarCliente($item, $model)" uib-typeahead="cliente.texto for cliente in modalContent.buscarCliente($viewValue)" typeahead-loading="Cargando" class="form-control">
-		                        </div>
-	                        </div>
-	                    </div>
-	                   <!-- <div class="col-xs-2">
-                         	<ul class="actions">
-								<li><a href="" ng-click="modalContent.borrar(modalContent.data.cliente)"><i class="zmdi zmdi-close-circle-o"></i></a></li>
-							</ul>
-						</div> --> 
-					</div>
-					
-					<div class="row">
-		                <div class="col-xs-8" >
-							<label class="control-lable" for="prestacion">Prestacion</label>
-		                	<select class="w-100" name="prestacion"  data-placeholder="Prestacion"  ng-options="item as item.nombre group by item.grupo for item in modalContent.prestaciones track by item.id" ng-model="modalContent.data.prestacion"/>
-	                    </div>
-					</div>
-		                
-					<div class="row">
-		                <div class="col-xs-8" >
-							<label class="control-lable" for="profesional">Profesional</label>
-		                	<select class="w-100" name="profesional"  data-placeholder="Profesional"  ng-options="item as item.nombre group by item.grupo for item in modalContent.profesionales track by item.id" ng-model="modalContent.data.profesional"/>
-	                    </div>
-					</div>
-					
-					
+	<form name="myForm" class="form-horizontal" novalidate>
 
-					<div class="modal-footer  m-t-30">
-						<button class="btn bgm-blue btn-lg" ng-click="modalContent.guardar()" ng-disabled="myForm.$invalid">
-							Crear cita
-						</button>
-                    	<button class="btn bgm-red btn-lg" ng-click="cancel()">Cancelar</button>
-                	</div>
-                  </form>
+
+		<div class="row">
+			<div class="form-group">
+				
+				<div class="col-md-10">
+					<label  for="cliente">Cliente</label>
+					<input type="text" name="cliente"
+						ng-model="modalContent.data.cliente"
+						placeholder="Busca un cliente por nombre, dni, telefono..."
+						typeahead-wait-ms="150"
+						typeahead-on-select="modalContent.seleccionarCliente($item, $model)"
+						uib-typeahead="cliente.texto for cliente in modalContent.buscarCliente($viewValue)"
+						typeahead-loading="Cargando" class="form-control">
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-sm-4">
+                    <div class="date-picker input-group" ng-class="{ 'is-opened': modalContent.opened == true }">
+                        <span class="input-group-addon"><i class="zmdi zmdi-calendar ma-icon"></i></span>
+                        <div class="fg-line" ng-class="{ 'fg-toggled': modalContent.opened == true }">
+                            <input ng-click="modalContent.open($event)" type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" show-weeks="false" ng-model="dtPopup" is-open="modalContent.opened"  datepicker-options="modalContent.dateOptions" ng-required="true" close-text="Close" placeholder="Select Date" />
+                        </div>
+                    </div>
 
                 </div>
+		</div>
+
+		<div class="row">
+			<ui-input form="myForm" label="Nombre*" nombre="nombre"
+				placeholder="Introduce el nombre" model="modalContent.data.nombre"
+				obligatorio min="3"/>
+		</div>
+		<div class="row">
+			<ui-input form="myForm" label="Importe" nombre="importe"
+				placeholder="Introduce el importe en €"
+				model="modalContent.data.importe"  label-size="2" input-size="4"/>
+			<ui-input form="myForm" label="Duración" nombre="duracion"
+				placeholder="Introduce la duracción en formato 00:00"
+				model="modalContent.data.duracion" label-size="2" input-size="4"/>
+		</div>
+
+
+		<div class="row">
+			<div class="form-group">
+				<label class="col-md-3 control-lable" for="horario">Horario</label>
+				<div class="col-md-8">
+					<select class="w-100" chosen data-placeholder="Horario"
+						ng-options="item as item.nombre for item in modalContent.prestaciones track by item.id"
+						ng-model="modalContent.data.horario"></select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group">
+				<label class="col-md-3 control-lable" for="profesionales">Profesional</label>
+				<div class="col-md-8">
+					<select class="w-100" chosen data-placeholder="profesionales"
+						ng-options="item as item.nombre for item in modalContent.profesionales track by item.id"
+						ng-model="modalContent.data.profesional"></select>
+				</div>
+			</div>
+		</div>
+
+
+
+
+		<div class="modal-footer  m-t-30">
+			<button class="btn bgm-blue btn-lg" ng-click="modalContent.guardar()"
+				ng-disabled="myForm.$invalid">Crear cita</button>
+			<button class="btn bgm-red btn-lg" ng-click="cancel()">Cancelar</button>
+		</div>
+	</form>
+
+</div>
 
