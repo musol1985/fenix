@@ -77,27 +77,7 @@ angular.module('materialAdmin').run(['$templateCache', function($templateCache) 
 
 
   $templateCache.put('resources/template/modals/prestacion.html',
-    "<div class=\"modal-header\"><h4 class=\"modal-title\">Nueva prestación</h4></div><div class=\"modal-body\"><form name=\"myForm\" class=\"form-horizontal\" novalidate><div class=\"row\"><ui-input form=\"myForm\" label=\"Nombre*\" nombre=\"nombre\" placeholder=\"Introduce el nombre\" model=\"modalContent.data.nombre\" obligatorio min=\"3\" cols=\"col-sm-10\" label-cols=\"col-sm-2\"></div><!-- <div class=\"row\">			\r" +
-    "\n" +
-    "			<div class=\"col-sm-4\">\r" +
-    "\n" +
-    "				<ui-input form=\"myForm\" label=\"Importe\" nombre=\"importe\" placeholder=\"Introduce el importe en €\"\r" +
-    "\n" +
-    "					model=\"modalContent.data.importe\"/>\r" +
-    "\n" +
-    "			</div>\r" +
-    "\n" +
-    "			<div class=\"col-sm-2\"></div>\r" +
-    "\n" +
-    "			<div class=\"col-sm-4\">\r" +
-    "\n" +
-    "				<ui-input form=\"myForm\" label=\"Duración\" nombre=\"duracion\" placeholder=\"Introduce la duracción en formato 00:00\"\r" +
-    "\n" +
-    "					model=\"modalContent.data.duracion\"/>\r" +
-    "\n" +
-    "			</div>\r" +
-    "\n" +
-    "		</div>\r" +
+    "<div class=\"modal-header\"><h4 class=\"modal-title\">Nueva prestación</h4></div><div class=\"modal-body\"><form name=\"myForm\" class=\"form-horizontal\" novalidate><div class=\"row\"><ui-input form=\"myForm\" label=\"Nombre*\" nombre=\"nombre\" placeholder=\"Introduce el nombre\" model=\"modalContent.data.nombre\" obligatorio min=\"3\" cols=\"col-sm-10\" label-cols=\"col-sm-2\"></div><div class=\"row\"><div class=\"col-sm-1\"></div><div class=\"col-sm-4\"><ui-input form=\"myForm\" label=\"Importe\" obligatorio min=\"3\" nombre=\"importe\" placeholder=\"Introduce el importe en €\" model=\"modalContent.data.importe\"></div><div class=\"col-sm-1\"></div><div class=\"col-sm-4\"><ui-input form=\"myForm\" label=\"Duración\" nombre=\"duracion\" placeholder=\"Introduce la duracción en formato 00:00\" model=\"modalContent.data.duracion\"></div></div><!-- \r" +
     "\n" +
     "		<div class=\"row\">\r" +
     "\n" +
@@ -209,10 +189,7 @@ angular.module('materialAdmin').run(['$templateCache', function($templateCache) 
 
 
   $templateCache.put('uib/template/datepicker/month.html',
-    "<table role=\"grid\" aria-labelledby=\"{{::uniqueId}}-title\" aria-activedescendant=\"{{activeDateId}}\"><thead><tr><th><button type=\"button\" class=\"btn btn-default btn-sm pull-left uib-left\" ng-click=\"move(-1)\" tabindex=\"-1\"><i aria-hidden=\"true\" class=\"glyphicon glyphicon-chevron-left\"></i><span class=\"sr-only\">previous</span></button></th><th colspan=\"{{::yearHeaderColspan}}\"><button id=\"{{::uniqueId}}-title\" role=\"heading\" aria-live=\"assertive\" aria-atomic=\"true\" type=\"button\" class=\"btn btn-default btn-sm uib-title\" ng-click=\"toggleMode()\" ng-disabled=\"datepickerMode === maxMode\" tabindex=\"-1\"><strong>{{title}}</strong></button></th><th><button type=\"button\" class=\"btn btn-default btn-sm pull-right uib-right\" ng-click=\"move(1)\" tabindex=\"-1\"><i aria-hidden=\"true\" class=\"glyphicon glyphicon-chevron-right\"></i><span class=\"sr-only\">next</span></button></th></tr></thead><tbody><tr class=\"uib-months\" ng-repeat=\"row in rows track by $index\" role=\"row\"><td ng-repeat=\"dt in row\" class=\"uib-month text-center\" role=\"gridcell\" id=\"{{::dt.uid}}\" ng-class=\"::dt.customClass\"><button type=\"button\" class=\"btn btn-default\" uib-is-class=\"\n" +
-    "            'btn-info' for selectedDt,\n" +
-    "            'active' for activeDt\n" +
-    "            on dt\" ng-click=\"select(dt.date)\" ng-disabled=\"::dt.disabled\" tabindex=\"-1\"><span ng-class=\"::{'text-info': dt.current}\">{{::dt.label}}</span></button></td></tr></tbody></table>"
+    "<table role=\"grid\" aria-labelledby=\"{{::uniqueId}}-title\" aria-activedescendant=\"{{activeDateId}}\" class=\"dp-table\"><thead><tr class=\"tr-dpnav\"><th><button type=\"button\" class=\"pull-left btn-dp\" ng-click=\"move(-1)\" tabindex=\"-1\"><i class=\"zmdi zmdi-long-arrow-left\"></i></button></th><th><button id=\"{{::uniqueId}}-title\" role=\"heading\" aria-live=\"assertive\" aria-atomic=\"true\" type=\"button\" ng-click=\"toggleMode()\" ng-disabled=\"datepickerMode === maxMode\" tabindex=\"-1\" class=\"w-100 btn-dp\"><div class=\"dp-title\">{{title}}</div></button></th><th><button type=\"button\" class=\"pull-right btn-dp\" ng-click=\"move(1)\" tabindex=\"-1\"><i class=\"zmdi zmdi-long-arrow-right\"></i></button></th></tr></thead><tbody><tr ng-repeat=\"row in rows track by $index\"><td ng-repeat=\"dt in row track by dt.date\" class=\"text-center\" role=\"gridcell\" id=\"{{::dt.uid}}\" ng-class=\"::dt.customClass\"><button type=\"button\" class=\"w-100 btn-dp btn-dpbody\" ng-class=\"{'dp-selected': dt.selected, 'dp-active': isActive(dt)}\" ng-click=\"select(dt.date)\" ng-disabled=\"dt.disabled\" tabindex=\"-1\"><span ng-class=\"::{'dp-day-today': dt.current}\">{{::dt.label}}</span></button></td></tr></tbody></table>"
   );
 
 
@@ -222,10 +199,7 @@ angular.module('materialAdmin').run(['$templateCache', function($templateCache) 
 
 
   $templateCache.put('uib/template/datepicker/year.html',
-    "<table role=\"grid\" aria-labelledby=\"{{::uniqueId}}-title\" aria-activedescendant=\"{{activeDateId}}\"><thead><tr><th><button type=\"button\" class=\"btn btn-default btn-sm pull-left uib-left\" ng-click=\"move(-1)\" tabindex=\"-1\"><i aria-hidden=\"true\" class=\"glyphicon glyphicon-chevron-left\"></i><span class=\"sr-only\">previous</span></button></th><th colspan=\"{{::columns - 2}}\"><button id=\"{{::uniqueId}}-title\" role=\"heading\" aria-live=\"assertive\" aria-atomic=\"true\" type=\"button\" class=\"btn btn-default btn-sm uib-title\" ng-click=\"toggleMode()\" ng-disabled=\"datepickerMode === maxMode\" tabindex=\"-1\"><strong>{{title}}</strong></button></th><th><button type=\"button\" class=\"btn btn-default btn-sm pull-right uib-right\" ng-click=\"move(1)\" tabindex=\"-1\"><i aria-hidden=\"true\" class=\"glyphicon glyphicon-chevron-right\"></i><span class=\"sr-only\">next</span></button></th></tr></thead><tbody><tr class=\"uib-years\" ng-repeat=\"row in rows track by $index\" role=\"row\"><td ng-repeat=\"dt in row\" class=\"uib-year text-center\" role=\"gridcell\" id=\"{{::dt.uid}}\" ng-class=\"::dt.customClass\"><button type=\"button\" class=\"btn btn-default\" uib-is-class=\"\n" +
-    "            'btn-info' for selectedDt,\n" +
-    "            'active' for activeDt\n" +
-    "            on dt\" ng-click=\"select(dt.date)\" ng-disabled=\"::dt.disabled\" tabindex=\"-1\"><span ng-class=\"::{'text-info': dt.current}\">{{::dt.label}}</span></button></td></tr></tbody></table>"
+    "<table role=\"grid\" aria-labelledby=\"{{::uniqueId}}-title\" aria-activedescendant=\"{{activeDateId}}\" class=\"dp-table\"><thead><tr class=\"tr-dpnav\"><th><button type=\"button\" class=\"pull-left btn-dp\" ng-click=\"move(-1)\" tabindex=\"-1\"><i class=\"zmdi zmdi-long-arrow-left\"></i></button></th><th colspan=\"3\"><button id=\"{{::uniqueId}}-title\" role=\"heading\" aria-live=\"assertive\" aria-atomic=\"true\" type=\"button\" class=\"w-100 btn-dp\" ng-click=\"toggleMode()\" ng-disabled=\"datepickerMode === maxMode\" tabindex=\"-1\"><div class=\"dp-title\">{{title}}</div></button></th><th><button type=\"button\" class=\"pull-right btn-dp\" ng-click=\"move(1)\" tabindex=\"-1\"><i class=\"zmdi zmdi-long-arrow-right\"></i></button></th></tr></thead><tbody><tr ng-repeat=\"row in rows track by $index\"><td ng-repeat=\"dt in row track by dt.date\" class=\"text-center\" role=\"gridcell\" id=\"{{::dt.uid}}\"><button type=\"button\" class=\"w-100 btn-dp btn-dpbody\" ng-class=\"{'dp-selected': dt.selected, 'dp-active': isActive(dt)}\" ng-click=\"select(dt.date)\" ng-disabled=\"dt.disabled\" tabindex=\"-1\"><span ng-class=\"::{'dp-day-today': dt.current}\">{{::dt.label}}</span></button></td></tr></tbody></table>"
   );
 
 }]);

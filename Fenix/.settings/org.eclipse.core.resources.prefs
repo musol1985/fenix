@@ -2,6 +2,7 @@ eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
 encoding//src/main/webapp/resources/template/header.html=ISO-8859-1
+encoding//src/main/webapp/resources/template/modals/prestacion.html=UTF-8
 encoding//src/main/webapp/resources/template/sidebar-left.html=UTF-8
 encoding//src/main/webapp/resources/vendors/blocky/msg/json/es.json=UTF-8
 encoding//src/main/webapp/resources/vendors/fileinput/fileinput.less=UTF-8
