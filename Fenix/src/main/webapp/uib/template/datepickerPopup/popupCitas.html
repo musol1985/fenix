@@ -1,0 +1,18 @@
+<ul role="presentation" class="uib-datepicker-popup dropdown-menu uib-position-measure" dropdown-nested ng-if="isOpen" ng-keydown="keydown($event)" ng-click="$event.stopPropagation()">
+  <li ng-transclude></li>
+  <li ng-if="showButtonBar" class="uib-button-bar dp-actions clearfix">
+    <span class="btn-group pull-left">
+      <button type="button" class="btn btn-link" ng-click="select('today', $event)" ng-disabled="isDisabled('today')">{{ getText('current') }}</button>
+      <button type="button" class="btn btn-link" ng-click="select(null, $event)">{{ getText('clear') }}</button>
+    </span>
+    <button type="button" class="btn btn-link" ng-click="close($event)">{{ getText('close') }}</button>
+  </li>
+  <li class="uib-button-bar dp-actions clearfix">
+  	<span class="btn-group pull-left">
+  		<button type="button" class="btn btn-link" ng-click="select(datepickerOptions.add(7),$event)">1 semana</button>
+  		<button type="button" class="btn btn-link" ng-click="select(datepickerOptions.add(30),$event)">&nbsp;&nbsp;1 mes</button>
+  		<button type="button" class="btn btn-link" ng-click="select(datepickerOptions.add(14),$event)">2 semanas</button>
+  		<button type="button" class="btn btn-link" ng-click="select(datepickerOptions.add(60),$event)">2 meses</button>
+  	</span>
+  </li>
+</ul>

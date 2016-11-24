@@ -114,6 +114,28 @@ materialAdmin
     			profesionales:[],
     			prestaciones:[],
     			
+    			fecha:{
+    				dt:new Date(),
+    				abrir: function($event, opened) {
+        	            $event.preventDefault();
+        	            $event.stopPropagation();
+        	            $scope.popup.opened=true;
+        	        },
+        	        opciones:{
+        	        	showWeeks:false,
+        	        	add:function(dias){
+        	        		var result = new Date();
+        	        	    result.setDate(result.getDate() + dias);
+        	        	    return result;        	        		     	        		
+        	        	}
+        	        },
+        	        open : function($event, opened) {
+        	            $event.preventDefault();
+        	            $event.stopPropagation();
+        	            $scope.popup.fecha.opened=true;
+        	        }
+    			},
+
     			//METODOS
     			iniciar:function(){
     				angular.copy($scope.maestros.profesionales, $scope.popup.profesionales);    			

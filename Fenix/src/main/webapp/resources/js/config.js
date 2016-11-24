@@ -160,7 +160,8 @@ materialAdmin
                                     'resources/vendors/bower_components/angular-dragdrop/src/angular-dragdrop.js',
                                     'resources/vendors/bower_components/jquery-ui/jquery-ui.min.js',
                                     'resources/vendors/bower_components/chosen/chosen.jquery.js',
-                                    'resources/vendors/bower_components/angular-chosen-localytics/dist/angular-chosen.js'
+                                    'resources/vendors/bower_components/angular-chosen-localytics/dist/angular-chosen.js',
+                                    'resources/vendors/input-mask/input-mask.min.js'
                                 ]
                             }
                         ])
