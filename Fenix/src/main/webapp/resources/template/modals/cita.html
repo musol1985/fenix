@@ -21,6 +21,28 @@
 				</div>
 			</div>
 		</div>
+		
+		<div class="row">
+			<div class="form-group">
+				<label class="col-md-3 control-lable" for="prestacion">Prestación</label>
+				<div class="col-md-8">
+					<select class="w-100" chosen data-placeholder="Prestación"
+						ng-options="item as item.nombre for item in modalContent.prestaciones track by item.id"
+						ng-model="modalContent.data.prestacion"></select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group">
+				<label class="col-md-3 control-lable" for="profesionales">Profesional</label>
+				<div class="col-md-8">
+					<select class="w-100" chosen data-placeholder="profesionales"
+						ng-options="item as item.nombre for item in modalContent.profesionales track by item.id"
+						ng-model="modalContent.data.profesional"></select>
+				</div>
+			</div>
+		</div>
 
 		<div class="row">
 			<div class="col-sm-4">
@@ -73,7 +95,7 @@
 				<div  ng-class="{'has-error' : myForm.hFin.$invalid  && !myForm.hFin.$pristine, 'has-success': myForm.hFin.$invalid && !myForm.hFin.$pristine}">
 					<div class="input-group">
 						<span class="input-group-addon"><i
-							class="zmdi zmdi-time ma-icon"></i></span>
+							class="zmdi zmdi-time-interval ma-icon"></i></span>
 						<div class="fg-line">
 							<input type="text" ng-model="modalContent.data.hFin"
 								data-input-mask="{mask: '00:00'}" ng-pattern="/^([01]\d|2[0-3]):?([0-5]\d)$/" name="hFin"
@@ -90,46 +112,6 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="row">
-			<ui-input form="myForm" label="Nombre*" nombre="nombre"
-				placeholder="Introduce el nombre" model="modalContent.data.nombre"
-				obligatorio min="3" />
-		</div>
-		<div class="row">
-			<ui-input form="myForm" label="Importe" nombre="importe"
-				placeholder="Introduce el importe en â‚¬"
-				model="modalContent.data.importe" label-size="2" input-size="4" />
-			<ui-input form="myForm" label="DuraciÃ³n" nombre="duracion"
-				placeholder="Introduce la duracciÃ³n en formato 00:00"
-				model="modalContent.data.duracion" label-size="2" input-size="4" />
-		</div>
-
-
-		<div class="row">
-			<div class="form-group">
-				<label class="col-md-3 control-lable" for="horario">Horario</label>
-				<div class="col-md-8">
-					<select class="w-100" chosen data-placeholder="Horario"
-						ng-options="item as item.nombre for item in modalContent.prestaciones track by item.id"
-						ng-model="modalContent.data.horario"></select>
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="form-group">
-				<label class="col-md-3 control-lable" for="profesionales">Profesional</label>
-				<div class="col-md-8">
-					<select class="w-100" chosen data-placeholder="profesionales"
-						ng-options="item as item.nombre for item in modalContent.profesionales track by item.id"
-						ng-model="modalContent.data.profesional"></select>
-				</div>
-			</div>
-		</div>
-
-
-
 
 		<div class="modal-footer  m-t-30">
 			<button class="btn bgm-blue btn-lg" ng-click="modalContent.guardar()"
