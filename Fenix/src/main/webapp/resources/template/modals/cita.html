@@ -56,7 +56,7 @@
 						<div class="fg-line">
 							<input type="text" ng-model="modalContent.data.horaIni"
 								data-input-mask="{mask: '00:00'}" ng-pattern="/^([01]\d|2[0-3]):?([0-5]\d)$/" name="hIni"
-								class="form-control input-sm" placeholder="Inicio hh:mm"
+								class="form-control input-sm" placeholder="Inicio"
 								ng-required="true" />
 						</div>					
 					</div>
@@ -70,15 +70,23 @@
 			</div>
 
 			<div class="col-sm-3">
-				<div class="input-group">
-					<span class="input-group-addon"><i
-						class="zmdi zmdi-time-interval ma-icon"></i></span>
-					<div class="fg-line">
-						<input type="text" ng-model="modalContent.data.horaFin"
-							data-input-mask="{mask: '00:00'}" id="hFin" name="hFin"
-							class="form-control input-sm" placeholder="Fin hh:mm"
-							ng-required="true" />
+				<div  ng-class="{'has-error' : myForm.hFin.$invalid  && !myForm.hFin.$pristine, 'has-success': myForm.hFin.$invalid && !myForm.hFin.$pristine}">
+					<div class="input-group">
+						<span class="input-group-addon"><i
+							class="zmdi zmdi-time ma-icon"></i></span>
+						<div class="fg-line">
+							<input type="text" ng-model="modalContent.data.hFin"
+								data-input-mask="{mask: '00:00'}" ng-pattern="/^([01]\d|2[0-3]):?([0-5]\d)$/" name="hFin"
+								class="form-control input-sm" placeholder="Fin"
+								ng-required="true" />
+						</div>					
 					</div>
+
+					<p ng-show="myForm.hFin.$invalid && !myForm.hFin.$pristine"
+							class="help-block">
+							<span ng-show="myForm.hFin.$error.required">Obligatorio</span> 
+							<span ng-show="myForm.hFin.$error.pattern">Formato incorrecto</span>
+					</p>
 				</div>
 			</div>
 		</div>
