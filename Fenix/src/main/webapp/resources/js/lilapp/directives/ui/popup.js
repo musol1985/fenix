@@ -40,7 +40,7 @@
 			}
 			
 			if($scope.onPostSave && accion)
-				$scope.onPostSave({data: params.data, accion:accion, modificando:modificando})
+				$scope.onPostSave({data: params.data, accion:accion, modificando:modificando, params:params})
 
 			$scope.modalInstance.close();
 		}

@@ -2,7 +2,7 @@
 // Citas
 // =========================================================================
 materialAdmin
-    .controller('citasController', function($scope, $document, prestacionService, userService,clienteService, horarioService, citaService, modalService, $uibModal) {
+    .controller('citasController', function($scope, $document, prestacionService, userService,clienteService, horarioService, citaService, modalService, $uibModal, uibDateParser ) {
     	$scope.maestros={
     			profesionales:[],
     			horarios:[],
@@ -133,6 +133,16 @@ materialAdmin
         	            $event.preventDefault();
         	            $event.stopPropagation();
         	            $scope.popup.fecha.opened=true;
+        	        },
+        	        
+        	        getFechaIni: function(){
+        	        	 // Returns the date
+        	        	getMonth() // Returns the month
+        	        	getFullYear()
+        	        	return moment($scope.popup.fecha.valor.getDate()+" "+$scope.popup.data.hIni, "DD/MM/YYYY HH:mm");
+        	        },
+        	        getFechaFin: function(){
+        	        	return moment($scope.popup.fecha.valor+" "+$scope.popup.data.hFin, "DD/MM/YYYY HH:mm");
         	        }
     			},
 
@@ -153,15 +163,18 @@ materialAdmin
     	        	$scope.popup.mostrar(data);
     	        },
     	        onPreGuardar:function(data){
-    				data.profesional=data.profesional.id;
-    				data.prestacion=data.prestacion.id;
+    	        	data.json={};
+    				data.json.profesional=data.profesional.id;
+    				data.json.prestacion=data.prestacion.id;
+    				data.json.fechaIni=$scope.popup.fecha.getFechaIni();
+    				data.json.fechaFin=$scope.popup.fecha.getFechaFin();
+    				data.json.cliente=$scope.popup.cliente.id;
     			},
     			buscarCliente:function(valor){
     	        	return clienteService.buscar(valor, userService.getCentro().id);        	
     	        },
     	        seleccionarCliente:function(v,m){
-    	        	alert(v);
-    	        	alert(m);
+    	        	$scope.popup.cliente=m;
     	        },
     	        borrar:function(item){
     	        	if(item.texto){
@@ -172,7 +185,22 @@ materialAdmin
     	        },
     	        
     			//EVENTOS
-    			onNuevo:function(cita){
+    			onNuevo:function(data){
+    				var res=citaService.nueva(data.json);    				
+    				
+    				data.cita={};
+    				
+    				data.cita.start=data.fechaIni;
+    				data.cita.end=data.fechaFin;
+    				data.cita.title=data.cliente.nombre+" "+cita.cliente.apellidos;
+    				data.cita.constraint="laborable";
+    				data.cita.color=data.prestacion.color;
+        			
+        			$scope.calendario.addCita(cita);
+        			
+        			data.cita=cita;
+    				
+    				/*
     				cita.fechaIni=cita.start.format("DD/MM/YYYY HH:mm:ss");
     				cita.fechaFin=cita.start.add(120, "m").format("DD/MM/YYYY HH:mm:ss");
     				cita.centro=userService.getCentro().id;
@@ -190,22 +218,19 @@ materialAdmin
         			cita.title=title;
         			
         			$scope.calendario.addCita(cita);
-        			
+        			*/
     				return res;
     			},
     			onModificar:function(cita){
     				angular.copy(cita, cita.old);
     				return prestacionService.REST.modificar(data);
     			},
-    			onPostGuardar:function(cita, accion, modificando){
+    			onPostGuardar:function(data, accion, modificando, params){
     				var txtOK=modificando?"modificada":"creada";
     				
     				errorService.procesar(accion,{
     					 0:{
-    						 growl: true, texto: "Cita "+txtOK, tipo: "success",
-    						 onProcesar: function(){
-    							//TODO actualizar el calendario?
-    						 }
+    						 growl: true, texto: "Cita "+txtOK, tipo: "success"
     					 },
     					 1:{
     	  					 titulo: "Atención", texto: "La prestación no existe", tipo: "warning"
@@ -215,6 +240,7 @@ materialAdmin
     	  				 },
     	  				onError:function(){
     	  					//TODO eliminar la cita del calendario en caso de creacion
+    	  					$scope.calendario.removeCita(params.cita);
     	  					$scope.popup.showPostError();
     					 }
     				});

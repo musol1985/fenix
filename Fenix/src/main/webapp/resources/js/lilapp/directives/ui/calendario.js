@@ -105,6 +105,10 @@ materialAdmin
             scope.model.addCita=function(cita){
             	element.fullCalendar('renderEvent', cita, true);
             }
+            
+            scope.model.removeCita=function(cita){
+            	element.fullCalendar('renderEvent', cita, true);
+            }
         }
         
     }

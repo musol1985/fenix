@@ -184,6 +184,10 @@ materialAdmin
             scope.model.addCita=function(cita){
             	element.fullCalendar('renderEvent', cita, true);
             }
+            
+            scope.model.removeCita=function(cita){
+            	element.fullCalendar('renderEvent', cita, true);
+            }
         }
         
     }
@@ -432,7 +436,7 @@ materialAdmin
 			}
 			
 			if($scope.onPostSave && accion)
-				$scope.onPostSave({data: params.data, accion:accion, modificando:modificando})
+				$scope.onPostSave({data: params.data, accion:accion, modificando:modificando, params:params})
 
 			$scope.modalInstance.close();
 		}
