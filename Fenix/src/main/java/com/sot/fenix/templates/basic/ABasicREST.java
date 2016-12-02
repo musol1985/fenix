@@ -10,14 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.sot.fenix.components.json.PageJSON;
 import com.sot.fenix.components.json.ResponseJSON;
 import com.sot.fenix.components.json.ResponseListJSON;
 import com.sot.fenix.components.models.AModelBasic;
-import com.sot.fenix.components.models.Prestacion;
-import com.sot.fenix.components.services.PrestacionService;
 
 
 public class ABasicREST<S extends ABasicService<D, I>, I extends AModelBasic, D extends IBasicDAO<I>>{

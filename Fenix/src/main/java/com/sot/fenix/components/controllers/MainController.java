@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,7 +57,8 @@ public class MainController{
 	    
 	 
 	    @RequestMapping(value = "/login", method = RequestMethod.GET)
-	    public String loginPage() {
+	    public String loginPage(@CookieValue(value = "auto", defaultValue = "N") String auto) {
+	    	System.out.println("autooooo--->"+auto);
 	        return "/login.jsp";
 	    }
 	    

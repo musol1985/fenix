@@ -386,7 +386,28 @@ materialAdmin
     // ClienteService
     // =========================================================================
     
-    .service('clienteService', ['$http', '$q', function($http, $q){
+    .service('clienteService', ['$http', '$q', '$rootScope', function($http, $q, $rootScope){
+    	this.seleccionado;
+    	
+    	this.isSeleccionado=function(){
+    		if(this.seleccionado)
+    			return true;
+    		return false;
+    	}
+    	
+    	this.getSeleccionado=function(){
+    		return this.seleccionado;
+    	}
+    	
+    	this.seleccionar=function(cliente){
+    		this.seleccionado=cliente;
+    		$rootScope.$broadcast('onSeleccionarCliente', cliente);
+    	}
+    	
+    	this.desSeleccionar=function(){
+    		this.seleccionar(undefined);
+    	}
+    	
         this.buscar=function (texto, centro) {
             var deferred = $q.defer();
             

@@ -1,12 +1,10 @@
 materialAdmin
 .controller('contextoCtrl', function($scope, $rootScope, $http, $timeout, errorService, messageService, clienteService, userService, modalService, $uibModal) {
-    	
-    	$scope.cliente;      
-        
+
         this.buscarCliente=function(valor){
         	return clienteService.buscar(valor, userService.getCentro().id);        	
         	
-        }
+        }                
         
         this.seleccionarCliente=function($item, $model){
         	if($item.id==-1){
@@ -14,9 +12,7 @@ materialAdmin
         	}else{
         		console.log("Cliente seleccionado");
         		console.log($item);
-        		$scope.cliente=$item;
-        		
-        		$rootScope.$broadcast('onSeleccionarCliente', $item);
+        		clienteService.seleccionar($item);
         	}   
         	
         	angular.element('#header').removeClass('search-toggled');
@@ -74,11 +70,11 @@ materialAdmin
         }
         
         this.hasCliente=function(){
-        	return $scope.cliente!=undefined;
+        	return clienteService.isSeleccionado();
         }
         
         this.getCliente=function(){
-        	return $scope.cliente;
+        	return clienteService.getSeleccionado();
         }
         
         this.getNombreCliente=function(){
@@ -88,8 +84,7 @@ materialAdmin
         }
         
         this.cancelarSeleccion=function(){
-        	$scope.cliente=undefined;
-        	$rootScope.$broadcast('onSeleccionarCliente', undefined);
+        	clienteService.desSeleccionar();
         }
         
         this.modificarCliente=function(){
@@ -122,8 +117,7 @@ materialAdmin
 	    					 tipo: "success",
 	    					 onProcesar: function(res){
 	    						 if(seleccionar){
-	    							 $scope.cliente=res.data;
-	    							 $rootScope.$broadcast('onSeleccionarCliente', res.data);
+	    							 clienteService.seleccionar(res.data);
 	    						 }
 	    					 }
 	    				 },

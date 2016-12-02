@@ -90,7 +90,8 @@ materialAdmin
             height: '@',
             sources: '&',
             onLoaded: '&?', 
-            onDrop: '&'
+            onDrop: '&',
+            onProcesarCita: '&?'
         },
         transclude: true,
         link: function(scope, element, attrs) {
@@ -161,6 +162,14 @@ materialAdmin
         			var copiedEventObject = $.extend({}, originalEventObject);
         			
         			scope.onDrop({evento:copiedEventObject,fecha:date});
+                },
+                eventDataTransform:function(data){                	
+                	if(!data.rendering){
+                		if(scope.onProcesarCita){
+                			return scope.onProcesarCita({cita:data});
+                		}
+                	}
+                	return data;
                 }
                 
             });  
@@ -185,8 +194,8 @@ materialAdmin
             	element.fullCalendar('renderEvent', cita, true);
             }
             
-            scope.model.removeCita=function(cita){
-            	element.fullCalendar('renderEvent', cita, true);
+            scope.model.removeCita=function(id){
+            	element.fullCalendar('removeEvents', id);
             }
         }
         

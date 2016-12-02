@@ -34,14 +34,27 @@ materialAdmin
 		    				}else{
 		    					self.alerta(t.titulo, t.texto, t.tipo, t.onProcesar, response);
 		    				}
+		    				
+		    				if(t.error){
+		    					if(t.onErrorResponse){
+		    						t.onErrorResponse();
+		    					}else if(mensajes.onErrorResponse){
+		    						mensajes.onErrorResponse();
+		    					}
+		    				}		    					
 		    			}
+		    			
 		    			if(onProcesar)
 		    				onProcesar(response);
 	    			}else{
+	    				if(mensajes.onErrorResponse)
+	    					mensajes.onErrorResponse();
 	    				self.alerta("Error", "Error desconocido", "error", mensajes.onError);
 	    			}
 	    		},
 	    		function (errResponse){
+	    			if(mensajes.onErrorResponse)
+    					mensajes.onErrorResponse();
 	    			self.alerta("Error", "Error desconocido", "error", mensajes.onError);
 	    		});
     	}

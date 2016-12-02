@@ -6,14 +6,16 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import com.sot.fenix.components.models.Usuario;
 import com.sot.fenix.components.services.UsuarioService;
 
 @Component
-public class LoginProvider implements AuthenticationProvider {
+public class LoginProvider implements AuthenticationProvider, UserDetailsService {
 	
 	@Autowired
 	private UsuarioService usuarios;
@@ -44,6 +46,14 @@ public class LoginProvider implements AuthenticationProvider {
 	@Override
 	public boolean supports(Class<?> arg0) {
 		return true;
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		 Usuario usuario=usuarios.getUsuarioByCorreo(username);
+		 if(usuario==null)
+			 throw new UsernameNotFoundException(username);
+		return usuario;
 	}
 
 }

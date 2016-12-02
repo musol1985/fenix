@@ -1,19 +1,15 @@
 package com.sot.fenix.components.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.MongoRegexCreator;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.repository.query.parser.Part;
 import org.springframework.stereotype.Service;
 
 import com.sot.fenix.components.json.CitasRequest;
 import com.sot.fenix.components.models.Cita;
-import com.sot.fenix.components.models.Cliente;
 import com.sot.fenix.dao.CitaDAO;
 
 @Service
@@ -23,19 +19,15 @@ public class CitaService {
 	@Autowired
 	private MongoTemplate template;
 	
-	
-	public List<Cliente> buscar(String texto, String centro){
+
+	public List<Cita> getCitasSolapa(Cita cita){
+		List<Cita> solapas=new ArrayList<Cita>();
 		
-		String regexp=MongoRegexCreator.INSTANCE.toRegularExpression(texto, Part.Type.EXISTS);
-		Query q=new Query(Criteria.where("centro.id").is(new ObjectId(centro)).orOperator(
-				Criteria.where("dni").regex(regexp, "i"),	
-				Criteria.where("nombre").regex(regexp, "i"),				
-				Criteria.where("apellido1").regex(regexp, "i"),
-				Criteria.where("apellido2").regex(regexp, "i"),
-				Criteria.where("telefono").regex(regexp, "i")));			
+		solapas.addAll(dao.findByFechaIniAndFechaFinAndCentro_idAndProfesional_idAndPrestacion_id(cita.getFechaIni(), cita.getFechaFin(), cita.getCentro().getId(), cita.getProfesional().getId(), cita.getPrestacion().getId()));		
+		solapas.addAll(dao.findByFechaIniLessThanAndFechaFinGreaterThanAndCentro_idAndProfesional_idAndPrestacion_id(cita.getFechaIni(), cita.getFechaIni(), cita.getCentro().getId(), cita.getProfesional().getId(), cita.getPrestacion().getId()));
+		solapas.addAll(dao.findByFechaIniLessThanAndFechaFinGreaterThanAndCentro_idAndProfesional_idAndPrestacion_id(cita.getFechaFin(), cita.getFechaFin(), cita.getCentro().getId(), cita.getProfesional().getId(), cita.getPrestacion().getId()));
 		
-		
-		return template.find(q, Cliente.class);
+		return solapas;
 	}
 	
 	

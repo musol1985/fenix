@@ -26,6 +26,11 @@ import com.sot.fenix.components.services.UsuarioService;
 @RequestMapping("/cita")
 public class CitaREST{
 	
+	public static final int RES_NO_CLIENTE=99;
+	public static final int RES_NO_PRESTACION=98;
+	public static final int RES_NO_PROFESIONAL=97;
+	public static final int RES_TIENE_SOLAPA=96;
+	
 	@Autowired
 	private CitaService citas;
 	@Autowired
@@ -37,10 +42,21 @@ public class CitaREST{
 	
 	@RequestMapping(method=RequestMethod.PUT)
     public ResponseJSON<Cita> nueva(@RequestBody Cita cita) {
-		System.out.println(cita);
-		citas.getDAO().save(cita);
-		System.out.println(cita);
-		return new ResponseJSON<Cita>(ResponseJSON.OK, cita);	
+		if(cita.getCliente()==null)
+			return new ResponseJSON<Cita>(RES_NO_CLIENTE, cita);
+		if(cita.getPrestacion()==null)
+			return new ResponseJSON<Cita>(RES_NO_PRESTACION, cita);
+		if(cita.getProfesional()==null)
+			return new ResponseJSON<Cita>(RES_NO_PROFESIONAL, cita);
+		
+		List<Cita> solapas=citas.getCitasSolapa(cita);
+		
+		if(solapas.size()>0){
+			return new ResponseJSON<Cita>(RES_TIENE_SOLAPA, cita);
+		}else{			
+			citas.getDAO().save(cita);
+			return new ResponseJSON<Cita>(ResponseJSON.OK, cita);	
+		}
     }
     
 	@RequestMapping(method=RequestMethod.GET, path="/in")

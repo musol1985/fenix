@@ -2,14 +2,12 @@
 // Citas
 // =========================================================================
 materialAdmin
-    .controller('citasController', function($scope, $document, prestacionService, userService,clienteService, horarioService, citaService, modalService, $uibModal, uibDateParser ) {
+    .controller('citasController', function($scope, $document, prestacionService, userService,clienteService, horarioService, citaService, modalService, errorService, $uibModal ) {
     	$scope.maestros={
     			profesionales:[],
     			horarios:[],
     			prestaciones:[]
     	};
-    	
-    	$scope.cliente;    	
     	
     	$scope.prestacion={};
     	
@@ -22,6 +20,12 @@ materialAdmin
 		            	alert('there was an error while fetching events!');
 		        	}
 				}];
+    	}
+    	
+    	$scope.procesarCita=function(cita){
+    		if(cita.cliente)
+    			cita.title=cita.cliente.descripcion;
+    		return cita;
     	}
     	
     	$scope.aplicarHorario=function(moment){
@@ -100,11 +104,6 @@ materialAdmin
     		}    		
         });
     	
-    	$scope.$on('onSeleccionarCliente', function (event, cliente) { 
-    		$scope.cliente=cliente;
-        });
-    	
-    	
     	$scope.nueva=function(){
     		$scope.modal.mostrar(true);
     	}
@@ -134,23 +133,35 @@ materialAdmin
         	            $event.stopPropagation();
         	            $scope.popup.fecha.opened=true;
         	        },
-        	        
+        	        getFechaString:function(){
+        	        	var date=$scope.popup.fecha.valor;
+        	        	return date.getDate()+"/"+(parseInt(date.getMonth())+1)+"/"+date.getFullYear();   
+        	        },        	                	        
         	        getFechaIni: function(){
-        	        	 // Returns the date
-        	        	getMonth() // Returns the month
-        	        	getFullYear()
-        	        	return moment($scope.popup.fecha.valor.getDate()+" "+$scope.popup.data.hIni, "DD/MM/YYYY HH:mm");
+        	        	return $scope.popup.fecha.getFechaString()+" "+$scope.popup.data.hIni;
         	        },
         	        getFechaFin: function(){
-        	        	return moment($scope.popup.fecha.valor+" "+$scope.popup.data.hFin, "DD/MM/YYYY HH:mm");
+        	        	return $scope.popup.fecha.getFechaString()+" "+$scope.popup.data.hFin;
+        	        },
+        	        getFechaISO: function(fecha){
+        	        	return moment(fecha, "DD/MM/YYYY HH:mm").toISOString();
         	        }
     			},
-
+    			
+    			hIniKeyUp:function(){
+    				if($scope.popup.data.hIni && $scope.popup.data.prestacion){
+    					var m=moment($scope.popup.data.hIni, "HH:mm").add($scope.popup.data.prestacion.duracion,'m');
+    					
+    					$scope.popup.data.hFin=m.format("HH:mm");
+    				}    				
+    			},
     			//METODOS
     			iniciar:function(){
     				angular.copy($scope.maestros.profesionales, $scope.popup.profesionales);    			
     	    		$scope.popup.profesionales=$scope.popup.profesionales.splice(1);
     	    		$scope.popup.prestaciones=$scope.maestros.prestaciones;
+    	    		
+    	    		$scope.popup.cliente=clienteService.getSeleccionado();    	    		
     			},
     			nuevo : function () {
     	    		var data={id:'', nombre:'',profesional:{}};
@@ -168,13 +179,17 @@ materialAdmin
     				data.json.prestacion=data.prestacion.id;
     				data.json.fechaIni=$scope.popup.fecha.getFechaIni();
     				data.json.fechaFin=$scope.popup.fecha.getFechaFin();
-    				data.json.cliente=$scope.popup.cliente.id;
+    				data.json.cliente=$scope.popup.cliente.id;    	
+    				data.json.centro=userService.getCentro().id;
     			},
     			buscarCliente:function(valor){
     	        	return clienteService.buscar(valor, userService.getCentro().id);        	
     	        },
-    	        seleccionarCliente:function(v,m){
-    	        	$scope.popup.cliente=m;
+    	        seleccionarCliente:function(model,valor){
+    	        	$scope.popup.cliente=model;
+    	        },
+    	        seleccionarPrestacion:function(){
+    	        	$scope.popup.data.importe=$scope.popup.data.prestacion.importe;
     	        },
     	        borrar:function(item){
     	        	if(item.texto){
@@ -186,40 +201,24 @@ materialAdmin
     	        
     			//EVENTOS
     			onNuevo:function(data){
-    				var res=citaService.nueva(data.json);    				
+    				//var res=citaService.nueva(data.json);    				
+    				var cita={};
     				
-    				data.cita={};
+    				cita.json=data.json;
     				
-    				data.cita.start=data.fechaIni;
-    				data.cita.end=data.fechaFin;
-    				data.cita.title=data.cliente.nombre+" "+cita.cliente.apellidos;
-    				data.cita.constraint="laborable";
-    				data.cita.color=data.prestacion.color;
+    				cita.id=cita.json.fechaIni+"#"+cita.json.prestacion+"#"+cita.json.cliente;
+    				cita.cliente=$scope.popup.cliente;
+    				cita.start=moment(cita.json.fechaIni, "DD/MM/YYYY HH:mm");
+    				cita.end=moment(cita.json.fechaFin, "DD/MM/YYYY HH:mm");
+    				cita.title=cita.cliente.nombre+" "+cita.cliente.apellidos;
+    				cita.constraint="laborable";
+    				cita.color=data.prestacion.color;
+
+    				data.cita=cita;
         			
         			$scope.calendario.addCita(cita);
-        			
-        			data.cita=cita;
-    				
-    				/*
-    				cita.fechaIni=cita.start.format("DD/MM/YYYY HH:mm:ss");
-    				cita.fechaFin=cita.start.add(120, "m").format("DD/MM/YYYY HH:mm:ss");
-    				cita.centro=userService.getCentro().id;
-        			
-    				var color=cita.prestacion.color;
-    				var title=cita.cliente.nombre+" "+cita.cliente.apellidos;
-    				
-    				cita.prestacion=cita.prestacion.id;
-    				cita.cliente=cita.cliente.id;
-        			
-        			var res=citaService.nueva(cita);
-        			
-        			cita.constraint="laborable";
-        			cita.color=color;
-        			cita.title=title;
-        			
-        			$scope.calendario.addCita(cita);
-        			*/
-    				return res;
+
+        			return citaService.REST.nueva(cita.json);
     			},
     			onModificar:function(cita){
     				angular.copy(cita, cita.old);
@@ -227,7 +226,7 @@ materialAdmin
     			},
     			onPostGuardar:function(data, accion, modificando, params){
     				var txtOK=modificando?"modificada":"creada";
-    				
+
     				errorService.procesar(accion,{
     					 0:{
     						 growl: true, texto: "Cita "+txtOK, tipo: "success"
@@ -238,9 +237,13 @@ materialAdmin
     					 2:{
     	  					 titulo: "Atención", texto: "Ya existe una prestación con ese nombre", tipo: "warning"
     	  				 },
-    	  				onError:function(){
-    	  					//TODO eliminar la cita del calendario en caso de creacion
+    	  				 96:{
+	   	  					 titulo: "Atención", texto: "Existen citas en el rango de esta cita", tipo: "warning", error:true
+	   	  				 },
+    	  				 onErrorResponse:function(){
     	  					$scope.calendario.removeCita(params.cita);
+    	  				 },
+    	  				 onError:function(){
     	  					$scope.popup.showPostError();
     					 }
     				});

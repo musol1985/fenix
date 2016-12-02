@@ -436,13 +436,14 @@ materialAdmin
     	$httpProvider.interceptors.push('ajaxInterceptor');
     }])
 
-    .controller('loginCtrl', function(){
+    .controller('loginCtrl', function($scope){
         
         //Status
     
         this.login = 1;
         this.register = 0;
         this.forgot = 0;
+
     })
     
     .controller('ModalCtrl', function ($scope, $uibModal, $log) {

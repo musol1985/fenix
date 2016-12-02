@@ -12,7 +12,7 @@
 				<div class="col-md-10">
 					<label for="cliente">Cliente</label> 
 					<input type="text"
-						name="cliente" ng-model="modalContent.data.cliente"
+						name="cliente" ng-model="modalContent.cliente"
 						placeholder="Busca un cliente por nombre, dni, telefono..."
 						typeahead-wait-ms="150"
 						typeahead-on-select="modalContent.seleccionarCliente($item, $model)"
@@ -23,19 +23,42 @@
 		</div>
 		
 		<div class="row">
-			<div class="form-group">
-				<label class="col-md-3 control-lable" for="prestacion">Prestación</label>
-				<div class="col-md-8">
-					<select class="w-100" chosen data-placeholder="Prestación"
-						ng-options="item as item.nombre for item in modalContent.prestaciones track by item.id"
-						ng-model="modalContent.data.prestacion"></select>
+			<div class="col-sm-7">
+				<div class="form-group">
+					<label class="control-lable" for="prestacion">Prestación</label>
+					<div class="">
+						<select class="w-100" chosen data-placeholder="Prestación"
+							placeholder-text-single="Selecciona"
+							ng-options="item as item.nombre for item in modalContent.prestaciones track by item.id"
+							ng-change="modalContent.seleccionarPrestacion()"
+							ng-model="modalContent.data.prestacion"></select>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-1"></div>
+			<div class="col-sm-2">
+				<div  ng-class="{'has-error' : myForm.importe.$invalid  && !myForm.importe.$pristine, 'has-success': myForm.importe.$invalid && !myForm.importe.$pristine}">
+					<div class="form-group">
+						<label class="control-lable" for="importe">Importe</label>
+						<div class="fg-line">
+							<input type="text" ng-model="modalContent.data.importe"
+								name="importe"
+								class="form-control input-sm" placeholder="Importe €"
+								ng-required="true" />
+						</div>					
+					</div>
+
+					<p ng-show="myForm.importe.$invalid && !myForm.importe.$pristine"
+							class="help-block">
+							<span ng-show="myForm.hFin.$error.required">Obligatorio</span> 
+					</p>
 				</div>
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="form-group">
-				<label class="col-md-3 control-lable" for="profesionales">Profesional</label>
+				<label class="col-md-2 control-lable" for="profesionales">Profesional</label>
 				<div class="col-md-8">
 					<select class="w-100" chosen data-placeholder="profesionales"
 						ng-options="item as item.nombre for item in modalContent.profesionales track by item.id"
@@ -76,7 +99,7 @@
 						<span class="input-group-addon"><i
 							class="zmdi zmdi-time ma-icon"></i></span>
 						<div class="fg-line">
-							<input type="text" ng-model="modalContent.data.horaIni"
+							<input type="text" ng-model="modalContent.data.hIni" ng-keyup="modalContent.hIniKeyUp()"
 								data-input-mask="{mask: '00:00'}" ng-pattern="/^([01]\d|2[0-3]):?([0-5]\d)$/" name="hIni"
 								class="form-control input-sm" placeholder="Inicio"
 								ng-required="true" />

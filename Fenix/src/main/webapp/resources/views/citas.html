@@ -26,7 +26,7 @@
             </div>
         </div>
         
-        <ui-popup template="resources/template/modals/cita.html" popup="popup" on-new="popup.onNuevo(data)" on-update="popup.onModificar(data)" on-pre-save="popup.onPreGuardar(data)" on-post-save="popup.onPostGuardar(data, accion, modificando)"/>		                   
+        <ui-popup template="resources/template/modals/cita.html" popup="popup" on-new="popup.onNuevo(data)" on-update="popup.onModificar(data)" on-pre-save="popup.onPreGuardar(data)" on-post-save="popup.onPostGuardar(data, accion, modificando, params)"/>		                   
  		
         <div class="ms-body">
             <div class="listview lv-message">
@@ -101,7 +101,7 @@
    
                 </div>
                 				
-            	<div id="calendar-widget" calendario procesar-dia="aplicarHorario(dia)" on-drop="onDropPrestacion(evento, fecha)" sources="getSource()" model="calendario" height="500" class="citas"></div>
+            	<div id="calendar-widget" calendario procesar-dia="aplicarHorario(dia)" on-drop="onDropPrestacion(evento, fecha)" on-procesar-cita="procesarCita(cita)" sources="getSource()" model="calendario" height="500" class="citas"></div>
                 
                 <div class="clearfix"></div>
             </div>
