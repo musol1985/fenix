@@ -190,6 +190,23 @@ materialAdmin
             return deferred.promise;
         }
     	
+    	this.resetPassword=function(correo) {
+            var deferred = $q.defer();
+
+            $http.post("usuario/reset", {correo:correo})
+                .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error while resetPassword');
+                    deferred.reject(errResponse);
+                }
+            );
+            return deferred.promise;
+        }
+    	
+    	
     	this.modificar=function(item) {
             var deferred = $q.defer();
 

@@ -13,25 +13,76 @@
         <link href="resources/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
 
         <!-- CSS -->
+        <link href="resources/css/app.css" rel="stylesheet">
         <link href="resources/css/login.css" rel="stylesheet">
+        
     </head>
-<body>
+<body data-ng-controller="loginController as ctrl">
   <div class="wrapper">
-	<div class="container">
+	<div class="container" data-ng-show="vista==0">
 		<h1>LilApp</h1>
 		<c:url var="loginUrl" value="/login" />   
 		<form action="${loginUrl}" method="post" data-ng-submit="login">
-		
-			<c:if test="${param.error != null}">
+			<input type="text" placeholder="Correo" name="correo">
+			<input type="password" placeholder="Contraseña" name="password">
+			<input type="hidden" name="${_csrf.parameterName}"   value="${_csrf.token}" />
+			 
+			 <c:if test="${param.error != null}">
                 <div class="alert alert-danger" role="alert">
                 	Usuario o contraseña incorrectos
             	</div>
             </c:if>
 		
-			<input type="text" placeholder="Correo" name="correo">
-			<input type="password" placeholder="Contraseña" name="password">
-			 <input type="hidden" name="${_csrf.parameterName}"   value="${_csrf.token}" />
+		 	<div class="checkbox">
+                <label>
+                    <input type="checkbox"  name="remember-me">
+                    <i class="input-helper"></i>
+                    Guardar datos de sesión en este equipo
+                </label>
+            </div>
+			 
 			<button data-ng-click="login()" id="login-button">Iniciar</button>
+
+			<ul class="login-navigation">
+                <li data-block="#l-forget-password" class="bgm-orange" ng-click="vista=1">He olvidado mi contraseña</li>
+            </ul>
+		</form>
+	</div>
+	<div class="container" data-ng-show="vista==1">
+		<h1>LilApp</h1>
+		<form method="post" name="myForm" id="myForm">
+			<div>
+               	Introduce tu dirección de correo para enviarte la forma de reiniciar tu contraseña olvidada
+           	</div>
+			
+			<input class="m-t-10" required type="email" placeholder="Correo" name="correo" ng-model="correoReset">
+			
+			<div class="alert alert-danger" role="alert" ng-show="!myForm.correo.$pristine && myForm.correo.$invalid" >
+				<p ng-show="myForm.correo.$error.required" class="help-block">El correo es obligatorio</p>
+				<p ng-show="myForm.correo.$error.email" class="help-block">Debe ser un email correcto</p>
+			</div>
+
+			<div class="alert alert-danger" role="alert" data-ng-if="errorReset==true">
+                	Ha ocurrido un error. Por favor, vuelve a intentarlo en unos minutos
+            </div>
+			 
+			<button data-ng-click="enviarCorreo()" id="login-button" ng-disabled="myForm.$invalid">Enviar</button>
+			
+			<ul class="login-navigation">
+                <li data-block="#l-forget-password" class="bgm-blue" ng-click="vista=0">Iniciar sesión</li>
+            </ul>
+		</form>
+	</div>
+	<div class="container" data-ng-show="vista==2">
+		<h1>LilApp</h1>
+		<form method="post">
+			<div>
+               	Comprueba tu bandeja de entrada de correo. Se te han enviado las instrucciones para establecer una nueva contraseña.
+           	</div>
+			
+			<ul class="login-navigation">
+                <li data-block="#l-forget-password" class="bgm-blue" ng-click="vista=0">Iniciar sesión</li>
+            </ul>
 		</form>
 	</div>
 	
@@ -89,6 +140,13 @@
         <script src="resources/js/modules/template.js"></script>
         <script src="resources/js/modules/ui.js"></script>
         <script src="resources/js/modules/form.js"></script>
+        
+                
+        <!-- LilAPP -->  
+        <script src="resources/js/lilapp/controllers.js"></script>
+        <script src="resources/js/lilapp/services.js"></script>
+        <script src="resources/js/lilapp/directives.js"></script>
+        <script src="resources/js/lilapp/validaciones.js"></script>
 
 </body>
 </html>

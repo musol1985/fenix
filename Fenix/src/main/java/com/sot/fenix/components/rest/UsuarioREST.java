@@ -223,5 +223,12 @@ public class UsuarioREST{
 			return new ResponseJSON<UsuarioPendiente>(ResponseJSON.OK);
 		}
     }
+	
+	
+	@RequestMapping(method=RequestMethod.POST, path="/reset")
+    public ResponseJSON<Usuario> reset(@RequestBody  Usuario usuario) {
+		return new ResponseJSON<Usuario>(ResponseJSON.OK);
+
+    }
 }
 
