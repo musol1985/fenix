@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.sot.fenix.components.json.CitasRequest;
 import com.sot.fenix.components.models.Cita;
+import com.sot.fenix.components.models.Cita.ESTADO;
 import com.sot.fenix.dao.CitaDAO;
 
 @Service
@@ -45,5 +46,11 @@ public class CitaService {
 	
 	public CitaDAO getDAO(){
 		return dao;
+	}
+	
+	public Cita crearCita(Cita cita){
+		cita.setEstado(ESTADO.PROGRAMADA);
+		dao.save(cita);
+		return cita;
 	}
 }

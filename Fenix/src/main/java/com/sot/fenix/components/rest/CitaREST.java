@@ -17,6 +17,7 @@ import com.sot.fenix.components.json.CitasRequest;
 import com.sot.fenix.components.json.MaestrosCitaJSON;
 import com.sot.fenix.components.json.ResponseJSON;
 import com.sot.fenix.components.models.Cita;
+import com.sot.fenix.components.models.Cita.ESTADO;
 import com.sot.fenix.components.services.CitaService;
 import com.sot.fenix.components.services.HorarioService;
 import com.sot.fenix.components.services.PrestacionService;
@@ -54,13 +55,32 @@ public class CitaREST{
 		if(solapas.size()>0){
 			return new ResponseJSON<Cita>(RES_TIENE_SOLAPA, cita);
 		}else{			
-			citas.getDAO().save(cita);
+			cita=citas.crearCita(cita);
+			return new ResponseJSON<Cita>(ResponseJSON.OK, cita);	
+		}
+    }
+	
+	@RequestMapping(method=RequestMethod.POST)
+    public ResponseJSON<Cita> modificar(@RequestBody Cita cita) {
+		if(cita.getCliente()==null)
+			return new ResponseJSON<Cita>(RES_NO_CLIENTE, cita);
+		if(cita.getPrestacion()==null)
+			return new ResponseJSON<Cita>(RES_NO_PRESTACION, cita);
+		if(cita.getProfesional()==null)
+			return new ResponseJSON<Cita>(RES_NO_PROFESIONAL, cita);
+		
+		List<Cita> solapas=citas.getCitasSolapa(cita);
+		
+		if(solapas.size()>0 && !(solapas.get(0).getId().toHexString().equals(cita.getId().toHexString()))){
+			return new ResponseJSON<Cita>(RES_TIENE_SOLAPA, cita);
+		}else{			
+			cita=citas.crearCita(cita);
 			return new ResponseJSON<Cita>(ResponseJSON.OK, cita);	
 		}
     }
     
 	@RequestMapping(method=RequestMethod.GET, path="/in")
-    public List<Cita> modificar(@RequestParam("centro") String centro, @RequestParam("start") @DateTimeFormat(pattern="yyyy-MM-dd") Date start,  @RequestParam("end") @DateTimeFormat(pattern="yyyy-MM-dd") Date end) {
+    public List<Cita> in(@RequestParam("centro") String centro, @RequestParam("start") @DateTimeFormat(pattern="yyyy-MM-dd") Date start,  @RequestParam("end") @DateTimeFormat(pattern="yyyy-MM-dd") Date end) {
 		List<Cita> res=citas.getDAO().findByFechaIniGreaterThanEqualAndFechaFinLessThanEqualAndCentro_id(start, end, new ObjectId(centro));
 		return res;	
     }

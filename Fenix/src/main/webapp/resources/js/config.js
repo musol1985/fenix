@@ -20,7 +20,7 @@ materialAdmin
                                 insertBefore: '#app-level',
                                 files: [
                                      'resources/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
-                                    'resources/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css'
+                                    'resources/vendors/bower_components/fullcalendar/dist/fullcalendar.css'
                                 ]
                             },
                             {
@@ -103,7 +103,7 @@ materialAdmin
                                 name: 'css',
                                 insertBefore: '#app-level',
                                 files: [
-                                    'resources/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css'
+                                    'resources/vendors/bower_components/fullcalendar/dist/fullcalendar.css'
                                 ]
                             },
                             {                            	
@@ -146,7 +146,7 @@ materialAdmin
                                 insertBefore: '#app-level',
                                 files: [
                                     'resources/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
-                                    'resources/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css',
+                                    'resources/vendors/bower_components/fullcalendar/dist/fullcalendar.css',
                                     'resources/vendors/bower_components/chosen/chosen.min.css'
                                 ]
                             },
@@ -155,7 +155,7 @@ materialAdmin
                                 files: [
                                     'resources/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
                                     'resources/vendors/bower_components/moment/min/moment.min.js',
-                                    'resources/vendors/bower_components/fullcalendar/dist/fullcalendar.min.js',
+                                    'resources/vendors/bower_components/fullcalendar/dist/fullcalendar.js',
                                     'resources/vendors/bower_components/fullcalendar/dist/locale/es.js',
                                     'resources/vendors/bower_components/angular-dragdrop/src/angular-dragdrop.js',
                                     'resources/vendors/bower_components/jquery-ui/jquery-ui.min.js',

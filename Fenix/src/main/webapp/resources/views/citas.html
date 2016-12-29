@@ -14,7 +14,7 @@
             	</div>
             </div>
 
-            <div class="listview lv-user m-t-5 citas">
+            <div class="listview lv-user m-t-5">
                 <div class="lv-item media" data-drag="true" data-jqyoui-options="{revert: 'invalid', helper:'clone',appendTo: 'body',containment: 'window',scroll: false, distance:20, cursor:'pointer'}" data-jqyoui-draggable="{placeholder:true, animate:false, deepCopy:true, onStop: 'onDragPrestacionEnd()', onPreStart: 'onPreDragPrestacion(p, ui)'}" ng-repeat="p in maestros.prestaciones" ng-class="{ 'active' : p.seleccionado==true  }">
                     <div class="lv-avatar bgm-{{p.color}} pull-left">{{p.nombre.substr(0,1)}}</div>
                     <div class="media-body">
@@ -55,22 +55,25 @@
 			                </a>
 			
 			                <ul class="dropdown-menu dropdown-menu-right">
-			                    <li  data-huecos data-minutos="10">
+			                    <li  data-huecos-calendario data-minutos="10">
 			                        <a href="">Huecos cada 10 minutos</a>
 			                    </li>
-			                    <li  data-huecos data-minutos="20">
+			                    <li  data-huecos-calendario data-minutos="15">
+			                        <a href="">Huecos cada 15 minutos</a>
+			                    </li>
+			                    <li  data-huecos-calendario data-minutos="20">
 			                        <a href="">Huecos cada 20 minutos</a>
 			                    </li>
-			                    <li  data-huecos data-minutos="30">
+			                    <li  data-huecos-calendario data-minutos="30">
 			                        <a href="">Huecos cada 30 minutos</a>
 			                    </li>
-			                    <li  data-huecos data-minutos="40">
+			                    <li  data-huecos-calendario data-minutos="40">
 			                        <a href="">Huecos cada 40 minutos</a>
 			                    </li>
-			                    <li  data-huecos data-minutos="50">
+			                    <li  data-huecos-calendario data-minutos="50">
 			                        <a href="">Huecos cada 50 minutos</a>
 			                    </li>
-			                    <li  data-huecos data-minutos="60">
+			                    <li  data-huecos-calendario data-minutos="60">
 			                        <a href="">Huecos cada 60 minutos</a>
 			                    </li>
 			                </ul>
@@ -81,16 +84,16 @@
 			                </a>
 			
 			                <ul class="dropdown-menu pull-right dm-icon">
-			                    <li  data-vista data-nombre="agendaDay">
+			                    <li  data-vista-calendario data-nombre="agendaDay">
 			                        <a href=""><i class="zmdi zmdi-view-day"></i> Diario</a>
 			                    </li>
-			                    <li  data-vista data-nombre="agendaWeek">
+			                    <li  data-vista-calendario data-nombre="agendaWeek">
 			                        <a href=""><i class="zmdi zmdi-view-week"></i> Semanal</a>
 			                    </li>
-			                    <li  data-vista data-nombre="month">
+			                    <li  data-vista-calendario data-nombre="month">
 			                        <a href=""><i class="zmdi zmdi-view-month"></i> Mensual</a>
 			                    </li>
-			                    <li  data-vista data-nombre="customMes">
+			                    <li  data-vista-calendario data-nombre="customMes">
 			                        <a href=""><i class="zmdi zmdi-view-month"></i> Custom</a>
 			                    </li>
 			                </ul>
@@ -99,11 +102,8 @@
                     
                     <button class="btn bgm-red btn-float waves-effect" ng-click="popup.nuevo()"><i class="zmdi zmdi-plus"></i></button>
    
-                </div>
-                				
-            	<div id="calendar-widget" calendario procesar-dia="aplicarHorario(dia)" on-drop="onDropPrestacion(evento, fecha)" on-procesar-cita="procesarCita(cita)" sources="getSource()" model="calendario" height="500" class="citas"></div>
-                
-                <div class="clearfix"></div>
+                </div>                                
+            	<div id="calendar-widget" calendario procesar-dia="aplicarHorario(dia)" on-drop="onDropPrestacion(evento, fecha)" on-procesar-cita="procesarCita(cita)" on-click="onClickCita(cita)" sources="getSource()" model="calendario" height="220" on-render="onRenderCalendario(evento)"></div>
             </div>
         </div>
     </div>  

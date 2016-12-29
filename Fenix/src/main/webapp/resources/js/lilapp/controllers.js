@@ -2,7 +2,7 @@
 // Citas
 // =========================================================================
 materialAdmin
-    .controller('citasController', function($scope, $document, prestacionService, userService,clienteService, horarioService, citaService, modalService, errorService, $uibModal ) {
+    .controller('citasController', function($scope, $compile, $document, prestacionService, userService,clienteService, horarioService, citaService, modalService, errorService, $uibModal ) {
     	$scope.maestros={
     			profesionales:[],
     			horarios:[],
@@ -78,31 +78,34 @@ materialAdmin
     		$scope.prestacion={};
     	}
     	
-    	$scope.onDropPrestacion=function(p,d){
-    		console.log(p);
-    		console.log(d);
+    	$scope.onDropPrestacion=function(evento,fecha){
+    		/*if(clienteService.isSeleccionado() && $scope.profesional.id!="-1"){
+    			
+    		}else{    	*/		
+    			evento.cliente=clienteService.getSeleccionado();
+    			evento.prestacion=$scope.prestacion;
+    			evento.profesional=$scope.profesional;
+    			$scope.popup.modificar(evento);
+    		//}
     	}
     	
-    	$scope.$on('onDragCita', function (event, cita) { 
-    		if($scope.cliente && $scope.prestacion && $scope.profesional){
-    			var request={};
-    			request.fechaIni=cita.start.format("DD/MM/YYYY HH:mm:ss");
-    			request.fechaFin=cita.start.add(120, "m").format("DD/MM/YYYY HH:mm:ss");
-    			request.centro=userService.getCentro().id;
-    			
-    			request.prestacion=$scope.prestacion.id;
-    			request.cliente=$scope.cliente.id;
-    			
-    			citaService.nueva(request);
-    			
-    			cita.constraint="laborable";
-    			cita.color=$scope.prestacion.color;
-    			cita.title=$scope.cliente.nombre+" "+$scope.cliente.apellidos;
-    			$('#calendar-widget').fullCalendar('renderEvent', cita, true);
-    		}else{
+    	$scope.onRenderCalendario=function(evento){    		
+    		if(evento.event.prestacion){
+    			evento.element.find(".fc-title").append(" ("+evento.event.prestacion.descripcion+")");
+    			evento.element.find(".fc-time").append("<i class='zmdi "+evento.event.icono+" m-l-5'></i>");
+    		}
+    		
+    		/*evento.element.attr('uib-popover', "Finally it's working")
+    	    evento.element.attr('uib-popover-title', 'Hello world')
+    	    evento.element.attr('uib-popover-trigger', 'mouseenter')
+    	    $compile(evento.element)($scope)*/
 
-    		}    		
-        });
+    		/* evento.element.find(".fc-event").addClass("fc-programado");*/
+    	}
+    	
+    	$scope.onClickCita=function(cita){
+    		$scope.popup.modificar(cita);
+    	}
     	
     	$scope.nueva=function(){
     		$scope.modal.mostrar(true);
@@ -159,17 +162,28 @@ materialAdmin
     			iniciar:function(){
     				angular.copy($scope.maestros.profesionales, $scope.popup.profesionales);    			
     	    		$scope.popup.profesionales=$scope.popup.profesionales.splice(1);
-    	    		$scope.popup.prestaciones=$scope.maestros.prestaciones;
-    	    		
-    	    		$scope.popup.cliente=clienteService.getSeleccionado();    	    		
+    	    		$scope.popup.prestaciones=$scope.maestros.prestaciones;    	    		    	    		 	    	
     			},
-    			nuevo : function () {
-    	    		var data={id:'', nombre:'',profesional:{}};
+    			nuevo : function () {    				
+    	    		var data={id:'', nombre:'',profesional:{}};    	    		
+    	    		$scope.popup.cliente=clienteService.getSeleccionado();       	    		
     	    		$scope.popup.iniciar();
     	    		$scope.popup.mostrar(data);
     	        },
     	        modificar : function (data) {
-    	        	if(!data.profesional.id)data.profesional={id:data.profesional};
+    	        	//if(data.profesional && !data.profesional.id)data.profesional={id:data.profesional};
+    	        	if(data.id)
+    	        		data.old=angular.copy(data);
+    	        	
+    	        	if(data.cliente){
+    	        		$scope.popup.cliente=angular.copy(data.cliente);    	        	    	        	
+    	        		$scope.popup.cliente.texto= data.cliente.descripcion;
+    	        	}
+    	        	
+    	        	$scope.popup.fecha.valor=data.start.toDate();
+    	        	data.hIni=data.start.format("HH:mm");
+    	        	data.hFin=data.end.format("HH:mm");
+    	        	
     	        	$scope.popup.iniciar();
     	        	$scope.popup.mostrar(data);
     	        },
@@ -181,6 +195,10 @@ materialAdmin
     				data.json.fechaFin=$scope.popup.fecha.getFechaFin();
     				data.json.cliente=$scope.popup.cliente.id;    	
     				data.json.centro=userService.getCentro().id;
+    				data.json.importe=data.importe;
+    				data.json.estado=data.estado;
+    				if(data.id)
+    					data.json.id=data.id;
     			},
     			buscarCliente:function(valor){
     	        	return clienteService.buscar(valor, userService.getCentro().id);        	
@@ -213,6 +231,7 @@ materialAdmin
     				cita.title=cita.cliente.nombre+" "+cita.cliente.apellidos;
     				cita.constraint="laborable";
     				cita.color=data.prestacion.color;
+    				cita.className="fc-programada";
 
     				data.cita=cita;
         			
@@ -221,8 +240,14 @@ materialAdmin
         			return citaService.REST.nueva(cita.json);
     			},
     			onModificar:function(cita){
-    				angular.copy(cita, cita.old);
-    				return prestacionService.REST.modificar(data);
+    				cita.start=moment(cita.json.fechaIni, "DD/MM/YYYY HH:mm");
+    				cita.end=moment(cita.json.fechaFin, "DD/MM/YYYY HH:mm");
+    				if(cita.prestacion.color)
+    					cita.color=cita.prestacion.color;
+    				
+    				$scope.calendario.actualizarCita(cita);
+
+    				return citaService.REST.modificar(cita.json);
     			},
     			onPostGuardar:function(data, accion, modificando, params){
     				var txtOK=modificando?"modificada":"creada";
@@ -241,7 +266,19 @@ materialAdmin
 	   	  					 titulo: "Atención", texto: "Existen citas en el rango de esta cita", tipo: "warning", error:true
 	   	  				 },
     	  				 onErrorResponse:function(){
-    	  					$scope.calendario.removeCita(params.cita);
+    	  					 if(modificando){
+    	  						var c=$scope.calendario.getCita(data.id)[0];
+    	  						c.start=data.old.start;
+    	  						c.end=data.old.end;
+    	  						c.color=data.old.color;
+    	  						c.title=data.old.title;
+    	  						c.prestacion=data.old.prestacion;
+    	  						c.profesional=data.old.profesional;
+    	  						c.importe=data.old.importe;
+    	  						$scope.calendario.actualizarCita(c);
+    	  					 }else{
+    	  						 $scope.calendario.removeCita(params.cita);
+    	  					 }
     	  				 },
     	  				 onError:function(){
     	  					$scope.popup.showPostError();

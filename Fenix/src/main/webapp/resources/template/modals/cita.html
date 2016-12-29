@@ -137,9 +137,28 @@
 		</div>
 
 		<div class="modal-footer  m-t-30">
-			<button class="btn bgm-blue btn-lg" ng-click="modalContent.guardar()"
-				ng-disabled="myForm.$invalid">Crear cita</button>
-			<button class="btn bgm-red btn-lg" ng-click="cancel()">Cancelar</button>
+
+			
+			<button class="btn btn-default bgm-lightblue btn-icon-text m-r-30" 
+						ng-click="modalContent.guardar()" ng-disabled="myForm.$invalid" ng-show="!modalContent.data.id">
+				<i class="zmdi zmdi-check"></i> Programar
+			</button>
+			
+			<button class="btn btn-default bgm-green btn-icon-text" 
+						ng-click="modalContent.capturar()" ng-show="modalContent.data.id">
+				<i class="zmdi zmdi-check-all"></i> Capturar
+			</button>
+			
+			<button class="btn btn-default bgm-red btn-icon-text  m-r-30" 
+						ng-click="modalContent.anular()" ng-show="modalContent.data.id">
+				<i class="zmdi zmdi-close"></i> Anular
+			</button>
+			
+			<button class="btn btn-default bgm-deeporange btn-icon-text" 
+						ng-click="cancel()">
+				<i class="zmdi zmdi-arrow-back"></i> Cancelar
+			</button>
+
 		</div>
 	</form>
 

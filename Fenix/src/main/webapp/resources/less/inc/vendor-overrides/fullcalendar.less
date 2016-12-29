@@ -1,3 +1,6 @@
+@import "resources/vendors/bower_components/material-design-iconic-font/less/variables.less";
+@import "resources/vendors/bower_components/material-design-iconic-font/less/icons.less";
+
 /** CALENDAR WIDGET **/
 #calendar-widget {
     margin-bottom: 30px;
@@ -191,8 +194,11 @@
 .fc-event {
 	padding: 0;
     font-size: 11px;
-    border-radius: 0;
+    border-radius: 4px;
     border: 0;
+    
+    border-left-width: 3px;
+    border-left-style: solid;
 
     .fc-title {
 		padding: 2px 8px;
@@ -204,7 +210,42 @@
 		background: rgba(0, 0, 0, 0.2);
 		padding: 2px 6px;
 		margin: 0 0 0 -1px;
-    }
+    }       
+    
+     
+}
+
+.fc-programada{
+    border-left-color: @m-lightblue ~'!important';
+}
+
+.fc-capturada{
+    border-left-color: rgba(0,255,0,1) ~'!important';
+}
+
+.fc-cancelada{
+    border-left-color: rgba(255,0,0,1) ~'!important';
+}
+
+.@{zmdi-icon-prefix}-programada {
+  &:before {
+    content: @zmdi-var-check;
+  }
+  color: @m-lightblue ~'!important';
+}
+
+.@{zmdi-icon-prefix}-capturada {
+  &:before {
+    content: @zmdi-var-check-all;
+  }
+  color: rgba(0,255,0,1) ~'!important';
+}
+
+.@{zmdi-icon-prefix}-cancelada {
+  &:before {
+    content: @zmdi-var-close;
+  }
+  color: rgba(255,0,0,1) ~'!important';
 }
 
 .fc-view, .fc-view > table {

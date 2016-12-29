@@ -415,29 +415,9 @@ materialAdmin
         }
     })
    
-    //Huecos
-    .directive('huecos', function(){
-        return {
-            restrict: 'A',
-            link: function(scope, element, attrs) {
-                element.on('click', function(){
-                    $('#calendar-widget').fullCalendar('option','slotDuration', "00:"+attrs.minutos+":00");                
-                })
-            }
-        }
-    })
-    
+
     //Vista
-    .directive('vista', function(){
-        return {
-            restrict: 'A',
-            link: function(scope, element, attrs) {
-                element.on('click', function(){
-                    $('#calendar-widget').fullCalendar('changeView',attrs.nombre);                
-                })
-            }
-        }
-    })
+    
     
     
     

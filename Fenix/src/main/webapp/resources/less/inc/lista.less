@@ -1,5 +1,6 @@
-#lista-main {
+#lista-main {	
     position: relative;
+    background: #009688;
     .clearfix();
     
     .ms-block {
@@ -13,8 +14,8 @@
         background: #F8F8F8;
         border-right: 1px solid #EEE;
         padding-bottom: 50px;
-        height: 100%;
         width: 280px;
+        height:100%;
         overflow:auto;
         .transition(all);
         .transition-duration(250ms);
@@ -23,7 +24,7 @@
             height: ~"calc(100% - 58px)";
             .translate3d(-240px, 58px, 0);
             .opacity(0);
-            z-index: 1;
+            z-index: 3;
 
             &.toggled {
                 .translate3d(0, 58px, 0);
@@ -47,6 +48,8 @@
     }
     
     .ms-body {
+
+    	
         @media (min-width: @screen-sm-min) {
             padding-left: 280px;
         }
@@ -86,6 +89,8 @@
         background-color: #717171;
     }
 }
+
+
 
 /*
  * For Message

@@ -32,7 +32,7 @@
     "flot-orderBars": "emmerich/flot-orderBars",
     "flot.curvedlines": "MichaelZinsmaier/CurvedLines#~1.1.1",
     "flot.tooltip": "~0.8.5",
-    "fullcalendar": "~3.0.0",
+    "fullcalendar": "~3.1.0",
     "install": "~1.0.4",
     "jquery-placeholder": "~2.1.2",
     "jquery.easy-pie-chart": "~2.1.6",

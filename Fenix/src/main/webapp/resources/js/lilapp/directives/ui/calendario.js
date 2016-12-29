@@ -2,7 +2,7 @@ materialAdmin
     // =========================================================================
     // CALENDARIO
     // =========================================================================
-.directive('calendario', function($compile, $rootScope, userService, $templateCache){
+.directive('calendario', function($compile, $rootScope, userService, $templateCache, PreferenciasService){
     return {
         restrict: 'EA',
         scope: {
@@ -12,7 +12,9 @@ materialAdmin
             sources: '&',
             onLoaded: '&?', 
             onDrop: '&',
-            onProcesarCita: '&?'
+            onProcesarCita: '&?',
+            onRender: '&?',
+            onClick:'&?'
         },
         transclude: true,
         link: function(scope, element, attrs) {
@@ -62,10 +64,10 @@ materialAdmin
                 },
                 header: {
                     right: '',
-                    center: 'prev, title, btnMonth, next',
-                    left: 'today'
+                    center: '',
+                    left: ''
                 },
-                defaultView: 'month',
+                defaultView: PreferenciasService.getVistaCalendario(),
                 lang: 'es',
                 allDaySlot: false,
                 theme: true, //Do not remove this as it ruin the design
@@ -73,16 +75,15 @@ materialAdmin
                 selectHelper: true,
                 editable: true,
                 droppable: true,
-                slotDuration:'00:15:00',
-                height: parseInt(scope.height),
+                height:function(){
+                	return $(window).height()-scope.height;
+                },
+                slotDuration:PreferenciasService.getHuecosCalendario(),
                 navLinks: true,
                 navLinkDayClick: 'agendaWeek',
-                drop: function(date){            		
-    				var originalEventObject = $(this).data('event');
-
-        			var copiedEventObject = $.extend({}, originalEventObject);
-        			
-        			scope.onDrop({evento:copiedEventObject,fecha:date});
+                eventReceive : function(event){     
+                	scope.onDrop({evento:event,fecha:event.start});
+                	element.fullCalendar('removeEvents', event._id);
                 },
                 eventDataTransform:function(data){                	
                 	if(!data.rendering){
@@ -91,8 +92,18 @@ materialAdmin
                 		}
                 	}
                 	return data;
-                }
-                
+                },
+                eventRender: function(event, element) {
+                    if(scope.onRender){
+                    	var evento={event:event, element:element};
+                    	scope.onRender({evento:evento});
+                    }
+                 },
+                 eventClick: function(calEvent, jsEvent, view) {
+                	 if(scope.onClick){                		 
+                		 scope.onClick({cita:calEvent});
+                	 }                	 
+                 }
             });  
 
             
@@ -115,10 +126,47 @@ materialAdmin
             	element.fullCalendar('renderEvent', cita, true);
             }
             
+            scope.model.actualizarCita=function(cita){
+            	element.fullCalendar('updateEvent', cita);
+            }
+            
             scope.model.removeCita=function(id){
             	element.fullCalendar('removeEvents', id);
+            }
+            
+            scope.model.getCita=function(id){
+            	return element.fullCalendar('clientEvents', id);
             }
         }
         
     }
 })
+    // =========================================================================
+    // VISTA CALENDARIO
+    // =========================================================================
+.directive('vistaCalendario', function(PreferenciasService){
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            element.on('click', function(){
+            	PreferenciasService.setVistaCalendario(attrs.nombre);
+                $('#calendar-widget').fullCalendar('changeView',attrs.nombre);                
+            })
+        }
+    }
+})
+    // =========================================================================
+    // Hueco CALENDARIO
+    // =========================================================================
+.directive('huecosCalendario', function(PreferenciasService){
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            element.on('click', function(){
+            	PreferenciasService.setHuecosCalendario("00:"+attrs.minutos+":00");
+                $('#calendar-widget').fullCalendar('option','slotDuration', "00:"+attrs.minutos+":00");                
+            })
+        }
+    }
+})
+    

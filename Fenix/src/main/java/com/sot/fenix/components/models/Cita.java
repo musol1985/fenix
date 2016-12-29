@@ -15,7 +15,11 @@ import com.sot.fenix.components.json.CodigoDescripcionJSON;
 @Document
 public class Cita extends AModelId{
 	
-	public enum ESTADO{PROGRAMADA, CANCELADA, REPROGRAMADA, CAPTURADA, NO_PRESENTADO}
+	public enum ESTADO{PROGRAMADA, 
+						CANCELADA, 
+						REPROGRAMADA, 
+						CAPTURADA, 
+						NO_PRESENTADO}
 	
 	private ESTADO estado;
 	
@@ -38,6 +42,8 @@ public class Cita extends AModelId{
 	
 	@DBRef
 	private Cliente cliente;
+	
+	private float importe;
 
 	public ESTADO getEstado() {
 		return estado;
@@ -45,6 +51,16 @@ public class Cita extends AModelId{
 
 	public void setEstado(ESTADO estado) {
 		this.estado = estado;
+	}
+	
+	@JsonGetter("className")
+	public String getJsonClassName(){
+		return "fc-"+estado.name().toLowerCase();
+	}
+	
+	@JsonGetter("icono")
+	public String getJsonIcono(){
+		return "zmdi-"+estado.name().toLowerCase();
 	}
 
 	
@@ -179,6 +195,14 @@ public class Cita extends AModelId{
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public float getImporte() {
+		return importe;
+	}
+
+	public void setImporte(float importe) {
+		this.importe = importe;
 	}
 	
 	

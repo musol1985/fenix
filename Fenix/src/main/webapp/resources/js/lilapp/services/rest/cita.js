@@ -5,7 +5,7 @@ materialAdmin
     .service('citaService', function($q, $http, BasicRESTService, userService, horarioService){
     	var self=this;
     	
-    	this.REST=new BasicRESTService("Horario", "horario");
+    	this.REST=new BasicRESTService("Cita", "cita");
     	
     	
     	this.REST.getMaestros=function (centroId) {
