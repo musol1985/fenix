@@ -10,11 +10,15 @@
 
     &:not(.ch-alt) {
         @media screen and (min-width: @screen-sm-min) {
-            padding: 23px 25px;
+            padding: 11px 13px;
         }
 
         @media screen and (max-width: @screen-sm-max) {
-            padding: 18px;
+            padding: 11px 13px;
+        }
+        
+        &:not([class*="bgm-"]) {
+            background-color: #f7f7f7;
         }
     }
 

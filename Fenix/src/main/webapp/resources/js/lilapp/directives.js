@@ -141,11 +141,8 @@ materialAdmin
                         }
                     }
                 },
-                header: {
-                    right: '',
-                    center: '',
-                    left: ''
-                },
+                header: false,
+                nowIndicator:true,
                 defaultView: PreferenciasService.getVistaCalendario(),
                 lang: 'es',
                 allDaySlot: false,
@@ -182,7 +179,19 @@ materialAdmin
                 	 if(scope.onClick){                		 
                 		 scope.onClick({cita:calEvent});
                 	 }                	 
-                 }
+                 },
+                 viewRender:function(){
+                	 scope.model.fecha=element.fullCalendar('getDate').format('dddd DD, MMM [de] YYYY');
+                 }/*,
+                 dayRender:function( date, cell ) { 
+ 
+                	 console.log(date.format("DD/MM/YYYY"));
+                	 if(date.format("DD/MM/YYYY")=="28/12/2016"){
+                	 console.log(cell.hasClass( "fc-event-container" ));
+                	 debugger;
+                	 }
+                	 //console.log($(cell).find( ".fc-event" ).length)
+                 }*/
             });  
 
             
@@ -215,6 +224,18 @@ materialAdmin
             
             scope.model.getCita=function(id){
             	return element.fullCalendar('clientEvents', id);
+            }
+            
+            scope.model.siguiente=function(){
+            	element.fullCalendar('next');
+            }
+            
+            scope.model.anterior=function(){
+            	element.fullCalendar('prev');
+            }
+            
+            scope.model.verMes=function(){
+            	element.fullCalendar( 'changeView', 'month' );
             }
         }
         

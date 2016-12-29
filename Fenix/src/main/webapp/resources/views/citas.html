@@ -30,7 +30,7 @@
  		
         <div class="ms-body">
             <div class="listview lv-message">
-                <div class="card-header ch-alt clearfix">
+                <div class="card-header clearfix">
                     <div id="ms-menu-trigger"  data-ng-class="{ 'open': mactrl.lvMenuStat }" data-ng-click="mactrl.lvMenuStat = (mactrl.lvMenuStat===true ? false : true )">
                         <div class="line-wrap">
                             <div class="line top"></div>
@@ -39,11 +39,21 @@
                         </div>
                     </div>
 
-                    <div class="lvh-label">
-                        Citas
-                    </div>
+					<div class="lvh-label lvh-calendario">
+						<div class="lvh-label lvh-calendario-centro">
+							<button class="btn bgm-teal btn-icon-xs" data-ng-click="calendario.anterior()"><i class="zmdi zmdi-arrow-left"></i></button>
+							<span class="lvh-calendario-fecha">{{calendario.fecha}}</span>
+							<button class="btn bgm-teal btn-icon-xs" ng-click="calendario.verMes()"><i class="zmdi zmdi-calendar"></i></button>
+							<button class="btn bgm-teal btn-icon-xs" ng-click="calendario.siguiente()"><i class="zmdi zmdi-arrow-right"></i></button>
+						</div>
+					</div>                     
 
                     <ul class="lv-actions actions">
+                    	<li>
+                            <a href="" ng-click="refrescarUsuarios()">
+                                <i class="zmdi zmdi-plus"></i>
+                            </a>
+                        </li>  
                     	<li>
                             <a href="" ng-click="refrescarUsuarios()">
                                 <i class="zmdi zmdi-refresh"></i>
@@ -100,10 +110,10 @@
 			            </li>                 
                     </ul>
                     
-                    <button class="btn bgm-red btn-float waves-effect" ng-click="popup.nuevo()"><i class="zmdi zmdi-plus"></i></button>
+                    <!-- <button class="btn bgm-red btn-float waves-effect" ng-click="popup.nuevo()"><i class="zmdi zmdi-plus"></i></button>-->
    
                 </div>                                
-            	<div id="calendar-widget" calendario procesar-dia="aplicarHorario(dia)" on-drop="onDropPrestacion(evento, fecha)" on-procesar-cita="procesarCita(cita)" on-click="onClickCita(cita)" sources="getSource()" model="calendario" height="220" on-render="onRenderCalendario(evento)"></div>
+            	<div id="calendar-widget" calendario procesar-dia="aplicarHorario(dia)" on-drop="onDropPrestacion(evento, fecha)" on-procesar-cita="procesarCita(cita)" on-click="onClickCita(cita)" sources="getSource()" model="calendario" height="180" on-render="onRenderCalendario(evento)"></div>
             </div>
         </div>
     </div>  

@@ -70,6 +70,46 @@
     }
 }
 
+.btn-icon-xs {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    padding: 0;
+    text-align: center;
+    font-size: 10px;
+
+    i {
+        font-size: 10px;
+        .transition(all);
+        .transition-duration(500ms);
+    }
+
+    &:hover {
+        i {
+            .rotate(360deg);
+        }
+    }
+
+    &:not(.bgm-white):not(.bgm-gray) {
+        & > i {
+            color: #fff;
+        }
+    }
+
+    &:not(.bgm-white):not(.bgm-gray) {
+        & > i {
+            color: #fff;
+        }
+    }
+
+    &.bgm-white,
+    &.bgm-gray {
+        & > i {
+            color: #333;
+        }
+    }
+}
+
 .btn-icon-text {
     & > .zmdi {
         font-size: 15px;

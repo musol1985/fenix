@@ -8191,7 +8191,7 @@ h6 small,
 }
 #main {
   position: relative;
-  padding-top: 100px;
+  padding-top: 80px;
 }
 .container.c-alt {
   max-width: 1170px;
@@ -9170,6 +9170,26 @@ body:not(.sw-toggled) #sidebar {
   line-height: 33px;
   vertical-align: middle;
 }
+.lvh-calendario-fecha {
+  display: inline-block;
+  width: 180px;
+  text-align: center;
+}
+.lvh-calendario {
+  width: 360px;
+}
+@media (max-width: 480px) {
+  .lvh-calendario {
+    width: 100%;
+    display: inline-block;
+    white-space: nowrap;
+  }
+}
+@media (max-width: 480px) {
+  .lvh-calendario-centro {
+    margin: 0 auto;
+  }
+}
 .lv-footer {
   display: block;
   text-align: center;
@@ -9420,13 +9440,16 @@ a.lv-footer:hover {
 }
 @media screen and (min-width: 768px) {
   .card-header:not(.ch-alt) {
-    padding: 23px 25px;
+    padding: 11px 13px;
   }
 }
 @media screen and (max-width: 991px) {
   .card-header:not(.ch-alt) {
-    padding: 18px;
+    padding: 11px 13px;
   }
+}
+.card-header:not(.ch-alt):not([class*="bgm-"]) {
+  background-color: #f7f7f7;
 }
 .card-header h2 {
   margin: 0;
@@ -11116,6 +11139,38 @@ fieldset[disabled] .btn-inverse:active {
 }
 .btn-icon .zmdi {
   font-size: 17px;
+}
+.btn-icon-xs {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  padding: 0;
+  text-align: center;
+  font-size: 10px;
+}
+.btn-icon-xs i {
+  font-size: 10px;
+  -webkit-transition: all;
+  -o-transition: all;
+  transition: all;
+  -webkit-transition-duration: 500ms;
+  transition-duration: 500ms;
+}
+.btn-icon-xs:hover i {
+  -webkit-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+.btn-icon-xs:not(.bgm-white):not(.bgm-gray) > i {
+  color: #fff;
+}
+.btn-icon-xs:not(.bgm-white):not(.bgm-gray) > i {
+  color: #fff;
+}
+.btn-icon-xs.bgm-white > i,
+.btn-icon-xs.bgm-gray > i {
+  color: #333;
 }
 .btn-icon-text > .zmdi {
   font-size: 15px;
