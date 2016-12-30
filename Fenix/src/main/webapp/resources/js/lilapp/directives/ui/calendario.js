@@ -29,11 +29,47 @@ materialAdmin
             var y = date.getFullYear();
             
         	var sources=scope.sources();
+        	
         	if(!sources){
         		sources=[];
         	}
             
-            
+        	var FC = $.fullCalendar;
+        	
+        	var grid=FC.DayGrid.extend({
+      		
+        		renderMoreLink: function(row, col, hiddenSegs) {
+        			var dia=hiddenSegs[0].event.start;
+        			var item=$('<a class="fc-event fc-draggable"><div class="fc-content"><span class="fc-title">'+row+' citas</span></div></a>');
+        			item.on('click', function(ev) {
+        				onClickCustom(dia);
+					});
+        			return item;        						
+        		},
+        		fgSegHtml: function(seg, disableResizing) {        			
+        			var texto=(seg.event.id=="festivo")?"Festivo":"1 cita";        		
+        			
+        			return '<a class="fc-event fc-draggable"><div class="fc-content"><span class="fc-title">' + texto +'</span></div></a>';
+        			
+        		}
+        	});
+        	
+        	var onClickCustom=function(dia){
+        		element.fullCalendar('zoomTo', dia, 'agenda');
+            	scope.$apply();
+        	}
+        	
+        	FC.CustomView=FC.MonthView.extend({
+        		dayGridClass:grid
+        	});
+        	
+        	FC.views.custom = {
+        			'class': FC.CustomView,
+        			duration: { months: 1 }, // important for prev/next
+        			defaults: {
+        				fixedWeekCount: true
+        			}
+        		}
             
             scope.sourceHorario=function(start, end, timezone, callback){     
 					var eventos=[];        					
@@ -72,6 +108,7 @@ materialAdmin
                 selectHelper: true,
                 editable: true,
                 droppable: true,
+                eventLimit: 1,
                 height:function(){
                 	return $(window).height()-scope.height;
                 },
@@ -90,29 +127,24 @@ materialAdmin
                 	}
                 	return data;
                 },
-                eventRender: function(event, element) {
-                    if(scope.onRender){
-                    	var evento={event:event, element:element};
+                eventRender: function(event, ele) {
+                    if(scope.onRender && element.fullCalendar("getView").name!="custom"){
+                    	var evento={event:event, element:ele};
                     	scope.onRender({evento:evento});
                     }
                  },
-                 eventClick: function(calEvent, jsEvent, view) {
-                	 if(scope.onClick){                		 
-                		 scope.onClick({cita:calEvent});
+                 eventClick: function(calEvent, jsEvent, view) {                	 
+                	 if(scope.onClick){
+                		 if(view.name!="custom"){
+                			 scope.onClick({cita:calEvent});
+                		 }else{
+                			 onClickCustom(calEvent.start);
+                		 }
                 	 }                	 
                  },
                  viewRender:function(){
                 	 scope.model.fecha=element.fullCalendar('getDate').format('dddd DD, MMM [de] YYYY');
-                 }/*,
-                 dayRender:function( date, cell ) { 
- 
-                	 console.log(date.format("DD/MM/YYYY"));
-                	 if(date.format("DD/MM/YYYY")=="28/12/2016"){
-                	 console.log(cell.hasClass( "fc-event-container" ));
-                	 debugger;
-                	 }
-                	 //console.log($(cell).find( ".fc-event" ).length)
-                 }*/
+                 }
             });  
 
             
@@ -156,7 +188,7 @@ materialAdmin
             }
             
             scope.model.verMes=function(){
-            	element.fullCalendar( 'changeView', 'month' );
+            	element.fullCalendar( 'changeView', 'custom' );
             }
         }
         
