@@ -60,7 +60,9 @@ public class Prestacion extends AModelBasic implements ICodDescr{
 	@Override
 	@JsonIgnore
 	public String getCodigo() {
-		return id.toHexString();
+		if(id!=null)
+			return id.toHexString();
+		return null;
 	}
 
 	@Override

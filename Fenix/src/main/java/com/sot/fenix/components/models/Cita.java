@@ -1,6 +1,8 @@
 package com.sot.fenix.components.models;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -9,10 +11,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.sot.fenix.components.json.CodigoDescripcionJSON;
 
 @Document
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Cita extends AModelId{
 	
 	public enum ESTADO{PROGRAMADA, 
@@ -55,11 +59,15 @@ public class Cita extends AModelId{
 	
 	@JsonGetter("className")
 	public String getJsonClassName(){
+		if(estado==null)
+			return "";
 		return "fc-"+estado.name().toLowerCase();
 	}
 	
 	@JsonGetter("icono")
 	public String getJsonIcono(){
+		if(estado==null)
+			return "";
 		return "zmdi-"+estado.name().toLowerCase();
 	}
 
@@ -88,19 +96,38 @@ public class Cita extends AModelId{
 	}
 	
 	@JsonSetter("cliente")
-	public void setJsonCliente(String id) {
-		if(id!=null && !id.isEmpty()){
-			cliente=new Cliente();
-			cliente.id=new ObjectId(id);
+	public void setJsonCliente(Object id) {
+		if(id!=null){
+			if(id instanceof LinkedHashMap){				
+				id=((LinkedHashMap) id).get("id");
+			}
+			if(id instanceof String){				
+				if(!((String)id).isEmpty()){		
+					cliente=new Cliente();
+					cliente.id=new ObjectId((String)id);
+				}
+			}else if(id instanceof Cliente){
+				cliente=(Cliente)id;
+			}
 		}
 	}
 
 	
 	@JsonSetter("prestacion")
-	public void setJsonPrestacion(String id) {
-		if(id!=null && !id.isEmpty()){
-			prestacion=new Prestacion();
-			prestacion.id=new ObjectId(id);
+	public void setJsonPrestacion(Object id) {
+		if(id!=null){
+			if(id instanceof LinkedHashMap){				
+				id=((LinkedHashMap) id).get("id");
+			}
+			
+			if(id instanceof String){								
+				if(!((String)id).isEmpty()){
+					prestacion=new Prestacion();
+					prestacion.id=new ObjectId((String)id);
+				}
+			}else if(id instanceof Prestacion){
+				prestacion=(Prestacion)id;
+			}
 		}
 	}
 	
@@ -113,10 +140,20 @@ public class Cita extends AModelId{
 	}
 	
 	@JsonSetter("profesional")
-	public void setJsonProfesional(String id) {
-		if(id!=null && !id.isEmpty()){
-			profesional=new Usuario();
-			profesional.id=new ObjectId(id);
+	public void setJsonProfesional(Object id) {
+		if(id!=null){
+			if(id instanceof LinkedHashMap){				
+				id=((LinkedHashMap) id).get("id");
+			}
+			
+			if(id instanceof String){
+				if(!((String)id).isEmpty()){		
+					profesional=new Usuario();
+					profesional.id=new ObjectId((String)id);
+				}
+			}else if(id instanceof Usuario){
+				profesional=(Usuario)id;
+			}
 		}
 	}
 	
@@ -205,8 +242,7 @@ public class Cita extends AModelId{
 		this.importe = importe;
 	}
 	
-	
-	
+
 	/*@DBRef
 	private Usuario profesional;
 	

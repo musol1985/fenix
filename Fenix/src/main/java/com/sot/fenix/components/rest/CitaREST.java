@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sot.fenix.components.json.CitasRequest;
 import com.sot.fenix.components.json.MaestrosCitaJSON;
+import com.sot.fenix.components.json.ReprogramarRequestJSON;
 import com.sot.fenix.components.json.ResponseJSON;
 import com.sot.fenix.components.models.Cita;
 import com.sot.fenix.components.models.Cita.ESTADO;
@@ -31,6 +32,7 @@ public class CitaREST{
 	public static final int RES_NO_PRESTACION=98;
 	public static final int RES_NO_PROFESIONAL=97;
 	public static final int RES_TIENE_SOLAPA=96;
+	public static final int RES_NO_ID_CITA=95;
 	
 	@Autowired
 	private CitaService citas;
@@ -43,6 +45,7 @@ public class CitaREST{
 	
 	@RequestMapping(method=RequestMethod.PUT)
     public ResponseJSON<Cita> nueva(@RequestBody Cita cita) {
+		System.out.println("****************************************************************");
 		if(cita.getCliente()==null)
 			return new ResponseJSON<Cita>(RES_NO_CLIENTE, cita);
 		if(cita.getPrestacion()==null)
@@ -68,6 +71,8 @@ public class CitaREST{
 			return new ResponseJSON<Cita>(RES_NO_PRESTACION, cita);
 		if(cita.getProfesional()==null)
 			return new ResponseJSON<Cita>(RES_NO_PROFESIONAL, cita);
+		if(cita.getId()==null)
+			return new ResponseJSON<Cita>(RES_NO_ID_CITA, cita);
 		
 		List<Cita> solapas=citas.getCitasSolapa(cita);
 		
@@ -78,9 +83,31 @@ public class CitaREST{
 			return new ResponseJSON<Cita>(ResponseJSON.OK, cita);	
 		}
     }
+	
+	@RequestMapping(method=RequestMethod.POST, path="/reprogramar")
+    public ResponseJSON<Cita> reprogramar(@RequestBody ReprogramarRequestJSON req) {
+		Cita cita=citas.getDAO().findOne(req.cita.getId());
+		if(cita==null)
+			return new ResponseJSON<Cita>(ResponseJSON.NO_EXISTE);
+		
+		if(!req.forzar){
+			List<Cita> solapas=citas.getCitasSolapa(req.cita);
+			
+			if(solapas.size()>0 && !(solapas.get(0).getId().toHexString().equals(cita.getId().toHexString()))){
+				return new ResponseJSON<Cita>(RES_TIENE_SOLAPA, cita);
+			}
+		}
+		
+		cita.setFechaIni(req.cita.getFechaIni());
+		cita.setFechaFin(req.cita.getFechaFin());
+		citas.getDAO().save(cita);
+		
+		return new ResponseJSON<Cita>(ResponseJSON.OK, cita);
+    }
     
 	@RequestMapping(method=RequestMethod.GET, path="/in")
     public List<Cita> in(@RequestParam("centro") String centro, @RequestParam("start") @DateTimeFormat(pattern="yyyy-MM-dd") Date start,  @RequestParam("end") @DateTimeFormat(pattern="yyyy-MM-dd") Date end) {
+		System.out.println("****************************************************************arggggggggggg");
 		List<Cita> res=citas.getDAO().findByFechaIniGreaterThanEqualAndFechaFinLessThanEqualAndCentro_id(start, end, new ObjectId(centro));
 		return res;	
     }
@@ -104,5 +131,10 @@ public class CitaREST{
 		return maestros;
     }
 	
+	
+	@RequestMapping(method=RequestMethod.GET, path="/test")
+    public String test(@RequestParam("centro") String centro, @RequestParam("start") @DateTimeFormat(pattern="yyyy-MM-dd") Date start) {
+		return "CitaREST OK"+centro+start;
+	}
 }
 

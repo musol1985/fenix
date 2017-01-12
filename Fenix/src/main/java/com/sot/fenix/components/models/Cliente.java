@@ -88,7 +88,9 @@ public class Cliente extends AModelId implements ICodDescr {
 	}
 	@Override
 	public String getCodigo() {
-		return id.toHexString();
+		if(id!=null)
+			return id.toHexString();
+		return null;
 	}
 	@Override
 	public String getDescripcion() {

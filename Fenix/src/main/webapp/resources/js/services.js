@@ -31,13 +31,23 @@ materialAdmin
 		    			if(t){
 		    				if(t.growl && t.growl==true){
 		    					self.alertaGrowl(t.texto, t.tipo, t.onProcesar, response);
+		    				}else if(t.alertSiNo && t.alertSiNo==true){
+		    					self.alertaSiNo(t.titulo, t.texto, function(valor){
+		    						if(valor){
+		    							if(t.onSi)
+		    								t.onSi();
+		    						}else{
+		    							if(t.onNo)
+		    								t.onNo();
+		    						}
+		    					});
 		    				}else{
 		    					self.alerta(t.titulo, t.texto, t.tipo, t.onProcesar, response);
 		    				}
 		    				
 		    				if(t.error){
 		    					if(t.onErrorResponse){
-		    						t.onErrorResponse();
+		    						t.onErrorResponse(response);
 		    					}else if(mensajes.onErrorResponse){
 		    						mensajes.onErrorResponse();
 		    					}
@@ -79,9 +89,9 @@ materialAdmin
                 confirmButtonColor: "#DD6B55",   
                 confirmButtonText: "Si", 
                 cancelButtonText: "No"  
-            }, function(){
+            }, function(isConfirm){
             	if(onClick)
-            		onClick();            	
+            		onClick(isConfirm);            	
             });
     	}
     	

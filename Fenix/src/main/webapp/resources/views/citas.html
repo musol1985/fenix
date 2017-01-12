@@ -113,7 +113,10 @@
                     <!-- <button class="btn bgm-red btn-float waves-effect" ng-click="popup.nuevo()"><i class="zmdi zmdi-plus"></i></button>-->
    
                 </div>                                
-            	<div id="calendar-widget" calendario procesar-dia="aplicarHorario(dia)" on-drop="onDropPrestacion(evento, fecha)" on-procesar-cita="procesarCita(cita)" on-click="onClickCita(cita)" sources="getSource()" model="calendario" height="180" on-render="onRenderCalendario(evento)"></div>
+            	<div id="calendar-widget" calendario procesar-dia="aplicarHorario(dia)" 
+            	on-drop="onDropPrestacion(evento, fecha)" on-procesar-cita="procesarCita(cita)" 
+            	on-click="onClickCita(cita)" sources="getSource()" model="calendario" height="180" 
+            	on-render="onRenderCalendario(evento)" on-resize="onResizeCita(cita, revert)"></div>
             </div>
         </div>
     </div>  

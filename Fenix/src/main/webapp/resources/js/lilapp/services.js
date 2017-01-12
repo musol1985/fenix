@@ -375,6 +375,24 @@ materialAdmin
             return deferred.promise;
         }
     	
+    	this.REST.reprogramar=function(cita, forzar) {
+            var deferred = $q.defer();
+            if(angular.isUndefined(forzar)){
+            	forzar=false;
+            }
+            $http.post("cita/reprogramar", {cita:cita, forzar:forzar})
+                .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error while reprogramando cita');
+                    deferred.reject(errResponse);
+                }
+            );
+            return deferred.promise;
+        }
+    	
     	this.agruparProfesionales=function(maestros){
     		var current;
     		

@@ -107,6 +107,38 @@ materialAdmin
     		$scope.popup.modificar(cita);
     	}
     	
+    	$scope.onResizeCita=function(cita, revert, forzar){
+    		console.log(cita);
+    		errorService.procesar(citaService.REST.reprogramar(cita, forzar),{
+   				 0:{
+   					 growl: true,   				 
+   					 texto: "Cita modificada",
+   					 tipo: "success"
+   				 },
+   				 1:{
+   					 titulo: "Atención",    				 
+   					 texto: "No existe la cita",
+   					 tipo: "warning"
+   				 },
+   				 96:{
+   					titulo: "Atención",    				 
+  					texto: "Existe solapamiento con otra cita. ¿Forzar la reprogramación?",
+  					tipo: "warning", 
+  					error: false,
+  					alertSiNo:true,
+  					onSi:function(){
+  						$scope.onResizeCita(cita, revert, true);
+  					},
+  					onNo:function(){
+  						revert();
+  					}
+   				 },
+   				 onErrorResponse:function(){
+  					revert();
+				 }
+    		});
+    	}
+    	
     	$scope.nueva=function(){
     		$scope.modal.mostrar(true);
     	}

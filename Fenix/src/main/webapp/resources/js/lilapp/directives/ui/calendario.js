@@ -14,7 +14,8 @@ materialAdmin
             onDrop: '&',
             onProcesarCita: '&?',
             onRender: '&?',
-            onClick:'&?'
+            onClick:'&?',
+            onResize: '&?'
         },
         transclude: true,
         link: function(scope, element, attrs) {
@@ -144,6 +145,11 @@ materialAdmin
                  },
                  viewRender:function(){
                 	 scope.model.fecha=element.fullCalendar('getDate').format('dddd DD, MMM [de] YYYY');
+                 },
+                 eventResize:function(event, delta, revert){
+                	 if(scope.onResize){
+                		 scope.onResize({cita:event, revert:revert});
+                	 }
                  }
             });  
 

@@ -169,7 +169,9 @@ public class Usuario extends AModelId implements UserDetails, IUsuario, ICodDesc
 
 	@Override
 	public String getCodigo() {
-		return id.toHexString();
+		if(id!=null)
+			return id.toHexString();
+		return null;
 	}
 
 	@Override
