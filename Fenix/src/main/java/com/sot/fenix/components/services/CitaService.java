@@ -51,6 +51,6 @@ public class CitaService {
 	public Cita crearCita(Cita cita){
 		cita.setEstado(ESTADO.PROGRAMADA);
 		dao.save(cita);
-		return cita;
+		return dao.findOne(cita.getId());
 	}
 }

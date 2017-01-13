@@ -91,6 +91,7 @@ public class CitaREST{
 			return new ResponseJSON<Cita>(ResponseJSON.NO_EXISTE);
 		
 		if(!req.forzar){
+			System.out.println("Ini:"+req.cita.getFechaIni()+"    Fin:"+req.cita.getFechaFin());
 			List<Cita> solapas=citas.getCitasSolapa(req.cita);
 			
 			if(solapas.size()>0 && !(solapas.get(0).getId().toHexString().equals(cita.getId().toHexString()))){
@@ -136,5 +137,16 @@ public class CitaREST{
     public String test(@RequestParam("centro") String centro, @RequestParam("start") @DateTimeFormat(pattern="yyyy-MM-dd") Date start) {
 		return "CitaREST OK"+centro+start;
 	}
+	
+	@RequestMapping(method=RequestMethod.DELETE, path="/{id}")
+    public ResponseJSON<Cita> eliminar(@PathVariable String id) {
+		Cita item=citas.getDAO().findOne(new ObjectId(id));
+		if(item!=null){
+			citas.getDAO().delete(item);
+			return new ResponseJSON<Cita>(ResponseJSON.OK);
+		}else{
+			return new ResponseJSON<Cita>(ResponseJSON.NO_EXISTE);
+		}
+    }
 }
 

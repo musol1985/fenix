@@ -108,7 +108,8 @@ materialAdmin
     	}
     	
     	$scope.onResizeCita=function(cita, revert, forzar){
-    		console.log(cita);
+    		cita.fechaIni=cita.start.format("DD/MM/YYYY HH:mm");
+    		cita.fechaFin=cita.end.format("DD/MM/YYYY HH:mm");
     		errorService.procesar(citaService.REST.reprogramar(cita, forzar),{
    				 0:{
    					 growl: true,   				 
@@ -131,16 +132,53 @@ materialAdmin
   					},
   					onNo:function(){
   						revert();
+  						cita.fechaIni=cita.start.format("DD/MM/YYYY HH:mm");
+  						cita.fechaFin=cita.end.format("DD/MM/YYYY HH:mm");
   					}
    				 },
    				 onErrorResponse:function(){
   					revert();
+  					cita.fechaFin=cita.end.format("DD/MM/YYYY HH:mm");
+  					cita.fechaIni=cita.start.format("DD/MM/YYYY HH:mm");
 				 }
     		});
     	}
     	
+    	$scope.onSeleccionar=function(start, end){
+    		var cita={};
+    		cita.start=start;
+    		cita.end=end;
+    		$scope.onDropPrestacion(cita);
+    	}
+    	
     	$scope.nueva=function(){
     		$scope.modal.mostrar(true);
+    	}
+    	
+    	$scope.anularCita=function(cita){
+    		errorService.alertaSiNo("Anular","¿Seguro que quieres anular la cita de "+cita.cliente.descripcion+" del "+cita.fechaIni+"?", function(v){
+				if(v){
+					 $scope.calendario.removeCita(cita.id);
+					 errorService.procesar(citaService.REST.eliminar(cita.id),{
+		   				 0:{
+		   					 growl: true,   				 
+		   					 texto: "Cita eliminada",
+		   					 tipo: "success"
+		   				 },
+		   				 1:{
+		   					 titulo: "Atención",    				 
+		   					 texto: "No existe la cita",
+		   					 tipo: "warning"
+		   				 },
+		   				 onErrorResponse:function(){
+		   					cita.source=undefined;
+		   					$scope.calendario.addCita(cita);		  					
+						 }
+		    		});
+				}else{
+					$scope.popup.mostrar(cita);
+				}
+			});
     	}
     	
     	
@@ -196,6 +234,10 @@ materialAdmin
     	    		$scope.popup.profesionales=$scope.popup.profesionales.splice(1);
     	    		$scope.popup.prestaciones=$scope.maestros.prestaciones;    	    		    	    		 	    	
     			},
+    			anular:function(data){
+    				$scope.popup.cerrar();
+    				$scope.anularCita(data);
+    			},
     			nuevo : function () {    				
     	    		var data={id:'', nombre:'',profesional:{}};    	    		
     	    		$scope.popup.cliente=clienteService.getSeleccionado();       	    		
@@ -247,8 +289,7 @@ materialAdmin
     	        	}else{
     	        		item="";
     	        	}
-    	        },
-    	        
+    	        },    	        
     			//EVENTOS
     			onNuevo:function(data){
     				//var res=citaService.nueva(data.json);    				
@@ -286,7 +327,15 @@ materialAdmin
 
     				errorService.procesar(accion,{
     					 0:{
-    						 growl: true, texto: "Cita "+txtOK, tipo: "success"
+    						 growl: true, texto: "Cita "+txtOK, tipo: "success", onProcesar:function(res){
+    							 if(!modificando){
+    								 console.log(res);
+    								 debugger;    								 
+    								 $scope.calendario.removeCita(data.cita.id);
+    								 $scope.calendario.addCita(res.data);
+    								 //$scope.calendario.actualizarCita(c);
+    							 }
+    						 }
     					 },
     					 1:{
     	  					 titulo: "Atención", texto: "La prestación no existe", tipo: "warning"

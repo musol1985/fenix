@@ -53,6 +53,9 @@
 			$scope.refrescarTabla.tabla.reload();
 		}
     	
+		$scope.popup.cerrar=function(){
+			$scope.modalInstance.close();
+		}
 	})
 	
 	.directive('uiPopup', function($compile, $rootScope) {

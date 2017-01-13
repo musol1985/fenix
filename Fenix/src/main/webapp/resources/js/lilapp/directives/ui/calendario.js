@@ -15,7 +15,8 @@ materialAdmin
             onProcesarCita: '&?',
             onRender: '&?',
             onClick:'&?',
-            onResize: '&?'
+            onResize: '&?',
+            onSelect: '&?'
         },
         transclude: true,
         link: function(scope, element, attrs) {
@@ -109,6 +110,7 @@ materialAdmin
                 selectHelper: true,
                 editable: true,
                 droppable: true,
+                scrollTime:,
                 eventLimit: 1,
                 height:function(){
                 	return $(window).height()-scope.height;
@@ -121,7 +123,7 @@ materialAdmin
                 	element.fullCalendar('removeEvents', event._id);
                 },
                 eventDataTransform:function(data){                	
-                	if(!data.rendering){
+                	if(data && !data.rendering){
                 		if(scope.onProcesarCita){
                 			return scope.onProcesarCita({cita:data});
                 		}
@@ -150,9 +152,20 @@ materialAdmin
                 	 if(scope.onResize){
                 		 scope.onResize({cita:event, revert:revert});
                 	 }
+                 },
+                 eventDrop:function(event, delta, revert){
+                	 if(scope.onResize){
+                		 scope.onResize({cita:event, revert:revert});
+                	 }
+                 },
+                 select:function(start, end){
+                	 if(scope.onSelect){
+                		 scope.onSelect({start:start, end:end});
+                		 element.fullCalendar('unselect');
+                	 }
                  }
+                 
             });  
-
             
             scope.model.iniciar=function(){
             	angular.forEach(sources, function(source) {
