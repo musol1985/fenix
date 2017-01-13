@@ -6,8 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.sot.fenix.components.models.AModelBasic;
 import com.sot.fenix.components.models.Centro;
+import com.sot.fenix.components.models.templates.AModelBasic;
 
 @Service
 public class ABasicService<D extends IBasicDAO<I>, I extends AModelBasic> implements IBasicService<D>{

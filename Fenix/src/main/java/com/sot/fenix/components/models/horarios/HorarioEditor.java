@@ -2,7 +2,7 @@ package com.sot.fenix.components.models.horarios;
 
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
-import com.sot.fenix.components.models.AModelId;
+import com.sot.fenix.components.models.templates.AModelId;
 
 public class HorarioEditor extends AModelId{
 

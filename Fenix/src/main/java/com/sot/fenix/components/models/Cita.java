@@ -2,7 +2,6 @@ package com.sot.fenix.components.models;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
-import java.util.Map.Entry;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -14,14 +13,13 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.sot.fenix.components.json.CodigoDescripcionJSON;
+import com.sot.fenix.components.models.templates.AModelId;
 
 @Document
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class Cita extends AModelId{
 	
 	public enum ESTADO{PROGRAMADA, 
-						CANCELADA, 
-						REPROGRAMADA, 
 						CAPTURADA, 
 						NO_PRESENTADO}
 	
@@ -83,7 +81,7 @@ public class Cita extends AModelId{
 	public void setJsonCentro(String id) {
 		if(id!=null && !id.isEmpty()){
 			centro=new Centro();
-			centro.id=new ObjectId(id);
+			centro.setId(new ObjectId(id));
 		}
 	}
 	
@@ -104,7 +102,7 @@ public class Cita extends AModelId{
 			if(id instanceof String){				
 				if(!((String)id).isEmpty()){		
 					cliente=new Cliente();
-					cliente.id=new ObjectId((String)id);
+					cliente.setId(new ObjectId((String)id));
 				}
 			}else if(id instanceof Cliente){
 				cliente=(Cliente)id;
@@ -123,7 +121,7 @@ public class Cita extends AModelId{
 			if(id instanceof String){								
 				if(!((String)id).isEmpty()){
 					prestacion=new Prestacion();
-					prestacion.id=new ObjectId((String)id);
+					prestacion.setId(new ObjectId((String)id));
 				}
 			}else if(id instanceof Prestacion){
 				prestacion=(Prestacion)id;
@@ -149,7 +147,7 @@ public class Cita extends AModelId{
 			if(id instanceof String){
 				if(!((String)id).isEmpty()){		
 					profesional=new Usuario();
-					profesional.id=new ObjectId((String)id);
+					profesional.setId(new ObjectId((String)id));
 				}
 			}else if(id instanceof Usuario){
 				profesional=(Usuario)id;
@@ -240,6 +238,10 @@ public class Cita extends AModelId{
 
 	public void setImporte(float importe) {
 		this.importe = importe;
+	}
+	
+	public boolean isProgramada(){
+		return estado==ESTADO.PROGRAMADA;
 	}
 	
 

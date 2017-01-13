@@ -10,6 +10,8 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.sot.fenix.components.models.horarios.Horario;
+import com.sot.fenix.components.models.templates.AModelBasic;
+import com.sot.fenix.components.models.templates.ICodDescr;
 
 @Document
 @CompoundIndexes({@CompoundIndex(name="idx_nombre_centro",def="{nombre:1,centro:1}")})
@@ -80,7 +82,7 @@ public class Prestacion extends AModelBasic implements ICodDescr{
 	public void setJsonHorario(String id) {
 		if(id!=null && !id.isEmpty()){
 			horario=new Horario();
-			horario.id=new ObjectId(id);
+			horario.setId(new ObjectId(id));
 		}
 	}
 }

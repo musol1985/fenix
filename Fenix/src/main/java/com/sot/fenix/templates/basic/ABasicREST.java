@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.sot.fenix.components.json.PageJSON;
 import com.sot.fenix.components.json.ResponseJSON;
 import com.sot.fenix.components.json.ResponseListJSON;
-import com.sot.fenix.components.models.AModelBasic;
+import com.sot.fenix.components.models.templates.AModelBasic;
 
 
 public class ABasicREST<S extends ABasicService<D, I>, I extends AModelBasic, D extends IBasicDAO<I>>{

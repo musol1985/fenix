@@ -23,10 +23,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.sot.fenix.components.json.ResponseJSON;
-import com.sot.fenix.components.models.AModelBasic;
-import com.sot.fenix.components.models.AModelId;
 import com.sot.fenix.components.models.Centro;
 import com.sot.fenix.components.models.Centro.TIPO;
+import com.sot.fenix.components.models.templates.AModelBasic;
+import com.sot.fenix.components.models.templates.AModelId;
 import com.sot.fenix.components.models.Prestacion;
 import com.sot.fenix.components.models.Ubicacion;
 import com.sot.fenix.components.services.CentroService;

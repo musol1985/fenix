@@ -17,6 +17,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.sot.fenix.components.models.Perfil.PERFILES;
 import com.sot.fenix.components.models.horarios.Horario;
+import com.sot.fenix.components.models.templates.AModelId;
+import com.sot.fenix.components.models.templates.ICodDescr;
+import com.sot.fenix.components.models.templates.IUsuario;
 
 @Document
 @JsonIgnoreProperties({ "authorities" })
@@ -197,7 +200,7 @@ public class Usuario extends AModelId implements UserDetails, IUsuario, ICodDesc
 	public void setJsonHorario(String id) {
 		if(id!=null && !id.isEmpty()){
 			horario=new Horario();
-			horario.id=new ObjectId(id);
+			horario.setId(new ObjectId(id));
 		}
 	}
 	

@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.sot.fenix.components.models.horarios.Horario;
+import com.sot.fenix.components.models.templates.AModelId;
 
 @Document
 public class Centro extends AModelId{

@@ -8,6 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sot.fenix.components.models.templates.AModelId;
+import com.sot.fenix.components.models.templates.IUsuario;
 
 @Document
 public class UsuarioPendiente extends AModelId implements IUsuario{

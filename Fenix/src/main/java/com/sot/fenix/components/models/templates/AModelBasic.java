@@ -1,4 +1,4 @@
-package com.sot.fenix.components.models;
+package com.sot.fenix.components.models.templates;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.sot.fenix.components.models.Centro;
 
 public abstract class AModelBasic extends AModelId{
 	protected String nombre;

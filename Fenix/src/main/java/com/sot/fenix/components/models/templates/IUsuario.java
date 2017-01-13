@@ -1,4 +1,4 @@
-package com.sot.fenix.components.models;
+package com.sot.fenix.components.models.templates;
 
 import org.bson.types.ObjectId;
 

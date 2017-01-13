@@ -10,6 +10,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.sot.fenix.components.models.templates.AModelId;
+import com.sot.fenix.components.models.templates.ICodDescr;
 
 @Document
 @CompoundIndexes({
@@ -83,7 +85,7 @@ public class Cliente extends AModelId implements ICodDescr {
 	public void setJsonCentro(String id) {
 		if(id!=null && !id.isEmpty()){
 			centro=new Centro();
-			centro.id=new ObjectId(id);
+			centro.setId(new ObjectId(id));
 		}
 	}
 	@Override

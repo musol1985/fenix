@@ -1,9 +1,9 @@
 package test.fenix.rest;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -28,12 +28,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.sot.fenix.components.json.ReprogramarRequestJSON;
 import com.sot.fenix.components.json.ResponseJSON;
 import com.sot.fenix.components.models.Centro;
 import com.sot.fenix.components.models.Centro.TIPO;
 import com.sot.fenix.components.models.Cita;
-import com.sot.fenix.components.models.Cliente;
 import com.sot.fenix.components.models.Cita.ESTADO;
+import com.sot.fenix.components.models.Cliente;
 import com.sot.fenix.components.models.Perfil.PERFILES;
 import com.sot.fenix.components.models.Prestacion;
 import com.sot.fenix.components.models.Ubicacion;
@@ -49,7 +50,6 @@ import com.sot.fenix.config.SecurityConfig;
 
 import test.fenix.TestUtils;
 import test.fenix.config.TestDBConfig;
-import static org.hamcrest.Matchers.hasSize;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -338,21 +338,63 @@ public class TestCitas {
 	@Test
 	public void reprogramar() throws Exception {
 		Cita cBD=getSavedCita(toDate("16/07/2016 07:10"), toDate("16/07/2016 07:30"));
+		Cita cBD2=getSavedCita(toDate("16/07/2016 11:00"), toDate("16/07/2016 12:00"));
+				
+		cBD.setId(cBD.getId());
+		cBD.setFechaIni(toDate("16/07/2016 08:00"));
+		cBD.setFechaFin(toDate("16/07/2016 10:00"));
 		
-		Cita c=new Cita();
-		c.setId(cBD.getId());
-		c.setFechaIni(toDate("16/07/2016 08:00"));
-		c.setFechaFin(toDate("16/07/2016 10:00"));
+		ReprogramarRequestJSON req=new ReprogramarRequestJSON();
+		req.cita=cBD;
+		req.forzar=false;
 	    
+		//No solapa
 	    mockMvc.perform(MockMvcRequestBuilders.post("/cita/reprogramar")
 	    		.contentType(TestUtils.APPLICATION_JSON_UTF8)
-	    		.content(TestUtils.convertObjectToJsonBytes(c)))
+	    		.content(TestUtils.convertObjectToJsonBytes(req)))
+	    	.andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.cod").value(ResponseJSON.OK))
+			.andExpect(jsonPath("$.data.estado").value(ESTADO.PROGRAMADA.name()));
+	    
+	    
+	    cBD.setFechaIni(toDate("16/07/2016 11:15"));
+		cBD.setFechaFin(toDate("16/07/2016 11:20"));
+		//Si solapa xo no forzamos
+	    mockMvc.perform(MockMvcRequestBuilders.post("/cita/reprogramar")
+	    		.contentType(TestUtils.APPLICATION_JSON_UTF8)
+	    		.content(TestUtils.convertObjectToJsonBytes(req)))
+	    	.andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.cod").value(CitaREST.RES_TIENE_SOLAPA))
+			.andExpect(jsonPath("$.data.estado").value(ESTADO.PROGRAMADA.name()));
+	    
+	    req.forzar=true;
+		//Si solapa y forzamos 
+	    mockMvc.perform(MockMvcRequestBuilders.post("/cita/reprogramar")
+	    		.contentType(TestUtils.APPLICATION_JSON_UTF8)
+	    		.content(TestUtils.convertObjectToJsonBytes(req)))
 	    	.andDo(print())
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.cod").value(ResponseJSON.OK))
 			.andExpect(jsonPath("$.data.estado").value(ESTADO.PROGRAMADA.name()));
 	}
 
+	@Test
+	public void borrar() throws Exception {
+		Cita item=getSavedCita(toDate("16/07/2016 07:10"), toDate("16/07/2016 07:30"));
+		
+	    
+	    mockMvc.perform(MockMvcRequestBuilders.delete("/cita/"+item.getId().toHexString()))
+		.andDo(print())
+		.andExpect(status().isOk())
+	    .andExpect(jsonPath("$.cod").value(ResponseJSON.OK));
+	    
+	    mockMvc.perform(MockMvcRequestBuilders.delete("/cita/"+item.getId().toHexString()))
+		.andDo(print())
+		.andExpect(status().isOk())
+	    .andExpect(jsonPath("$.cod").value(ResponseJSON.NO_EXISTE));
+	}
 	
 	
 	@Test

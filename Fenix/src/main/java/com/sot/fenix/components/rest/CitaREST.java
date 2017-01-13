@@ -33,6 +33,7 @@ public class CitaREST{
 	public static final int RES_NO_PROFESIONAL=97;
 	public static final int RES_TIENE_SOLAPA=96;
 	public static final int RES_NO_ID_CITA=95;
+	public static final int RES_ESTADO_INCORRECTO=94;
 	
 	@Autowired
 	private CitaService citas;
@@ -144,6 +145,23 @@ public class CitaREST{
 		if(item!=null){
 			citas.getDAO().delete(item);
 			return new ResponseJSON<Cita>(ResponseJSON.OK);
+		}else{
+			return new ResponseJSON<Cita>(ResponseJSON.NO_EXISTE);
+		}
+    }
+	
+	
+	@RequestMapping(method=RequestMethod.POST, path="/capturar")
+    public ResponseJSON<Cita> capturar(@RequestBody Cita cita) {
+		Cita item=citas.getDAO().findOne(new ObjectId(cita.getId().toHexString()));
+		if(item!=null){
+			if(item.isProgramada()){
+				return new ResponseJSON<Cita>(RES_ESTADO_INCORRECTO);
+			}else{				
+				item.setEstado(ESTADO.CAPTURADA);
+				citas.getDAO().save(item);
+				return new ResponseJSON<Cita>(ResponseJSON.OK, item);
+			}
 		}else{
 			return new ResponseJSON<Cita>(ResponseJSON.NO_EXISTE);
 		}

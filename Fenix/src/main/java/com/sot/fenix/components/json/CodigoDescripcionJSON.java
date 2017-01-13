@@ -1,6 +1,6 @@
 package com.sot.fenix.components.json;
 
-import com.sot.fenix.components.models.ICodDescr;
+import com.sot.fenix.components.models.templates.ICodDescr;
 
 public class CodigoDescripcionJSON {
 	public String id;
