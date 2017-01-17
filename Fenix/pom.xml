@@ -117,6 +117,12 @@
 		    <version>1.10.0.BUILD-SNAPSHOT</version>
 		</dependency>
 
+	<!-- Spring-data-cassandra -->
+	<dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-cassandra</artifactId>
+        <version>1.4.6.RELEASE</version>
+    </dependency>
 		
     </dependencies>
     <repositories>

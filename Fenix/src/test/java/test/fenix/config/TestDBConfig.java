@@ -17,3 +17,25 @@ public class TestDBConfig {
 	 }
  
 }
+/*
+
+@Configuration
+@EnableCassandraRepositories(basePackages = { "com.sot.fenix.dao" })
+public class TestDBConfig extends AbstractCassandraConfiguration {
+
+    @Override
+    public String getKeyspaceName() {
+        return "test_config";
+    }
+
+    @Override
+    public SchemaAction getSchemaAction() {
+        return SchemaAction.CREATE_IF_NOT_EXISTS;
+    }
+
+    @Bean
+    public CassandraOperations cassandraOperations() throws Exception {
+        return new CassandraTemplate(session().getObject());
+    }
+
+}*/
