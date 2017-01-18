@@ -13,19 +13,22 @@
         <link href="resources/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
 
         <!-- CSS -->
-        <link href="resources/css/app.css" rel="stylesheet">
+
         <link href="resources/css/login.css" rel="stylesheet">
         
     </head>
 <body data-ng-controller="registrarCtrl as rctrl">
   <div class="wrapper">
 	<div class="container">
-		<h1>Registrarse</h1>
- 
 		<form novalidate>
 			
-			<input type="text" ng-model="user.centro" id="centro" name="centro" required readonly ng-init="user.centro = '${centro }'"/>
-			<input type="text" ng-model="user.correo" id="correo" name="correo" required readonly ng-init="user.correo = '${correo }'"/>							   
+			<input type="hidden" ng-model="user.centro" id="centro" name="centro" required readonly ng-init="user.centro = '${centro }'"/>
+			<input type="hidden" ng-model="user.correo" id="correo" name="correo" required readonly ng-init="user.correo = '${correo }'"/>
+			
+			
+			<h2>{{user.centro}}</h2>
+			
+				   
 			
 			<div class="m-b-10">Rellena los siguientes datos:</div>
 			<input type="text" placeholder="Nombre" name="password">
@@ -38,20 +41,9 @@
                 	Usuario o contraseña incorrectos
             	</div>
             </c:if>
-		
-		 	<div class="checkbox">
-                <label>
-                    <input type="checkbox"  name="remember-me">
-                    <i class="input-helper"></i>
-                    Guardar datos de sesión en este equipo
-                </label>
-            </div>
-			 
-			<button data-ng-click="login()" id="login-button">Iniciar</button>
 
-			<ul class="login-navigation">
-                <li data-block="#l-forget-password" class="bgm-orange" ng-click="vista=1">He olvidado mi contraseña</li>
-            </ul>
+			<button data-ng-click="registrar()" id="login-button">Iniciar</button>
+
 		</form>
 	</div>
 	
@@ -84,6 +76,7 @@
         <script src="resources/vendors/bower_components/angular-loading-bar/src/loading-bar.js"></script>
         <script src="resources/vendors/bower_components/oclazyload/dist/ocLazyLoad.min.js"></script>
         <script src="resources/vendors/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+        <script src="resources/vendors/bower_components/angular-cookies/angular-cookies.js"></script>
 
         <!-- Common Vendors -->
         <script src="resources/vendors/bower_components/jquery.nicescroll/jquery.nicescroll.min.js"></script>

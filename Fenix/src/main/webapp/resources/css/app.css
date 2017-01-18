@@ -9187,6 +9187,7 @@ body:not(.sw-toggled) #sidebar {
 }
 @media (max-width: 480px) {
   .lvh-calendario-centro {
+    display: table;
     margin: 0 auto;
   }
 }

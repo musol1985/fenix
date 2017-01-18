@@ -110,7 +110,6 @@ materialAdmin
                 selectHelper: true,
                 editable: true,
                 droppable: true,
-                scrollTime:,
                 eventLimit: 1,
                 height:function(){
                 	return $(window).height()-scope.height;

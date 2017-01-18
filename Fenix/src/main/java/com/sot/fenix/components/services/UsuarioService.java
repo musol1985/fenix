@@ -75,6 +75,18 @@ public class UsuarioService {
 		return usuariosPendientes;
 	}
 	
+	public Usuario getCurrentUsuario(){
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
+		
+        if (principal instanceof Usuario) {
+            return (Usuario)principal;
+        } else {
+            String userName = principal.toString();
+            return usuarios.findByCorreo(userName);
+        }
+                
+	}
+	
 	public String getCurrent(){
         String userName = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

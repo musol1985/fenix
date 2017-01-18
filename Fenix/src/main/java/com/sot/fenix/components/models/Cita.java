@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 
 import org.bson.types.ObjectId;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -46,6 +48,15 @@ public class Cita extends AModelId{
 	private Cliente cliente;
 	
 	private float importe;
+	
+	@CreatedDate
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy HH:mm")
+	private Date fechaCrea;
+	
+	@CreatedBy	
+	@DBRef
+	private Usuario citador;
+
 
 	public ESTADO getEstado() {
 		return estado;
