@@ -15,7 +15,7 @@
 		 <div class="row">	
 			<div class="col-sm-1"></div>		
 			<div class="col-sm-4">
-				<ui-input form="myForm" label="Importe" obligatorio min="3" nombre="importe" placeholder="Introduce el importe en €"
+				<ui-input form="myForm" label="Importe" obligatorio min="1" nombre="importe" placeholder="Introduce el importe en €"
 					model="modalContent.data.importe"/>
 			</div>
 			<div class="col-sm-1"></div>
@@ -23,7 +23,27 @@
 				<ui-input form="myForm" label="Duración" nombre="duracion" placeholder="Introduce la duracción en formato 00:00"
 					model="modalContent.data.duracion"/>
 			</div>
-		</div><!-- 
+		</div>
+		
+		<div class="row">
+			<div class="form-group col-sm-12">
+				<label class="control-lable" for="horario">Horario</label>
+				<div>
+					<select class="w-100" chosen data-placeholder="Horario"  ng-options="item as item.nombre for item in modalContent.horariosModal track by item.id" ng-model="modalContent.data.horario"></select>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="form-group col-sm-12">
+				<label class="control-lable" for="color">Color</label>
+				<div>
+					<uicolores model="modalContent.data.color"/>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 
 		<div class="row">
 			
 		</div>

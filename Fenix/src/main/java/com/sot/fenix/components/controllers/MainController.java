@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -49,10 +50,11 @@ public class MainController{
 	        return "/views/root.jsp";
 	    }
 	 
-	    @RequestMapping(value = "/app/denegado", method = RequestMethod.GET)
-	    public String accessDeniedPage(ModelMap model) {
+	    @RequestMapping(value = "/denegado", method = RequestMethod.GET)
+	    public String accessDeniedPage(ModelMap model, HttpServletResponse response) {
+	    	response.setStatus(401);
 	        model.addAttribute("user", getPrincipal());
-	        return "/401.jsp";
+	        return "/401.html";
 	    }
 	    
 	 

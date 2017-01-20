@@ -1060,7 +1060,7 @@ materialAdmin
 
     		if(!$scope.myForm.$valid)
     			return;
-    		
+    		console.log($scope.user);
     		userService.registrar($scope.user).then(function(response){
 	    			if(response.cod==0){
 	    				angular.element('#myForm').submit();

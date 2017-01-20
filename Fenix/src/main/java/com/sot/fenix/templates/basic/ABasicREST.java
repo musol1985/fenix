@@ -25,7 +25,7 @@ public class ABasicREST<S extends ABasicService<D, I>, I extends AModelBasic, D 
 	protected S service;
 
 	@RequestMapping(method=RequestMethod.GET, path="{centro}/{page}/{size}")
-	@Secured(value="ROLE_ROOT")
+	@Secured(value="ROLE_ADMIN")
     public PageJSON<I> getByCentro(@PathVariable int page, @PathVariable int size, @PathVariable String centro) {
 
 		Page<I> items=service.getByCentro(centro, new PageRequest(page-1, size));		
@@ -34,7 +34,7 @@ public class ABasicREST<S extends ABasicService<D, I>, I extends AModelBasic, D 
     }
 	
 	@RequestMapping(method=RequestMethod.GET, path="all/{centro}")
-	@Secured(value="ROLE_ROOT")
+	@Secured(value="ROLE_ADMIN")
     public ResponseListJSON<I> getAllByCentro(@PathVariable String centro) {
 
 		List<I> items=service.getDAO().findByCentro_id(new ObjectId(centro));
@@ -43,7 +43,7 @@ public class ABasicREST<S extends ABasicService<D, I>, I extends AModelBasic, D 
     }
 	
 	@RequestMapping(method=RequestMethod.GET, path="{id}")
-	@Secured(value="ROLE_ROOT")
+	@Secured(value="ROLE_ADMIN")
     public ResponseJSON<I> getByCentro(@PathVariable String id) {
 
 		I item=(I) service.getDAO().findOne(new ObjectId(id));	
@@ -56,6 +56,7 @@ public class ABasicREST<S extends ABasicService<D, I>, I extends AModelBasic, D 
 	
 	
 	@RequestMapping(method=RequestMethod.PUT)
+	@Secured(value="ROLE_ADMIN")
     public ResponseJSON<I> nuevo(@RequestBody I item) {
 		if(service.getDAO().findByCentroAndNombre(item.getCentro(), item.getNombre())!=null){
 			return new ResponseJSON<I>(ResponseJSON.YA_EXISTE);
@@ -67,6 +68,7 @@ public class ABasicREST<S extends ABasicService<D, I>, I extends AModelBasic, D 
     }
 	
 	@RequestMapping(method=RequestMethod.POST)
+	@Secured(value="ROLE_ADMIN")
     public ResponseJSON<I> modificar(@RequestBody I item) {
 		if(service.getDAO().findOne(item.getId())==null)
 			return new ResponseJSON<I>(ResponseJSON.NO_EXISTE);
@@ -77,6 +79,7 @@ public class ABasicREST<S extends ABasicService<D, I>, I extends AModelBasic, D 
     }
 	
 	@RequestMapping(method=RequestMethod.DELETE, path="/{id}")
+	@Secured(value="ROLE_ADMIN")
     public ResponseJSON<I> eliminar(@PathVariable String id) {
 		I item=service.getDAO().findOne(new ObjectId(id));
 		if(item!=null){

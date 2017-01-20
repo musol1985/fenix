@@ -1,5 +1,10 @@
 package com.sot.fenix.config;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,9 +42,13 @@ public class DBConfig extends AbstractMongoConfiguration{
 		return new MongoClient("localhost");
 	}
 	
+
 	@Override
-	protected String getMappingBasePackage() {
-	    return "com.sot.fenix.components.models";
+	protected Collection<String> getMappingBasePackages() {
+		List<String> res=new ArrayList<String>();
+		res.add("com.sot.fenix.components.models");
+		res.add("com.sot.fenix.components.models.horario");
+		return res;		
 	}
 	
 	@Bean

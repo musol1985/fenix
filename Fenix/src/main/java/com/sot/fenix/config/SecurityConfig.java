@@ -24,7 +24,7 @@ import com.sot.fenix.components.providers.TokenProvider;
  
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
@@ -64,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	.and()
     		.rememberMe().userDetailsService(loginProvider).tokenRepository(tokenProvider).rememberMeParameter("remember-me").tokenValiditySeconds(1209600)
     	.and()
-    		.exceptionHandling().accessDeniedPage("/app/denegado");
+    		.exceptionHandling().accessDeniedPage("/denegado");
     }
     
     @Bean(name="myAuthenticationManager")

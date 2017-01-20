@@ -20,19 +20,21 @@
 <body data-ng-controller="registrarCtrl as rctrl">
   <div class="wrapper">
 	<div class="container">
-		<form novalidate>
+		<form novalidate name="myForm" id="myForm">
 			
 			<input type="hidden" ng-model="user.centro" id="centro" name="centro" required readonly ng-init="user.centro = '${centro }'"/>
 			<input type="hidden" ng-model="user.correo" id="correo" name="correo" required readonly ng-init="user.correo = '${correo }'"/>
+			<input type="hidden" ng-model="user.idPendiente" id="idPendiente" name="idPendiente" required readonly ng-init="user.idPendiente = '${id}'"/>
 			
 			
 			<h2>{{user.centro}}</h2>
+			<h2>{{user.correo}}</h2>
 			
 				   
 			
 			<div class="m-b-10">Rellena los siguientes datos:</div>
-			<input type="text" placeholder="Nombre" name="password">
-			<input type="password" placeholder="Contraseña" name="password">
+			<input type="text" placeholder="Nombre" name="password" ng-model="user.nombre" ng-init="user.nombre='${nombre}'">
+			<input type="password" placeholder="Contraseña" name="password" ng-model="user.password">
 			<input type="password" placeholder="Repetir" name="password2">
 			<input type="hidden" name="${_csrf.parameterName}"   value="${_csrf.token}" />
 			 
@@ -42,7 +44,7 @@
             	</div>
             </c:if>
 
-			<button data-ng-click="registrar()" id="login-button">Iniciar</button>
+			<button data-ng-click="registrar()" id="login-button" ng-disabled="myForm.$invalid">Iniciar</button>
 
 		</form>
 	</div>
