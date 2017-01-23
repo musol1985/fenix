@@ -101,6 +101,14 @@ module.exports = function(grunt) {
 	            files: {        	        
 	    	        'resources/js/lilapp/directives.js': ['resources/js/lilapp/directives/**/*.js']
 	    	    }
+        	},
+        	interceptors:{
+	            options: {
+	              separator: ';\n',
+	            },
+	            files: {        	        
+	    	        'resources/js/lilapp/interceptors.js': ['resources/js/lilapp/interceptors/**/*.js']
+	    	    }
         	}
         }
     });

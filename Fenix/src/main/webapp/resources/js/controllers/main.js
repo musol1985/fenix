@@ -393,17 +393,7 @@ materialAdmin
     // LOGIN
     //=================================================
     
-    .factory('ajaxInterceptor', function(){
-        return{// optional method
-        		response: function(response) {
-        			if(response.status){
-        				
-        			}        				
-        		return response;
-        	}
-    	};
-        
-    })
+    
     
     .config(['$httpProvider', function($httpProvider) {  
     	$httpProvider.interceptors.push('ajaxInterceptor');

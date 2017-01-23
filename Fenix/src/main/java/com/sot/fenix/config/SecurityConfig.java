@@ -18,6 +18,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
+import com.sot.fenix.components.filters.AjaxAwareAuthenticationEntryPoint;
 import com.sot.fenix.components.models.Perfil;
 import com.sot.fenix.components.providers.LoginProvider;
 import com.sot.fenix.components.providers.TokenProvider;
@@ -64,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	.and()
     		.rememberMe().userDetailsService(loginProvider).tokenRepository(tokenProvider).rememberMeParameter("remember-me").tokenValiditySeconds(1209600)
     	.and()
-    		.exceptionHandling().accessDeniedPage("/denegado");
+    		.exceptionHandling().authenticationEntryPoint(new AjaxAwareAuthenticationEntryPoint("/login")).accessDeniedPage("/denegado");
     }
     
     @Bean(name="myAuthenticationManager")

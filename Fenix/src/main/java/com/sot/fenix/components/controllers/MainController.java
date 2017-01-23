@@ -1,11 +1,14 @@
 package com.sot.fenix.components.controllers;
 
+import java.util.Enumeration;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -57,10 +60,10 @@ public class MainController{
 	        return "/401.html";
 	    }
 	    
-	 
+
 	    @RequestMapping(value = "/login", method = RequestMethod.GET)
-	    public String loginPage(@CookieValue(value = "auto", defaultValue = "N") String auto) {
-	    	System.out.println("autooooo--->"+auto);
+	    //public String loginPage(@CookieValue(value = "auto", defaultValue = "N") String auto) {
+	    public String loginPage(HttpServletRequest r) {	   
 	        return "/login.jsp";
 	    }
 	    
