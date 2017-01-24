@@ -1,21 +1,18 @@
 package com.sot.fenix.components.controllers;
 
-import java.util.Enumeration;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +23,7 @@ import com.sot.fenix.components.services.UsuarioService;
 @Controller
 @RequestMapping("/")
 public class MainController{
+	final static Logger logger = LogManager.getLogger(MainController.class);
 	
 	@Autowired
 	private UsuarioService usuarios;
@@ -37,6 +35,12 @@ public class MainController{
 	 
 	    @RequestMapping(value = "/app", method = RequestMethod.GET)
 	    public String adminPage(ModelMap model) {
+	        model.addAttribute("user", getPrincipal());
+	        return "/resources/app.html";
+	    }
+	    
+	    @RequestMapping(value = "/app", method = RequestMethod.POST)
+	    public String onLogin(ModelMap model) {
 	        model.addAttribute("user", getPrincipal());
 	        return "/resources/app.html";
 	    }
@@ -65,6 +69,18 @@ public class MainController{
 	    //public String loginPage(@CookieValue(value = "auto", defaultValue = "N") String auto) {
 	    public String loginPage(HttpServletRequest r) {	   
 	        return "/login.jsp";
+	    }
+	    
+	    @RequestMapping(value = "/login", method = RequestMethod.POST)
+	    //public String loginPage(@CookieValue(value = "auto", defaultValue = "N") String auto) {
+	    public String loginPagePOST(HttpServletRequest r) {	   
+	        return "/login.jsp";
+	    }
+	    
+	    @RequestMapping(value = "/loginAjax", method = RequestMethod.GET)
+	    //public String loginPage(@CookieValue(value = "auto", defaultValue = "N") String auto) {
+	    public String loginPageAjax(HttpServletRequest r) {	   
+	        return "/loginAjax.jsp";
 	    }
 	    
 	    @RequestMapping(value = "/registrar", method = RequestMethod.GET)

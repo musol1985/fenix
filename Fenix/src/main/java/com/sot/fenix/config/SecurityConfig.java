@@ -24,7 +24,7 @@ import com.sot.fenix.components.providers.LoginProvider;
 import com.sot.fenix.components.providers.TokenProvider;
  
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug=true)
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
@@ -59,7 +59,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         		.antMatchers("/app/root/**").hasRole(Perfil.PERFILES.ROOT.name()) 
         		.antMatchers("/app/**").hasRole(Perfil.PERFILES.USER.name()) 
     	.and()
-    		.formLogin().successHandler(handlerLoginOK)
+    		.formLogin()
+    			.successForwardUrl("/app")
     			.loginPage("/login") 
     				.usernameParameter("correo").passwordParameter("password")
     	.and()

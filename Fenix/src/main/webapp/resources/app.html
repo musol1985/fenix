@@ -22,8 +22,10 @@
 
     </head>
 
-    <body data-ng-class="{ 'sw-toggled': mactrl.layoutType === '1'}" data-ng-controller="contextoCtrl as contexto" >
-
+    <body data-ng-class="{ 'sw-toggled': mactrl.layoutType === '1'}" data-ng-controller="contextoController as contexto" >
+		
+		<ui-popup template="login?ajax=S" popup="popupLogin" on-new="onLogin(data)"/>
+        
         <data ui-view></data>
 
         <!-- Older IE warning message -->

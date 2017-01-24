@@ -22,10 +22,11 @@
 	<div class="container" data-ng-show="vista==0">
 		<h1>LilApp</h1>
 		<c:url var="loginUrl" value="/login" />   
+		<c:out value="${loginUrl}"></c:out>
 		<form action="${loginUrl}" method="post" data-ng-submit="login">
 			<input type="text" placeholder="Correo" name="correo">
 			<input type="password" placeholder="Contraseña" name="password">
-			<input type="hidden" name="${_csrf.parameterName}"   value="${_csrf.token}" />
+			<input type="text" name="${_csrf.parameterName}"   value="${_csrf.token}" />
 			 
 			 <c:if test="${param.error != null}">
                 <div class="alert alert-danger" role="alert">
