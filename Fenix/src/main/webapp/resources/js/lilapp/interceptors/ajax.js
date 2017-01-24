@@ -2,7 +2,7 @@
 // Ajax
 // =========================================================================
 materialAdmin
-	.factory('ajaxInterceptor', function($rootScope){
+	.factory('ajaxInterceptor', function($rootScope, $location){
 	    return{// optional method
 	    	'request': function(config) {
 	    			config.headers['lilap-is-ajax'] = true
@@ -12,7 +12,7 @@ materialAdmin
 	            // do something on error
 	            if(rejection.status === 401){
 	            	console.log("Sesion expirada!");
-	            	$rootScope.$broadcast('onSesionExpirada', rejection);
+	            	$rootScope.$broadcast('onSesionExpirada', rejection, $location);
 	            }
 	            return rejection;
 	         }

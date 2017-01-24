@@ -24,7 +24,7 @@
 
     <body data-ng-class="{ 'sw-toggled': mactrl.layoutType === '1'}" data-ng-controller="contextoController as contexto" >
 		
-		<ui-popup template="login?ajax=S" popup="popupLogin" on-new="onLogin(data)"/>
+		<ui-popup template="loginAjax" popup="popupLogin" on-new="onLogin(data)"/>
         
         <data ui-view></data>
 

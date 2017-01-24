@@ -22,11 +22,12 @@
 	<div class="container" data-ng-show="vista==0">
 		<h1>LilApp</h1>
 		<c:url var="loginUrl" value="/login" />   
-		<c:out value="${loginUrl}"></c:out>
+
 		<form action="${loginUrl}" method="post" data-ng-submit="login">
 			<input type="text" placeholder="Correo" name="correo">
 			<input type="password" placeholder="Contraseña" name="password">
-			<input type="text" name="${_csrf.parameterName}"   value="${_csrf.token}" />
+			<input type="hidden" name="${_csrf.parameterName}"   value="${_csrf.token}" />
+			<input type="text" placeholder="Correo" name="pagina" ng-model="pagina">
 			 
 			 <c:if test="${param.error != null}">
                 <div class="alert alert-danger" role="alert">
@@ -115,6 +116,7 @@
         <script src="resources/vendors/bower_components/angular-loading-bar/src/loading-bar.js"></script>
         <script src="resources/vendors/bower_components/oclazyload/dist/ocLazyLoad.min.js"></script>
         <script src="resources/vendors/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+          <script src="resources/vendors/bower_components/angular-cookies/angular-cookies.js"></script>
 
         <!-- Common Vendors -->
         <script src="resources/vendors/bower_components/jquery.nicescroll/jquery.nicescroll.min.js"></script>
@@ -148,6 +150,8 @@
         <script src="resources/js/lilapp/services.js"></script>
         <script src="resources/js/lilapp/directives.js"></script>
         <script src="resources/js/lilapp/validaciones.js"></script>
+        <script src="resources/js/lilapp/interceptors.js"></script>
+        
 
 </body>
 </html>

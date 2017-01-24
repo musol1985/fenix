@@ -511,11 +511,17 @@ materialAdmin
     $scope.popupLogin={};
     
     $scope.popupLogin.aceptar=function(){
-    	$http.post("/Fenix/login", $scope.popupLogin.data)
+    	$http.post("usuario/login", $scope.popupLogin.data)
 	        .then(
 	        function (response) {
-	            console.log(response);
+	        	console.log(response);
 	            alert(response);
+	        	if(response.data.cod=="0"){
+	        		alert("Login OK!!!");
+	        		$scope.popupLogin.cerrar();
+	        	}else{
+	        		alert("Login ERR!!!");	        	
+	        	}	            
 	        },
 	        function(errResponse){
 	        	console.log(response);
@@ -525,8 +531,11 @@ materialAdmin
 
     }
 
-    $scope.$on('onSesionExpirada', function (datos) { 
-    	$scope.popupLogin.mostrar(datos); 		
+    $scope.$on('onSesionExpirada', function (datos, route) { 
+    	/*
+    	if(!$scope.popupLogin.isAbierto())
+    		$scope.popupLogin.mostrar(datos);*/
+    	route.location.reload();
     });
 });
 //=========================================================================
@@ -641,10 +650,11 @@ materialAdmin
 // Login
 // =========================================================================
 materialAdmin
-    .controller('loginController', function($scope, userService) {    	
+    .controller('loginController', function($scope, userService, $location) {    	
     	$scope.vista=0;
     	$scope.errorReset=false;
-    	
+
+    	$scope.pagina="/app#"+$location.url();    	
     	
     	$scope.enviarCorreo=function(){
     		var respuesta=userService.resetPassword($scope.correoReset);

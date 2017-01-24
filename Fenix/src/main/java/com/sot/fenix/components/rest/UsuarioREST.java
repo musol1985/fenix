@@ -6,8 +6,14 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sot.fenix.components.json.LoginJSON;
 import com.sot.fenix.components.json.NuevoPendienteJSON;
 import com.sot.fenix.components.json.PageJSON;
 import com.sot.fenix.components.json.RegistrarJSON;
@@ -22,9 +29,10 @@ import com.sot.fenix.components.json.ResponseJSON;
 import com.sot.fenix.components.json.ResponseListJSON;
 import com.sot.fenix.components.models.Centro;
 import com.sot.fenix.components.models.Perfil.PERFILES;
-import com.sot.fenix.components.models.templates.IUsuario;
 import com.sot.fenix.components.models.Usuario;
 import com.sot.fenix.components.models.UsuarioPendiente;
+import com.sot.fenix.components.models.templates.IUsuario;
+import com.sot.fenix.components.providers.LoginProvider;
 import com.sot.fenix.components.services.CentroService;
 import com.sot.fenix.components.services.UsuarioService;
 
@@ -36,6 +44,26 @@ public class UsuarioREST{
 	private UsuarioService usuarios;
 	@Autowired
 	private CentroService centros;
+	
+	@Autowired
+	@Qualifier("myAuthenticationManager")
+	private AuthenticationManager authenticationManager;
+	
+	@Autowired
+	private LoginProvider loginProvider;
+	
+	@RequestMapping(method=RequestMethod.POST, path="/login")
+	public ResponseJSON<Usuario> login(@RequestBody LoginJSON usuario) {			
+ 
+	    try {
+	    	UsernamePasswordAuthenticationToken token=loginProvider.autenticar(usuario.getCorreo(), usuario.getPassword());
+	    	Authentication auth = authenticationManager.authenticate(token);
+	    	SecurityContextHolder.getContext().setAuthentication(auth);
+	    	return new ResponseJSON<Usuario>(ResponseJSON.OK);
+	    } catch (BadCredentialsException e) {
+	    	return new ResponseJSON<Usuario>(ResponseJSON.NO_EXISTE);
+	    }
+	}
 
 
 	@RequestMapping(method=RequestMethod.GET, path="/current")

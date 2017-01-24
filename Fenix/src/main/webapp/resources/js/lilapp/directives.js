@@ -546,6 +546,7 @@ materialAdmin
 			$scope.popup.data=data;
 
 			$scope.modalInstance=modalService.mostrar($uibModal, $scope.popup, $scope.template);
+			$scope.popup.abierto=true;
 		}
 
 		$scope.popup.guardar=function(){
@@ -566,7 +567,7 @@ materialAdmin
 			if($scope.onPostSave && accion)
 				$scope.onPostSave({data: params.data, accion:accion, modificando:modificando, params:params})
 
-			$scope.modalInstance.close();
+				$scope.popup.cerrar();
 		}
 		
 		$scope.popup.showPostError=function(){
@@ -578,8 +579,15 @@ materialAdmin
 		}
     	
 		$scope.popup.cerrar=function(){
+			$scope.popup.abierto=false;
 			$scope.modalInstance.close();
 		}
+		
+		$scope.popup.isAbierto=function(){
+			return $scope.popup.abierto;
+		}
+			
+		$scope.popup.abierto=false;
 	})
 	
 	.directive('uiPopup', function($compile, $rootScope) {
