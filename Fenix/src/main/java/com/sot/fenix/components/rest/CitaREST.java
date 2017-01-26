@@ -3,6 +3,8 @@ package com.sot.fenix.components.rest;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,20 +15,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sot.fenix.components.exceptions.ExceptionREST;
 import com.sot.fenix.components.json.CitasRequest;
 import com.sot.fenix.components.json.MaestrosCitaJSON;
 import com.sot.fenix.components.json.ReprogramarRequestJSON;
 import com.sot.fenix.components.json.ResponseJSON;
+import com.sot.fenix.components.listeners.DeployListener;
 import com.sot.fenix.components.models.Cita;
 import com.sot.fenix.components.models.Cita.ESTADO;
 import com.sot.fenix.components.services.CitaService;
 import com.sot.fenix.components.services.HorarioService;
 import com.sot.fenix.components.services.PrestacionService;
 import com.sot.fenix.components.services.UsuarioService;
+import com.sot.fenix.components.services.VisitaService;
 
 @RestController
 @RequestMapping("/cita")
 public class CitaREST{
+	final static Logger log = LogManager.getLogger(CitaREST.class);
 	
 	public static final int RES_NO_CLIENTE=99;
 	public static final int RES_NO_PRESTACION=98;
@@ -43,6 +49,8 @@ public class CitaREST{
 	private UsuarioService profesionales;
 	@Autowired
 	private PrestacionService prestaciones;
+	@Autowired
+	private VisitaService visita;
 	
 	@RequestMapping(method=RequestMethod.PUT)
     public ResponseJSON<Cita> nueva(@RequestBody Cita cita) {
@@ -154,6 +162,19 @@ public class CitaREST{
 	@RequestMapping(method=RequestMethod.POST, path="/capturar")
     public ResponseJSON<Cita> capturar(@RequestBody Cita cita) {
 		Cita item=citas.getDAO().findOne(new ObjectId(cita.getId().toHexString()));
+		
+		try{
+			citas.capturarCita(item);
+		}catch(ExceptionREST ex){
+			if(ex.getCodigo()==ResponseJSON.NO_EXISTE){
+				log.error("La cita con código "+cita.getJsonId()+" no existe en la BD.");
+			}else{
+				log.error(ex.getMessage());
+			}
+			return ex.toResponse();
+		}
+		
+		
 		if(item!=null){
 			if(item.isProgramada()){
 				return new ResponseJSON<Cita>(RES_ESTADO_INCORRECTO);

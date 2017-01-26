@@ -3,22 +3,35 @@ package com.sot.fenix.components.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
+import com.sot.fenix.components.exceptions.ExceptionREST;
 import com.sot.fenix.components.json.CitasRequest;
+import com.sot.fenix.components.json.ResponseJSON;
 import com.sot.fenix.components.models.Cita;
 import com.sot.fenix.components.models.Cita.ESTADO;
+import com.sot.fenix.components.rest.CitaREST;
+import com.sot.fenix.components.models.Visita;
 import com.sot.fenix.dao.CitaDAO;
 
 @Service
 public class CitaService {
+	final static Logger log = LogManager.getLogger(CitaService.class);
+	
 	@Autowired
 	private CitaDAO dao;
 	@Autowired
 	private MongoTemplate template;
+	
+	@Autowired
+	private VisitaService visitas;
+	
+	public static final int ERR_CITA_PROGRAMADA=80;
 	
 
 	public List<Cita> getCitasSolapa(Cita cita){
@@ -52,5 +65,37 @@ public class CitaService {
 		cita.setEstado(ESTADO.PROGRAMADA);
 		dao.save(cita);
 		return dao.findOne(cita.getId());
+	}
+	
+	public Visita capturarCita(Cita cita)throws ExceptionREST{
+		if(cita==null)
+			throw new ExceptionREST(ResponseJSON.NO_EXISTE,"La cita no existe en BD");
+		
+		if(!cita.isProgramada())
+			throw new ExceptionREST(ERR_CITA_PROGRAMADA, "El estado de la cita no es correcto");
+		
+		log.debug("Capturando cita "+cita.getJsonId());
+		cambiarEstado(cita, ESTADO.CAPTURANDO);			
+		
+		Visita visita=null;
+		try{			
+			visita=visitas.nuevaVisitaFromCita(cita);
+		}catch(ExceptionREST ex){
+			log.error("Error al crear la visita desde la cita "+cita.getJsonId()+": "+ex.getMessage());
+			cambiarEstado(cita, ESTADO.PROGRAMADA);
+			log.debug("Restaurado el estado a programada para la cita "+cita.getJsonId());
+			throw ex;
+		}
+				
+		cambiarEstado(cita, ESTADO.CAPTURADA);
+		log.debug("Cita "+cita.getJsonId()+" capturada correctamente");
+		
+		return visita;				
+	}
+	
+	public void cambiarEstado(Cita cita, ESTADO estado)throws ExceptionREST{
+		log.debug("Cita "+cita.getJsonId()+" cambiando estado de: "+cita.getEstado()+" a "+estado);
+		cita.setEstado(estado);
+		getDAO().save(cita);
 	}
 }

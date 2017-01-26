@@ -8,55 +8,40 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.sot.fenix.components.json.CodigoDescripcionJSON;
-import com.sot.fenix.components.models.templates.AModelId;
+import com.sot.fenix.components.models.templates.AModelBasic;
 
 @Document
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class Cita extends AModelId{
+public class Visita extends AModelBasic{
 	
-	public enum ESTADO{PROGRAMADA,
-						CAPTURANDO, 
-						CAPTURADA, 
-						NO_PRESENTADO}
+	public enum ESTADO{ PROCESO, 
+						RPARCIAL, 
+						RTOTAL}
 	
 	private ESTADO estado;
-	
-	@DBRef
-	private Centro centro;
-	
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy HH:mm")
-	private Date fechaIni;
-	
-	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy HH:mm")
-	private Date fechaFin;
 	
 	@DBRef
 	private Prestacion prestacion;
 	
 	@DBRef
-	private Usuario profesional;
-	
-	@DBRef
 	private Cliente cliente;
-	
-	private float importe;
 	
 	@CreatedDate
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy HH:mm")
-	private Date fechaCrea;
+	private Date fecha;
 	
 	@CreatedBy	
 	@DBRef
-	private Usuario citador;
+	private Usuario profesional;
+
+	@DBRef
+	private Cita cita;
 
 
 	public ESTADO getEstado() {
@@ -79,22 +64,6 @@ public class Cita extends AModelId{
 		if(estado==null)
 			return "";
 		return "zmdi-"+estado.name().toLowerCase();
-	}
-
-	
-	@JsonGetter("centro")
-	public String getJsonCentro(){
-		if(centro==null)
-			return "";
-		return centro.getId().toHexString();
-	}
-	
-	@JsonSetter("centro")
-	public void setJsonCentro(String id) {
-		if(id!=null && !id.isEmpty()){
-			centro=new Centro();
-			centro.setId(new ObjectId(id));
-		}
 	}
 	
 	@JsonGetter("cliente")
@@ -175,15 +144,6 @@ public class Cita extends AModelId{
 		return cd;
 	}
 
-	public void setCentro(Centro centro) {
-		this.centro = centro;
-	}
-
-	public Centro getCentro() {
-		return centro;
-	}
-	
-	
 
 	public Usuario getProfesional() {
 		return profesional;
@@ -193,22 +153,6 @@ public class Cita extends AModelId{
 		this.profesional = profesional;
 	}
 
-	public Date getFechaIni() {
-		return fechaIni;
-	}
-
-	public void setFechaIni(Date fechaIni) {
-		this.fechaIni = fechaIni;
-	}
-
-	public Date getFechaFin() {
-		return fechaFin;
-	}
-
-	public void setFechaFin(Date fechaFin) {
-		this.fechaFin = fechaFin;
-	}
-	
 	public Prestacion getPrestacion() {
 		return prestacion;
 	}
@@ -216,25 +160,7 @@ public class Cita extends AModelId{
 	public void setPrestacion(Prestacion prestacion) {
 		this.prestacion = prestacion;
 	}
-	
-	@JsonGetter("color")
-	public String getJsonColor(){
-		if(prestacion!=null)
-			return prestacion.getColor();
-		return "";
-	}
 
-	@JsonGetter("start")
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm")
-	public Date getJsonStart(){
-		return fechaIni;
-	}
-	
-	@JsonGetter("end")
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm")
-	public Date getJsonEnd(){
-		return fechaFin;
-	}
 
 	public Cliente getCliente() {
 		return cliente;
@@ -244,34 +170,5 @@ public class Cita extends AModelId{
 		this.cliente = cliente;
 	}
 
-	public float getImporte() {
-		return importe;
-	}
-
-	public void setImporte(float importe) {
-		this.importe = importe;
-	}
-	
-	public boolean isProgramada(){
-		return estado==ESTADO.PROGRAMADA;
-	}
-	
-
-	/*@DBRef
-	private Usuario profesional;
-	
-	@DBRef
-	private Prestacion prestacion;
-	
-	
-	
-	
-		
-
-
-	@CreatedDate
-	private Date fechaCreacion;*/
-	
-	
 	
 }

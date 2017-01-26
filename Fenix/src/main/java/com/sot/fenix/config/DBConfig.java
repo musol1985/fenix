@@ -69,9 +69,6 @@ public class DBConfig extends AbstractMongoConfiguration{
 
 		if(!mongoTemplate.collectionExists(Usuario.class) || mongoTemplate.getDb().getCollection("usuario").count()==0){
 			initDB(mongoTemplate);
-		}else{
-			//TODO proceso para revisar integridad BD
-			System.out.println("Lanzando proceso de comprobación de integridad de BD!!!!");
 		}
 				
 		return mongoTemplate;

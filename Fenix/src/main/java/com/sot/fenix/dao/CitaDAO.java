@@ -21,4 +21,7 @@ public interface CitaDAO extends MongoRepository<Cita, ObjectId>{
 	public List<Cita> findByFechaIniAndFechaFinAndCentro_idAndProfesional_idAndPrestacion_id(Date fechaIni, Date fechaFin, ObjectId centro, ObjectId profeisonal, ObjectId prestacion);
 	
 	public List<Cita> findByFechaIniLessThanAndFechaFinGreaterThanAndCentro_idAndProfesional_idAndPrestacion_id(Date fechaFin, Date fechaFin2, ObjectId centro, ObjectId prestacion, ObjectId profesional);
+	
+	
+	public List<Cita> findByEstado(Cita.ESTADO estado);
 }
