@@ -20,9 +20,8 @@ import com.sot.fenix.components.json.CitasRequest;
 import com.sot.fenix.components.json.MaestrosCitaJSON;
 import com.sot.fenix.components.json.ReprogramarRequestJSON;
 import com.sot.fenix.components.json.ResponseJSON;
-import com.sot.fenix.components.listeners.DeployListener;
 import com.sot.fenix.components.models.Cita;
-import com.sot.fenix.components.models.Cita.ESTADO;
+import com.sot.fenix.components.models.Visita;
 import com.sot.fenix.components.services.CitaService;
 import com.sot.fenix.components.services.HorarioService;
 import com.sot.fenix.components.services.PrestacionService;
@@ -160,11 +159,12 @@ public class CitaREST{
 	
 	
 	@RequestMapping(method=RequestMethod.POST, path="/capturar")
-    public ResponseJSON<Cita> capturar(@RequestBody Cita cita) {
+    public ResponseJSON<Visita> capturar(@RequestBody Cita cita) {
 		Cita item=citas.getDAO().findOne(new ObjectId(cita.getId().toHexString()));
 		
 		try{
-			citas.capturarCita(item);
+			Visita visita=citas.capturarCita(item);
+			return new ResponseJSON<Visita>(ResponseJSON.OK,visita);
 		}catch(ExceptionREST ex){
 			if(ex.getCodigo()==ResponseJSON.NO_EXISTE){
 				log.error("La cita con código "+cita.getJsonId()+" no existe en la BD.");
@@ -172,19 +172,6 @@ public class CitaREST{
 				log.error(ex.getMessage());
 			}
 			return ex.toResponse();
-		}
-		
-		
-		if(item!=null){
-			if(item.isProgramada()){
-				return new ResponseJSON<Cita>(RES_ESTADO_INCORRECTO);
-			}else{				
-				item.setEstado(ESTADO.CAPTURADA);
-				citas.getDAO().save(item);
-				return new ResponseJSON<Cita>(ResponseJSON.OK, item);
-			}
-		}else{
-			return new ResponseJSON<Cita>(ResponseJSON.NO_EXISTE);
 		}
     }
 }

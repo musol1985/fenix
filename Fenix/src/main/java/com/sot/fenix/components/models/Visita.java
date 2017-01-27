@@ -27,9 +27,6 @@ public class Visita extends AModelBasic{
 	private ESTADO estado;
 	
 	@DBRef
-	private Prestacion prestacion;
-	
-	@DBRef
 	private Cliente cliente;
 	
 	@CreatedDate
@@ -42,6 +39,8 @@ public class Visita extends AModelBasic{
 
 	@DBRef
 	private Cita cita;
+	
+	private float importe;
 
 
 	public ESTADO getEstado() {
@@ -90,33 +89,6 @@ public class Visita extends AModelBasic{
 			}
 		}
 	}
-
-	
-	@JsonSetter("prestacion")
-	public void setJsonPrestacion(Object id) {
-		if(id!=null){
-			if(id instanceof LinkedHashMap){				
-				id=((LinkedHashMap) id).get("id");
-			}
-			
-			if(id instanceof String){								
-				if(!((String)id).isEmpty()){
-					prestacion=new Prestacion();
-					prestacion.setId(new ObjectId((String)id));
-				}
-			}else if(id instanceof Prestacion){
-				prestacion=(Prestacion)id;
-			}
-		}
-	}
-	
-	@JsonGetter("prestacion")
-	public CodigoDescripcionJSON getJsonPrestacion(){
-		if(prestacion==null)
-			return new CodigoDescripcionJSON();
-		CodigoDescripcionJSON cd=new CodigoDescripcionJSON(prestacion);
-		return cd;
-	}
 	
 	@JsonSetter("profesional")
 	public void setJsonProfesional(Object id) {
@@ -153,21 +125,36 @@ public class Visita extends AModelBasic{
 		this.profesional = profesional;
 	}
 
-	public Prestacion getPrestacion() {
-		return prestacion;
-	}
-
-	public void setPrestacion(Prestacion prestacion) {
-		this.prestacion = prestacion;
-	}
-
-
 	public Cliente getCliente() {
 		return cliente;
 	}
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	public Cita getCita() {
+		return cita;
+	}
+
+	public void setCita(Cita cita) {
+		this.cita = cita;
+	}
+
+	public float getImporte() {
+		return importe;
+	}
+
+	public void setImporte(float importe) {
+		this.importe = importe;
 	}
 
 	

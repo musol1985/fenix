@@ -189,6 +189,12 @@ materialAdmin
             	element.fullCalendar('updateEvent', cita);
             }
             
+            scope.model.modificarCita=function(cita){
+            	scope.model.removeCita(cita.id);
+        		cita.source=undefined;
+        		scope.model.addCita(cita);
+            }
+            
             scope.model.removeCita=function(id){
             	element.fullCalendar('removeEvents', id);
             }
@@ -207,6 +213,16 @@ materialAdmin
             
             scope.model.verMes=function(){
             	element.fullCalendar( 'changeView', 'custom' );
+            }
+            
+            scope.model.cambiarEstadoCita=function(cita, estado, actualizarCalendario){
+            	cita.estado=estado.toUpperCase();
+        		cita.icono="zmdi-"+estado.toLowerCase();
+        		cita.className="fc-"+estado.toLowerCase();
+        		
+        		if(actualizarCalendario){
+        			scope.model.modificarCita(cita);
+        		}
             }
         }
         

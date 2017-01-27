@@ -22,6 +22,7 @@ public class DeployListener {
 	
 	@Autowired
 	private CitaService citas;
+	@Autowired
 	private VisitaService visitas;
 	
 	@EventListener({ContextRefreshedEvent.class})
@@ -43,7 +44,7 @@ public class DeployListener {
 		if(citasCapurando.size()==0)
 			return;
 		
-		List<Cita> fixProgramadas=new ArrayList<Cita>();;
+		List<Cita> fixProgramadas=new ArrayList<Cita>();
 		List<Cita> fixCapturadas=new ArrayList<Cita>();
 		
 		for(Cita cita:citasCapurando){

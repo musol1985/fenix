@@ -17,7 +17,21 @@ public class VisitaService extends ABasicService<VisitaDAO, Visita>{
 	
 	public Visita nuevaVisitaFromCita(Cita cita)throws ExceptionREST{
 		log.debug("Creando visita a partir de la cita "+cita.getJsonId());
-		return null;
+		Visita v=new Visita();
+		
+		v.setCentro(cita.getCentro());
+		v.setCliente(cita.getCliente());
+		v.setEstado(Visita.ESTADO.PROCESO);
+		v.setNombre(cita.getPrestacion().getNombre());
+		v.setProfesional(cita.getProfesional());
+		v.setImporte(cita.getImporte());
+		v.setCita(cita);
+		
+		getDAO().save(v);
+		
+		log.debug("Visita con id "+v.getJsonId()+" creada a partir de la cita "+cita.getJsonId());
+		
+		return v;
 	}
 	
 	public Visita getByCita(Cita cita)throws ExceptionREST{

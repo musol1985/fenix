@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -76,7 +75,11 @@ public class UsuarioService {
 	}
 	
 	public Usuario getCurrentUsuario(){
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
+		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+		if(auth==null)
+			return null;
+		
+		Object principal = auth.getPrincipal();		
 		
         if (principal instanceof Usuario) {
             return (Usuario)principal;

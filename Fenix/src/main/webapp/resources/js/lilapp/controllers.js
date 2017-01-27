@@ -181,6 +181,28 @@ materialAdmin
 			});
     	}
     	
+    	$scope.capturarCita=function(cita){
+    		var oldEstado=cita.estado;
+
+			$scope.calendario.cambiarEstadoCita(cita,"CAPTURADA", true);
+			
+    		 errorService.procesar(citaService.REST.capturar(cita),{
+   				 0:{
+   					 growl: true,   				 
+   					 texto: "Cita capturada",
+   					 tipo: "success"
+   				 },
+   				 1:{
+   					 titulo: "Atención",    				 
+   					 texto: "No existe la cita",
+   					 tipo: "warning"
+   				 },
+   				 onErrorResponse:function(){
+   					$scope.calendario.cambiarEstadoCita(cita,oldEstado, true);
+				 }
+    		});
+    	}
+    	
     	
     	$scope.popup={   	
     			profesionales:[],
@@ -237,6 +259,10 @@ materialAdmin
     			anular:function(data){
     				$scope.popup.cerrar();
     				$scope.anularCita(data);
+    			},
+    			capturar:function(data){
+    				$scope.popup.cerrar();
+    				$scope.capturarCita(data);
     			},
     			nuevo : function () {    				
     	    		var data={id:'', nombre:'',profesional:{}};    	    		

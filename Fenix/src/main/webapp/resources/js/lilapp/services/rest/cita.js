@@ -58,6 +58,22 @@ materialAdmin
             return deferred.promise;
         }
     	
+    	this.REST.capturar=function(cita) {
+            var deferred = $q.defer();
+
+            $http.post("cita/capturar", cita)
+                .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse){
+                    console.error('Error while capturando cita');
+                    deferred.reject(errResponse);
+                }
+            );
+            return deferred.promise;
+        }
+    	
     	this.agruparProfesionales=function(maestros){
     		var current;
     		
