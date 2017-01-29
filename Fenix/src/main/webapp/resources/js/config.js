@@ -135,6 +135,11 @@ materialAdmin
                 templateUrl: 'resources/views/common.html'
             })
             
+            .state ('citacion.paseVisita', {
+                url: '/paseVisita:id',
+                templateUrl: 'resources/views/paseVisita.html'
+            })
+            
             .state ('citacion.citas', {
                 url: '/citas',
                 templateUrl: 'resources/views/citas.html',
