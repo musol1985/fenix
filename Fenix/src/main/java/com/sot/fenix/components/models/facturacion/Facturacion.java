@@ -1,4 +1,4 @@
-package com.sot.fenix.components.models;
+package com.sot.fenix.components.models.facturacion;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ public class Facturacion {
 	
 	private List<Pago> pagos;
 	
-	private float importeRestante;
+	private float importePagado;
 	
 	private boolean facturaOficialUnica;
 
@@ -28,20 +28,20 @@ public class Facturacion {
 		this.pagos = pagos;
 	}
 
-	public float getImporteRestante() {
-		return importeRestante;
-	}
-
-	public void setImporteRestante(float importeRestante) {
-		this.importeRestante = importeRestante;
-	}
-
 	public boolean getFacturaOficialUnica() {
 		return facturaOficialUnica;
 	}
 
 	public void setFacturaOficialUnica(boolean facturaOficialUnica) {
 		this.facturaOficialUnica = facturaOficialUnica;
+	}
+
+	public float getImportePagado() {
+		return importePagado;
+	}
+
+	public void setImportePagado(float importePagado) {
+		this.importePagado = importePagado;
 	}
 	
 	

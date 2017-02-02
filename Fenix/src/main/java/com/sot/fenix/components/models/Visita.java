@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.sot.fenix.components.json.CodigoDescripcionJSON;
+import com.sot.fenix.components.models.facturacion.Facturacion;
 import com.sot.fenix.components.models.templates.AModelBasic;
 
 @Document

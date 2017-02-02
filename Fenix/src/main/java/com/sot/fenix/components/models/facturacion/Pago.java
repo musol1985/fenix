@@ -1,4 +1,4 @@
-package com.sot.fenix.components.models;
+package com.sot.fenix.components.models.facturacion;
 
 import java.util.Date;
 
@@ -18,9 +18,7 @@ public class Pago extends AModelId{
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy HH:mm")
 	private Date fecha;
 
-	private boolean oficial;
-	
-	private int numFactura;
+	private int idFactura;
 
 	public float getImporte() {
 		return importe;
@@ -38,20 +36,21 @@ public class Pago extends AModelId{
 		this.fecha = fecha;
 	}
 
-	public boolean isOficial() {
-		return oficial;
+
+	public int getIdFactura() {
+		return idFactura;
 	}
 
-	public void setOficial(boolean oficial) {
-		this.oficial = oficial;
+	public void setIdFactura(int idFactura) {
+		this.idFactura = idFactura;
 	}
 
-	public int getNumFactura() {
-		return numFactura;
-	}
 
-	public void setNumFactura(int numFactura) {
-		this.numFactura = numFactura;
+	public void setIdFactura(FacturaOficial factura) {
+		this.idFactura = factura.getIdFactura();
 	}
-
+	
+	public boolean hasFactura(){
+		return idFactura!=0;
+	}
 }

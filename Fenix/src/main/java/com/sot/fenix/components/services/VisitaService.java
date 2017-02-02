@@ -11,9 +11,10 @@ import org.springframework.stereotype.Service;
 import com.sot.fenix.components.exceptions.ExceptionREST;
 import com.sot.fenix.components.json.ResponseJSON;
 import com.sot.fenix.components.models.Cita;
-import com.sot.fenix.components.models.Facturacion;
-import com.sot.fenix.components.models.Pago;
 import com.sot.fenix.components.models.Visita;
+import com.sot.fenix.components.models.facturacion.FacturaOficial;
+import com.sot.fenix.components.models.facturacion.Facturacion;
+import com.sot.fenix.components.models.facturacion.Pago;
 import com.sot.fenix.dao.VisitaDAO;
 import com.sot.fenix.templates.basic.ABasicService;
 
@@ -30,8 +31,8 @@ public class VisitaService extends ABasicService<VisitaDAO, Visita>{
 		v.setEstado(Visita.ESTADO.PROCESO);
 		v.setNombre(cita.getPrestacion().getNombre());
 		v.setProfesional(cita.getProfesional());
-		v.setImporteTotal(cita.getImporte());
-		v.setImporteRestante(v.getImporteTotal());
+		v.setFacturacion(new Facturacion());
+		v.getFacturacion().setImporteTotal(cita.getImporte());
 		v.setCita(cita);
 		
 		getDAO().save(v);
@@ -41,39 +42,31 @@ public class VisitaService extends ABasicService<VisitaDAO, Visita>{
 		return v;
 	}
 	
-	public Visita realizarPago(ObjectId id, float cantidad, boolean oficial)throws ExceptionREST{
+	public Visita realizarPago(ObjectId id, float cantidad, boolean generarFactura)throws ExceptionREST{
 		Visita v=dao.findOne(id);
 		
 		log.debug("Realizando pago para la visita con id "+id.toHexString());
 		
 		if(v==null)
-			throw new ExceptionREST(ResponseJSON.NO_EXISTE, "no existe la cita "+id.toHexString());
+			throw new ExceptionREST(ResponseJSON.NO_EXISTE, "no existe la visita "+id.toHexString());
 		
 		Facturacion f=v.getFacturacion();
 		
 		if(f==null){
-			f=new Facturacion();
-			v.setFacturacion(f);
-			log.debug("Se inicializa la facturación para la visita con id "+id.toHexString());
+			throw new ExceptionREST(ResponseJSON.NO_EXISTE, "La facturacion no existe para la visita "+id.toHexString());
 		}
 
-		if(f.getImporteRestante()==0){
+		if(f.getImportePagado()==f.getImporteTotal()){
 			throw new ExceptionREST(ResponseJSON.YA_PAGADA, "La visita "+id.toHexString()+" ya ha sido pagada");
 		}
 		
-		if(f.getImporteRestante()-cantidad<0){
-			throw new ExceptionREST(ResponseJSON.PAGO_EN_EXCESO, "Pago en exceso para la visita "+id.toHexString()+": "+f.getImporteRestante()+"-"+cantidad);
+		if(f.getImportePagado()+cantidad>f.getImporteTotal()){
+			throw new ExceptionREST(ResponseJSON.PAGO_EN_EXCESO, "Pago en exceso para la visita "+id.toHexString()+": "+f.getImporteTotal()+"+"+cantidad+">"+f.getImporteTotal());
 		}
 		
 		Pago p=new Pago();
 		p.setImporte(cantidad);
-				
-		if(!p.isOficial() && oficial){
-			p.setNumFactura(getSiguienteNumFactura());
-			log.debug("Numero de factura "+p.getNumFactura()+" para la visita "+v.getId().toHexString());
-		}
-		
-		p.setOficial(oficial);
+
 		
 		List<Pago> pagos=f.getPagos();
 		if(pagos==null){
@@ -81,11 +74,51 @@ public class VisitaService extends ABasicService<VisitaDAO, Visita>{
 			f.setPagos(pagos);
 		}
 		
-		f.setImporteRestante(f.getImporteRestante()-p.getImporte());
+		f.setImportePagado(cantidad);
 		
 		getDAO().save(v);
 		
 		return v;
+	}
+	
+	
+	public FacturaOficial generarFactura(Visita v, List<String> pagos)throws ExceptionREST{
+		if(v==null)
+			throw new ExceptionREST(ResponseJSON.NO_EXISTE, "no existe la visita");
+		
+		if(pagos.size()==0)
+			throw new ExceptionREST(ResponseJSON.NO_HAY_PAGOS, "no se han recibido pagos");
+		
+		FacturaOficial f=null;
+		
+		for(String pId:pagos){
+			Pago p=getPagoById(v, pId);
+			if(p==null)
+				throw new ExceptionREST(ResponseJSON.NO_HAY_PAGOS, "no se ha encontrado el pago "+pId+" en la visita "+v.getId().toHexString());
+			
+			if(!p.hasFactura()){
+				if(f==null){
+					f=
+				}
+			}
+		}
+		
+		return f;
+	}
+	
+	public List<Pago> getPagosByIds(Visita v, List<String> ids){
+		List<Pago> res=new ArrayList<Pago>(ids.size());
+		for(String id:ids){
+			Pago p=getPagoById(v, id)
+		}
+	}
+	
+	public Pago getPagoById(Visita v, String id){
+		for(Pago p:v.getFacturacion().getPagos()){
+			if(p.getId().toHexString().equals(id))
+				return p;
+		}
+		return null;
 	}
 	
 	public Visita getByCita(Cita cita)throws ExceptionREST{
