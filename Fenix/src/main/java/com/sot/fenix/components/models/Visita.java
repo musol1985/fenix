@@ -2,6 +2,7 @@ package com.sot.fenix.components.models;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.CreatedBy;
@@ -39,9 +40,8 @@ public class Visita extends AModelBasic{
 
 	@DBRef
 	private Cita cita;
-	
-	private float importe;
 
+	private Facturacion facturacion;
 
 	public ESTADO getEstado() {
 		return estado;
@@ -149,13 +149,15 @@ public class Visita extends AModelBasic{
 		this.cita = cita;
 	}
 
-	public float getImporte() {
-		return importe;
+	public Facturacion getFacturacion() {
+		return facturacion;
 	}
 
-	public void setImporte(float importe) {
-		this.importe = importe;
+	public void setFacturacion(Facturacion facturacion) {
+		this.facturacion = facturacion;
 	}
 
 	
+	
 }
+

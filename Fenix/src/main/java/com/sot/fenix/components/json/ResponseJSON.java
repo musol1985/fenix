@@ -7,6 +7,11 @@ public class ResponseJSON<T extends Object> {
 	public static final int YA_EXISTE=2;
 	public static final int ES_ADMIN=3;
 	
+	
+	//VISITAS
+	public static final int YA_PAGADA=99;
+	public static final int PAGO_EN_EXCESO=98;
+	
 	public int cod;
 	public T data;
 	
