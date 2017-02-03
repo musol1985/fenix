@@ -98,7 +98,7 @@ public class VisitaService extends ABasicService<VisitaDAO, Visita>{
 			
 			if(!p.hasFactura()){
 				if(f==null){
-					f=
+					
 				}
 			}
 		}
@@ -109,8 +109,11 @@ public class VisitaService extends ABasicService<VisitaDAO, Visita>{
 	public List<Pago> getPagosByIds(Visita v, List<String> ids){
 		List<Pago> res=new ArrayList<Pago>(ids.size());
 		for(String id:ids){
-			Pago p=getPagoById(v, id)
+			Pago p=getPagoById(v, id);
+			if(p!=null)
+				res.add(p);
 		}
+		return res;
 	}
 	
 	public Pago getPagoById(Visita v, String id){

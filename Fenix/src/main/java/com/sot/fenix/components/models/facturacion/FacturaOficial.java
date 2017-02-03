@@ -28,6 +28,9 @@ public class FacturaOficial{
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy HH:mm")
 	private Date fechaGeneracion;
 	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy HH:mm")
+	private Date fechaPresentacion;
+	
 	@LastModifiedBy
 	private Usuario profesional;
 
@@ -70,6 +73,14 @@ public class FacturaOficial{
 
 	public void setProfesional(Usuario profesional) {
 		this.profesional = profesional;
+	}
+
+	public Date getFechaPresentacion() {
+		return fechaPresentacion;
+	}
+
+	public void setFechaPresentacion(Date fechaPresentacion) {
+		this.fechaPresentacion = fechaPresentacion;
 	}
 
 
