@@ -12,8 +12,11 @@
     <Logger name="org.apache.log4j.xml" level="debug">
       <AppenderRef ref="A1"/>
     </Logger>
-    <Root level="debug">
+    <Logger name="com.sot.fenix" level="debug">
       <AppenderRef ref="STDOUT"/>
+    </Logger>
+    <Root level="info">
+      <AppenderRef ref="A1"/>
     </Root>
   </Loggers>
 </Configuration>

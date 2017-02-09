@@ -17,7 +17,7 @@ import com.sot.fenix.components.providers.LoginProvider;
 import com.sot.fenix.components.providers.TokenProvider;
  
 @Configuration
-@EnableWebSecurity(debug=true)
+@EnableWebSecurity(debug=false)
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	

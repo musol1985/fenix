@@ -11,14 +11,13 @@ import com.sot.fenix.components.models.templates.AModelId;
 
 @Document
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class Pago extends AModelId{
+public class Pago{
 	private float importe;
 	
 	@CreatedDate
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy HH:mm")
 	private Date fecha;
 
-	private int idFactura;
 
 	public float getImporte() {
 		return importe;
@@ -36,21 +35,4 @@ public class Pago extends AModelId{
 		this.fecha = fecha;
 	}
 
-
-	public int getIdFactura() {
-		return idFactura;
-	}
-
-	public void setIdFactura(int idFactura) {
-		this.idFactura = idFactura;
-	}
-
-
-	public void setIdFactura(FacturaOficial factura) {
-		this.idFactura = factura.getIdFactura();
-	}
-	
-	public boolean hasFactura(){
-		return idFactura!=0;
-	}
 }

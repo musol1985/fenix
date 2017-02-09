@@ -2,7 +2,12 @@ package com.sot.fenix.components.models.facturacion;
 
 import java.util.List;
 
+import org.springframework.data.mongodb.core.index.Indexed;
+
 public class Facturacion {
+	public enum ESTADO{
+		FACTURANDO, PAGADO_TOTAL, PAGADO_PARCIAL, NO_PAGADO
+	}
 	
 	private float importeTotal;
 	
@@ -10,7 +15,10 @@ public class Facturacion {
 	
 	private float importePagado;
 	
-	private boolean facturaOficialUnica;
+	private Factura factura;
+	
+	@Indexed
+	private ESTADO estado;
 
 	public float getImporteTotal() {
 		return importeTotal;
@@ -28,13 +36,6 @@ public class Facturacion {
 		this.pagos = pagos;
 	}
 
-	public boolean getFacturaOficialUnica() {
-		return facturaOficialUnica;
-	}
-
-	public void setFacturaOficialUnica(boolean facturaOficialUnica) {
-		this.facturaOficialUnica = facturaOficialUnica;
-	}
 
 	public float getImportePagado() {
 		return importePagado;
@@ -43,6 +44,36 @@ public class Facturacion {
 	public void setImportePagado(float importePagado) {
 		this.importePagado = importePagado;
 	}
+
+	public Factura getFactura() {
+		return factura;
+	}
+
+	public void setFactura(Factura factura) {
+		this.factura = factura;
+	}
+
+	public ESTADO getEstado() {
+		return estado;
+	}
+
+	public void setEstado(ESTADO estado) {
+		this.estado = estado;
+	}
+
+	public void setFacturando(){
+		estado=ESTADO.FACTURANDO;
+	}
 	
+	public void setPagoParcial(){
+		estado=ESTADO.PAGADO_PARCIAL;
+	}
 	
+	public void setPagoTotal(){
+		estado=ESTADO.PAGADO_TOTAL;
+	}
+	
+	public void setNoPagado(){
+		estado=ESTADO.NO_PAGADO;
+	}
 }

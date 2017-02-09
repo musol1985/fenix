@@ -21,21 +21,14 @@ import com.sot.fenix.components.models.templates.AModelBasic;
 @Document
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class Visita extends AModelBasic{
-	
-	public enum ESTADO{ PROCESO, 
-						RPARCIAL, 
-						RTOTAL}
-	
-	private ESTADO estado;
-	
+
 	@DBRef
 	private Cliente cliente;
 	
 	@CreatedDate
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy HH:mm")
 	private Date fecha;
-	
-	@CreatedBy	
+
 	@DBRef
 	private Usuario profesional;
 
@@ -44,27 +37,6 @@ public class Visita extends AModelBasic{
 
 	private Facturacion facturacion;
 
-	public ESTADO getEstado() {
-		return estado;
-	}
-
-	public void setEstado(ESTADO estado) {
-		this.estado = estado;
-	}
-	
-	@JsonGetter("className")
-	public String getJsonClassName(){
-		if(estado==null)
-			return "";
-		return "fc-"+estado.name().toLowerCase();
-	}
-	
-	@JsonGetter("icono")
-	public String getJsonIcono(){
-		if(estado==null)
-			return "";
-		return "zmdi-"+estado.name().toLowerCase();
-	}
 	
 	@JsonGetter("cliente")
 	public CodigoDescripcionJSON getJsonCliente(){
@@ -158,7 +130,19 @@ public class Visita extends AModelBasic{
 		this.facturacion = facturacion;
 	}
 
+	public boolean isFacturado(){
+		return facturacion!=null && facturacion.getFactura()!=null;
+	}
 	
+	public boolean hasPagos(){
+		return facturacion!=null && facturacion.getPagos()!=null && facturacion.getPagos().size()>0;
+	}
+	
+	public long getNumFactura(){
+		if(isFacturado())
+			return facturacion.getFactura().getIdFactura();
+		return -1;
+	}
 	
 }
 
