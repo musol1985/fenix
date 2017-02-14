@@ -15,11 +15,11 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.sot.fenix.components.json.CodigoDescripcionJSON;
-import com.sot.fenix.components.models.templates.AModelId;
+import com.sot.fenix.components.models.templates.AModelCentro;
 
 @Document
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class Cita extends AModelId{
+public class Cita extends AModelCentro{
 	
 	public enum ESTADO{PROGRAMADA,
 						CAPTURANDO, 
@@ -27,9 +27,7 @@ public class Cita extends AModelId{
 						NO_PRESENTADO}
 	
 	private ESTADO estado;
-	
-	@DBRef
-	private Centro centro;
+
 	
 	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy HH:mm")
@@ -81,21 +79,6 @@ public class Cita extends AModelId{
 		return "zmdi-"+estado.name().toLowerCase();
 	}
 
-	
-	@JsonGetter("centro")
-	public String getJsonCentro(){
-		if(centro==null)
-			return "";
-		return centro.getId().toHexString();
-	}
-	
-	@JsonSetter("centro")
-	public void setJsonCentro(String id) {
-		if(id!=null && !id.isEmpty()){
-			centro=new Centro();
-			centro.setId(new ObjectId(id));
-		}
-	}
 	
 	@JsonGetter("cliente")
 	public CodigoDescripcionJSON getJsonCliente(){
@@ -175,15 +158,6 @@ public class Cita extends AModelId{
 		return cd;
 	}
 
-	public void setCentro(Centro centro) {
-		this.centro = centro;
-	}
-
-	public Centro getCentro() {
-		return centro;
-	}
-	
-	
 
 	public Usuario getProfesional() {
 		return profesional;

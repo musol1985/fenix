@@ -4,13 +4,13 @@ import java.util.Date;
 import java.util.List;
 
 import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import com.sot.fenix.components.models.Cita;
+import com.sot.fenix.templates.dao.ICentroIdDAO;
 
 @Repository
-public interface CitaDAO extends MongoRepository<Cita, ObjectId>{	
+public interface CitaDAO extends ICentroIdDAO<Cita>{	
 	//public Cliente findByCentro_idAndDni(ObjectId centro, String dni);
 	
 	public List<Cita> findByFechaIniGreaterThanEqualAndFechaFinLessThanEqualAndCentro_idAndProfesional_idAndPrestacion_id(Date fechaIni, Date fechaFin, ObjectId centroId, ObjectId profesionalId, ObjectId prestacionId);

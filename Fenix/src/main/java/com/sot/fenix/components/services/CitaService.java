@@ -15,19 +15,14 @@ import com.sot.fenix.components.json.CitasRequest;
 import com.sot.fenix.components.json.ResponseJSON;
 import com.sot.fenix.components.models.Cita;
 import com.sot.fenix.components.models.Cita.ESTADO;
-import com.sot.fenix.components.rest.CitaREST;
 import com.sot.fenix.components.models.Visita;
 import com.sot.fenix.dao.CitaDAO;
+import com.sot.fenix.templates.service.ACentroIdService;
 
 @Service
-public class CitaService {
+public class CitaService extends ACentroIdService<CitaDAO, Cita>{
 	final static Logger log = LogManager.getLogger(CitaService.class);
-	
-	@Autowired
-	private CitaDAO dao;
-	@Autowired
-	private MongoTemplate template;
-	
+
 	@Autowired
 	private VisitaService visitas;
 	

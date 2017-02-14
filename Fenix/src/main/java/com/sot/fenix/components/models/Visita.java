@@ -2,10 +2,8 @@ package com.sot.fenix.components.models;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 import org.bson.types.ObjectId;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,11 +14,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.sot.fenix.components.json.CodigoDescripcionJSON;
 import com.sot.fenix.components.models.facturacion.Facturacion;
-import com.sot.fenix.components.models.templates.AModelBasic;
+import com.sot.fenix.components.models.templates.AModelCentro;
 
 @Document
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class Visita extends AModelBasic{
+public class Visita extends AModelCentro{
 
 	@DBRef
 	private Cliente cliente;

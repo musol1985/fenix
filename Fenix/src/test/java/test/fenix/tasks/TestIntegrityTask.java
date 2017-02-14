@@ -191,6 +191,7 @@ public class TestIntegrityTask {
 		usuarios.getDAO().deleteAll();
 		clientes.getDAO().deleteAll();
 		visitas.getDAO().deleteAll();
+		config.getDAO().deleteAll();
 	}
 	
 	public static Date toDate(String date){
@@ -339,6 +340,55 @@ public class TestIntegrityTask {
 		List<Visita> listaVisitasActualizadas=actualizrFromBD(listaVisitas);
 
 		comprobacion(listaVisitasActualizadas);
+	}
+	
+	/**
+	 * Mezcla de 1 y 3
+	 * Genera 1 bien y luego genera 4 con el generar factura=false
+	 * por lo que es el caso de que falla antes de obtener la sequence(factura.estado=facturando)
+	 * Luego gneera 2 bien + 3 bien
+	 * y genera 2 mal (se le quita factura, por lo que la sequence ha sido aumentada)
+	 * y genera 2 bien
+	 * @throws Exception
+	 */
+	@Test
+	public void testIntegrityTotal()throws Exception{		
+		List<Visita> listaVisitasTest3=test2Crear(false, true);
+		
+		//Activamos, simulando que se han creado citas y facturado correctamente(threads mas lentos que otros)
+		config.setValue(centro, ConfigCentroService.AUTO_FACTURAR, true);
+		
+		List<Visita> listaVisitasTest3Post=generarVisitasPost(2);
+		
+		List<Visita> listaVisitasTest1=test2Crear(true, false);
+		
+		//La 4 y 5 se les quita la factura(el estado ya se ha puesto
+		simularErrorFactura(listaVisitasTest1.get(3));
+		simularErrorFactura(listaVisitasTest1.get(4));	
+		
+		List<Visita> listaVisitasTest1Post=generarVisitasPost(2);
+		
+		task.contextRefreshedEvent();
+		
+		List<Visita> todas=new ArrayList<Visita>();
+		todas.addAll(listaVisitasTest3);
+		todas.addAll(listaVisitasTest3Post);
+		todas.addAll(listaVisitasTest1);
+		todas.addAll(listaVisitasTest1Post);
+
+		List<Visita> listaVisitasActualizadas=actualizrFromBD(todas);
+
+		comprobacion(listaVisitasActualizadas);
+	}
+	
+	/**
+	 * REaliza el test total varias veces
+	 * @throws Exception
+	 */
+	@Test
+	public void testIntegrityTotalMulti()throws Exception{		
+		testIntegrityTotal();
+		testIntegrityTotal();
 	}
 
 	

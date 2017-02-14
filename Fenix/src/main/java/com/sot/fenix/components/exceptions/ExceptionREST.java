@@ -3,6 +3,9 @@ package com.sot.fenix.components.exceptions;
 import com.sot.fenix.components.json.ResponseJSON;
 
 public class ExceptionREST extends Exception {
+
+	private static final long serialVersionUID = 5527694657538728103L;
+	
 	private int codigo;
 	
 	public ExceptionREST(int codigo, String mensaje){

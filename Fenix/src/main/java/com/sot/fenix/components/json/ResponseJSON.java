@@ -6,6 +6,7 @@ public class ResponseJSON<T extends Object> {
 	public static final int NO_EXISTE=1;
 	public static final int YA_EXISTE=2;
 	public static final int ES_ADMIN=3;
+	public static final int ACCION_PROHIBIDA_REST=4;
 	
 	
 	//VISITAS

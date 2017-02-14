@@ -2,10 +2,10 @@ package com.sot.fenix.components.models.horarios;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sot.fenix.components.models.Centro;
-import com.sot.fenix.components.models.templates.AModelBasic;
+import com.sot.fenix.components.models.templates.AModelNombre;
 import com.sot.fenix.components.models.templates.ICodDescr;
 
-public class Horario extends AModelBasic implements ICodDescr{
+public class Horario extends AModelNombre implements ICodDescr{
 	public enum TIPO{CENTRO, PROFESIONAL, PRESTACION};
 	
 	private String laborables;

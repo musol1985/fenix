@@ -1,7 +1,6 @@
 package com.sot.fenix.components.listeners;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -19,6 +18,7 @@ import com.sot.fenix.components.models.facturacion.Facturacion;
 import com.sot.fenix.components.services.CentroService;
 import com.sot.fenix.components.services.CitaService;
 import com.sot.fenix.components.services.ConfigCentroService;
+import com.sot.fenix.components.services.FacturacionService;
 import com.sot.fenix.components.services.VisitaService;
 
 @Component
@@ -29,6 +29,8 @@ public class DeployListener {
 	private CitaService citas;
 	@Autowired
 	private VisitaService visitas;
+	@Autowired
+	private FacturacionService facturacion;
 	@Autowired
 	private ConfigCentroService config;
 	@Autowired
@@ -99,16 +101,18 @@ public class DeployListener {
 	private void checkIntegridadFacturas(Centro centro){
 		log.info("Comrpobando la integridad de las facturas para el centro "+centro.getJsonId()+" - "+centro.getNombre());
 		
-		List<Visita> visitasSinCheckConFactura=visitas.getVisitasCheckIntegridadFacturasConFacturaIdMayor(centro);
-		List<Visita> visitasSinCheckSinFactura=visitas.getVisitasCheckIntegridadFacturaConFacturaNull(centro);
+		List<Visita> visitasSinCheckSinFactura=facturacion.getVisitasCheckIntegridadFacturaConFacturaNull(centro);
 		
-		List<Visita> visitasSinCheck=new ArrayList<Visita>();
-		visitasSinCheck.addAll(visitasSinCheckConFactura);
-		visitasSinCheck.addAll(visitasSinCheckSinFactura);
-		
-		log.info("Visitas sin checkear: "+visitasSinCheck.size());
-		
-		if(visitasSinCheck.size()>0){
+		//Si no hay visitas con factura=null
+		if(visitasSinCheckSinFactura.size()>0){
+			List<Visita> visitasSinCheckConFactura=facturacion.getVisitasCheckIntegridadFacturasConFacturaIdMayor(centro);			
+			
+			List<Visita> visitasSinCheck=new ArrayList<Visita>();
+			visitasSinCheck.addAll(visitasSinCheckConFactura);
+			visitasSinCheck.addAll(visitasSinCheckSinFactura);
+			
+			log.info("Visitas sin checkear: "+visitasSinCheck.size());			
+
 			List<Long> numerosDisponibles=new ArrayList<Long>();
 			
 			for(int i=0;i<visitasSinCheckConFactura.size()-1;i++){
@@ -143,10 +147,10 @@ public class DeployListener {
 						//Puede darse el caso que la secuence esté aumentada, por lo que habrá que buscar un num libre
 						//Puede darse que la secuence no se hubiese aumentado, por lo que habrá que generar factura nueva
 						if(numerosDisponibles.size()>0){
-							visitas.generarFacturaYGuardar(numerosDisponibles.remove(0), v);
+							facturacion.generarFacturaYGuardar(numerosDisponibles.remove(0), v);
 						}else{
 							//Se debe generar la factura
-							visitas.generarFacturaYGuardar(v);								
+							facturacion.generarFacturaYGuardar(v);								
 						}
 					}else{
 						//No hay que hacer nada(Facturada OK)
@@ -155,12 +159,12 @@ public class DeployListener {
 				}
 			}catch(ExceptionREST ex){
 				log.error(ex.getMessage());
-			}
-			
-			
-			log.debug("Seteando NumFactura integrity para el centro "+centro.getId()+" a: "+visitasSinCheck.get(visitasSinCheck.size()-1).getNumFactura());
-			config.setNumFacturaIntegrity(centro, visitasSinCheck.get(visitasSinCheck.size()-1).getNumFactura());
+			}										
 		}
+		
+		log.debug("Seteando NumFactura integrity para el centro "+centro.getId()+" a: "+facturacion.getMaxIdFacturaByCentro(centro));
+		config.setNumFacturaIntegrity(centro, facturacion.getMaxIdFacturaByCentro(centro));
+		
 		log.info("Fin Comrpobación de la integridad de las facturas para el centro "+centro.getJsonId()+"-"+centro.getNombre());
 	}
 }

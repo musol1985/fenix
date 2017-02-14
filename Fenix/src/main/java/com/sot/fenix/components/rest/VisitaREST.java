@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sot.fenix.components.exceptions.ExceptionREST;
-import com.sot.fenix.components.json.PagoJSON;
 import com.sot.fenix.components.json.ResponseJSON;
+import com.sot.fenix.components.models.Cita;
 import com.sot.fenix.components.models.Visita;
 import com.sot.fenix.components.services.VisitaService;
 
@@ -23,21 +23,20 @@ public class VisitaREST{
 	private VisitaService visitas;
 
 	
-	@RequestMapping(method=RequestMethod.POST, path="/pagar")
-    public ResponseJSON<Visita> pagar(@RequestBody PagoJSON pagoJSON) {		
-		/*try{
-			Visita visita=visitas.realizarPago(new ObjectId(pagoJSON.visitaId), pagoJSON.importe, pagoJSON.generarFactura);
-			return new ResponseJSON<Visita>(ResponseJSON.OK,visita);
-			
+	@RequestMapping(method=RequestMethod.POST, path="/pasar/visita")
+    public ResponseJSON<Visita> pasarVisita(@RequestBody Cita cita) {		
+		try{
+			log.debug("PasandoVisita REST");
+			Visita visita=visitas.nuevaVisitaFromCita(cita);
+			return new ResponseJSON<Visita>(ResponseJSON.OK,visita);			
 		}catch(ExceptionREST ex){
 			if(ex.getCodigo()==ResponseJSON.NO_EXISTE){
-				log.error("La visita con código "+pagoJSON.visitaId+" no existe en la BD.");
+				log.error("La cita con código "+cita.getJsonId()+" no existe en la BD.");
 			}else{
 				log.error(ex.getMessage());
 			}
-			return ex.toResponse();
-		}*/
-		return null;
+			return (ResponseJSON<Visita>)ex.toResponse();
+		}
     }
 }
 

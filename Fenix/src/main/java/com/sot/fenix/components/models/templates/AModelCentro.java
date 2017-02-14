@@ -9,22 +9,17 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.sot.fenix.components.models.Centro;
 
-public abstract class AModelBasic extends AModelId{
-	protected String nombre;
-	
+/**
+ * Model que exitende de Model con ObjectId como id y aparte tiene el campo Centro
+ * @author eduarmar
+ *
+ */
+public abstract class AModelCentro extends AModelId{
+
 	@DBRef
 	@Indexed
 	protected Centro centro;
-	
-	public String getNombre() {
-		return nombre;
-	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	
-	
 
 	public Centro getCentro() {
 		return centro;

@@ -26,11 +26,12 @@ import com.sot.fenix.components.services.CitaService;
 import com.sot.fenix.components.services.HorarioService;
 import com.sot.fenix.components.services.PrestacionService;
 import com.sot.fenix.components.services.UsuarioService;
-import com.sot.fenix.components.services.VisitaService;
+import com.sot.fenix.dao.CitaDAO;
+import com.sot.fenix.templates.REST.ACentroIdREST;
 
 @RestController
 @RequestMapping("/cita")
-public class CitaREST{
+public class CitaREST extends ACentroIdREST<CitaService, Cita, CitaDAO>{
 	final static Logger log = LogManager.getLogger(CitaREST.class);
 	
 	public static final int RES_NO_CLIENTE=99;
@@ -40,16 +41,14 @@ public class CitaREST{
 	public static final int RES_NO_ID_CITA=95;
 	public static final int RES_ESTADO_INCORRECTO=94;
 	
-	@Autowired
-	private CitaService citas;
+
 	@Autowired
 	private HorarioService horarios;
 	@Autowired
 	private UsuarioService profesionales;
 	@Autowired
 	private PrestacionService prestaciones;
-	@Autowired
-	private VisitaService visita;
+
 	
 	@RequestMapping(method=RequestMethod.PUT)
     public ResponseJSON<Cita> nueva(@RequestBody Cita cita) {
@@ -61,16 +60,17 @@ public class CitaREST{
 		if(cita.getProfesional()==null)
 			return new ResponseJSON<Cita>(RES_NO_PROFESIONAL, cita);
 		
-		List<Cita> solapas=citas.getCitasSolapa(cita);
+		List<Cita> solapas=service.getCitasSolapa(cita);
 		
 		if(solapas.size()>0){
 			return new ResponseJSON<Cita>(RES_TIENE_SOLAPA, cita);
 		}else{			
-			cita=citas.crearCita(cita);
+			cita=service.crearCita(cita);
 			return new ResponseJSON<Cita>(ResponseJSON.OK, cita);	
 		}
     }
 	
+	@Override
 	@RequestMapping(method=RequestMethod.POST)
     public ResponseJSON<Cita> modificar(@RequestBody Cita cita) {
 		if(cita.getCliente()==null)
@@ -82,25 +82,25 @@ public class CitaREST{
 		if(cita.getId()==null)
 			return new ResponseJSON<Cita>(RES_NO_ID_CITA, cita);
 		
-		List<Cita> solapas=citas.getCitasSolapa(cita);
+		List<Cita> solapas=service.getCitasSolapa(cita);
 		
 		if(solapas.size()>0 && !(solapas.get(0).getId().toHexString().equals(cita.getId().toHexString()))){
 			return new ResponseJSON<Cita>(RES_TIENE_SOLAPA, cita);
 		}else{			
-			cita=citas.crearCita(cita);
+			cita=service.crearCita(cita);
 			return new ResponseJSON<Cita>(ResponseJSON.OK, cita);	
 		}
     }
 	
 	@RequestMapping(method=RequestMethod.POST, path="/reprogramar")
     public ResponseJSON<Cita> reprogramar(@RequestBody ReprogramarRequestJSON req) {
-		Cita cita=citas.getDAO().findOne(req.cita.getId());
+		Cita cita=service.getDAO().findOne(req.cita.getId());
 		if(cita==null)
 			return new ResponseJSON<Cita>(ResponseJSON.NO_EXISTE);
 		
 		if(!req.forzar){
 			System.out.println("Ini:"+req.cita.getFechaIni()+"    Fin:"+req.cita.getFechaFin());
-			List<Cita> solapas=citas.getCitasSolapa(req.cita);
+			List<Cita> solapas=service.getCitasSolapa(req.cita);
 			
 			if(solapas.size()>0 && !(solapas.get(0).getId().toHexString().equals(cita.getId().toHexString()))){
 				return new ResponseJSON<Cita>(RES_TIENE_SOLAPA, cita);
@@ -109,7 +109,7 @@ public class CitaREST{
 		
 		cita.setFechaIni(req.cita.getFechaIni());
 		cita.setFechaFin(req.cita.getFechaFin());
-		citas.getDAO().save(cita);
+		service.getDAO().save(cita);
 		
 		return new ResponseJSON<Cita>(ResponseJSON.OK, cita);
     }
@@ -117,13 +117,13 @@ public class CitaREST{
 	@RequestMapping(method=RequestMethod.GET, path="/in")
     public List<Cita> in(@RequestParam("centro") String centro, @RequestParam("start") @DateTimeFormat(pattern="yyyy-MM-dd") Date start,  @RequestParam("end") @DateTimeFormat(pattern="yyyy-MM-dd") Date end) {
 		System.out.println("****************************************************************arggggggggggg");
-		List<Cita> res=citas.getDAO().findByFechaIniGreaterThanEqualAndFechaFinLessThanEqualAndCentro_id(start, end, new ObjectId(centro));
+		List<Cita> res=service.getDAO().findByFechaIniGreaterThanEqualAndFechaFinLessThanEqualAndCentro_id(start, end, new ObjectId(centro));
 		return res;	
     }
 	
 	@RequestMapping(method=RequestMethod.POST, path="/all")
     public List<Cita> modificar(@RequestBody CitasRequest req) {
-		List<Cita> res=citas.buscar(req);
+		List<Cita> res=service.buscar(req);
 		return res;	
 	}
 	
@@ -146,24 +146,13 @@ public class CitaREST{
 		return "CitaREST OK"+centro+start;
 	}
 	
-	@RequestMapping(method=RequestMethod.DELETE, path="/{id}")
-    public ResponseJSON<Cita> eliminar(@PathVariable String id) {
-		Cita item=citas.getDAO().findOne(new ObjectId(id));
-		if(item!=null){
-			citas.getDAO().delete(item);
-			return new ResponseJSON<Cita>(ResponseJSON.OK);
-		}else{
-			return new ResponseJSON<Cita>(ResponseJSON.NO_EXISTE);
-		}
-    }
-	
 	
 	@RequestMapping(method=RequestMethod.POST, path="/capturar")
     public ResponseJSON<Visita> capturar(@RequestBody Cita cita) {
-		Cita item=citas.getDAO().findOne(new ObjectId(cita.getId().toHexString()));
+		Cita item=service.getDAO().findOne(new ObjectId(cita.getId().toHexString()));
 		
 		try{
-			Visita visita=citas.capturarCita(item);
+			Visita visita=service.capturarCita(item);
 			return new ResponseJSON<Visita>(ResponseJSON.OK,visita);
 		}catch(ExceptionREST ex){
 			if(ex.getCodigo()==ResponseJSON.NO_EXISTE){

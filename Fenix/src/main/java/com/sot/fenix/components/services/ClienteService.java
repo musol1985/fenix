@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 
 import com.sot.fenix.components.models.Cliente;
 import com.sot.fenix.dao.ClienteDAO;
+import com.sot.fenix.templates.service.ANombreCentroIdService;
 
 @Service
-public class ClienteService {
-	@Autowired
-	private ClienteDAO dao;
+public class ClienteService extends ANombreCentroIdService<ClienteDAO, Cliente>{
+
 	@Autowired
 	private MongoTemplate template;
 	
@@ -35,8 +35,5 @@ public class ClienteService {
 		
 		return template.find(q, Cliente.class);
 	}
-	
-	public ClienteDAO getDAO(){
-		return dao;
-	}
+
 }

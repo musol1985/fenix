@@ -1,7 +1,6 @@
-package test.fenix.rest;
+package test.fenix.rest.templates;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -14,103 +13,112 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.sot.fenix.components.json.ResponseJSON;
 import com.sot.fenix.components.models.Centro;
-import com.sot.fenix.components.models.Centro.TIPO;
-import com.sot.fenix.components.models.templates.AModelBasic;
+import com.sot.fenix.components.models.Usuario;
+import com.sot.fenix.components.models.templates.AModelCentro;
 import com.sot.fenix.components.models.templates.AModelId;
-import com.sot.fenix.components.models.Prestacion;
-import com.sot.fenix.components.models.Ubicacion;
+import com.sot.fenix.components.models.templates.AModelNombre;
 import com.sot.fenix.components.services.CentroService;
+import com.sot.fenix.components.services.UsuarioService;
 import com.sot.fenix.config.AppConfig;
 import com.sot.fenix.config.SecurityConfig;
-import com.sot.fenix.templates.basic.IBasicService;
+import com.sot.fenix.templates.REST.ABasicREST;
+import com.sot.fenix.templates.dao.IBasicIdDAO;
+import com.sot.fenix.templates.service.ABasicService;
 
 import test.fenix.TestUtils;
 import test.fenix.config.TestDBConfig;
 
+/**
+ * Implementación basica de los tests de REST
+ * inicializa centro y usuario
+ * @author eduarmar
+ *
+ * @param <T>
+ * @param <S>
+ * @param <I>
+ */
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfig.class, TestDBConfig.class, SecurityConfig.class})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public abstract class TestTemplateREST<T, S extends IBasicService, I extends AModelBasic> {
+public abstract class TestTemplateREST<I extends AModelId, D extends IBasicIdDAO<I>, S extends ABasicService<D>, R extends ABasicREST<S,I,D>> {
 	@Autowired
-    private T rest;
+    protected R rest;
 	
     
     @Autowired
-    private S service;
-    @Autowired
-    private CentroService centros;
+    protected S service;    
 
+    protected I model;
 	
-    private I item;
+	protected MockMvc mockMvc;
+	
+	//ITEMS
 	protected Centro centro;
+	protected Usuario usuario;
 	
-	private MockMvc mockMvc;
+	//SERVICIOS
+	@Autowired
+	protected UsuarioService usuarios;
+    @Autowired
+    protected CentroService centros;
+
     
 	@Before
 	public void create() {
 		mockMvc= MockMvcBuilders.standaloneSetup(rest).build();
 
-		centro=new Centro();
-		centro.setColor("purple");
-		centro.setCorreoAdmin("test@test.com");
-		centro.setNombre("Centro test");
-		centro.setTipo(TIPO.SANIDAD);
-		Ubicacion u=getUbicacion();
-		centro.setUbicacion(u);
-		
+		centro=TestUtils.getNewCentro();
 		centros.getDAO().save(centro);
 		
-		item=getItem();
-		item.setNombre("TestItem");
-		item.setCentro(centro);
+		usuario=TestUtils.getNewUsuario("usuario test", centro);
+		usuarios.getDAO().save(usuario);
 		
-		service.getDAO().save(item);
-		
+		model=getNewModel(true);
 	}
 	
-	public abstract I getItem();
-	
-	private Ubicacion getUbicacion(){
-		Ubicacion u=new Ubicacion();
-		u.setCalle("Calle test");
-		u.setCP("08292");
-		u.setId("#idUbicacion");
-		u.setNumero("33");
-		u.setPais("ES");
-		u.setPoblacion("Terrassa");
-		u.setProvincia("Barcelona");
-		u.setPosicion(new GeoJsonPoint(1, 1));
-		return u;
+	protected I getNewModel(boolean saveBD){
+		I model=getModel();
+		
+		if(model!=null){
+			if(model instanceof AModelCentro){				
+				((AModelCentro)model).setCentro(centro);
+			}		
+			if(model instanceof AModelNombre){
+				((AModelNombre)model).setNombre(model.getClass().getName()+" Test");
+			}
+			
+			if(saveBD)
+				service.getDAO().save(model);
+		}
+		return model;
 	}
 	
-	
+	public abstract I getModel();
 	
 	@After
 	public void  drop(){
 		service.getDAO().deleteAll();
 		centros.getDAO().deleteAll();
+		usuarios.getDAO().deleteAll();				
 	}
 	
 	public abstract String getRestURL();
-	
+	/*
 	
 	@Test
 	public void nuevo() throws Exception {
-		I nuevoItem=getItem();
-		nuevoItem.setNombre("TestItemNuevo");
-		nuevoItem.setCentro(centro);
-		
+		I nuevoItem=getNewModel(false);
 				
 	    mockMvc.perform(put("/"+getRestURL()).contentType(TestUtils.APPLICATION_JSON_UTF8)
                 .content(TestUtils.convertObjectToJsonBytes(nuevoItem)))	    		
@@ -125,42 +133,72 @@ public abstract class TestTemplateREST<T, S extends IBasicService, I extends AMo
 		.andDo(print())
 		.andExpect(status().isOk())
 		.andExpect(jsonPath("$.cod").value(ResponseJSON.YA_EXISTE));
+	}*/
+	
+	@Test
+	public void get() throws Exception {		
+		I item2=getNewModel(true);
+
+	    mockMvc.perform(MockMvcRequestBuilders.get("/"+getRestURL()+"/"+item2.getId().toHexString()))
+			.andExpect(status().isOk())
+			.andDo(print())
+			  .andExpect(jsonPath("$.cod").value(ResponseJSON.OK));
+	    
+	    
+	    mockMvc.perform(MockMvcRequestBuilders.get("/"+getRestURL()+"/"+new ObjectId().toHexString()))
+			.andExpect(status().isOk())
+			.andDo(print())
+			  .andExpect(jsonPath("$.cod").value(ResponseJSON.NO_EXISTE));	
 	}
+	
+	
+	/**
+	 * Metodo para modificar un model para el test de modificar(por ejemplo cambiarle el nombre)
+	 * @param modelAModificar
+	 * @return
+	 */
+	public abstract I getModelTestModificar(I modelAModificar);
+	
+	/**
+	 * Metodo que se ejecuta en el test modificar, y que sirve para comprobar el resultado de la modificacion
+	 * @param res
+	 */
+	public abstract void postTestModificar(ResultActions res)throws Exception;
 	
 	@Test
 	public void modificar() throws Exception {	
-		item.setNombre("itemModificado");
-	    mockMvc.perform(post("/"+getRestURL()).contentType(TestUtils.APPLICATION_JSON_UTF8)
-                .content(TestUtils.convertObjectToJsonBytes(item)))	    		
+		I modelModificado=getModelTestModificar(model);
+	    ResultActions res=mockMvc.perform(post("/"+getRestURL()).contentType(TestUtils.APPLICATION_JSON_UTF8)
+                .content(TestUtils.convertObjectToJsonBytes(modelModificado)))	    		
 		.andDo(print())
 		.andExpect(status().isOk())
-		.andExpect(jsonPath("$.cod").value(ResponseJSON.OK))
-		.andExpect(jsonPath("$.data.nombre").value("itemModificado"))
-		.andExpect(jsonPath("$.data.centro").value(item.getCentro().getId().toHexString()));
+		.andExpect(jsonPath("$.cod").value(ResponseJSON.OK));
+	    postTestModificar(res);
 
-	    item.setId(new ObjectId());
+	    modelModificado.setId(new ObjectId());
 	    mockMvc.perform(post("/"+getRestURL()).contentType(TestUtils.APPLICATION_JSON_UTF8)
-                .content(TestUtils.convertObjectToJsonBytes(item)))	    		
+                .content(TestUtils.convertObjectToJsonBytes(modelModificado)))	    		
 		.andDo(print())
 		.andExpect(status().isOk())
 		.andExpect(jsonPath("$.cod").value(ResponseJSON.NO_EXISTE));
 	}
+
 	
 	@Test
 	public void delete() throws Exception {		
-	    mockMvc.perform(MockMvcRequestBuilders.delete("/"+getRestURL()+"/"+item.getId().toHexString()))
+	    mockMvc.perform(MockMvcRequestBuilders.delete("/"+getRestURL()+"/"+model.getId().toHexString()))
 		.andDo(print())
 		.andExpect(status().isOk())
 	    .andExpect(jsonPath("$.cod").value(ResponseJSON.OK));
 	    
-	    mockMvc.perform(MockMvcRequestBuilders.delete("/"+getRestURL()+"/"+item.getId().toHexString()))
+	    mockMvc.perform(MockMvcRequestBuilders.delete("/"+getRestURL()+"/"+model.getId().toHexString()))
 		.andDo(print())
 		.andExpect(status().isOk())
 	    .andExpect(jsonPath("$.cod").value(ResponseJSON.NO_EXISTE));
 		//.andDo(print())
 	}
 	
-	
+	/*
 	@Test
 	public void getAll() throws Exception {
 
@@ -177,25 +215,7 @@ public abstract class TestTemplateREST<T, S extends IBasicService, I extends AMo
 			.andExpect(status().isOk())
 			.andDo(print())
 			.andExpect(jsonPath("$.data[0].id").value(item.getId().toHexString()));			
-	}
+	}*/
 	
-	@Test
-	public void get() throws Exception {		
-		I item2=getItem();
-		item2.setNombre("TestItem2");
-		item2.setCentro(centro);
-		
-		service.getDAO().save(item2);
-
-	    mockMvc.perform(MockMvcRequestBuilders.get("/"+getRestURL()+"/"+item2.getId().toHexString()))
-			.andExpect(status().isOk())
-			.andDo(print())
-			  .andExpect(jsonPath("$.cod").value(ResponseJSON.OK));
-	    
-	    
-	    mockMvc.perform(MockMvcRequestBuilders.get("/"+getRestURL()+"/"+new ObjectId().toHexString()))
-			.andExpect(status().isOk())
-			.andDo(print())
-			  .andExpect(jsonPath("$.cod").value(ResponseJSON.NO_EXISTE));	
-	}
+	
 }

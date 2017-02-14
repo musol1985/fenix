@@ -7,10 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import com.sot.fenix.components.models.Visita;
 import com.sot.fenix.components.models.facturacion.Facturacion.ESTADO;
-import com.sot.fenix.templates.basic.IBasicDAO;
+import com.sot.fenix.templates.dao.ICentroIdDAO;
 
 @Repository
-public interface VisitaDAO extends IBasicDAO<Visita>{	
+public interface VisitaDAO extends ICentroIdDAO<Visita>{	
 	public Visita findByCita_id(ObjectId citaId);
 	
 	/**
@@ -22,4 +22,6 @@ public interface VisitaDAO extends IBasicDAO<Visita>{
 	 */
 	public List<Visita> findByCentro_idAndFacturacion_Factura_idFacturaGreaterThanEqualOrderByFacturacion_Factura_idFactura(ObjectId centroId, long numeroFactura);
 	public List<Visita> findByCentro_idAndFacturacion_estadoAndFacturacion_FacturaIsNull(ObjectId centroId, ESTADO estado);
+	
+	public Visita findFirstByCentro_idAndFacturacion_Factura_idFacturaGreaterThanEqualOrderByFacturacion_Factura_idFacturaDesc(ObjectId centroId, long numeroFactura);
 }

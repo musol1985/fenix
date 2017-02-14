@@ -8,10 +8,10 @@ import com.sot.fenix.components.models.horarios.Horario;
 import com.sot.fenix.components.models.horarios.HorarioEditor;
 import com.sot.fenix.dao.HorarioDAO;
 import com.sot.fenix.dao.HorarioEditorDAO;
-import com.sot.fenix.templates.basic.ABasicService;
+import com.sot.fenix.templates.service.ANombreCentroIdService;
 
 @Service
-public class HorarioService extends ABasicService<HorarioDAO, Horario>{
+public class HorarioService extends ANombreCentroIdService<HorarioDAO, Horario>{
 	@Autowired
 	protected HorarioEditorDAO editorDAO;
 

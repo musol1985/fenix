@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 import com.sot.fenix.components.models.Prestacion;
 import com.sot.fenix.components.models.horarios.Horario;
 import com.sot.fenix.dao.PrestacionDAO;
-import com.sot.fenix.templates.basic.ABasicService;
+import com.sot.fenix.templates.service.ANombreCentroIdService;
 
 @Service
-public class PrestacionService extends ABasicService<PrestacionDAO, Prestacion>{
+public class PrestacionService extends ANombreCentroIdService<PrestacionDAO, Prestacion>{
 	@Autowired
 	private HorarioService horarios;
 	

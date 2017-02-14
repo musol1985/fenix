@@ -15,11 +15,11 @@ import com.sot.fenix.components.models.horarios.HorarioEditor;
 import com.sot.fenix.components.services.HorarioService;
 import com.sot.fenix.components.services.PrestacionService;
 import com.sot.fenix.dao.HorarioDAO;
-import com.sot.fenix.templates.basic.ABasicREST;
+import com.sot.fenix.templates.REST.ANombreCentroIdREST;
 
 @RestController
 @RequestMapping("/horario")
-public class HorarioREST extends ABasicREST<HorarioService, Horario, HorarioDAO>{
+public class HorarioREST extends ANombreCentroIdREST<HorarioService, Horario, HorarioDAO>{
 
 	@Autowired
 	private PrestacionService prestaciones;
