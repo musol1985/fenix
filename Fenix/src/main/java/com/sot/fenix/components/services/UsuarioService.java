@@ -19,13 +19,13 @@ import com.sot.fenix.components.models.UsuarioPendiente;
 import com.sot.fenix.components.models.horarios.Horario;
 import com.sot.fenix.dao.UsuarioDAO;
 import com.sot.fenix.dao.UsuarioPendienteDAO;
+import com.sot.fenix.templates.service.ABasicService;
 
 @Service
-public class UsuarioService {
+public class UsuarioService extends ABasicService<UsuarioDAO>{
+
 	@Autowired
-	private UsuarioDAO usuarios;
-	@Autowired
-	private UsuarioPendienteDAO usuariosPendientes;
+	private UsuarioPendienteDAO pendientesDAO;
 	@Autowired
 	private HorarioService horarios;
 	
@@ -34,44 +34,41 @@ public class UsuarioService {
 	MongoTemplate template;
 	
 	public Usuario getUsuarioByCorreo(String login){
-		return usuarios.findByCorreo(login);
+		return dao.findByCorreo(login);
 	}
 
 	
 	public List<Usuario> getUsuarioByCentro(String centro){
 		Centro c=new Centro();
 		c.setId(new ObjectId(centro));
-		return usuarios.findByCentro(c);
+		return dao.findByCentro(c);
 	}
 	
 	public Page<Usuario> getUsuarioByCentro(String centro, Pageable page){
 		Centro c=new Centro();
 		c.setId(new ObjectId(centro));
-		return usuarios.findByCentro(c, page);
+		return dao.findByCentro(c, page);
 	}
 	
 	public List<UsuarioPendiente> getUsuarioPendienteByCentro(String centro){
 		Centro c=new Centro();
 		c.setId(new ObjectId(centro));
-		return usuariosPendientes.findByCentro(c);
+		return pendientesDAO.findByCentro(c);
 	}
 	
 	public Page<UsuarioPendiente> getUsuarioPendienteByCentro(String centro, Pageable page){
 		Centro c=new Centro();
 		c.setId(new ObjectId(centro));
-		return usuariosPendientes.findByCentro(c, page);
+		return pendientesDAO.findByCentro(c, page);
 	}
 	
 	public UsuarioPendiente getUsuarioPendienteByCorreo(String correo){
-		return usuariosPendientes.findByCorreo(correo);
+		return pendientesDAO.findByCorreo(correo);
 	}
-	
-	public UsuarioDAO getDAO(){
-		return usuarios;
-	}
+
 	
 	public UsuarioPendienteDAO getPendientesDAO(){
-		return usuariosPendientes;
+		return pendientesDAO;
 	}
 	
 	public Usuario getCurrentUsuario(){
@@ -85,7 +82,7 @@ public class UsuarioService {
             return (Usuario)principal;
         } else {
             String userName = principal.toString();
-            return usuarios.findByCorreo(userName);
+            return dao.findByCorreo(userName);
         }
                 
 	}
@@ -109,6 +106,6 @@ public class UsuarioService {
 
 	public List<Prestacion> getConHorarioAplicado(String centro){
 		Horario h=horarios.getDAO().getGenerico(new ObjectId(centro));
-		return usuarios.getSinHorarioGenerico(h.getId());
+		return dao.getSinHorarioGenerico(h.getId());
 	}
 }

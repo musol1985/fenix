@@ -5,7 +5,6 @@ import com.sot.fenix.components.models.Ubicacion;
 
 public class NuevoCentroJSON{
 	public Centro centro;
-	public PosicionJSON posicion;
 	public String nombreAdmin;
 	
 }

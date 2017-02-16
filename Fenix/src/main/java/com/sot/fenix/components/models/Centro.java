@@ -1,10 +1,9 @@
 package com.sot.fenix.components.models;
 
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.sot.fenix.components.models.horarios.Horario;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sot.fenix.components.models.templates.AModelId;
 
 @Document

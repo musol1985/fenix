@@ -1,7 +1,5 @@
 package com.sot.fenix.components.services;
 
-import javax.sound.midi.Sequence;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bson.types.ObjectId;
@@ -140,5 +138,28 @@ public class ConfigCentroService {
 	 */
 	public void setNumFacturaIntegrity(Centro centro, long numFactura){
 		setValue(centro, SEQ_FACTURA_INTEGRITY, numFactura);
+	}
+	
+	
+	/**
+	 * Settea un parametro y devuelve true/false en caso de hacerlo bien o mal
+	 * @param param
+	 * @return
+	 */
+	public boolean setParam(ConfigCentro param){
+		if(param!=null && param.isCorrecto()){
+			log.debug("Cambiando el parametro "+param.getId().getParamId()+" para el centro "+param.getId().getCentroId()+" al valor: "+param.getValue());
+			getDAO().save(param);
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public ConfigCentro getParam(IdCentroPK idParam){
+		if(idParam!=null){
+			return getDAO().findOne(idParam);			
+		}
+		return null;
 	}
 }

@@ -63,7 +63,7 @@ public class TestClientes extends MantenimientosTemplateREST<Cliente, ClienteDAO
 	    mockMvc.perform(MockMvcRequestBuilders.delete("/"+getRestURL()+"/"+model.getId().toHexString()))
 		.andDo(print())
 		.andExpect(status().isOk())
-	    .andExpect(jsonPath("$.cod").value(ResponseJSON.NO_SE_BORRA));
+	    .andExpect(jsonPath("$.cod").value(ResponseJSON.ACCION_PROHIBIDA_REST));
 	}
 	
 

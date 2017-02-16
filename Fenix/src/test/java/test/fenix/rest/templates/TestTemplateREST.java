@@ -1,7 +1,6 @@
 package test.fenix.rest.templates;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -114,26 +113,7 @@ public abstract class TestTemplateREST<I extends AModelId, D extends IBasicIdDAO
 	}
 	
 	public abstract String getRestURL();
-	/*
-	
-	@Test
-	public void nuevo() throws Exception {
-		I nuevoItem=getNewModel(false);
-				
-	    mockMvc.perform(put("/"+getRestURL()).contentType(TestUtils.APPLICATION_JSON_UTF8)
-                .content(TestUtils.convertObjectToJsonBytes(nuevoItem)))	    		
-		.andDo(print())
-		.andExpect(status().isOk())
-		.andExpect(jsonPath("$.cod").value(ResponseJSON.OK))
-		.andExpect(jsonPath("$.data.nombre").value("TestItemNuevo"))
-		.andExpect(jsonPath("$.data.centro").value(item.getCentro().getId().toHexString()));
 
-	    mockMvc.perform(put("/"+getRestURL()).contentType(TestUtils.APPLICATION_JSON_UTF8)
-                .content(TestUtils.convertObjectToJsonBytes(nuevoItem)))	    		
-		.andDo(print())
-		.andExpect(status().isOk())
-		.andExpect(jsonPath("$.cod").value(ResponseJSON.YA_EXISTE));
-	}*/
 	
 	@Test
 	public void get() throws Exception {		
@@ -141,16 +121,23 @@ public abstract class TestTemplateREST<I extends AModelId, D extends IBasicIdDAO
 
 	    mockMvc.perform(MockMvcRequestBuilders.get("/"+getRestURL()+"/"+item2.getId().toHexString()))
 			.andExpect(status().isOk())
-			.andDo(print())
+			//.andDo(print())
 			  .andExpect(jsonPath("$.cod").value(ResponseJSON.OK));
 	    
 	    
 	    mockMvc.perform(MockMvcRequestBuilders.get("/"+getRestURL()+"/"+new ObjectId().toHexString()))
 			.andExpect(status().isOk())
-			.andDo(print())
 			  .andExpect(jsonPath("$.cod").value(ResponseJSON.NO_EXISTE));	
 	}
 	
+	
+	public int getModificarCode(){
+		return ResponseJSON.OK;
+	}
+	
+	public int getDeleteCode(){
+		return ResponseJSON.OK;
+	}
 	
 	/**
 	 * Metodo para modificar un model para el test de modificar(por ejemplo cambiarle el nombre)
@@ -168,54 +155,36 @@ public abstract class TestTemplateREST<I extends AModelId, D extends IBasicIdDAO
 	@Test
 	public void modificar() throws Exception {	
 		I modelModificado=getModelTestModificar(model);
+
 	    ResultActions res=mockMvc.perform(post("/"+getRestURL()).contentType(TestUtils.APPLICATION_JSON_UTF8)
                 .content(TestUtils.convertObjectToJsonBytes(modelModificado)))	    		
-		.andDo(print())
 		.andExpect(status().isOk())
-		.andExpect(jsonPath("$.cod").value(ResponseJSON.OK));
+		.andExpect(jsonPath("$.cod").value(getModificarCode()));
 	    postTestModificar(res);
 
-	    modelModificado.setId(new ObjectId());
-	    mockMvc.perform(post("/"+getRestURL()).contentType(TestUtils.APPLICATION_JSON_UTF8)
-                .content(TestUtils.convertObjectToJsonBytes(modelModificado)))	    		
-		.andDo(print())
-		.andExpect(status().isOk())
-		.andExpect(jsonPath("$.cod").value(ResponseJSON.NO_EXISTE));
+	    if(getModificarCode()==ResponseJSON.OK){
+		    modelModificado.setId(new ObjectId());
+		    mockMvc.perform(post("/"+getRestURL()).contentType(TestUtils.APPLICATION_JSON_UTF8)
+	                .content(TestUtils.convertObjectToJsonBytes(modelModificado)))	    		
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.cod").value(ResponseJSON.NO_EXISTE));
+	    }
 	}
 
 	
 	@Test
 	public void delete() throws Exception {		
 	    mockMvc.perform(MockMvcRequestBuilders.delete("/"+getRestURL()+"/"+model.getId().toHexString()))
-		.andDo(print())
 		.andExpect(status().isOk())
-	    .andExpect(jsonPath("$.cod").value(ResponseJSON.OK));
+	    .andExpect(jsonPath("$.cod").value(getDeleteCode()));
 	    
-	    mockMvc.perform(MockMvcRequestBuilders.delete("/"+getRestURL()+"/"+model.getId().toHexString()))
-		.andDo(print())
-		.andExpect(status().isOk())
-	    .andExpect(jsonPath("$.cod").value(ResponseJSON.NO_EXISTE));
+		if(getDeleteCode()==ResponseJSON.OK){
+		    mockMvc.perform(MockMvcRequestBuilders.delete("/"+getRestURL()+"/"+model.getId().toHexString()))
+			.andExpect(status().isOk())
+		    .andExpect(jsonPath("$.cod").value(ResponseJSON.NO_EXISTE));
+		}
 		//.andDo(print())
 	}
-	
-	/*
-	@Test
-	public void getAll() throws Exception {
-
-	    mockMvc.perform(MockMvcRequestBuilders.get("/"+getRestURL()+"/"+centro.getId().toHexString()+"/1/10"))
-			.andExpect(status().isOk())
-			.andDo(print())
-			.andExpect(jsonPath("$.data[0].id").value(item.getId().toHexString()));			
-	}
-	
-	@Test
-	public void getAllByCentro() throws Exception {
-
-	    mockMvc.perform(MockMvcRequestBuilders.get("/"+getRestURL()+"/all/"+centro.getId().toHexString()))
-			.andExpect(status().isOk())
-			.andDo(print())
-			.andExpect(jsonPath("$.data[0].id").value(item.getId().toHexString()));			
-	}*/
 	
 	
 }

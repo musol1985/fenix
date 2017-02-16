@@ -46,6 +46,7 @@ import com.sot.fenix.components.services.VisitaService;
 import com.sot.fenix.config.AppConfig;
 import com.sot.fenix.config.SecurityConfig;
 
+import test.fenix.TestUtils;
 import test.fenix.config.TestDBConfig;
 
 @WebAppConfiguration
@@ -85,103 +86,19 @@ public class TestIntegrityTask {
 	@Before
 	public void create() {
 
-		centro=getCentro("Centro test");
-		
+		centro=TestUtils.getNewCentro();		
 		centros.getDAO().save(centro);
 		
-		prestacion=new Prestacion();
-		prestacion.setNombre("Test Prestacion");
-		prestacion.setCentro(centro);
-		
+		prestacion=TestUtils.getNewPrestacion(centro);		
 		prestaciones.getDAO().save(prestacion);
 		
-		usuario=getUsuario("Usuario 1");
+		usuario=TestUtils.getNewUsuario("nuevoUsuario", centro);
 		usuarios.getDAO().save(usuario);
 		
-		cliente=getCliente();
+		cliente=TestUtils.getNewCliente(centro);
 		clientes.getDAO().save(cliente);
 		
 	}
-	
-	private Usuario getUsuario(String nombre){
-		Usuario usuario=new Usuario();
-		usuario.setCorreo("test"+nombre);
-		usuario.setNombre(nombre);
-		usuario.setPassword("pass");
-		usuario.setPerfil(PERFILES.ROOT);
-		usuario.setCentro(centro);
-		
-		return usuario;		
-	}
-	
-	private Centro getCentro(String nombre){
-		Centro centro=new Centro();
-		centro.setColor("purple");
-		centro.setCorreoAdmin("test@test.com");
-		centro.setNombre(nombre);
-		centro.setTipo(TIPO.SANIDAD);
-		Ubicacion u=getUbicacion();
-		centro.setUbicacion(u);
-		return centro;
-	}
-	
-	private Ubicacion getUbicacion(){
-		Ubicacion u=new Ubicacion();
-		u.setCalle("Calle test");
-		u.setCP("08292");
-		u.setId("#idUbicacion");
-		u.setNumero("33");
-		u.setPais("ES");
-		u.setPoblacion("Terrassa");
-		u.setProvincia("Barcelona");
-		u.setPosicion(new GeoJsonPoint(1, 1));
-		return u;
-	}
-	
-	private Cita getCita(int offset){
-		Cita c=new Cita();
-		c.setCentro(centro);
-		c.setFechaIni(getDate(offset));
-		c.setFechaFin(getDate(offset+30));
-		c.setEstado(ESTADO.PROGRAMADA);
-		return c;
-		
-	}
-	
-	private Cita getSavedCita(Date fechaIni, Date fechaFin){
-		Cita c=new Cita();
-		c.setCentro(centro);
-		c.setFechaIni(fechaIni);
-		c.setFechaFin(fechaFin);
-		c.setCliente(cliente);
-		c.setPrestacion(prestacion);
-		c.setProfesional(usuario);
-		c.setEstado(ESTADO.PROGRAMADA);
-		c.setImporte(100f);
-		citas.getDAO().save(c);
-		return c;
-		
-	}
-	
-	private Date getDate(int offset){
-		Calendar date = Calendar.getInstance();
-		long t= date.getTimeInMillis();
-		return new Date(t + (offset * 60000));
-	}
-	
-	private Cliente getCliente(){
-		Cliente c3=new Cliente();
-		c3.setId(null);
-		c3.setNombre("juan2");
-		c3.setApellidos("Martinc3");
-		c3.setCentro(centro);
-		c3.setCorreo("juan@gmail.com");
-		c3.setDni("123");
-		c3.setTelefono("6123");
-		return c3;
-	}
-	
-	
 	
 	@After
 	public void  drop(){
@@ -194,34 +111,13 @@ public class TestIntegrityTask {
 		config.getDAO().deleteAll();
 	}
 	
-	public static Date toDate(String date){
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		try {
-			return formatter.parse(date);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	public static String fromDate(Date date){
-		DateFormat df = new SimpleDateFormat("yyyyMMdd");
-   
-		return df.format(date);
-	}
-	
-	public static String fromDateCalendar(Date date){
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-   
-		return df.format(date);
-	}
 	
 	private List<Visita> test2Crear(boolean autofacturar, boolean simularError)throws Exception{
 		List<Cita> listaCitas=new ArrayList<Cita>();
+		Cita c1=TestUtils.getSavedCita(citas.getDAO(), centro, cliente, prestacion, usuario, TestUtils.toDate("30/08/2016 14:30"), TestUtils.toDate("30/08/2016 14:50"));		
 		
-		Cita c1=getSavedCita(toDate("30/08/2016 14:30"), toDate("30/08/2016 14:50"));
 		for(int i=0;i<5;i++){
-			listaCitas.add(getSavedCita(toDate("30/08/2016 1"+i+":00"), toDate("30/08/2016 1"+i+":10")));
+			listaCitas.add(TestUtils.getSavedCita(citas.getDAO(), centro, cliente, prestacion, usuario, TestUtils.toDate("30/08/2016 1"+i+":00"), TestUtils.toDate("30/08/2016 1"+i+":10")));
 		}		
 		
 		Visita v1=visitas.nuevaVisitaFromCita(c1);	
@@ -247,7 +143,7 @@ public class TestIntegrityTask {
 		List<Visita> listaVisitasPost=new ArrayList<Visita>();
 		
 		for(int i=0;i<size;i++){
-			listaVisitasPost.add(visitas.nuevaVisitaFromCita(getSavedCita(toDate("23/08/2016 1"+i+":00"), toDate("23/08/2016 1"+i+":10"))));
+			listaVisitasPost.add(visitas.nuevaVisitaFromCita(TestUtils.getSavedCita(citas.getDAO(), centro, cliente, prestacion, usuario,TestUtils.toDate("23/08/2016 1"+i+":00"), TestUtils.toDate("23/08/2016 1"+i+":10"))));
 		}
 		return listaVisitasPost;
 	}

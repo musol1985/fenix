@@ -16,10 +16,10 @@ import com.sot.fenix.config.SecurityConfig;
 
 import test.fenix.config.TestDBConfig;
 
-@WebAppConfiguration
+/*@WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {TestDBConfig.class})
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)*/
 public class TestCassandra {
     @Autowired
     private UsuarioService usuarios;

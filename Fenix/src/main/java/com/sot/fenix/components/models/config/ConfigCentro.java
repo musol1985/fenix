@@ -26,5 +26,15 @@ public class ConfigCentro {
 		this.value = value;
 	}
 	
+	public boolean isCorrecto(){
+		return id!=null && id.getCentroId()!=null && id.getParamId()!=null;
+	}
 	
+	
+	public String toString(){
+		if(isCorrecto()){
+			return id.getCentroId()+" - "+id.getParamId();
+		}
+		return "Id nulo";
+	}
 }

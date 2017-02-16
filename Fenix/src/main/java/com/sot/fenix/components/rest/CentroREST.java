@@ -44,21 +44,12 @@ public class CentroREST extends ABasicREST<CentroService, Centro, CentroDAO>{
     public ResponseJSON<Centro> eliminar(@PathVariable String id){
 		return new ResponseJSON<Centro>(ResponseJSON.ACCION_PROHIBIDA_REST);
 	}
-	
-	/*@Override
-	@RequestMapping(method=RequestMethod.POST)
-    public ResponseJSON<Centro> modificar(@RequestBody Centro item) {
-		return new ResponseJSON<Centro>(ResponseJSON.ACCION_PROHIBIDA_REST);
-	}*/
-	
-	@RequestMapping(method=RequestMethod.POST,path="/nuevo")
+
+	@RequestMapping(method=RequestMethod.PUT,path="/nuevo")
     public ResponseJSON<Centro> nuevo(@RequestBody NuevoCentroJSON nuevoCentro) {
 		
-		if(usuarios.getUsuarioByCorreo(nuevoCentro.centro.getCorreoAdmin())==null){
-			
-			nuevoCentro.centro.getUbicacion().setPosicion(new GeoJsonPoint(nuevoCentro.posicion.lat, nuevoCentro.posicion.lng));
-			//nuevoCentro.centro.setHorario(HorarioOld.getGenerico());
-			
+		if(usuarios.getUsuarioPendienteByCorreo(nuevoCentro.centro.getCorreoAdmin())==null){
+
 			service.getDAO().save(nuevoCentro.centro);
 			
 			UsuarioPendiente usuario=usuarios.getUsuarioPendienteByCorreo(nuevoCentro.centro.getCorreoAdmin());

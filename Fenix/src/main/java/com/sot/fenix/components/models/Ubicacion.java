@@ -2,6 +2,10 @@ package com.sot.fenix.components.models;
 
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.sot.fenix.components.json.PosicionJSON;
+
 
 public class Ubicacion{
 
@@ -10,7 +14,6 @@ public class Ubicacion{
 	private String poblacion;
 	private String provincia;
 	private String pais;
-	private String id;
 	private String CP;
 	private GeoJsonPoint posicion;
 	
@@ -48,12 +51,6 @@ public class Ubicacion{
 	public void setPais(String pais) {
 		this.pais = pais;
 	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public String getCP() {
 		return CP;
@@ -63,6 +60,22 @@ public class Ubicacion{
 		CP = cP;
 	}
 
+	@JsonGetter("posicion")
+	public PosicionJSON getPosicionJson() {
+		if(posicion!=null){
+			return new PosicionJSON(posicion.getX(), posicion.getY());
+		}
+		return null;
+	}
+
+	@JsonSetter("posicion")
+	public void setPosicionJson(PosicionJSON posicion) {
+		if(posicion!=null){
+			this.posicion=new GeoJsonPoint(posicion.lat, posicion.lng);
+		}		
+	}
+	
+	
 	public GeoJsonPoint getPosicion() {
 		return posicion;
 	}
@@ -70,7 +83,4 @@ public class Ubicacion{
 	public void setPosicion(GeoJsonPoint posicion) {
 		this.posicion = posicion;
 	}
-	
-	
-	
 }

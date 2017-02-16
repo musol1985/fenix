@@ -22,6 +22,7 @@ import com.sot.fenix.components.models.Perfil.PERFILES;
 import com.sot.fenix.components.models.Prestacion;
 import com.sot.fenix.components.models.Ubicacion;
 import com.sot.fenix.components.models.Usuario;
+import com.sot.fenix.components.models.Visita;
 import com.sot.fenix.components.models.templates.AModelCentro;
 import com.sot.fenix.components.models.templates.AModelNombre;
 import com.sot.fenix.dao.CitaDAO;
@@ -77,20 +78,22 @@ public class TestUtils {
 			centro.setCorreoAdmin("test@test.com");
 			centro.setNombre("Centro test");
 			centro.setTipo(TIPO.SANIDAD);
+
+			centro.setUbicacion(getNewUbicacion());
 			
+			return centro;
+	    }
+	    
+	    public static Ubicacion getNewUbicacion(){			
 			Ubicacion u=new Ubicacion();
 			u.setCalle("Calle test");
 			u.setCP("08292");
-			u.setId("#idUbicacion");
 			u.setNumero("33");
 			u.setPais("ES");
 			u.setPoblacion("Terrassa");
 			u.setProvincia("Barcelona");
 			u.setPosicion(new GeoJsonPoint(1, 1));
-
-			centro.setUbicacion(u);
-			
-			return centro;
+			return u;
 	    }
 	    
 	    public static Usuario getNewUsuario(String nombre, Centro centro){
@@ -136,6 +139,12 @@ public class TestUtils {
 			return c3;
 		}
 	    
+	    public static Visita getNewVisita(Centro centro){
+	    	Visita v=new Visita();
+	    	v.setCentro(centro);
+	    	return v;
+	    }
+	    
 	    
 	    public static Cita getCita(Centro centro, int offset){
 			Cita c=new Cita();
@@ -155,11 +164,20 @@ public class TestUtils {
 			c.setCliente(cliente);
 			c.setPrestacion(prestacion);
 			c.setProfesional(usuario);
+			c.setImporte(300);
 			c.setEstado(ESTADO.PROGRAMADA);
 			if(dao!=null)
 				dao.save(c);
 			return c;
 			
+		}
+		
+		public static Prestacion getNewPrestacion(Centro centro){
+			Prestacion p=new Prestacion();
+			p.setCentro(centro);
+			p.setImporte(50f);
+			p.setNombre("Prueba");
+			return p;
 		}
 		
 		public static Date getDate(int offset){

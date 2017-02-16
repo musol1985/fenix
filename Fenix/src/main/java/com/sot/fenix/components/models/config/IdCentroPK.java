@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 import org.bson.types.ObjectId;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.sot.fenix.components.models.Centro;
+
 public class IdCentroPK implements Serializable{
 	/**
 	 * 
@@ -27,5 +31,33 @@ public class IdCentroPK implements Serializable{
 	public IdCentroPK(ObjectId centro, String paramId){
 		this.centroId=centro;
 		this.paramId=paramId;
+	}
+	public ObjectId getCentroId() {
+		return centroId;
+	}
+	public void setCentroId(ObjectId centroId) {
+		this.centroId = centroId;
+	}
+	
+	public String toString(){
+		if(centroId!=null){
+			return centroId.toHexString()+"#"+paramId;
+		}else{
+			return "null#"+paramId;
+		}
+	}
+	
+	@JsonGetter("centroId")
+	public String getJsonCentroId(){
+		if(centroId==null)
+			return "";
+		return centroId.toHexString();
+	}
+	
+	@JsonSetter("centroId")
+	public void setJsonCentroId(String id) {
+		if(id!=null && !id.isEmpty()){
+			centroId=new ObjectId(id);
+		}
 	}
 }

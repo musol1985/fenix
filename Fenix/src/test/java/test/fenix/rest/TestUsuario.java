@@ -2,8 +2,6 @@ package test.fenix.rest;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -28,6 +26,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.sot.fenix.components.json.NuevoPendienteJSON;
@@ -44,62 +44,23 @@ import com.sot.fenix.components.services.CentroService;
 import com.sot.fenix.components.services.UsuarioService;
 import com.sot.fenix.config.AppConfig;
 import com.sot.fenix.config.SecurityConfig;
+import com.sot.fenix.dao.UsuarioDAO;
 
 import test.fenix.TestUtils;
 import test.fenix.config.TestDBConfig;
+import test.fenix.rest.templates.TestTemplateREST;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfig.class, TestDBConfig.class, SecurityConfig.class})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class TestUsuario {
-	@Autowired
-    private UsuarioREST usuariosREST;
-	
-    @Autowired
-    private UsuarioService usuarios;
-    @Autowired
-    private CentroService centros;
+public class TestUsuario extends TestTemplateREST<Usuario, UsuarioDAO, UsuarioService, UsuarioREST> {
     
     @Autowired
     private AuthenticationManager auManager;
-	
-	private Usuario usuario;
-	private Centro centro;
-	
-	private MockMvc mockMvc;
-    
-	@Before
-	public void create() {
-		mockMvc= MockMvcBuilders.standaloneSetup(usuariosREST).build();
 
-		centro=new Centro();
-		centro.setColor("purple");
-		centro.setCorreoAdmin("test@test.com");
-		centro.setNombre("Centro test");
-		centro.setTipo(TIPO.SANIDAD);
-		Ubicacion u=new Ubicacion();
-		u.setCalle("Calle test");
-		u.setCP("08292");
-		u.setId("#idUbicacion");
-		u.setNumero("33");
-		u.setPais("ES");
-		u.setPoblacion("Terrassa");
-		u.setProvincia("Barcelona");
-		u.setPosicion(new GeoJsonPoint(1, 1));
-		centro.setUbicacion(u);
-		
-		centros.getDAO().save(centro);
-		
-		usuario=new Usuario();
-		usuario.setCorreo("test");
-		usuario.setNombre("test");
-		usuario.setPassword("pass");
-		usuario.setPerfil(PERFILES.ROOT);
-		usuario.setCentro(centro);
-		
-		usuarios.getDAO().insert(usuario);
-	}
+    
+	
 	
 	
 	private UsuarioPendiente getUsuarioPendienteTest(){
@@ -145,16 +106,16 @@ public class TestUsuario {
 		List<Centro> list =centros.getDAO().findAll();
 		assertEquals(1, list.size());
 		List<Usuario> usuarios=this.usuarios.getDAO().findAll();
-		assertEquals(1, usuarios.size());
+		assertEquals(2, usuarios.size());
 	}
 	
 	@Test
 	public void testGetById() throws Exception {
-	    mockMvc.perform(get("/usuario/"+usuario.getId().toHexString()))
+	    mockMvc.perform(MockMvcRequestBuilders.get("/usuario/"+usuario.getId().toHexString()))
 	    		.andExpect(status().isOk())
 	    		//.andDo(print())
-	    		.andExpect(jsonPath("$.id", containsString(usuario.getId().toHexString())))
-	    		.andExpect(jsonPath("$.centro.id", containsString(centro.getId().toHexString())));
+	    		.andExpect(jsonPath("$.data.id", containsString(usuario.getId().toHexString())))
+	    		.andExpect(jsonPath("$.data.centro.id", containsString(centro.getId().toHexString())));
     }
 	
 	@Test
@@ -185,12 +146,12 @@ public class TestUsuario {
 	@Test
 	public void enviarCorreo() throws Exception {
 		UsuarioPendiente uPendiente=getUsuarioPendienteTest();
-	    mockMvc.perform(get("/usuario/pendiente/correo/"+uPendiente.getId().toHexString()))
+	    mockMvc.perform(MockMvcRequestBuilders.get("/usuario/pendiente/correo/"+uPendiente.getId().toHexString()))
 		.andExpect(status().isOk())
 		//.andDo(print())
 		.andExpect(jsonPath("$.cod").value(0));
 	    
-	    mockMvc.perform(get("/usuario/pendiente/correo/"+new ObjectId().toHexString()))
+	    mockMvc.perform(MockMvcRequestBuilders.get("/usuario/pendiente/correo/"+new ObjectId().toHexString()))
 		.andExpect(status().isOk())
 		//.andDo(print())
 		.andExpect(jsonPath("$.cod").value(ResponseJSON.NO_EXISTE));
@@ -199,12 +160,12 @@ public class TestUsuario {
 	@Test
 	public void eliminarPendiente() throws Exception {
 		UsuarioPendiente uPendiente=getUsuarioPendienteTest();
-	    mockMvc.perform(delete("/usuario/pendiente/"+uPendiente.getId().toHexString()))
+	    mockMvc.perform(MockMvcRequestBuilders.delete("/usuario/pendiente/"+uPendiente.getId().toHexString()))
 		.andExpect(status().isOk())
 		//.andDo(print())
 		.andExpect(jsonPath("$.cod").value(0));
 	    
-	    mockMvc.perform(delete("/usuario/pendiente/"+uPendiente.getId().toHexString()))
+	    mockMvc.perform(MockMvcRequestBuilders.delete("/usuario/pendiente/"+uPendiente.getId().toHexString()))
 		.andExpect(status().isOk())
 		//.andDo(print())
 		.andExpect(jsonPath("$.cod").value(ResponseJSON.NO_EXISTE));
@@ -213,20 +174,20 @@ public class TestUsuario {
 	@Test
 	public void eliminarUsuario() throws Exception {
 		Usuario u=getUsuarioAdmin();
-	    mockMvc.perform(delete("/usuario/"+u.getId().toHexString()))
+	    mockMvc.perform(MockMvcRequestBuilders.delete("/usuario/"+u.getId().toHexString()))
 		.andExpect(status().isOk())
 		//.andDo(print())
 		.andExpect(jsonPath("$.cod").value(ResponseJSON.ES_ADMIN));
 	    
 	    u=getUsuario();
 	    
-	    mockMvc.perform(delete("/usuario/"+u.getId().toHexString()))
+	    mockMvc.perform(MockMvcRequestBuilders.delete("/usuario/"+u.getId().toHexString()))
 		.andExpect(status().isOk())
 		//.andDo(print())
 		.andExpect(jsonPath("$.cod").value(ResponseJSON.OK));
 	    
 	    
-	    mockMvc.perform(delete("/usuario/"+u.getId().toHexString()))
+	    mockMvc.perform(MockMvcRequestBuilders.delete("/usuario/"+u.getId().toHexString()))
 		.andExpect(status().isOk())
 		//.andDo(print())
 		.andExpect(jsonPath("$.cod").value(ResponseJSON.NO_EXISTE));
@@ -251,16 +212,16 @@ public class TestUsuario {
 	    
 	    Usuario u=usuarios.getUsuarioByCorreo(uP.getCorreo());
 
-	    mockMvc.perform(get("/usuario/"+u.getId().toHexString()))
+	    mockMvc.perform(MockMvcRequestBuilders.get("/usuario/"+u.getId().toHexString()))
 			.andExpect(status().isOk())
-			//.andDo(print())
-			.andExpect(jsonPath("$.correo", containsString(uP.getCorreo())));
+			.andDo(print())
+			.andExpect(jsonPath("$.data.correo", containsString(uP.getCorreo())));
 	}
 
 	
 	@Test
 	public void getByCentro() throws Exception {
-	    mockMvc.perform(get("/usuario/"+centro.getId().toHexString()+"/1/10"))
+	    mockMvc.perform(MockMvcRequestBuilders.get("/usuario/"+centro.getId().toHexString()+"/1/10"))
 			.andExpect(status().isOk())
 			//.andDo(print())
 			.andExpect(jsonPath("$.data[0].id").value(usuario.getId().toHexString()));
@@ -271,21 +232,73 @@ public class TestUsuario {
 		Usuario u1=getUsuario();
 		UsuarioPendiente uP=getUsuarioPendienteTest();
 		
-	    mockMvc.perform(get("/usuario/all/"+centro.getId().toHexString()+"/1/10"))
+	    mockMvc.perform(MockMvcRequestBuilders.get("/usuario/all/"+centro.getId().toHexString()+"/1/10"))
 			.andExpect(status().isOk())
 			.andDo(print())
-			.andExpect(jsonPath("$.total").value(3));
+			.andExpect(jsonPath("$.total").value(4));
 	}
 	
 	@Test
 	public void getCurrent() throws Exception {		  
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("test", "pass");
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("testusuario test", "pass");
         Authentication authentication = auManager.authenticate(token);
 
 	    SecurityContextHolder.getContext().setAuthentication(authentication);
 
-	    mockMvc.perform(get("/usuario/current"))
+	    mockMvc.perform(MockMvcRequestBuilders.get("/usuario/current"))
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.id").value(usuario.getId().toHexString()));
+	}
+	
+	
+
+	@Override
+	public Usuario getModel() {
+		return TestUtils.getNewUsuario("hola", centro);
+	}
+
+	@Override
+	public String getRestURL() {
+		return "usuario";
+	}
+
+	@Override
+	public Usuario getModelTestModificar(Usuario modelAModificar) {
+		return modelAModificar;
+	}
+
+	@Override
+	public void postTestModificar(ResultActions res) throws Exception {
+		
+	}
+
+	@Override
+	public int getDeleteCode() {
+		return ResponseJSON.ES_ADMIN;
+	}
+
+	@Override
+	@Test
+	public void delete() throws Exception {
+		super.delete();
+		
+		Usuario u=TestUtils.getNewUsuario("otroUsu", centro);
+		u.setCorreo("otroUsu@gmail.com");
+		u.setPerfil(PERFILES.USER);
+		usuarios.getDAO().save(u);
+		
+		 mockMvc.perform(MockMvcRequestBuilders.delete("/"+getRestURL()+"/"+u.getId().toHexString()))
+			.andExpect(status().isOk())
+		    .andExpect(jsonPath("$.cod").value(ResponseJSON.OK));
+		 
+		 mockMvc.perform(MockMvcRequestBuilders.delete("/"+getRestURL()+"/"+u.getId().toHexString()))
+			.andExpect(status().isOk())
+		    .andExpect(jsonPath("$.cod").value(ResponseJSON.NO_EXISTE));
+	}
+
+	@Test
+	public void get() throws Exception {
+		usuarios.getDAO().deleteAll();
+		super.get();
 	}
 }
