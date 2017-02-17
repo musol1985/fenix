@@ -2,6 +2,7 @@ package com.sot.fenix.components.rest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sot.fenix.components.exceptions.ExceptionREST;
 import com.sot.fenix.components.json.ResponseJSON;
-import com.sot.fenix.components.models.Centro;
 import com.sot.fenix.components.models.Cita;
 import com.sot.fenix.components.models.Visita;
 import com.sot.fenix.components.services.VisitaService;
@@ -22,7 +22,10 @@ import com.sot.fenix.templates.REST.ACentroIdREST;
 public class VisitaREST extends ACentroIdREST<VisitaService, Visita, VisitaDAO>{
 	final static Logger log = LogManager.getLogger(VisitaREST.class);
 
+
+	@SuppressWarnings("unchecked")
 	@RequestMapping(method=RequestMethod.POST, path="/pasar/visita")
+	@PreAuthorize("#cita.centro.id == principal.centro.id")
     public ResponseJSON<Visita> pasarVisita(@RequestBody Cita cita) {		
 		try{
 			log.debug("PasandoVisita REST");

@@ -1,6 +1,5 @@
 package test.fenix.rest;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -18,15 +17,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sot.fenix.components.json.ResponseJSON;
 import com.sot.fenix.components.models.Cita;
 import com.sot.fenix.components.models.Visita;
 import com.sot.fenix.components.rest.VisitaREST;
 import com.sot.fenix.components.services.CitaService;
-import com.sot.fenix.components.services.ConfigCentroService;
 import com.sot.fenix.components.services.VisitaService;
 import com.sot.fenix.config.AppConfig;
 import com.sot.fenix.config.SecurityConfig;
@@ -83,10 +79,9 @@ public class TestVisitas extends CentroBasicTemplateREST<Visita, VisitaDAO, Visi
 	
 	@Test
 	public void testPaseVisita()throws Exception{
-		//@RequestMapping(method=RequestMethod.POST, path="/pasar/visita")
-		Cita c=TestUtils.getSavedCita(citas.getDAO(), centro, cliente, prestacion, usuario, TestUtils.toDate("30/08/2016 14:50"), TestUtils.toDate("30/08/2016 15:50"));
-
-	    ResultActions res=mockMvc.perform(post("/"+getRestURL()+"/pasar/visita").contentType(TestUtils.APPLICATION_JSON_UTF8)
+		Cita c=TestUtils.getSavedCita(citas.getDAO(), centro, cliente, prestacion, usuario, TestUtils.toDate("30/08/2016 14:50"), TestUtils.toDate("30/08/2016 15:50"));				
+		
+	    ResultActions res=mockMvc.perform(post("/"+getRestURL()+"/pasar/visita").session(getSession()).contentType(TestUtils.APPLICATION_JSON_UTF8)
                 .content(TestUtils.convertObjectToJsonBytes(c)))	    		
 		.andExpect(status().isOk())
 		.andExpect(jsonPath("$.cod").value(ResponseJSON.OK));
