@@ -24,8 +24,8 @@ public class VisitaREST extends ACentroIdREST<VisitaService, Visita, VisitaDAO>{
 
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(method=RequestMethod.POST, path="/pasar/visita")
-	@PreAuthorize("#cita.centro.id == principal.centro.id")
+	@RequestMapping(method=RequestMethod.POST, path="/pasar")
+	//@PreAuthorize("#cita.centro.id == principal.centro.id")
     public ResponseJSON<Visita> pasarVisita(@RequestBody Cita cita) {		
 		try{
 			log.debug("PasandoVisita REST");

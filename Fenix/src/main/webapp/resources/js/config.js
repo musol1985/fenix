@@ -135,9 +135,42 @@ materialAdmin
                 templateUrl: 'resources/views/common.html'
             })
             
+            .state ('citacion.pasarVisita', {
+                url: '/paseVisita/:id',
+                templateUrl: 'resources/views/paseVisita.html',
+            	controller: function($scope, $stateParams) {
+            	     $scope.capturando=true;
+            	     $scope.citaId=$stateParams.id;
+            	  },
+            	resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {
+                                name: 'vendors',
+                                files: [
+                                    'resources/vendors/bower_components/autosize/dist/autosize.min.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
+            })
+            
             .state ('citacion.paseVisita', {
-                url: '/paseVisita:id',
+                url: '/paseVisita/:id/:tipo',
                 templateUrl: 'resources/views/paseVisita.html'
+            	,resolve: {
+                    loadPlugin: function($ocLazyLoad) {
+                        return $ocLazyLoad.load ([
+                            {
+                                name: 'vendors',
+                                files: [
+                                    'resources/vendors/bower_components/autosize/dist/autosize.min.js'
+                                ]
+                            }
+                        ])
+                    }
+                }
             })
             
             .state ('citacion.citas', {

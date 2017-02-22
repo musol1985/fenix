@@ -34,6 +34,8 @@ public class Visita extends AModelCentro{
 	private Cita cita;
 
 	private Facturacion facturacion;
+	
+	private String motivo;
 
 	
 	@JsonGetter("cliente")
@@ -141,6 +143,15 @@ public class Visita extends AModelCentro{
 			return facturacion.getFactura().getIdFactura();
 		return -1;
 	}
+
+	public String getMotivo() {
+		return motivo;
+	}
+
+	public void setMotivo(String motivo) {
+		this.motivo = motivo;
+	}
+	
 	
 }
 

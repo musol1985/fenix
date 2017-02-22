@@ -25,6 +25,8 @@ public class VisitaService extends ACentroIdService<VisitaDAO, Visita>{
 	private ConfigCentroService config;
 	@Autowired
 	private FacturacionService facturacion;
+	@Autowired
+	private CitaService citas;
 	
 	
 	/**
@@ -38,13 +40,27 @@ public class VisitaService extends ACentroIdService<VisitaDAO, Visita>{
 	 * @return Visita (ya guardada en BD)
 	 * @throws ExceptionREST
 	 */
-	public Visita nuevaVisitaFromCita(Cita cita)throws ExceptionREST{
-		log.debug("Creando visita a partir de la cita "+cita.getJsonId());
+	public Visita nuevaVisitaFromCita(Cita citaJson)throws ExceptionREST{
+		log.debug("Creando visita a partir de la cita "+citaJson.getJsonId());
+		
+		Cita cita=citas.getDAO().findOne(citaJson.getId());
+		
+		if(cita==null){
+			log.error("No existe la cita "+citaJson.getJsonId());
+			throw new ExceptionREST(ResponseJSON.NO_EXISTE, "nuevaVisitaFromCita no existe la cita");
+		}
+		
+		if(!cita.isProgramada()){
+			log.error("No se puede capturar una cita que no sea programada: "+citaJson.getJsonId()+" "+cita.getEstado());
+			throw new ExceptionREST(ResponseJSON.YA_CAPTURADA, "nuevaVisitaFromCita no existe la cita");
+		}
+			
+		
 		Visita v=new Visita();
 		
 		v.setCentro(cita.getCentro());
 		v.setCliente(cita.getCliente());
-		//v.setNombre(cita.getPrestacion().getNombre());
+		v.setMotivo(cita.getPrestacion().getDescripcion());
 		v.setProfesional(cita.getProfesional());
 		v.setFacturacion(new Facturacion());
 		v.getFacturacion().setImporteTotal(cita.getImporte());

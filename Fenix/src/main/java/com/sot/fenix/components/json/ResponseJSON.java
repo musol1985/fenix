@@ -15,6 +15,9 @@ public class ResponseJSON<T extends Object> {
 	public static final int NO_HAY_PAGOS=97;
 	public static final int YA_FACTURADA=96;
 	
+	//CITAS
+	public static final int YA_CAPTURADA=95;
+	
 	public int cod;
 	public T data;
 	

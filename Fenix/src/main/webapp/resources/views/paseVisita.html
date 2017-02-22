@@ -1,14 +1,14 @@
-<div class="container">
+<div class="container" data-ng-controller="paseVisitaController as ctr">
 
 	<!-- Colored Headers -->
-    <div class="block-header" data-ng-controller="usuarios as ctr">
+    <div class="block-header" >
         <h2>Pase de visita</h2>
 
         <ul class="actions">
             <li>
-                <a href="">
-                    <i class="zmdi zmdi-check"></i>
-                </a>
+                <a href="" tooltip-placement="bottom" uib-tooltip="Guardar"><i class="zmdi zmdi-floppy"></i></a>
+                <a href="" tooltip-placement="bottom" uib-tooltip="AÃ±adir pago"><i class="zmdi zmdi-plus"></i></a>
+                <a href="" tooltip-placement="bottom" uib-tooltip="Facturar"><i class="zmdi zmdi-file-plus"></i></a>
             </li>
         </ul>
     </div>
@@ -17,19 +17,22 @@
     	<div class="col-sm-4"> 
 	    	<div class="card">
 	            <div class="card-header ch-alt">
-	                <h2>Eduardo Martín García</h2>
+	                <h2>{{visita.cliente.descripcion}}</h2>
 	            </div>
 	            <div class="card-body card-padding">
 	                <div class="pmo-contact">        
 	                    <ul>
+	                    	<li class="ng-binding"><i class="zmdi zmdi-account-box"></i> 47103657W</li>
 	                        <li class="ng-binding"><i class="zmdi zmdi-phone"></i> 617295076</li>
-	                        <li class="ng-binding"><i class="zmdi zmdi-account-box"></i> 47103657W</li>
+	                        
 	                        <li>
 	                            <i class="zmdi zmdi-pin"></i>
 	                            <address class="m-b-0 ng-binding">
 	                                Terrassa
 	                            </address>
 	                        </li>
+	                        
+	                        <li class="ng-binding"><i class="zmdi zmdi-alert-circle-o"></i> Sin notificaciones</li>
 	                    </ul>
 	                </div>
 	            </div>
@@ -38,20 +41,99 @@
         <div class="col-sm-8"> 
         	<div class="card">
                 <div class="card-header ch-alt">
-         
-						<div class="row">
-			                <div class="col-xs-4">
-			                	<div class="form-group">
-			                		<div class="fg-line">
-			                            <input type="text" ng-model="nombre" class="form-control" placeholder="Motivo de la visita">
+						<h2>
+							Visita del {{visita.fecha}}
+						</h2>
+						<button class="btn bgm-green btn-float waves-effect"
+							ng-click="guardar()" tooltip-placement="bottom" uib-tooltip="Guardar">
+							<i class="zmdi zmdi-floppy" ></i>
+						</button>
+                </div>
+                <div class="card-body card-padding">
+                		<div class="row">
+                			<div class="col-sm-6">
+		                		<div class="input-group">
+			                        <span class="input-group-addon"><i class="zmdi zmdi-calendar-note"></i></span>
+			                        <div class="fg-line">
+			                                <input type="text" class="form-control" placeholder="Motivo" ng-model="visita.motivo">
+			                        </div>
+			                    </div>
+		                    </div>
+			
+			                <div class="col-sm-2">
+			                    <div class="input-group">
+			                        <span class="input-group-addon"><i class="zmdi zmdi-money-box"></i></span>
+			                        <div class="fg-line">
+			                                <input type="text" class="form-control" placeholder="Importe" ng-model="visita.facturacion.importeTotal">
 			                        </div>
 			                    </div>
 			                </div>
 						</div>
-                </div>
 
+						<br><br>
+						<div class="row">
+							<div class="form-group">
+				                <div class="fg-line">
+				                    <textarea class="form-control" data-auto-size placeholder="Anotaciones sobre la visita"></textarea>
+				                </div>
+				            </div>
+			            </div>
+                </div>
+            </div>
+        
+        </div>
+     </div>
+     
+     
+     <div class="row">
+    	<div class="col-sm-4"> 
+	    	<div class="card">
+	            <div class="card-header ch-alt">
+	                <h2>Pagos {{visita.facturacion.importePagado}}â‚¬/{{visita.facturacion.importeTotal}}â‚¬</h2>
+	                <button class="btn bgm-red btn-float waves-effect"
+							ng-click="nuevo()"  tooltip-placement="bottom" uib-tooltip="AÃ±adir pago">
+							<i class="zmdi zmdi-plus"></i>
+						</button>
+	            </div>
+	            <div class="card-body card-padding">
+	                <table  ng-table="tabla" ng-Ocultar-Pager="true" ng-table-get-datos="getPagos(params, onComplete)" ng-table-model="rows" ng-Table-Ref="ctr.pagos" pagsize="10" class="table table-striped table-vmiddle">				
+		             <tr ng-repeat="w in rows"  > 
+		                 <td data-title="'Importe'">
+		                    {{w.importe}}
+		                 </td>
+		                 <td data-title="'Fecha'">
+		                  	{{w.fecha}}
+		                 </td>
+		             </tr>
+		         </table> 
+	            </div>
+	        </div>
+        </div>
+        <div class="col-sm-8"> 
+        	<div class="card">
+                <div class="card-header ch-alt">
+						<h2>
+							Facturas
+						</h2>
+						<button class="btn bgm-green btn-float waves-effect"
+							ng-click="nuevo()"  tooltip-placement="bottom" uib-tooltip="Generar factura">
+							<i class="zmdi zmdi-file-plus"></i>
+						</button>
+                </div>
                 <div class="card-body card-padding">
-                    <textarea placeholder="Anotaciónes sobre la visita"></textarea>
+                	<table  ng-table="tabla" ng-Ocultar-Pager="true" ng-table-get-datos="getFacturas(params, onComplete)" ng-table-model="rows" ng-Table-Ref="ctr.facturas" pagsize="10" class="table table-striped table-vmiddle">				
+			             <tr ng-repeat="w in rows"  > 
+			             	<td data-title="'#'">
+			                    {{w.idFactura}}
+			                 </td>
+			                 <td data-title="'Importe'">
+			                    {{w.importe}}
+			                 </td>
+			                 <td data-title="'Fecha'">
+			                  	{{w.fecha}}
+			                 </td>
+			             </tr>
+		         	</table> 
                 </div>
             </div>
         

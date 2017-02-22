@@ -1,24 +1,21 @@
 package com.sot.fenix.components.services;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sot.fenix.components.exceptions.ExceptionREST;
 import com.sot.fenix.components.json.ResponseJSON;
 import com.sot.fenix.components.models.Centro;
-import com.sot.fenix.components.models.Cita;
 import com.sot.fenix.components.models.Visita;
 import com.sot.fenix.components.models.facturacion.Factura;
 import com.sot.fenix.components.models.facturacion.Facturacion;
 import com.sot.fenix.components.models.facturacion.Pago;
 import com.sot.fenix.dao.VisitaDAO;
-import com.sot.fenix.templates.service.ABasicService;
 
 @Service
 public class FacturacionService {
@@ -57,6 +54,7 @@ public class FacturacionService {
 		
 		Pago p=new Pago();
 		p.setImporte(cantidad);
+		p.setFecha(new Date());
 				
 		log.debug("Importe pagado para la visita"+v.getJsonId()+" antes de realizar el pago: "+f.getImportePagado());
 		
