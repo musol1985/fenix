@@ -38,6 +38,7 @@ import com.sot.fenix.components.models.templates.AModelId;
 import com.sot.fenix.components.models.templates.AModelNombre;
 import com.sot.fenix.components.providers.LoginProvider;
 import com.sot.fenix.components.services.CentroService;
+import com.sot.fenix.components.services.ConfigCentroService;
 import com.sot.fenix.components.services.UsuarioService;
 import com.sot.fenix.config.AppConfig;
 import com.sot.fenix.config.SecurityConfig;
@@ -77,6 +78,7 @@ public abstract class TestTemplateREST<I extends AModelId, D extends IBasicIdDAO
 	protected Centro centro;
 	protected Usuario usuario;
 	
+	
 	//SERVICIOS
 	@Autowired
 	protected UsuarioService usuarios;
@@ -84,6 +86,8 @@ public abstract class TestTemplateREST<I extends AModelId, D extends IBasicIdDAO
     protected CentroService centros;
     @Autowired
     protected LoginProvider security;
+    @Autowired
+    protected ConfigCentroService config;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -167,6 +171,7 @@ public abstract class TestTemplateREST<I extends AModelId, D extends IBasicIdDAO
 		service.getDAO().deleteAll();
 		centros.getDAO().deleteAll();
 		usuarios.getDAO().deleteAll();				
+		config.drop();
 	}
 	
 	public abstract String getRestURL();

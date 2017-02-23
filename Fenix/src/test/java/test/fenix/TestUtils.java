@@ -107,6 +107,16 @@ public class TestUtils {
 			return usuario;		
 		}
 	    
+	    public static Usuario getNewUsuarioNoRoot(String nombre, Centro centro){
+	    	Usuario usuario=new Usuario();
+			usuario.setCorreo("testUsuario"+nombre);
+			usuario.setNombre(nombre);
+			usuario.setPassword("pass");
+			usuario.setPerfil(PERFILES.USER);
+			usuario.setCentro(centro);
+			return usuario;
+	    }
+	    
 	    public static Cliente getCliente(Centro centro, String dni, String nombre, String apellidos){
 	    	return getCliente(centro, dni, nombre, apellidos, "test@correo.com");
 	    }
@@ -155,6 +165,17 @@ public class TestUtils {
 			return c;
 			
 		}
+	    
+	    public static Cita getSavedCita(CitaDAO dao, Cliente cliente, Prestacion prestacion, Centro centro, Usuario profesional, int offset){
+	    	Cita c=getCita(centro, offset);
+	    	c.setCliente(cliente);
+	    	c.setPrestacion(prestacion);
+	    	c.setProfesional(profesional);
+	    	c.setImporte(300);
+	    	c.setEstado(ESTADO.PROGRAMADA);
+	    	dao.save(c);
+	    	return c;
+	    }
 		
 		public static Cita getSavedCita(CitaDAO dao, Centro centro, Cliente cliente, Prestacion prestacion, Usuario usuario, Date fechaIni, Date fechaFin){
 			Cita c=new Cita();

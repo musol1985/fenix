@@ -24,4 +24,7 @@ public interface VisitaDAO extends ICentroIdDAO<Visita>{
 	public List<Visita> findByCentro_idAndFacturacion_estadoAndFacturacion_FacturaIsNull(ObjectId centroId, ESTADO estado);
 	
 	public Visita findFirstByCentro_idAndFacturacion_Factura_idFacturaGreaterThanEqualOrderByFacturacion_Factura_idFacturaDesc(ObjectId centroId, long numeroFactura);
+	
+	
+	public List<Visita> findByCentro_idOrderByFacturacion_Factura_idFacturaAsc(ObjectId centro);
 }

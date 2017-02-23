@@ -58,6 +58,13 @@ public class ConfigCentroService {
 		param.setValue(valor);
 		getDAO().save(param);
 	}
+	
+	public void initSequence(Centro centro, String paramId){
+		Secuencia seq=new Secuencia();
+		seq.setId(new IdCentroPK(centro.getId(), paramId));
+		seq.setSeq(0l);
+		mongoOperation.save(seq);
+	}
 
 	private long getNextSecuencia(ObjectId centroId, String paramId){
 		  //get sequence id
@@ -161,5 +168,15 @@ public class ConfigCentroService {
 			return getDAO().findOne(idParam);			
 		}
 		return null;
+	}
+	
+	public void iniciarSequenciasCentro(Centro centro){
+		initSequence(centro, SEQ_FACTURA);
+		initSequence(centro, SEQ_FACTURA_INTEGRITY);
+	}
+	
+	public void drop(){
+		getDAO().deleteAll();
+		mongoOperation.dropCollection(Secuencia.class);
 	}
 }

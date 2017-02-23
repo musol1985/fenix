@@ -1,28 +1,24 @@
 package com.sot.fenix.components.rest;
 
-import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sot.fenix.components.exceptions.ExceptionREST;
 import com.sot.fenix.components.json.NuevoCentroJSON;
 import com.sot.fenix.components.json.PageJSON;
 import com.sot.fenix.components.json.ResponseJSON;
 import com.sot.fenix.components.json.ResponseListJSON;
 import com.sot.fenix.components.models.Centro;
-import com.sot.fenix.components.models.UsuarioPendiente;
 import com.sot.fenix.components.services.CentroService;
-import com.sot.fenix.components.services.UsuarioService;
 import com.sot.fenix.dao.CentroDAO;
 import com.sot.fenix.templates.REST.ABasicREST;
 
@@ -30,10 +26,7 @@ import com.sot.fenix.templates.REST.ABasicREST;
 @RequestMapping("/centro")
 public class CentroREST extends ABasicREST<CentroService, Centro, CentroDAO>{
 	final static Logger log = LogManager.getLogger(CentroREST.class);
-	
-	@Autowired
-	private UsuarioService usuarios;
-	
+
 	@RequestMapping(method=RequestMethod.GET)
     public String current() {
 		return "OK";     
@@ -47,30 +40,14 @@ public class CentroREST extends ABasicREST<CentroService, Centro, CentroDAO>{
 
 	@RequestMapping(method=RequestMethod.PUT,path="/nuevo")
     public ResponseJSON<Centro> nuevo(@RequestBody NuevoCentroJSON nuevoCentro) {
-		
-		if(usuarios.getUsuarioPendienteByCorreo(nuevoCentro.centro.getCorreoAdmin())==null){
-
-			service.getDAO().save(nuevoCentro.centro);
+		try{
+			Centro centro=service.nuevoCentro(nuevoCentro);
+			return new ResponseJSON<Centro>(ResponseJSON.OK, centro);
+		}catch(ExceptionREST ex){
+			log.error(ex.getMessage());
 			
-			UsuarioPendiente usuario=usuarios.getUsuarioPendienteByCorreo(nuevoCentro.centro.getCorreoAdmin());
-			
-			if(usuario==null){
-				usuario=new UsuarioPendiente();
-				usuario.setCorreo(nuevoCentro.centro.getCorreoAdmin());
-				usuario.setNombre(nuevoCentro.nombreAdmin);
-				usuario.setFechaEnvio(new Date());
-				usuario.setCentro(nuevoCentro.centro);
-				
-				usuarios.getPendientesDAO().save(usuario);
-			}
-			
-			usuarios.enviarEmail(usuario);
-			
-			return new ResponseJSON<Centro>(ResponseJSON.OK, nuevoCentro.centro);
+			return (ResponseJSON<Centro>)ex.toResponse();
 		}
-		
-
-		return new ResponseJSON<Centro>(ResponseJSON.YA_EXISTE);
     }
 	
 	
