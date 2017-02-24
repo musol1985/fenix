@@ -29,7 +29,7 @@ import test.fenix.stress.template.StressTemplate;
 import test.fenix.stress.template.ThreadsManager;
 
 public class StressCitas extends StressTemplate<Cita, CitaDAO, CitaService, CitaREST>{
-	public static final int CITAS=1000000;
+	public static final int CITAS=10000;
 	private static final int THREADS=8;
 	
 	private List<Cita> citasCache=new ArrayList<Cita>();
