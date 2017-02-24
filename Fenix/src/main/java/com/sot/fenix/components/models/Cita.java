@@ -6,6 +6,9 @@ import java.util.LinkedHashMap;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,6 +22,9 @@ import com.sot.fenix.components.models.templates.AModelCentro;
 
 @Document
 @JsonIgnoreProperties(ignoreUnknown=true)
+@CompoundIndexes({
+	@CompoundIndex(name="idx_solapas",def="{fechaIni: 1, fechaFin: 1, centro: 1, profesional: 1, prestacion: 1}")
+})
 public class Cita extends AModelCentro{
 	
 	public enum ESTADO{PROGRAMADA,
@@ -31,10 +37,12 @@ public class Cita extends AModelCentro{
 	
 	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy HH:mm")
+	@Indexed
 	private Date fechaIni;
 	
 	@DateTimeFormat(pattern="dd/MM/yyyy HH:mm")
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy HH:mm")
+	@Indexed
 	private Date fechaFin;
 	
 	@DBRef
@@ -228,6 +236,10 @@ public class Cita extends AModelCentro{
 	
 	public boolean isProgramada(){
 		return estado==ESTADO.PROGRAMADA;
+	}
+	
+	public boolean isCapturando(){
+		return estado==ESTADO.CAPTURANDO;
 	}
 	
 

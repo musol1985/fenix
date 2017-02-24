@@ -30,7 +30,7 @@ public class VisitaService extends ACentroIdService<VisitaDAO, Visita>{
 	
 	
 	/**
-	 * Genera una nueva visita a partir de una cita<br>
+	 * Genera una nueva visita a partir de una cita que esté en estado CITANDO<br>
 	 * 	<ol>
 	 * 		<li>En función del param {@link ConfigCentroService#isAutoFacturar(Centro) isAutoFacturar} se facturará automaticamente(el importe total) o no</li>
 	 * 		<li>En función del param {@link ConfigCentroService#isAutoPago(Centro) isAutoPago} se pagará automaticamente(el importe total) o no</li>
@@ -40,21 +40,28 @@ public class VisitaService extends ACentroIdService<VisitaDAO, Visita>{
 	 * @return Visita (ya guardada en BD)
 	 * @throws ExceptionREST
 	 */
-	public Visita nuevaVisitaFromCita(Cita citaJson)throws ExceptionREST{
-		log.debug("Creando visita a partir de la cita "+citaJson.getJsonId());
-		
-		Cita cita=citas.getDAO().findOne(citaJson.getId());
-		
+	public Visita nuevaVisitaFromCita(Cita cita)throws ExceptionREST{				
 		if(cita==null){
-			log.error("No existe la cita "+citaJson.getJsonId());
+			log.error("La cita pasada por parametro a nuevaVisitaFromCita es nula");
 			throw new ExceptionREST(ResponseJSON.NO_EXISTE, "nuevaVisitaFromCita no existe la cita");
 		}
 		
-		if(!cita.isProgramada()){
-			log.error("No se puede capturar una cita que no sea programada: "+citaJson.getJsonId()+" "+cita.getEstado());
-			throw new ExceptionREST(ResponseJSON.YA_CAPTURADA, "nuevaVisitaFromCita no existe la cita");
+		if(cita.getCentro()==null){
+			log.error("La cita pasada por parametro es tipo JSON, se obtiene de BD");
+			Cita citaBD=citas.getDAO().findOne(cita.getId());
+			if(citaBD==null){
+				log.error("La cita del tipo JSON "+cita.getJsonId()+" no existe en la BD");
+				throw new ExceptionREST(ResponseJSON.NO_EXISTE, "nuevaVisitaFromCita no existe la cita");
+			}
+			cita=citaBD;
 		}
-			
+		
+		if(!cita.isCapturando()){
+			log.error("La cita "+cita.getJsonId()+" no esta en estado capturando, por lo que no se puede generar una visita");
+			throw new ExceptionREST(ResponseJSON.NO_EXISTE, "nuevaVisitaFromCita no existe la cita");
+		}
+		
+		log.debug("Creando visita a partir de la cita "+cita.getJsonId());
 		
 		Visita v=new Visita();
 		

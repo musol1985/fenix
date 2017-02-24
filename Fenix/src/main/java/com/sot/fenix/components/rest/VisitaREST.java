@@ -22,7 +22,7 @@ import com.sot.fenix.templates.REST.ACentroIdREST;
 public class VisitaREST extends ACentroIdREST<VisitaService, Visita, VisitaDAO>{
 	final static Logger log = LogManager.getLogger(VisitaREST.class);
 
-
+/*
 	@SuppressWarnings("unchecked")
 	@RequestMapping(method=RequestMethod.POST, path="/pasar")
 	//@PreAuthorize("#cita.centro.id == principal.centro.id")
@@ -39,7 +39,7 @@ public class VisitaREST extends ACentroIdREST<VisitaService, Visita, VisitaDAO>{
 			}
 			return (ResponseJSON<Visita>)ex.toResponse();
 		}
-    }
+    }*/
 	
 	@Override
 	@RequestMapping(method=RequestMethod.DELETE, path="/{id}")

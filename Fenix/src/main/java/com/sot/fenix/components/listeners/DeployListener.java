@@ -67,11 +67,11 @@ public class DeployListener {
 				
 				if(visita==null){
 					log.debug("No existe la visita para la cita "+cita.getJsonId()+". Se pone la cita a programada.");
-					citas.cambiarEstado(cita, Cita.ESTADO.PROGRAMADA);
+					citas.cambiarEstadoAndSave(cita, Cita.ESTADO.PROGRAMADA);
 					fixProgramadas.add(cita);
 				}else{
 					log.debug("Existe la visita para la cita "+cita.getJsonId()+". Se pone la cita a capturada.");
-					citas.cambiarEstado(cita, Cita.ESTADO.CAPTURADA);
+					citas.cambiarEstadoAndSave(cita, Cita.ESTADO.CAPTURADA);
 					fixCapturadas.add(cita);
 				}
 				

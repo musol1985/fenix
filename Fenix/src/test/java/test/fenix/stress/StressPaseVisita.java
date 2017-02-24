@@ -18,39 +18,42 @@ import com.sot.fenix.components.models.Centro;
 import com.sot.fenix.components.models.Cita;
 import com.sot.fenix.components.models.Usuario;
 import com.sot.fenix.components.models.Visita;
+import com.sot.fenix.components.rest.CitaREST;
 import com.sot.fenix.components.rest.VisitaREST;
 import com.sot.fenix.components.services.CitaService;
 import com.sot.fenix.components.services.VisitaService;
+import com.sot.fenix.dao.CitaDAO;
 import com.sot.fenix.dao.VisitaDAO;
 
 import test.fenix.TestUtils;
 import test.fenix.stress.template.StressTemplate;
 import test.fenix.stress.template.ThreadsManager;
 
-public class StressPaseVisita extends StressTemplate<Visita, VisitaDAO, VisitaService, VisitaREST>{
+public class StressPaseVisita extends StressTemplate<Cita, CitaDAO, CitaService, CitaREST>{
 	public static final int CITAS=10000;
 	
 	private ThreadsManager threads;
 	private static final int THREADS=4;
-	
-	@Autowired
-	private CitaService citas;
+
 	
 	private List<Cita> citasCache=new ArrayList<Cita>();
+	
+	@Autowired
+	private VisitaService visitas;
 	
 	@After
 	public void  drop(){
 		super.drop();
-		citas.getDAO().deleteAll();		
+		visitas.getDAO().deleteAll();
 	}
 
 	@Override
 	public String getRestURL() {
-		return "visita";
+		return "cita";
 	}
 
 	@Override
-	public Visita getModel() {
+	public Cita getModel() {
 		return null;
 	}
 
@@ -128,7 +131,7 @@ public class StressPaseVisita extends StressTemplate<Visita, VisitaDAO, VisitaSe
 	
 	private void comprobarIntegridadFacturas(){
 		for(Entry<String, Centro> e:centrosCache.entrySet()){
-			List<Visita> visitas=service.getDAO().findByCentro_idOrderByFacturacion_Factura_idFacturaAsc(e.getValue().getId());
+			List<Visita> visitas=this.visitas.getDAO().findByCentro_idOrderByFacturacion_Factura_idFacturaAsc(e.getValue().getId());
 			for(int i=0;i<visitas.size();i++){
 				//System.out.println("Factura "+e.getValue().getNombre()+" "+visitas.get(i).getNumFactura()+"=="+(i+1));				
 				assertTrue(visitas.get(i).getNumFactura()==(i+1));
@@ -142,7 +145,7 @@ public class StressPaseVisita extends StressTemplate<Visita, VisitaDAO, VisitaSe
 			Centro c=getCentro(getRandom(getCentrosSize()));
 			Usuario u=getUsuario(c,getUsuariosPorCentro());
 			
-			Cita cita=TestUtils.getSavedCita(citas.getDAO(), cliente, prestacion, c, u, i+10);
+			Cita cita=TestUtils.getSavedCita(service.getDAO(), cliente, prestacion, c, u, i+10);
 			citasCache.add(cita);
 		}
 		System.out.println("Citas creadas");
@@ -154,12 +157,12 @@ public class StressPaseVisita extends StressTemplate<Visita, VisitaDAO, VisitaSe
 		c.setId(cita.getId());
 		c.setCentro(cita.getCentro());
 		
-	    mockMvc.perform(post("/"+getRestURL()+"/pasar").session(getSession()).contentType(TestUtils.APPLICATION_JSON_UTF8)
+	    mockMvc.perform(post("/"+getRestURL()+"/capturar").session(getSession()).contentType(TestUtils.APPLICATION_JSON_UTF8)
                 .content(TestUtils.convertObjectToJsonBytes(c)))	    		
 		.andExpect(status().isOk())
 		.andExpect(jsonPath("$.cod").value(ResponseJSON.OK));
 	   
-	    Visita v=service.getByCita(c);
+	    Visita v=visitas.getByCita(c);
 	    assertTrue(v!=null);
 	    assertTrue(v.getCita().getJsonId().equals(c.getJsonId()));
 	}

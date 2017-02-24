@@ -2,7 +2,7 @@ package com.sot.fenix.components.json;
 
 import com.sot.fenix.components.models.Cita;
 
-public class ReprogramarRequestJSON {
+public class CitaRequestJSON {
 	public Cita cita;
 	public boolean forzar;
 	public Cita getCita() {

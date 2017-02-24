@@ -181,14 +181,12 @@ public abstract class TestTemplateREST<I extends AModelId, D extends IBasicIdDAO
 	public void get() throws Exception {		
 		I item2=getNewModel(true);
 
-	    mockMvc.perform(MockMvcRequestBuilders.get("/"+getRestURL()+"/"+item2.getId().toHexString()))
-			.andExpect(status().isOk())
-			//.andDo(print())
+
+		performGET("/"+getRestURL()+"/"+item2.getId().toHexString())
 			  .andExpect(jsonPath("$.cod").value(ResponseJSON.OK));
 	    
 	    
-	    mockMvc.perform(MockMvcRequestBuilders.get("/"+getRestURL()+"/"+new ObjectId().toHexString()))
-			.andExpect(status().isOk())
+		performGET("/"+getRestURL()+"/"+new ObjectId().toHexString())
 			  .andExpect(jsonPath("$.cod").value(ResponseJSON.NO_EXISTE));	
 	}
 	
@@ -217,36 +215,50 @@ public abstract class TestTemplateREST<I extends AModelId, D extends IBasicIdDAO
 	@Test
 	public void modificar() throws Exception {	
 		I modelModificado=getModelTestModificar(model);
-
-	    ResultActions res=mockMvc.perform(post("/"+getRestURL()).contentType(TestUtils.APPLICATION_JSON_UTF8)
-                .content(TestUtils.convertObjectToJsonBytes(modelModificado)))	    		
-		.andExpect(status().isOk())
-		.andExpect(jsonPath("$.cod").value(getModificarCode()));
+		
+		ResultActions res=performPOST("/"+getRestURL(), modelModificado)
+			.andExpect(jsonPath("$.cod").value(getModificarCode()));
+		
 	    postTestModificar(res);
 
 	    if(getModificarCode()==ResponseJSON.OK){
 		    modelModificado.setId(new ObjectId());
-		    mockMvc.perform(post("/"+getRestURL()).contentType(TestUtils.APPLICATION_JSON_UTF8)
-	                .content(TestUtils.convertObjectToJsonBytes(modelModificado)))	    		
-			.andExpect(status().isOk())
-			.andExpect(jsonPath("$.cod").value(ResponseJSON.NO_EXISTE));
+		    performPOST("/"+getRestURL(), modelModificado)
+				.andExpect(jsonPath("$.cod").value(ResponseJSON.NO_EXISTE));
 	    }
 	}
 
 	
 	@Test
 	public void delete() throws Exception {		
-	    mockMvc.perform(MockMvcRequestBuilders.delete("/"+getRestURL()+"/"+model.getId().toHexString()))
-		.andExpect(status().isOk())
-	    .andExpect(jsonPath("$.cod").value(getDeleteCode()));
+
+		performDELETE("/"+getRestURL()+"/"+model.getId().toHexString())
+			.andExpect(jsonPath("$.cod").value(getDeleteCode()));
 	    
 		if(getDeleteCode()==ResponseJSON.OK){
-		    mockMvc.perform(MockMvcRequestBuilders.delete("/"+getRestURL()+"/"+model.getId().toHexString()))
-			.andExpect(status().isOk())
-		    .andExpect(jsonPath("$.cod").value(ResponseJSON.NO_EXISTE));
+			performDELETE("/"+getRestURL()+"/"+model.getId().toHexString())
+				.andExpect(jsonPath("$.cod").value(ResponseJSON.NO_EXISTE));
 		}
 		//.andDo(print())
 	}
 	
+	public ResultActions performDELETE(String url)throws Exception{
+		return mockMvc.perform(MockMvcRequestBuilders.delete(url).session(getSession())).andExpect(status().isOk());
+	}
 	
+	public ResultActions performGET(String url)throws Exception{
+		return mockMvc.perform(MockMvcRequestBuilders.get(url).session(getSession())).andExpect(status().isOk());
+	}
+	
+	public ResultActions performPOST(String url, Object json)throws Exception{
+		return mockMvc.perform(post(url).session(getSession()).contentType(TestUtils.APPLICATION_JSON_UTF8)
+	                .content(TestUtils.convertObjectToJsonBytes(json)))	    		
+			.andExpect(status().isOk());
+	}
+	
+	public ResultActions performPUT(String url, Object json)throws Exception{
+		return mockMvc.perform(MockMvcRequestBuilders.put(url).session(getSession()).contentType(TestUtils.APPLICATION_JSON_UTF8)
+	                .content(TestUtils.convertObjectToJsonBytes(json)))	    		
+			.andExpect(status().isOk());
+	}
 }
