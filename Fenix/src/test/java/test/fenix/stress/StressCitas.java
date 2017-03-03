@@ -17,9 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.sot.fenix.components.json.CitaRequestJSON;
 import com.sot.fenix.components.json.ResponseJSON;
 import com.sot.fenix.components.models.Centro;
-import com.sot.fenix.components.models.Cita;
 import com.sot.fenix.components.models.Usuario;
 import com.sot.fenix.components.models.Visita;
+import com.sot.fenix.components.models.citacion.Cita;
 import com.sot.fenix.components.rest.CitaREST;
 import com.sot.fenix.components.services.CitaService;
 import com.sot.fenix.dao.CitaDAO;
@@ -29,8 +29,10 @@ import test.fenix.stress.template.StressTemplate;
 import test.fenix.stress.template.ThreadsManager;
 
 public class StressCitas extends StressTemplate<Cita, CitaDAO, CitaService, CitaREST>{
-	public static final int CITAS=10000;
+	public static final int CITAS=2000;
 	private static final int THREADS=8;
+	
+	public static final long DIA_MS=1000*60*60*24;
 	
 	private List<Cita> citasCache=new ArrayList<Cita>();
 	
@@ -93,8 +95,9 @@ public class StressCitas extends StressTemplate<Cita, CitaDAO, CitaService, Cita
 	
 	
 	public void crearCitas()throws Exception{
+		Date f=new Date(new Date().getTime()-DIA_MS*10);
 		for(int i=0;i<CITAS;i++){
-			citasCache.add(getCita(new Date(), i*10, 5));
+			citasCache.add(getCita(f, i*10, 5));
 		}
 	}
 	

@@ -47,7 +47,9 @@ public class DBConfig extends AbstractMongoConfiguration{
 	protected Collection<String> getMappingBasePackages() {
 		List<String> res=new ArrayList<String>();
 		res.add("com.sot.fenix.components.models");
-		res.add("com.sot.fenix.components.models.horario");
+		res.add("com.sot.fenix.components.models.horarios");
+		res.add("com.sot.fenix.components.models.citacion");
+		res.add("com.sot.fenix.components.models.Test");
 		return res;		
 	}
 	

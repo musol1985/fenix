@@ -1,6 +1,7 @@
 package com.sot.fenix.components.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -12,11 +13,13 @@ import org.springframework.stereotype.Service;
 import com.sot.fenix.components.exceptions.ExceptionREST;
 import com.sot.fenix.components.json.CitasRequest;
 import com.sot.fenix.components.json.ResponseJSON;
-import com.sot.fenix.components.models.Cita;
-import com.sot.fenix.components.models.Cita.ESTADO;
+import com.sot.fenix.components.models.Centro;
 import com.sot.fenix.components.models.Visita;
+import com.sot.fenix.components.models.citacion.Cita;
+import com.sot.fenix.components.models.citacion.Cita.ESTADO;
 import com.sot.fenix.dao.CitaDAO;
 import com.sot.fenix.templates.service.ACentroIdService;
+import com.sot.fenix.utils.DateUtils;
 
 @Service
 public class CitaService extends ACentroIdService<CitaDAO, Cita>{
@@ -93,7 +96,7 @@ public class CitaService extends ACentroIdService<CitaDAO, Cita>{
 			throw new ExceptionREST(ResponseJSON.YA_EXISTE, "No se puede crear cita que ya tenga ID"+citaJSON.getJsonId());
 		
 		validacionesBasicas(citaJSON);
-		
+		log.error("Fecha: "+citaJSON.getFechaIni());
 		List<Cita> solapas=getCitasSolapa(citaJSON);
 		log.error("------PostSolapas "+(System.currentTimeMillis()-t));
 		
@@ -216,5 +219,20 @@ public class CitaService extends ACentroIdService<CitaDAO, Cita>{
 		log.debug("Cita "+cita.getJsonId()+" cambiando estado de: "+cita.getEstado()+" a "+estado);
 		cita.setEstado(estado);
 		getDAO().save(cita);
+	}
+	
+	
+	/**
+	 * Obtiene las citas >=fechaini <=fechafin dado un centro
+	 * En funcion de las citas las coge de cita o citahisto
+	 * 
+	 * @param fechaIni
+	 * @param fechaFin
+	 * @param centro
+	 * @return
+	 * @throws ExceptionREST
+	 */
+	public List<Cita> getCitasIn(Date fechaIni, Date fechaFin, Centro centro)throws ExceptionREST{
+		return getDAO().findByFechaIniGreaterThanEqualAndFechaFinLessThanEqualAndCentro_id(fechaIni, fechaFin, centro.getId());
 	}
 }

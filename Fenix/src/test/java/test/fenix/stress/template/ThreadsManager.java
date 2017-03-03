@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.sot.fenix.components.models.templates.AModelId;
 
-public abstract class ThreadsManager<M extends AModelId>{
+public abstract class ThreadsManager<M extends Object>{
 
 	private int FINALIZADOS=0;
 	private List<Thread> threads=new ArrayList<Thread>();

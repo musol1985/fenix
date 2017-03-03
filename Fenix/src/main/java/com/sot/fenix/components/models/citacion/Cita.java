@@ -1,4 +1,4 @@
-package com.sot.fenix.components.models;
+package com.sot.fenix.components.models.citacion;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -18,6 +18,9 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.sot.fenix.components.json.CodigoDescripcionJSON;
+import com.sot.fenix.components.models.Cliente;
+import com.sot.fenix.components.models.Prestacion;
+import com.sot.fenix.components.models.Usuario;
 import com.sot.fenix.components.models.templates.AModelCentro;
 
 @Document
@@ -243,21 +246,8 @@ public class Cita extends AModelCentro{
 	}
 	
 
-	/*@DBRef
-	private Usuario profesional;
-	
-	@DBRef
-	private Prestacion prestacion;
-	
-	
-	
-	
-		
-
-
-	@CreatedDate
-	private Date fechaCreacion;*/
-	
-	
+	public boolean isHistorico(){
+		return false;
+	}
 	
 }

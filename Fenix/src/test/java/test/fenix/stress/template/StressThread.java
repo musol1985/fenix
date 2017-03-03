@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.sot.fenix.components.models.templates.AModelId;
 
-public class StressThread<M extends AModelId> implements Runnable{
+public class StressThread<M extends Object> implements Runnable{
 	private List<M> models;
 	private ThreadsManager<M> thdManager;
 	private int threadId;

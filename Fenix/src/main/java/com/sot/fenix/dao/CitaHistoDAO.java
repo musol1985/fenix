@@ -7,10 +7,11 @@ import org.bson.types.ObjectId;
 import org.springframework.stereotype.Repository;
 
 import com.sot.fenix.components.models.citacion.Cita;
+import com.sot.fenix.components.models.citacion.CitaHisto;
 import com.sot.fenix.templates.dao.ICentroIdDAO;
 
 @Repository
-public interface CitaDAO extends ICentroIdDAO<Cita>{	
+public interface CitaHistoDAO extends ICentroIdDAO<CitaHisto>{	
 	//public Cliente findByCentro_idAndDni(ObjectId centro, String dni);
 	
 	public List<Cita> findByFechaIniGreaterThanEqualAndFechaFinLessThanEqualAndCentro_idAndProfesional_idAndPrestacion_id(Date fechaIni, Date fechaFin, ObjectId centroId, ObjectId profesionalId, ObjectId prestacionId);

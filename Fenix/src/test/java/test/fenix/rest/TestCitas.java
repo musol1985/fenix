@@ -23,12 +23,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.sot.fenix.components.json.CitaRequestJSON;
 import com.sot.fenix.components.json.ResponseJSON;
-import com.sot.fenix.components.models.Cita;
-import com.sot.fenix.components.models.Cita.ESTADO;
 import com.sot.fenix.components.models.Cliente;
 import com.sot.fenix.components.models.Prestacion;
 import com.sot.fenix.components.models.Usuario;
 import com.sot.fenix.components.models.Visita;
+import com.sot.fenix.components.models.citacion.Cita;
+import com.sot.fenix.components.models.citacion.Cita.ESTADO;
 import com.sot.fenix.components.rest.CitaREST;
 import com.sot.fenix.components.services.CitaService;
 import com.sot.fenix.components.services.VisitaService;

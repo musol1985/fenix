@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sot.fenix.components.exceptions.ExceptionREST;
 import com.sot.fenix.components.json.ResponseJSON;
-import com.sot.fenix.components.models.Cita;
 import com.sot.fenix.components.models.Visita;
+import com.sot.fenix.components.models.citacion.Cita;
 import com.sot.fenix.components.services.VisitaService;
 import com.sot.fenix.dao.VisitaDAO;
 import com.sot.fenix.templates.REST.ACentroIdREST;

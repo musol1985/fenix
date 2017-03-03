@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 
 import com.sot.fenix.components.exceptions.ExceptionREST;
 import com.sot.fenix.components.models.Centro;
-import com.sot.fenix.components.models.Cita;
 import com.sot.fenix.components.models.Visita;
+import com.sot.fenix.components.models.citacion.Cita;
 import com.sot.fenix.components.models.facturacion.Facturacion;
 import com.sot.fenix.components.services.CentroService;
 import com.sot.fenix.components.services.CitaService;

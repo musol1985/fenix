@@ -1,6 +1,6 @@
 package com.sot.fenix.components.json;
 
-import com.sot.fenix.components.models.Cita;
+import com.sot.fenix.components.models.citacion.Cita;
 
 public class CitaRequestJSON {
 	public Cita cita;

@@ -19,8 +19,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.ResultActions;
 
 import com.sot.fenix.components.json.ResponseJSON;
-import com.sot.fenix.components.models.Cita;
 import com.sot.fenix.components.models.Visita;
+import com.sot.fenix.components.models.citacion.Cita;
 import com.sot.fenix.components.rest.VisitaREST;
 import com.sot.fenix.components.services.CitaService;
 import com.sot.fenix.components.services.VisitaService;
